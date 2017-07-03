@@ -12,10 +12,10 @@ import CoreData
 class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     @IBOutlet weak var tabla: UITableView!
-    @IBOutlet weak var avanzar: UIButton!
-    @IBOutlet weak var retroceder: UIButton!
+    @IBOutlet weak var botonAvanzar: UIButton!
+    @IBOutlet weak var botonRetroceder: UIButton!
     @IBOutlet weak var diaControl: UILabel!
-
+    var eventosFiltrados = NSArray()
     var indicador = 0
 
     override func viewDidLoad() {
@@ -23,7 +23,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tabla.delegate = self
         tabla.dataSource = self
         self.navigationController?.title = "Programa"
-        }
+        botonAvanzar.addTarget(self, action: #selector(avanzar), for: .touchUpInside)
+        botonRetroceder.addTarget(self, action: #selector(retroceder), for: .touchUpInside)
+        filtrarArray(indicador: indicador)
+        eventos()
+
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -32,7 +37,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return eventos().count
+        return eventosFiltrados.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -44,7 +49,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let evento = eventos()[indexPath.row]
+        let evento = eventosFiltrados[indexPath.row] as! Evento
 
         if(evento.personas?.allObjects.count != 0){
             
@@ -84,27 +89,72 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
     }
 
-    func navegacionPorDia(){
+    func diasPrograma() ->[String]{
     
         let formater = DateFormatter()
-        formater.dateFormat = "DD:dd"
-        
-        
-    print(eventos().count)
-    
+        formater.dateFormat = "dd-MMM"
+        var diasPrograma = [String]()
         for index in 0...(eventos().count - 1) {
         
-        let fechas = eventos()[index].fec
-            print(index)
-
+        let fecha = eventos()[index].inicio?.addingTimeInterval(-978296400)
+            let fechaString = formater.string(from: fecha! as Date)
+            diasPrograma.append(fechaString)
         }
-
+        let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
         
+        return diasProgramaFiltrados
+    }
+
+    func diasProgramaDate() ->[String]{
+        
+        let formater = DateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        var diasPrograma = [String]()
+        
+        for index in 0...(eventos().count - 1) {
+            
+            let fecha = eventos()[index].inicio
+            let fechaString = formater.string(from: fecha! as Date)
+            diasPrograma.append(fechaString)
+        }
+        
+        let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
+        print(diasProgramaFiltrados)
+        return diasProgramaFiltrados
+    }
+
+    
+    func avanzar(sender: UIButton!){
+        if(indicador < diasPrograma().count - 1){
+            indicador = indicador + 1
+        }
+        diaControl.text = diasPrograma()[indicador]
+        filtrarArray(indicador: indicador)
+    }
+    
+    func retroceder(sender: UIButton!){
+        if(indicador > 0){
+            indicador = indicador - 1
+        }
+        diaControl.text = diasPrograma()[indicador]
+        filtrarArray(indicador: indicador)
+}
+    
+    func filtrarArray(indicador:Int) {
+    let dateF = DateFormatter()
+        dateF.dateFormat = "yyyy-MM-dd"
+    let date = dateF.date(from: diasProgramaDate()[indicador])
+        print(date)
+        print(eventos().first?.inicio)
+    let array = NSArray(objects: eventos())
+    let predicateFecha = NSPredicate(format: "inicio > %@", Date() as NSDate)
+
+       eventosFiltrados = array.filtered(using: predicateFecha) as NSArray
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let evento = eventos()[indexPath.row]
+        let evento = eventosFiltrados[indexPath.row] as! Evento
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -123,6 +173,18 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
 
+    func uniqueElementsFrom(array: [String]) -> [String] {
+        var set = Set<String>()
+        let result = array.filter {
+            guard !set.contains($0) else {
+                return false
+            }
+            set.insert($0)
+            return true
+        }
+        return result
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

@@ -104,9 +104,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Programa" image="programa.png" id="Dc9-5x-Dw9"/>
                     <connections>
-                        <outlet property="avanzar" destination="Qar-iK-brH" id="gqH-fb-NQK"/>
+                        <outlet property="botonAvanzar" destination="Qar-iK-brH" id="HiA-z8-Ilk"/>
+                        <outlet property="botonRetroceder" destination="qos-Rz-gUe" id="dIL-pv-VqL"/>
                         <outlet property="diaControl" destination="zOI-yo-psf" id="FGh-01-Kda"/>
-                        <outlet property="retroceder" destination="qos-Rz-gUe" id="U53-WX-w1E"/>
                         <outlet property="tabla" destination="I7q-UP-mTh" id="5ff-ON-J6S"/>
                     </connections>
                 </viewController>
@@ -274,7 +274,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qas-kS-Klc" id="IFP-TT-hmC" customClass="TableViewCell" customModule="SMS" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dr. James Iñarritú Penn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKy-1K-B5v">
