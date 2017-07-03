@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Evento" representedClassName="Evento" syncable="YES" codeGenerationType="class">
+        <attribute name="descripcion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorito" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fin" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="imagen" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="inicio" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lugar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patrocinador" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="personas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Persona" inverseName="eventos" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Organizacion" representedClassName="Organizacion" syncable="YES" codeGenerationType="class">
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="direccion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagenFondo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="imagenPerfil" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="lugar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sitioWeb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="telefono" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Persona" representedClassName="Persona" syncable="YES" codeGenerationType="class">
+        <attribute name="apellido" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagenPerfil" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="institucion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="procedencia" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rol" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tratamiento" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evento" inverseName="personas" inverseEntity="Evento" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Evento" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="Organizacion" positionX="-36" positionY="9" width="128" height="165"/>
+        <element name="Persona" positionX="-54" positionY="-9" width="128" height="180"/>
+    </elements>
 </model>
