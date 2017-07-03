@@ -182,7 +182,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             set.insert($0)
             return true
         }
-        return result
+        return result 
     }
     
     override func didReceiveMemoryWarning() {
