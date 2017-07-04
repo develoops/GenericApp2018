@@ -17,9 +17,18 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-        self.navigationController?.title = "Ponentes"
         
     }
+
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = "Ponentes"
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = ""
+    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -67,9 +76,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detallePersonaVC") as! DetallePersonaVC
         let persona = personas()[indexPath.row]
-        
-        persona.addToEventos(eventos().first!)
-        
+                
         vc.nombrePersona = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
         vc.institucion = persona.institucion
         vc.rol = persona.rol

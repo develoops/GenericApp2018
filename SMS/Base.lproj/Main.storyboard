@@ -12,7 +12,7 @@
         <!--Programa-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Programa" id="BYZ-38-t0r" customClass="ProgramaVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ProgramaVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="-1204" y="-81"/>
         </scene>
-        <!--Patrocinadores-->
+        <!--Patrocindores-->
         <scene sceneID="c6K-TB-EKi">
             <objects>
-                <viewController title="Patrocinadores" id="INc-YK-7hn" customClass="PatrocinadoresVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="INc-YK-7hn" customClass="PatrocinadoresVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vf5-fg-xPL"/>
                         <viewControllerLayoutGuide type="bottom" id="vXx-fW-hPz"/>
@@ -177,7 +177,7 @@
         <!--Favoritos-->
         <scene sceneID="Tnl-Ue-EJb">
             <objects>
-                <viewController title="Favoritos" id="LGy-tf-vRe" customClass="FavoritosVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="LGy-tf-vRe" customClass="FavoritosVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ELE-fE-ch9"/>
                         <viewControllerLayoutGuide type="bottom" id="wYG-Nc-cJt"/>
@@ -256,7 +256,7 @@
         <!--Ponentes-->
         <scene sceneID="PfE-4g-e74">
             <objects>
-                <viewController title="Ponentes" id="BrK-EM-h98" customClass="SpeakersVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BrK-EM-h98" customClass="SpeakersVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aZH-Gj-uLD"/>
                         <viewControllerLayoutGuide type="bottom" id="EfW-qI-VgE"/>
@@ -274,7 +274,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qas-kS-Klc" id="IFP-TT-hmC" customClass="TableViewCell" customModule="SMS" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dr. James Iñarritú Penn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKy-1K-B5v">
@@ -428,7 +428,7 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
         <!--SMS-->
         <scene sceneID="5Cc-Zd-feB">
             <objects>
-                <viewController title="SMS" id="xGR-WP-ial" customClass="SMSVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xGR-WP-ial" customClass="SMSVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="saf-Ba-qUd"/>
                         <viewControllerLayoutGuide type="bottom" id="JFP-Ak-2i5"/>
@@ -637,7 +637,7 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salón Africa" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9k-Vc-tLJ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salón A" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9k-Vc-tLJ">
                                                     <rect key="frame" x="147" y="65" width="209" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -708,14 +708,14 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salón Africano" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTs-hR-yWY">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salón A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTs-hR-yWY">
                                 <rect key="frame" x="16" y="181" width="324" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JF7-Os-k0g">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JF7-Os-k0g">
                                 <rect key="frame" x="10" y="216" width="349" height="111"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

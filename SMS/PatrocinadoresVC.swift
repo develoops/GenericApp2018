@@ -17,10 +17,16 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-        self.navigationController?.title = "Patrocinadores"
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = "Patrocinadores"
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = ""
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1

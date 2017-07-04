@@ -17,8 +17,16 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-        self.navigationController?.title = "Programa"
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = "Favoritos"
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.title = ""
+    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         

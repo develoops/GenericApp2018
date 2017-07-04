@@ -56,15 +56,45 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        
       let evento =  charlasArray.object(at: indexPath.row) as! Evento
 
-        cell.labelTitulo.text = evento.nombre
+        let fechaInicio = dateFormatter.string(from: evento.inicio!.addingTimeInterval(-978296400) as Date)
+        let fechaFin = dateFormatter.string(from: evento.fin!.addingTimeInterval(-978296400) as Date )
         
+
+        cell.labelTitulo.text = evento.nombre
+        cell.labelHora.text = fechaInicio + " - " + fechaFin
+        cell.labelLugar.text = evento.lugar
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let evento =  charlasArray.object(at: indexPath.row) as! Evento
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "dd MMMM"
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
+        let fechaInicio = dateFormatter.string(from: evento.inicio!.addingTimeInterval(-978296400) as Date)
+        let fechaFin = dateFormatter.string(from: evento.fin!.addingTimeInterval(-978296400) as Date )
+        
+        vc.tituloCharla = evento.nombre
+        vc.dia = dateFormatter2.string(from: evento.inicio! as Date)
+        vc.hora = fechaInicio + " - " + fechaFin
+        vc.lugar = evento.lugar
+        vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
+        vc.info = evento.descripcion
+        
+        navigationController?.pushViewController(vc,
+                                                 animated: true)
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
