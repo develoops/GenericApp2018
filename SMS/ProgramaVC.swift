@@ -16,6 +16,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var botonAvanzar: UIButton!
     @IBOutlet weak var botonRetroceder: UIButton!
     @IBOutlet weak var diaControl: UILabel!
+    var dateFormatter = DateFormatter()
     var eventosFiltrados = [Evento]()
     var indicador = 0
 
@@ -23,24 +24,18 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-//        self.navigationController!.navigationBar.topItem!.title = "Programa"
-        self.title = "Programa"
         botonAvanzar.addTarget(self, action: #selector(avanzar), for: .touchUpInside)
         botonRetroceder.addTarget(self, action: #selector(retroceder), for: .touchUpInside)
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
-        
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
-
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = ""
-
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,10 +69,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             cell.labelSpeaker1.text = ""
         }
         
-        let DF = DateFormatter()
-        DF.dateFormat = "HH:mm"
-        let fechaInicio = DF.string(from: evento.inicio!.addingTimeInterval(-978296400) as Date)
-        let fechaFin = DF.string(from: evento.fin!.addingTimeInterval(-978296400) as Date )
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
 
         cell.labelTitulo.text = evento.nombre
         cell.labelLugar.text = evento.lugar
@@ -90,18 +83,13 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let evento = eventosFiltrados[indexPath.row]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "dd MMMM"
-
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
-        let fechaInicio = dateFormatter.string(from: evento.inicio!.addingTimeInterval(-978296400) as Date)
-        let fechaFin = dateFormatter.string(from: evento.fin!.addingTimeInterval(-978296400) as Date )
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
 
         vc.tituloCharla = evento.nombre
-        vc.dia = dateFormatter2.string(from: evento.inicio! as Date)
+        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.lugar = evento.lugar
         vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
@@ -131,13 +119,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func diasPrograma() ->[String]{
         
-        let formater = DateFormatter()
-        formater.dateFormat = "dd MMM"
         var diasPrograma = [String]()
         for index in 0...(eventos().count - 1) {
             
-            let fecha = eventos()[index].inicio?.addingTimeInterval(-978296400)
-            let fechaString = formater.string(from: fecha! as Date)
+            let fecha = eventos()[index].inicio
+            let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha!)
             diasPrograma.append(fechaString)
         }
         let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
@@ -147,14 +133,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func diasProgramaDate() ->[String]{
         
-        let formater = DateFormatter()
-        formater.dateFormat = "yyyy-MM-dd"
         var diasPrograma = [String]()
         
         for index in 0...(eventos().count - 1) {
             
             let fecha = eventos()[index].inicio
-            let fechaString = formater.string(from: fecha! as Date)
+            let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha!)
             diasPrograma.append(fechaString)
         }
         
@@ -181,19 +165,15 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
     func filtrarArray(indicador:Int) {
-        let dateF = DateFormatter()
-        dateF.dateFormat = "yyyy-MM-dd"
-        let date = dateF.date(from: diasProgramaDate()[indicador])
+        let date = dateFormatter.formatoAnoMesDiaDate(string:diasProgramaDate()[indicador])
         
         let filteredArray = eventos().filter() {
             
-            return $0.inicio?.compare((date?.addingTimeInterval(60*60*24))!) == ComparisonResult.orderedAscending && $0.inicio?.compare(date!) == ComparisonResult.orderedDescending
+            return $0.inicio?.compare((date.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && $0.inicio?.compare(date) == ComparisonResult.orderedDescending
         }
         
         eventosFiltrados = filteredArray
-        
         self.tabla.reloadData()
-        print(eventosFiltrados.count)
     }
 
     func uniqueElementsFrom(array: [String]) -> [String] {
@@ -211,7 +191,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
-}
+    
+  }
 

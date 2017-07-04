@@ -24,10 +24,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var lugar:String!
     var info:String!
 
-
     var ponentesArray: NSArray!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -24,7 +24,6 @@ class DetallePatrocinadorVC: UIViewController {
     var info:String!
     var imagen:UIImage!
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         infoTextView.text = info

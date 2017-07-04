@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C25071F0BF922006492EF /* FormatoFechas.swift */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				C370253D1F0654DC0033126F /* SMS.xcdatamodeld */,
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
+				C31C25071F0BF922006492EF /* FormatoFechas.swift */,
 				C378EC5C1F05823000DE0318 /* Controllers */,
 				C378EC5B1F05822400DE0318 /* Detalles */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
@@ -248,6 +251,7 @@
 				C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */,
 				C370253F1F0654DC0033126F /* SMS.xcdatamodeld in Sources */,
 				C378EC3D1F05542200DE0318 /* SMSVC.swift in Sources */,
+				C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */,
 				C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */,
 				C378EC3B1F05532A00DE0318 /* PatrocinadoresVC.swift in Sources */,
 				C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */,

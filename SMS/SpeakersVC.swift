@@ -17,9 +17,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-        
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Ponentes"
@@ -123,9 +121,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         } catch {
             fatalError("Fallo: \(error)")
         }
-        
     }
-    
     func eventos() ->[Evento]{
         
         let employeesFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Evento")
@@ -138,10 +134,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         } catch {
             fatalError("Fallo: \(error)")
         }
-        
     }
-
-    
         override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
