@@ -26,6 +26,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tabla.dataSource = self
         botonAvanzar.addTarget(self, action: #selector(avanzar), for: .touchUpInside)
         botonRetroceder.addTarget(self, action: #selector(retroceder), for: .touchUpInside)
+        botonRetroceder.isHidden = true
+        
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
     }
@@ -149,16 +151,38 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     
     func avanzar(sender: UIButton!){
+        
         if(indicador < diasPrograma().count - 1){
             indicador = indicador + 1
+            botonRetroceder.isHidden = false
+        }
+        
+                    
+        if(indicador == diasPrograma().count-1){
+            botonAvanzar.isHidden = true
+        }
+        else {
+            botonAvanzar.isHidden = false
+
         }
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
     }
     
     func retroceder(sender: UIButton!){
+        
+        if(indicador==1){
+            botonRetroceder.isHidden = true
+        }
+        else {
+            botonRetroceder.isHidden = false
+        }
         if(indicador > 0){
             indicador = indicador - 1
+        }
+        
+        if(indicador != diasPrograma().count-1){
+            botonAvanzar.isHidden = false
         }
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
