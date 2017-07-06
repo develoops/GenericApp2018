@@ -45,7 +45,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -57,7 +57,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -69,7 +69,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -81,7 +81,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -93,7 +93,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -105,7 +105,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -117,7 +117,7 @@
                                                         </fragment>
                                                         <fragment content=", ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -129,7 +129,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -141,7 +141,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -153,7 +153,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -165,7 +165,7 @@
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -177,7 +177,7 @@
                                                         </fragment>
                                                         <fragment content=".">
                                                             <attributes>
-                                                                <font key="NSFont" size="14" name="ArialHebrewScholar"/>
+                                                                <font key="NSFont" size="14" name="ArialHebrew"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -210,10 +210,15 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lO-8G-2bb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="10" height="150"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="botonFavorito" destination="OV8-Wt-sh6" id="bLA-h8-ZvE"/>
+                                            <outlet property="imagenMargen" destination="7lO-8G-2bb" id="Vwr-ef-NjE"/>
                                             <outlet property="labelHora" destination="xkS-Fl-7bh" id="Iqc-SU-WNn"/>
                                             <outlet property="labelLugar" destination="IkK-0D-Fqd" id="a5C-Hq-sqm"/>
                                             <outlet property="labelSpeaker1" destination="TnN-Pl-8dR" id="MQ7-hB-IYi"/>

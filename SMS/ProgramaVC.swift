@@ -30,6 +30,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         botonRetroceder.isHidden = true
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
+        let colorBarra = UIColor(ciColor: CIColor.init(red: 72/255.0, green: 72/255.0, blue: 80/255.0))
+        colorBarra.setFill()
+        self.view.backgroundColor = colorBarra
     }
     
       override func viewDidAppear(_ animated: Bool) {
@@ -121,9 +124,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             cell.labelSpeaker1.text = ""
 
         }
-
+    
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat((evento.personas?.allObjects.count)! * 15)
-
+        cell.imagenMargen.image = getImageWithColor(color: UIColor.green, size: CGSize(width: 10.0, height: tamanoCelda - 4.0))
+        
         return cell
     }
     
@@ -257,7 +261,16 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return result
     }
     
-    
+    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 2.0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

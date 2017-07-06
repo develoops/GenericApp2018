@@ -16,7 +16,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var labelSpeaker1: UILabel!
     @IBOutlet weak var imagenPerfil: UIImageView!
     @IBOutlet weak var botonFavorito: UIButton!
-  //  @IBOutlet weak var imagenPerfil: UIImageView!
+    @IBOutlet weak var imagenMargen: UIImageView!
 
     /// ponentes
     @IBOutlet weak var labelNombre: UILabel!
