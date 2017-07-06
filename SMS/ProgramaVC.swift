@@ -65,8 +65,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
 
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 152.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
+        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
         cell.labelTitulo.text = evento.nombre
@@ -113,6 +113,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
             cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelSpeaker1.text = personasString
+            cell.labelSpeaker1.numberOfLines = 0
             cell.labelSpeaker1?.textAlignment = .left
             cell.labelSpeaker1?.sizeToFit()
         

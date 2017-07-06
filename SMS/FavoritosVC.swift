@@ -12,7 +12,9 @@ import CoreData
 class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
     @IBOutlet weak var tabla: UITableView!
-    
+    var dateFormatter = DateFormatter()
+    var tamanoCelda = CGFloat()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -35,33 +37,105 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return eventos().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 115.0
+        return tamanoCelda
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let evento = eventos()[indexPath.row]
         
+        let evento = eventos()[indexPath.row]
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
+        
+        cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
+        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+        cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
+        cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
+        cell.labelTitulo.text = evento.nombre
+        cell.labelTitulo?.textAlignment = .left
+        cell.labelTitulo.numberOfLines = 0
+        cell.labelTitulo?.sizeToFit()
+        
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
+        
+        cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+        cell.labelHora?.frame =  CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 35.0, width: 0.0, height: 0.0)
+        cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelHora.sizeThatFits(maximumLabelSizeHora)
+        cell.labelHora.text = fechaInicio + " - " + fechaFin
+        cell.labelHora?.textAlignment = .left
+        cell.labelHora.numberOfLines = 0
+        cell.labelHora?.sizeToFit()
+        
+        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
+        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+        cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
+        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
+        cell.labelLugar.text = evento.lugar
+        cell.labelLugar?.textAlignment = .left
+        cell.labelLugar.numberOfLines = 0
+        cell.labelLugar?.sizeToFit()
+        
+        var personasTamano = Int()
         if(evento.personas?.allObjects.count != 0){
             
-            let persona = evento.personas?.allObjects.first as! Persona
+            var personasString = String()
+            for object in (evento.personas?.allObjects)!{
+                
+                let persona = object as! Persona
+                
+                personasString.append((persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)! + "\n")
+                personasTamano = personasTamano + (28 / (evento.personas?.allObjects.count)!)
+                
+            }
+            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
+            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
+            cell.labelSpeaker1.text = personasString
+            cell.labelSpeaker1?.textAlignment = .left
+            cell.labelSpeaker1.numberOfLines = 0
+            cell.labelSpeaker1?.sizeToFit()
             
-            cell.labelSpeaker1.text = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
         }
         else{
             cell.labelSpeaker1.text = ""
         }
         
-        cell.labelTitulo.text = evento.nombre
-        cell.labelHora.text = (evento.inicio?.description)! + (evento.fin?.description)!
-        cell.labelLugar.text = evento.lugar
+        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
+        
+        var colorImage = UIColor()
+        if(evento.tipo == "Conferencia")
+        {
+            colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+        else{
+            colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
+        }
+        
+        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
+        
+        //cell.botonFavorito.tag = indexPath.row
+       // cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
+        
+//        if evento.favorito == true {
+//            cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+//            
+//        }
+//        else{
+//            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+//            
+//        }
         
         return cell
     }
@@ -78,7 +152,12 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         do {
             let fetchedEventos = try getContext().fetch(employeesFetch) as! [Evento]
             
-            return fetchedEventos
+            let arrayFavoritos = fetchedEventos.filter()
+            {
+                return $0.favorito == true
+
+            }
+            return arrayFavoritos
             
         } catch {
             fatalError("Fallo: \(error)")
@@ -94,7 +173,6 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
         vc.tituloCharla = evento.nombre
         vc.hora = "11:30 - 13:30"
-        
         vc.lugar = evento.lugar
         vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
         vc.info = evento.descripcion
@@ -104,6 +182,47 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                                                  animated: true)
     }
     
+
+    func uniqueElementsFrom(array: [String]) -> [String] {
+        var set = Set<String>()
+        let result = array.filter {
+            guard !set.contains($0) else {
+                return false
+            }
+            set.insert($0)
+            return true
+        }
+        return result
+    }
+    
+    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 2.0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    func cambiarFavorito(sender: UIButton!){
+        let evento = eventos()[sender.tag]
+        if evento.favorito == true {
+            evento.setValue(false, forKey: "favorito")
+            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+            
+        }
+        else{
+            evento.setValue(true, forKey: "favorito")
+            sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+        }
+        do {
+            try getContext().save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+    }
 
     override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()

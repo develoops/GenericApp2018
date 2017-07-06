@@ -375,9 +375,14 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I3f-AS-Cwp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="10" height="115"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imagenMargen" destination="I3f-AS-Cwp" id="JC6-AD-Q8w"/>
                                             <outlet property="labelHora" destination="MhD-lO-fL2" id="GhS-kS-UDO"/>
                                             <outlet property="labelLugar" destination="l5o-6l-Hg6" id="fJo-mG-9Y3"/>
                                             <outlet property="labelSpeaker1" destination="yf0-mK-hew" id="3jU-dA-vSt"/>
