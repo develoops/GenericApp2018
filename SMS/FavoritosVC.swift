@@ -20,7 +20,6 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-        eventosFavoritos = eventos()
 
     }
 
@@ -28,6 +27,8 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.navigationBar.topItem?.title = "Favoritos"
         let rightButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.showEditing(sender:))
 )
+        eventosFavoritos = eventos()
+        self.tabla.reloadData()
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
 
     }
@@ -139,12 +140,12 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     {
         if(self.tabla.isEditing == true)
         {
-            self.tabla.isEditing = false
+            self.tabla.setEditing(false, animated: true)
             self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Editar"
         }
         else
         {
-            self.tabla.isEditing = true
+            self.tabla.setEditing(true, animated: true)
             self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Listo"
         }
     }
