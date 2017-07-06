@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C25071F0BF922006492EF /* FormatoFechas.swift */; };
+		C334EDDF1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png in Resources */ = {isa = PBXBuildFile; fileRef = C334EDDC1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png */; };
+		C334EDE01F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png in Resources */ = {isa = PBXBuildFile; fileRef = C334EDDD1F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png */; };
+		C334EDE11F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png in Resources */ = {isa = PBXBuildFile; fileRef = C334EDDE1F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png */; };
+		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
@@ -40,6 +44,10 @@
 
 /* Begin PBXFileReference section */
 		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
+		C334EDDC1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapa_enjoyvina_ballroom.png; sourceTree = "<group>"; };
+		C334EDDD1F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapa_enjoyvina_nivel2.png; sourceTree = "<group>"; };
+		C334EDDE1F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapa_enjoyvina_nivel3.png; sourceTree = "<group>"; };
+		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
@@ -104,10 +112,10 @@
 			children = (
 				C370253D1F0654DC0033126F /* SMS.xcdatamodeld */,
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
+				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
 				C31C25071F0BF922006492EF /* FormatoFechas.swift */,
 				C378EC5C1F05823000DE0318 /* Controllers */,
 				C378EC5B1F05822400DE0318 /* Detalles */,
-				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
 				C34BA8811F04173500022E6B /* Main.storyboard */,
 				C34BA8871F04173500022E6B /* Assets.xcassets */,
 				C378EC401F055ADA00DE0318 /* PartesAPP */,
@@ -121,6 +129,9 @@
 		C378EC401F055ADA00DE0318 /* PartesAPP */ = {
 			isa = PBXGroup;
 			children = (
+				C334EDDC1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png */,
+				C334EDDD1F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png */,
+				C334EDDE1F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png */,
 				C3E728F51F06671B006203A8 /* isotip.png */,
 				C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */,
 				C378EC551F0576B900DE0318 /* btn_directiva.png */,
@@ -156,6 +167,7 @@
 				C378EC381F05531B00DE0318 /* FavoritosVC.swift */,
 				C378EC3A1F05532A00DE0318 /* PatrocinadoresVC.swift */,
 				C378EC3C1F05542200DE0318 /* SMSVC.swift */,
+				C334EDE21F0D3E3700A084D4 /* MapVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -228,14 +240,17 @@
 				C3E728F61F06671B006203A8 /* isotip.png in Resources */,
 				C378EC4C1F055ADA00DE0318 /* btn_Favorito_marcado.png in Resources */,
 				C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */,
+				C334EDDF1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png in Resources */,
 				C378EC4F1F055ADA00DE0318 /* btnFavorito.png in Resources */,
 				C34BA8881F04173500022E6B /* Assets.xcassets in Resources */,
 				C378EC4E1F055ADA00DE0318 /* btn_patrocinadores.png in Resources */,
 				C378EC4D1F055ADA00DE0318 /* Btn_favoritos_SinMarcar.png in Resources */,
+				C334EDE11F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png in Resources */,
 				C34BA8831F04173500022E6B /* Main.storyboard in Resources */,
 				C378EC4B1F055ADA00DE0318 /* btn_back.png in Resources */,
 				C378EC541F0570EE00DE0318 /* splash@2x.png in Resources */,
 				C378EC511F055ADA00DE0318 /* ponente.png in Resources */,
+				C334EDE01F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png in Resources */,
 				C378EC521F055ADA00DE0318 /* programa.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +264,7 @@
 			files = (
 				C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */,
 				C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */,
+				C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */,
 				C370253F1F0654DC0033126F /* SMS.xcdatamodeld in Sources */,
 				C378EC3D1F05542200DE0318 /* SMSVC.swift in Sources */,
 				C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */,

@@ -16,6 +16,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var botonAvanzar: UIButton!
     @IBOutlet weak var botonRetroceder: UIButton!
     @IBOutlet weak var diaControl: UILabel!
+    var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
     var eventosFiltrados = [Evento]()
     var indicador = 0
@@ -27,12 +28,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         botonAvanzar.addTarget(self, action: #selector(avanzar), for: .touchUpInside)
         botonRetroceder.addTarget(self, action: #selector(retroceder), for: .touchUpInside)
         botonRetroceder.isHidden = true
-        
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+      override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
     }
     
@@ -52,7 +52,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-            return 115.0
+            return tamanoCelda
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,26 +61,71 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let evento = eventosFiltrados[indexPath.row]
 
-        if(evento.personas?.allObjects.count != 0){
-            
-            let persona = evento.personas?.allObjects.first as! Persona
-
-            cell.labelSpeaker1.text = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
-        }
-        else{
-            cell.labelSpeaker1.text = ""
-        }
         
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
 
+        cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
+        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 152.0, height:0.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
+        cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
+        cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
         cell.labelTitulo.text = evento.nombre
-        cell.labelLugar.text = evento.lugar
+        cell.labelTitulo?.textAlignment = .left
+        cell.labelTitulo.numberOfLines = 0
+        cell.labelTitulo?.sizeToFit()
+
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
+
+        cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+        cell.labelHora?.frame =  CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 35.0, width: 0.0, height: 0.0)
+        cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelHora.sizeThatFits(maximumLabelSizeHora)
         cell.labelHora.text = fechaInicio + " - " + fechaFin
-        
+        cell.labelHora?.textAlignment = .left
+        cell.labelHora.numberOfLines = 0
+        cell.labelHora?.sizeToFit()
+
+       let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
+        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+        cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
+        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
+        cell.labelLugar.text = evento.lugar
+        cell.labelLugar?.textAlignment = .left
+        cell.labelLugar.numberOfLines = 0
+        cell.labelLugar?.sizeToFit()
+
+        if(evento.personas?.allObjects.count != 0){
+            
+            var personasString = String()
+            for object in (evento.personas?.allObjects)!{
+                
+                let persona = object as! Persona
+                
+                personasString.append((persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)! + "\n")
+            
+            }
+            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
+            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
+            cell.labelSpeaker1.text = personasString
+            cell.labelSpeaker1?.textAlignment = .left
+            cell.labelSpeaker1?.sizeToFit()
+            
+
+        }
+        else{
+            cell.labelSpeaker1.text = ""
+
+        }
+
+        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat((evento.personas?.allObjects.count)! * 15)
+
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -96,7 +141,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.lugar = evento.lugar
         vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
         vc.info = evento.descripcion
-        
+
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
@@ -211,6 +256,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         return result
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

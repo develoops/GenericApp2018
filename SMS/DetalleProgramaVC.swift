@@ -17,15 +17,15 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var labelDiaDetallePrograma: UILabel!
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
+    @IBOutlet weak var botonMapa: UIButton!
 
     var tituloCharla:String!
     var hora: String!
     var dia:String!
     var lugar:String!
     var info:String!
-
     var ponentesArray: NSArray!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +35,17 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelDiaDetallePrograma.text = dia
         labelLugarDetallePrograma.text = lugar
         textViewInfoDetallePrograma.text = info
-        
+        botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
+
+    }
+
+    func irAMapa()
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        vc.nombreMapa = "mapa_enjoyvina_ballroom.png"
+        navigationController?.pushViewController(vc,
+                                                 animated: true)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

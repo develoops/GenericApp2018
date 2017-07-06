@@ -14,10 +14,9 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var labelHora: UILabel!
     @IBOutlet weak var labelLugar: UILabel!
     @IBOutlet weak var labelSpeaker1: UILabel!
-    @IBOutlet weak var labelSpeaker2: UILabel!
-    @IBOutlet weak var labelSpeaker3: UILabel!
     @IBOutlet weak var imagenPerfil: UIImageView!
     @IBOutlet weak var botonFavorito: UIButton!
+  //  @IBOutlet weak var imagenPerfil: UIImageView!
 
     /// ponentes
     @IBOutlet weak var labelNombre: UILabel!
@@ -29,7 +28,10 @@ class TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
     }
+    
+  
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
