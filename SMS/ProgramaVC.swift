@@ -31,7 +31,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
         let colorBarra = UIColor(ciColor: CIColor.init(red: 72/255.0, green: 72/255.0, blue: 80/255.0))
-        colorBarra.setFill()
+        colorBarra.withAlphaComponent(0.28)
         self.view.backgroundColor = colorBarra
     }
     
