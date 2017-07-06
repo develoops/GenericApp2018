@@ -31,21 +31,71 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        labelTituloDetallePrograma.text = tituloCharla
-        labelHoraDetallePrograma.text = hora
-        labelLugarDetallePrograma.text = lugar
-        labelDiaDetallePrograma.text = dia
-        labelLugarDetallePrograma.text = lugar
         textViewInfoDetallePrograma.text = info
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
-        self.tabla.frame.size = CGSize(width: self.view.frame.width, height: CGFloat(60 * ponentesArray.count))
+        
+        labelTituloDetallePrograma.textColor = UIColor.white
+        labelHoraDetallePrograma.textColor = UIColor.white
+        labelDiaDetallePrograma.textColor = UIColor.white
+        labelLugarDetallePrograma.textColor = UIColor.white
+
+        labelTituloDetallePrograma.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
+        labelHoraDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
+        labelDiaDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
+        labelLugarDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
+        
+        
+        labelTituloDetallePrograma.frame = CGRect(x: 38.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
+        
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
+        labelTituloDetallePrograma.text = tituloCharla
+        labelTituloDetallePrograma?.textAlignment = .left
+        labelTituloDetallePrograma.numberOfLines = 0
+        labelTituloDetallePrograma?.sizeToFit()
+
+        
+        labelHoraDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
+        
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        labelHoraDetallePrograma.sizeThatFits(maximumLabelSizeHora)
+        labelHoraDetallePrograma.text = hora
+        labelHoraDetallePrograma?.textAlignment = .left
+        labelHoraDetallePrograma.numberOfLines = 0
+        labelHoraDetallePrograma?.sizeToFit()
+
+        
+        labelDiaDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
+        
+        let maximumLabelSizeDia = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        labelDiaDetallePrograma.sizeThatFits(maximumLabelSizeDia)
+        labelDiaDetallePrograma.text = dia
+        labelDiaDetallePrograma?.textAlignment = .left
+        labelDiaDetallePrograma.numberOfLines = 0
+        labelDiaDetallePrograma?.sizeToFit()
+
+        labelLugarDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
+        
+        let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        labelLugarDetallePrograma.sizeThatFits(maximumLabelSizeLugar)
+        labelLugarDetallePrograma.text = lugar
+        labelLugarDetallePrograma?.textAlignment = .left
+        labelLugarDetallePrograma.numberOfLines = 0
+        labelLugarDetallePrograma?.sizeToFit()
+        
+        
+        print(labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 15.0)
+        
+        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * ponentesArray.count))
+
         self.tabla.isScrollEnabled = false
         self.textViewInfoDetallePrograma.frame.origin = CGPoint(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0)
-        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 10.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
+        
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
-        
+
 
     }
 
