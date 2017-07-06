@@ -888,7 +888,7 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JF7-Os-k0g">
-                                <rect key="frame" x="10" y="216" width="349" height="111"/>
+                                <rect key="frame" x="13" y="388" width="349" height="111"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
@@ -896,7 +896,7 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gWV-kI-HPP">
-                                <rect key="frame" x="10" y="325" width="375" height="164"/>
+                                <rect key="frame" x="0.0" y="216" width="375" height="164"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -904,7 +904,7 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5yy-sZ-Ysl" id="LkL-IF-Muz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Ponente_ausente_Hombre.png" translatesAutoresizingMaskIntoConstraints="NO" id="IAK-Hc-QiT">
@@ -939,8 +939,13 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                                     <outlet property="delegate" destination="cER-1T-fPp" id="oDi-cD-CH0"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBo-io-Nnr">
+                                <rect key="frame" x="16" y="497" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Añadir a Favoritos"/>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNu-gj-7tc">
-                                <rect key="frame" x="76" y="547" width="38" height="30"/>
+                                <rect key="frame" x="16" y="526" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Mapa"/>
                             </button>
@@ -959,7 +964,7 @@ Ese año, los alumnos de la Escuela de Medicina, junto a sus más distinguidos p
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jiy-N7-4iC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-183" y="-1562"/>
+            <point key="canvasLocation" x="-183.19999999999999" y="-1562.0689655172414"/>
         </scene>
     </scenes>
     <resources>

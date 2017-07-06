@@ -47,6 +47,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
+    
+    
 
     func numberOfSections(in tableView: UITableView) -> Int {
         

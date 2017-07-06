@@ -48,10 +48,20 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         let persona = personas()[indexPath.row]
-        
+      
+        cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+        cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
+        cell.labelNombre.font = UIFont.systemFont(ofSize: 16.0)
         cell.labelNombre.text = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
+        cell.labelNombre?.textAlignment = .left
+        cell.labelNombre.numberOfLines = 0
+        cell.labelNombre?.sizeToFit()
+
+        cell.labelLugarPersona.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
         cell.labelLugarPersona.text = persona.procedencia
-        cell.labelInstitucion.text = persona.rol
+        
+        cell.labelInstitucion.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
 
         if (persona.imagenPerfil?.length == 4) {
             
