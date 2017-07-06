@@ -18,6 +18,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
     @IBOutlet weak var botonMapa: UIButton!
+    @IBOutlet weak var botonFavorito: UIButton!
+
 
     var tituloCharla:String!
     var hora: String!
@@ -31,9 +33,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textViewInfoDetallePrograma.text = info
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
-        
+        self.tabla.isUserInteractionEnabled = false
         labelTituloDetallePrograma.textColor = UIColor.white
         labelHoraDetallePrograma.textColor = UIColor.white
         labelDiaDetallePrograma.textColor = UIColor.white
@@ -84,17 +85,37 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma?.sizeToFit()
         
         
-        print(labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 15.0)
         
         self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * ponentesArray.count))
 
         self.tabla.isScrollEnabled = false
-        self.textViewInfoDetallePrograma.frame.origin = CGPoint(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0)
+        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
+            .width, height: 0.0)
+
+        
+        let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
+        textViewInfoDetallePrograma.text = info
+        textViewInfoDetallePrograma?.textAlignment = .left
+        textViewInfoDetallePrograma?.sizeToFit()
+
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 10.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
         
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
+        
+        botonFavorito.frame.origin = CGPoint(x: 38.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
+        
+        botonMapa.frame.origin = CGPoint(x: 38.0, y: botonFavorito.frame.origin.y + botonMapa.frame.size.height)
+
+//        let line1 = UIView(frame: CGRect(x: 20.0, y: botonFavorito.frame.origin.y - 2.0, width: self.view.frame.size.width - 40.0, height: 1.0))
+//        line1.backgroundColor = UIColor.black
+//        self.view.addSubview(line1)
+//        
+//        let line2 = UIView(frame: CGRect(x: 20.0, y: botonMapa.frame.origin.y + 2.0, width: self.view.frame.size.width - 40.0, height: 1.0))
+//        line2.backgroundColor = UIColor.black
+//        self.view.addSubview(line2)
 
 
     }
@@ -144,7 +165,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         return cell
     }
-    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
