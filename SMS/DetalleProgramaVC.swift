@@ -36,6 +36,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.text = lugar
         textViewInfoDetallePrograma.text = info
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
+        self.tabla.frame.size = CGSize(width: self.view.frame.width, height: CGFloat(60 * ponentesArray.count))
+        self.tabla.isScrollEnabled = false
+        self.textViewInfoDetallePrograma.frame.origin = CGPoint(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0)
 
     }
 
