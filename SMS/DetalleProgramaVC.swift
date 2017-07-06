@@ -25,6 +25,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var lugar:String!
     var info:String!
     var ponentesArray: NSArray!
+    var colorFondo:UIColor!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.tabla.frame.size = CGSize(width: self.view.frame.width, height: CGFloat(60 * ponentesArray.count))
         self.tabla.isScrollEnabled = false
         self.textViewInfoDetallePrograma.frame.origin = CGPoint(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0)
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
+        colorFondoHeaderDetalle.backgroundColor = colorFondo
+        self.view.addSubview(colorFondoHeaderDetalle)
+        view.sendSubview(toBack: colorFondoHeaderDetalle)
+        
 
     }
 

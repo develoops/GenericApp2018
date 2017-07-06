@@ -176,6 +176,22 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.lugar = evento.lugar
         vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
         vc.info = evento.descripcion
+        
+        if(evento.tipo == "Conferencia")
+        {
+            vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+            
+        else if (evento.tipo == "Social") {
+            
+            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+            
+        }
+        else{
+            vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
+            
+        }
+
 
         navigationController?.pushViewController(vc,
                                                  animated: true)
