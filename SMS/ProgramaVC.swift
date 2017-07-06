@@ -30,9 +30,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         botonRetroceder.isHidden = true
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
-        let colorBarra = UIColor(ciColor: CIColor.init(red: 72/255.0, green: 72/255.0, blue: 80/255.0))
-        colorBarra.withAlphaComponent(0.28)
-        self.view.backgroundColor = colorBarra
     }
     
       override func viewDidAppear(_ animated: Bool) {
@@ -62,9 +59,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let evento = eventosFiltrados[indexPath.row]
 
-        
+        let evento = eventosFiltrados[indexPath.row]
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
 
@@ -98,7 +94,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelLugar?.textAlignment = .left
         cell.labelLugar.numberOfLines = 0
         cell.labelLugar?.sizeToFit()
-
+        
+        var personasTamano = Int()
         if(evento.personas?.allObjects.count != 0){
             
             var personasString = String()
@@ -107,6 +104,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 let persona = object as! Persona
                 
                 personasString.append((persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)! + "\n")
+            personasTamano = personasTamano + (28 / (evento.personas?.allObjects.count)!)
             
             }
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
@@ -117,19 +115,40 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             cell.labelSpeaker1.text = personasString
             cell.labelSpeaker1?.textAlignment = .left
             cell.labelSpeaker1?.sizeToFit()
-            
-
+        
         }
         else{
             cell.labelSpeaker1.text = ""
-
         }
     
-        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat((evento.personas?.allObjects.count)! * 15)
-        cell.imagenMargen.image = getImageWithColor(color: UIColor.green, size: CGSize(width: 10.0, height: tamanoCelda - 4.0))
+        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
+       
+        var colorImage = UIColor()
+        if(evento.tipo == "Conferencia")
+        {
+            colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+        else{
+            colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
+        }
+        
+        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
+
+        cell.botonFavorito.tag = indexPath.row
+        cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
+        
+        if evento.favorito == true {
+            cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+
+        }
+        else{
+            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+
+        }
         
         return cell
     }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -198,7 +217,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return diasProgramaFiltrados
     }
     
-    
     func avanzar(sender: UIButton!){
         
         if(indicador < diasPrograma().count - 1){
@@ -235,6 +253,25 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
+    }
+    
+    func cambiarFavorito(sender: UIButton!){
+        let evento = eventosFiltrados[sender.tag]
+        if evento.favorito == true {
+            evento.setValue(false, forKey: "favorito")
+            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+            
+}
+        else{
+            evento.setValue(true, forKey: "favorito")
+           sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+        }
+        do {
+            try getContext().save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
     }
     
     func filtrarArray(indicador:Int) {
