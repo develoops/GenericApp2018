@@ -14,15 +14,22 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var tabla: UITableView!
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
+    var eventosFavoritos = [Evento]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        eventosFavoritos = eventos()
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Favoritos"
+        let rightButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.showEditing(sender:))
+)
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -37,7 +44,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return eventos().count
+        return eventosFavoritos.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -50,7 +57,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         
-        let evento = eventos()[indexPath.row]
+        let evento = eventosFavoritos[indexPath.row]
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
         
@@ -124,22 +131,24 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
-        
-        //cell.botonFavorito.tag = indexPath.row
-       // cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
-        
-//        if evento.favorito == true {
-//            cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
-//            
-//        }
-//        else{
-//            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
-//            
-//        }
-        
+
         return cell
     }
     
+    func showEditing(sender: UIBarButtonItem)
+    {
+        if(self.tabla.isEditing == true)
+        {
+            self.tabla.isEditing = false
+            self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Editar"
+        }
+        else
+        {
+            self.tabla.isEditing = true
+            self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Listo"
+        }
+    }
+
     func getContext () -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
@@ -167,7 +176,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let evento = eventos()[indexPath.row]
+        let evento = eventosFavoritos[indexPath.row]
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
@@ -182,6 +191,25 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                                                  animated: true)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            
+          let evento =  eventosFavoritos[indexPath.row]
+            evento.setValue(false, forKey: "favorito")
+            
+            do {
+                try getContext().save()
+                eventosFavoritos.remove(at: indexPath.row)
+                self.tabla.deleteRows(at: [indexPath], with: .automatic)
+
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
+        }
+    }
+
 
     func uniqueElementsFrom(array: [String]) -> [String] {
         var set = Set<String>()
@@ -205,24 +233,6 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return image
     }
     
-    func cambiarFavorito(sender: UIButton!){
-        let evento = eventos()[sender.tag]
-        if evento.favorito == true {
-            evento.setValue(false, forKey: "favorito")
-            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
-            
-        }
-        else{
-            evento.setValue(true, forKey: "favorito")
-            sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
-        }
-        do {
-            try getContext().save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
-        
-    }
 
     override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()

@@ -34,6 +34,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
       override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
+        self.tabla.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
