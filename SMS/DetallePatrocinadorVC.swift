@@ -93,7 +93,7 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         
     }
     if(encabezado == "imagen"){
-        tamanoCelda = 120.0
+        tamanoCelda = 200.0
 
         }
     else{

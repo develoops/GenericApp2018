@@ -105,9 +105,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
         ////
-        botonFavorito.frame.origin = CGPoint(x: 38.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
+        botonFavorito.frame.origin = CGPoint(x: 28.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
         
-        botonMapa.frame.origin = CGPoint(x: 38.0, y: botonFavorito.frame.origin.y + botonMapa.frame.size.height)
+        botonMapa.frame.origin = CGPoint(x: 28.0, y: botonFavorito.frame.origin.y + botonMapa.frame.size.height)
 
     }
 
