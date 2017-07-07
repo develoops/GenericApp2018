@@ -66,6 +66,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         textViewInfoDetallePersona.frame.origin = CGPoint(x: 20.0, y: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0)
         textViewInfoDetallePersona.sizeToFit()
         
+        
         if(textViewInfoDetallePersona.text == ""){
         
             self.tabla.frame.origin = CGPoint(x: 0.0, y: colorFondoHeaderDetalle.frame.origin.y + colorFondoHeaderDetalle.frame.size.height)
@@ -75,6 +76,8 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             self.tabla.frame.origin = CGPoint(x: 0.0, y: textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height)
         }
         
+        tabla.tableFooterView = UIView()
+
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
 }

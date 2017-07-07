@@ -92,10 +92,13 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         cell.imagenPerfil.isHidden = true
         
     }
+        
+        
     if(encabezado == "imagen"){
         tamanoCelda = 200.0
-
+        
         }
+        
     else{
         tamanoCelda = cell.labelTitulo.frame.height + cell.infoDetallePatrocinador.frame.height + 15.0
         }

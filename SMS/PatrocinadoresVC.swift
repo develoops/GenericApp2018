@@ -71,11 +71,12 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         vc.direc = patrocinador.direccion
         vc.we = patrocinador.sitioWeb
         vc.fon = patrocinador.telefono
-        if(patrocinador.imagenPerfil == nil){
-            vc.imagen = UIImage(named:"")
+        
+        if(patrocinador.imagenFondo?.description == "<6e756c6c>"){
+            vc.imagen = UIImage(data: patrocinador.imagenPerfil! as Data)
         }
         else{
-            vc.imagen = UIImage(data: patrocinador.imagenPerfil! as Data)
+            vc.imagen = UIImage(data: patrocinador.imagenFondo! as Data)
         }
 
 
