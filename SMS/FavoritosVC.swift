@@ -15,7 +15,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
     var eventosFavoritos = [Evento]()
-
+    var rightButton = UIBarButtonItem()
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -25,7 +25,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Favoritos"
-        let rightButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.showEditing(sender:))
+        rightButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.showEditing(sender:))
 )
         eventosFavoritos = eventos()
         self.tabla.reloadData()
@@ -35,6 +35,8 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
+
     }
 
     
@@ -156,6 +158,26 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Listo"
         }
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("Deleted")
+            let evento =  eventosFavoritos[indexPath.row]
+            evento.setValue(false, forKey: "favorito")
+            
+            do {
+                try getContext().save()
+                eventosFavoritos.remove(at: indexPath.row)
+                self.tabla.deleteRows(at: [indexPath], with: .automatic)
+                
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
+        }
+    }
+
+    
 
     func getContext () -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -185,37 +207,36 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let evento = eventosFavoritos[indexPath.row]
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
+        
         vc.tituloCharla = evento.nombre
-        vc.hora = "11:30 - 13:30"
+        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
+        vc.hora = fechaInicio + " - " + fechaFin
         vc.lugar = evento.lugar
         vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
         vc.info = evento.descripcion
         
+        if(evento.tipo == "Conferencia")
+        {
+            vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+            
+        else if (evento.tipo == "Social") {
+            
+            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+            
+        }
+        else{
+            vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
+            
+        }
+        
         
         navigationController?.pushViewController(vc,
                                                  animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            print("Deleted")
-            
-          let evento =  eventosFavoritos[indexPath.row]
-            evento.setValue(false, forKey: "favorito")
-            
-            do {
-                try getContext().save()
-                eventosFavoritos.remove(at: indexPath.row)
-                self.tabla.deleteRows(at: [indexPath], with: .automatic)
-
-            } catch {
-                fatalError("Failure to save context: \(error)")
-            }
-            
-        }
     }
 
 

@@ -21,6 +21,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var eventosFiltrados = [Evento]()
     var indicador = 0
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -30,6 +31,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         botonRetroceder.isHidden = true
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
+        
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
+        colorFondoHeaderDetalle.backgroundColor = UIColor(red: 194/255.0, green: 206/255.0, blue: 210/255.0, alpha: 1.0)
+        self.view.addSubview(colorFondoHeaderDetalle)
+        view.sendSubview(toBack: colorFondoHeaderDetalle)
     }
     
       override func viewDidAppear(_ animated: Bool) {

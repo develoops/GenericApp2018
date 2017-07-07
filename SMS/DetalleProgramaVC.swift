@@ -92,31 +92,22 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
             .width, height: 0.0)
 
-        
         let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
         textViewInfoDetallePrograma.text = info
         textViewInfoDetallePrograma?.textAlignment = .left
         textViewInfoDetallePrograma?.sizeToFit()
 
+        /////
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 10.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
         
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
-        
+        ////
         botonFavorito.frame.origin = CGPoint(x: 38.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
         
         botonMapa.frame.origin = CGPoint(x: 38.0, y: botonFavorito.frame.origin.y + botonMapa.frame.size.height)
-
-//        let line1 = UIView(frame: CGRect(x: 20.0, y: botonFavorito.frame.origin.y - 2.0, width: self.view.frame.size.width - 40.0, height: 1.0))
-//        line1.backgroundColor = UIColor.black
-//        self.view.addSubview(line1)
-//        
-//        let line2 = UIView(frame: CGRect(x: 20.0, y: botonMapa.frame.origin.y + 2.0, width: self.view.frame.size.width - 40.0, height: 1.0))
-//        line2.backgroundColor = UIColor.black
-//        self.view.addSubview(line2)
-
 
     }
 
