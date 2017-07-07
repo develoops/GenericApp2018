@@ -12,7 +12,7 @@ import CoreData
 class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var tabla: UITableView!
-    
+    var tamanoCelda = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -58,10 +58,12 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
 
-        cell.labelLugarPersona.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-        cell.labelLugarPersona.text = persona.procedencia
-        
-        cell.labelInstitucion.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
+        cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
+        cell.labelLugarPersona?.text = persona.procedencia
+
+        cell.labelInstitucion?.text = persona.institucion
+
+        cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
 
         if (persona.imagenPerfil?.length == 4) {
             
@@ -75,6 +77,9 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         else{
             cell.imagenPerfil.image = UIImage(data: persona.imagenPerfil! as Data)
         }
+        
+//    tamanoCelda = cell.labelNombre.frame.size.height + cell.labelLugar.frame.size.height + (cell.labelInstitucion?.frame.size.height)! + 20.0
+
         
         return cell
     }

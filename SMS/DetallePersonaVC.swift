@@ -63,7 +63,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 20.0))
         colorFondoHeaderDetalle.backgroundColor = UIColor.lightGray
         
-        textViewInfoDetallePersona.frame.origin = CGPoint(x: 10.0, y: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0)
+        textViewInfoDetallePersona.frame.origin = CGPoint(x: 20.0, y: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0)
         textViewInfoDetallePersona.sizeToFit()
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)

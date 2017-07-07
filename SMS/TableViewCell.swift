@@ -23,8 +23,8 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var labelLugarPersona: UILabel!
     @IBOutlet weak var labelInstitucion: UILabel!
     @IBOutlet weak var labelRol: UILabel!
-
-
+    
+    @IBOutlet weak var infoDetallePatrocinador: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
