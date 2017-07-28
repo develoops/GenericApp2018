@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
    
@@ -18,20 +19,15 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
     @IBOutlet weak var botonMapa: UIButton!
-    @IBOutlet weak var botonFavorito: UIButton!
 
 
-    var tituloCharla:String!
     var hora: String!
     var dia:String!
-    var lugar:String!
-    var info:String!
-    var ponentesArray: NSArray!
     var colorFondo:UIColor!
     var a = [String]()
-    
+    var evento:Evento!
 
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()        
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
@@ -51,12 +47,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
-        labelTituloDetallePrograma.text = tituloCharla
+        labelTituloDetallePrograma.text = evento.nombre
         labelTituloDetallePrograma?.textAlignment = .left
         labelTituloDetallePrograma.numberOfLines = 0
         labelTituloDetallePrograma?.sizeToFit()
 
-        
         labelHoraDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
         
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
@@ -80,14 +75,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelLugarDetallePrograma.sizeThatFits(maximumLabelSizeLugar)
-        labelLugarDetallePrograma.text = lugar
+        labelLugarDetallePrograma.text = evento.lugar
         labelLugarDetallePrograma?.textAlignment = .left
         labelLugarDetallePrograma.numberOfLines = 0
         labelLugarDetallePrograma?.sizeToFit()
         
         
         
-        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * ponentesArray.count))
+        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * (evento.personas?.allObjects.count)!))
 
         self.tabla.isScrollEnabled = false
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
@@ -95,7 +90,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
-        textViewInfoDetallePrograma.text = info
+        textViewInfoDetallePrograma.text = evento.descripcion
         textViewInfoDetallePrograma?.textAlignment = .left
         textViewInfoDetallePrograma?.sizeToFit()
 
@@ -106,25 +101,23 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
         ////
-        botonFavorito.frame.origin = CGPoint(x: 28.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
+        botonMapa.frame.origin = CGPoint(x: 28.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
         
-        botonMapa.frame.origin = CGPoint(x: 28.0, y: botonFavorito.frame.origin.y + botonMapa.frame.size.height)
-
+        self.agregarBotonFavoritoNav()
     }
 
     func irAMapa()
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
-        if (lugar == "Salón Piccadilly y Esmeralda"){
+        if (evento.lugar == "Salón Piccadilly y Esmeralda"){
             vc.nombreMapa = "mapaVinaPlantacasino2.png"
-
         }
         else{
             vc.nombreMapa = "mapaVinapiso3.png"
 
         }
-        vc.nombreSalon = lugar
+        vc.nombreSalon = evento.lugar
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
@@ -138,7 +131,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return ponentesArray.count
+        return (evento.personas?.allObjects.count)!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -150,7 +143,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let persona = ponentesArray.object(at: indexPath.row) as! Persona
+        let persona = evento.personas?.allObjects[indexPath.row] as! Persona
         
         cell.labelNombre.text = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
 
@@ -165,8 +158,44 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         return cell
     }
-
     
+    func agregarBotonFavoritoNav(){
+        
+    var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
+        
+        if evento.favorito == true {
+        
+        barBotonFavorito = UIBarButtonItem(image: UIImage(named: "favMarcado.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
+        }
+        else{
+            barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
+        }
+        
+        navigationItem.rightBarButtonItem = barBotonFavorito
+    }
+
+    func cambiarFavorito(sender: UIBarButtonItem!){
+        if evento.favorito == true {
+            evento.setValue(false, forKey: "favorito")
+            sender.image = UIImage(named: "btnFavorito.png")
+        }
+        else{
+            evento.setValue(true, forKey: "favorito")
+            sender.image = UIImage(named: "favMarcado.png")
+        }
+        do {
+            try getContext().save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+    }
+    
+    func getContext () -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

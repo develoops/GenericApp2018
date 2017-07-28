@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C25071F0BF922006492EF /* FormatoFechas.swift */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
+		C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */ = {isa = PBXBuildFile; fileRef = C33A1BE21F2C006500B6B744 /* favMarcado.png */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		C33A1BE21F2C006500B6B744 /* favMarcado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favMarcado.png; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				C378EC441F055ADA00DE0318 /* Btn_favoritos_SinMarcar.png */,
 				C378EC451F055ADA00DE0318 /* btn_patrocinadores.png */,
 				C378EC461F055ADA00DE0318 /* btnFavorito.png */,
+				C33A1BE21F2C006500B6B744 /* favMarcado.png */,
 				C378EC471F055ADA00DE0318 /* img_break.png */,
 				C378EC481F055ADA00DE0318 /* ponente.png */,
 				C378EC491F055ADA00DE0318 /* programa.png */,
@@ -234,6 +237,7 @@
 			files = (
 				C378EC501F055ADA00DE0318 /* img_break.png in Resources */,
 				C34BA88B1F04173500022E6B /* LaunchScreen.storyboard in Resources */,
+				C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */,
 				C378EC561F0576B900DE0318 /* btn_directiva.png in Resources */,
 				C34BA8941F04337900022E6B /* SMS.sqlite in Resources */,
 				C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */,

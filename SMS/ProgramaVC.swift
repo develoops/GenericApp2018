@@ -21,7 +21,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var eventosFiltrados = [Evento]()
     var indicador = 0
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -157,11 +156,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         if evento.favorito == true {
             cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
-
         }
         else{
             cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
-
         }
         
         return cell
@@ -176,12 +173,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
 
-        vc.tituloCharla = evento.nombre
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
         vc.hora = fechaInicio + " - " + fechaFin
-        vc.lugar = evento.lugar
-        vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
-        vc.info = evento.descripcion
+        vc.evento = evento
         
         if(evento.tipo == "Conferencia")
         {
@@ -197,7 +191,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
-
 
         navigationController?.pushViewController(vc,
                                                  animated: true)
@@ -342,6 +335,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return image
     }
 
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

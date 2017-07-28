@@ -35,7 +35,6 @@ class MapVC: UIViewController,UIScrollViewDelegate {
     asignarCoordenadaPin(nombreSalon:nombreSalon)
     }
     
-    
 //    func moveImage(view: UIImageView){
 //        var toPoint: CGPoint = CGPointMake(0.0, -10.0)
 //        var fromPoint : CGPoint = CGPointZero

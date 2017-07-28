@@ -33,7 +33,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
 
@@ -212,13 +212,9 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
         
-        vc.tituloCharla = evento.nombre
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
         vc.hora = fechaInicio + " - " + fechaFin
-        vc.lugar = evento.lugar
-        vc.ponentesArray = (evento.personas?.allObjects)! as NSArray
-        vc.info = evento.descripcion
-        
+        vc.evento = evento
         if(evento.tipo == "Conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
