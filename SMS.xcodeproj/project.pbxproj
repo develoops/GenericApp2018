@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C25071F0BF922006492EF /* FormatoFechas.swift */; };
-		C334EDDF1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png in Resources */ = {isa = PBXBuildFile; fileRef = C334EDDC1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png */; };
-		C334EDE01F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png in Resources */ = {isa = PBXBuildFile; fileRef = C334EDDD1F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png */; };
-		C334EDE11F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png in Resources */ = {isa = PBXBuildFile; fileRef = C334EDDE1F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
@@ -39,14 +36,14 @@
 		C378EC5A1F05821900DE0318 /* DetallePatrocinadorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */; };
 		C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */; };
 		C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A58D3A1F054953003095FF /* TableViewCell.swift */; };
+		C3C12F921F2B998C00D01AD4 /* mapaVinapiso3.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */; };
+		C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */; };
+		C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F941F2B9E7A00D01AD4 /* pinilla.png */; };
 		C3E728F61F06671B006203A8 /* isotip.png in Resources */ = {isa = PBXBuildFile; fileRef = C3E728F51F06671B006203A8 /* isotip.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
-		C334EDDC1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapa_enjoyvina_ballroom.png; sourceTree = "<group>"; };
-		C334EDDD1F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapa_enjoyvina_nivel2.png; sourceTree = "<group>"; };
-		C334EDDE1F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapa_enjoyvina_nivel3.png; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +74,9 @@
 		C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePatrocinadorVC.swift; sourceTree = "<group>"; };
 		C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ponente_ausente_Hombre.png; sourceTree = "<group>"; };
 		C3A58D3A1F054953003095FF /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapaVinapiso3.png; sourceTree = "<group>"; };
+		C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapaVinaPlantacasino2.png; sourceTree = "<group>"; };
+		C3C12F941F2B9E7A00D01AD4 /* pinilla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinilla.png; sourceTree = "<group>"; };
 		C3E728F51F06671B006203A8 /* isotip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isotip.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,9 +129,9 @@
 		C378EC401F055ADA00DE0318 /* PartesAPP */ = {
 			isa = PBXGroup;
 			children = (
-				C334EDDC1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png */,
-				C334EDDD1F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png */,
-				C334EDDE1F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png */,
+				C3C12F941F2B9E7A00D01AD4 /* pinilla.png */,
+				C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */,
+				C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */,
 				C3E728F51F06671B006203A8 /* isotip.png */,
 				C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */,
 				C378EC551F0576B900DE0318 /* btn_directiva.png */,
@@ -236,21 +236,21 @@
 				C34BA88B1F04173500022E6B /* LaunchScreen.storyboard in Resources */,
 				C378EC561F0576B900DE0318 /* btn_directiva.png in Resources */,
 				C34BA8941F04337900022E6B /* SMS.sqlite in Resources */,
+				C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */,
 				C378EC4A1F055ADA00DE0318 /* Btn_avanzar_derecha.png in Resources */,
 				C3E728F61F06671B006203A8 /* isotip.png in Resources */,
 				C378EC4C1F055ADA00DE0318 /* btn_Favorito_marcado.png in Resources */,
 				C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */,
-				C334EDDF1F0D3E1500A084D4 /* mapa_enjoyvina_ballroom.png in Resources */,
 				C378EC4F1F055ADA00DE0318 /* btnFavorito.png in Resources */,
 				C34BA8881F04173500022E6B /* Assets.xcassets in Resources */,
 				C378EC4E1F055ADA00DE0318 /* btn_patrocinadores.png in Resources */,
 				C378EC4D1F055ADA00DE0318 /* Btn_favoritos_SinMarcar.png in Resources */,
-				C334EDE11F0D3E1500A084D4 /* mapa_enjoyvina_nivel3.png in Resources */,
+				C3C12F921F2B998C00D01AD4 /* mapaVinapiso3.png in Resources */,
 				C34BA8831F04173500022E6B /* Main.storyboard in Resources */,
+				C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */,
 				C378EC4B1F055ADA00DE0318 /* btn_back.png in Resources */,
 				C378EC541F0570EE00DE0318 /* splash@2x.png in Resources */,
 				C378EC511F055ADA00DE0318 /* ponente.png in Resources */,
-				C334EDE01F0D3E1500A084D4 /* mapa_enjoyvina_nivel2.png in Resources */,
 				C378EC521F055ADA00DE0318 /* programa.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

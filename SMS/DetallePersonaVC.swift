@@ -35,7 +35,9 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         labelNombreDetallePersona.text = nombrePersona
         labelLugarPersonaDetallePersona.text = lugarPersona
-        labelInstitucionDetallePersona.text = "Universidad de Concepción"
+        
+        labelInstitucionDetallePersona.text = institucion
+
         labelRolDetallePersona.text = rol
         textViewInfoDetallePersona.text = info
         imagenPersona.image = imagen
@@ -56,11 +58,24 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         imagenPersona.frame.origin = CGPoint(x: 20.0, y: 84.0)
         labelNombreDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 84.0)
         
-        labelInstitucionDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 99.0 + labelNombreDetallePersona.frame.size.height)
-        labelRolDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 104.0 + labelInstitucionDetallePersona.frame.size.height  + labelNombreDetallePersona.frame.size.height)
+        if(labelInstitucionDetallePersona.text ==  "" || labelInstitucionDetallePersona.text ==  nil){
+            
+            
+        labelRolDetallePersona.frame = CGRect(x: imagenPersona.frame.width + 45.0, y: labelNombreDetallePersona.frame.origin.y + labelNombreDetallePersona.frame.size.height, width: 100.0, height: 30.0)
+            labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: labelRolDetallePersona.frame.origin.y + labelRolDetallePersona.frame.size.height)
 
-        labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 109.0 + labelRolDetallePersona.frame.size.height + labelInstitucionDetallePersona.frame.size.height + labelNombreDetallePersona.frame.size.height)
-        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 20.0))
+        }
+        else {
+            labelInstitucionDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 99.0 + labelNombreDetallePersona.frame.size.height)
+            labelInstitucionDetallePersona.frame.size = CGSize(width: 30.0, height: 30.0)
+
+            labelRolDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 104.0 + labelInstitucionDetallePersona.frame.size.height  + labelNombreDetallePersona.frame.size.height)
+            labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 109.0 + labelRolDetallePersona.frame.size.height + labelInstitucionDetallePersona.frame.size.height + labelNombreDetallePersona.frame.size.height)
+        }
+        
+
+      
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0))
         colorFondoHeaderDetalle.backgroundColor = UIColor.lightGray
         
         textViewInfoDetallePersona.frame.origin = CGPoint(x: 20.0, y: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0)

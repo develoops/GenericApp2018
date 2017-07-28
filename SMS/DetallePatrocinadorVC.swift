@@ -66,6 +66,8 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
             cell.infoDetallePatrocinador?.text = ""
             cell.imagenPerfil.isHidden = false
             cell.imagenPerfil.image = objetoInfo.last as? UIImage
+            cell.imagenPerfil.frame = CGRect(x: 100.0, y: 20.0, width: 550.0/3, height: 250.0/3)
+            
         }
             
         else{
@@ -95,7 +97,9 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         
         
     if(encabezado == "imagen"){
-        tamanoCelda = 200.0
+        
+        tamanoCelda = cell.imagenPerfil.frame.size.height + 40.0
+    
         
         }
         

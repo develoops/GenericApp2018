@@ -28,11 +28,12 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var info:String!
     var ponentesArray: NSArray!
     var colorFondo:UIColor!
+    var a = [String]()
+    
 
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
         labelTituloDetallePrograma.textColor = UIColor.white
@@ -115,7 +116,15 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
-        vc.nombreMapa = "mapa_enjoyvina_ballroom.png"
+        if (lugar == "Salón Piccadilly y Esmeralda"){
+            vc.nombreMapa = "mapaVinaPlantacasino2.png"
+
+        }
+        else{
+            vc.nombreMapa = "mapaVinapiso3.png"
+
+        }
+        vc.nombreSalon = lugar
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
