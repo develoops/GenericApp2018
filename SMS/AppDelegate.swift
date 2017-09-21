@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Bolts
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Thread.sleep(forTimeInterval: 3.0)
-
+        
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "fJdyYQHNfWWqvC1NbgqlMTvNhbpWWFynRhYWt3oT"
+            $0.clientKey = "Kt8tpCc4XK3APky1JsHa53fYjHMwWK9bCMPy7FvC"
+            $0.server = "https://parseapi.back4app.com"
+        }
+        Parse.initialize(with: configuration)
+//        let query = PFQuery(className: "Clase")
+//        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+//            
+//            print(task.result as Any)
+//            return task
+//        })
+        
         return true
     }
 

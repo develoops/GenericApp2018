@@ -41,9 +41,12 @@
 		C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */; };
 		C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F941F2B9E7A00D01AD4 /* pinilla.png */; };
 		C3E728F61F06671B006203A8 /* isotip.png in Resources */ = {isa = PBXBuildFile; fileRef = C3E728F51F06671B006203A8 /* isotip.png */; };
+		E689768FEAE107208BBC8ED9 /* Pods_SMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76418B7CAE3F6027679F008 /* Pods_SMS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C2C955866E28B340F8E0309 /* Pods-SMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMS/Pods-SMS.release.xcconfig"; sourceTree = "<group>"; };
+		73148D13B6370238CC4A32E1 /* Pods-SMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMS/Pods-SMS.debug.xcconfig"; sourceTree = "<group>"; };
 		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C33A1BE21F2C006500B6B744 /* favMarcado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favMarcado.png; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapaVinaPlantacasino2.png; sourceTree = "<group>"; };
 		C3C12F941F2B9E7A00D01AD4 /* pinilla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinilla.png; sourceTree = "<group>"; };
 		C3E728F51F06671B006203A8 /* isotip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isotip.png; sourceTree = "<group>"; };
+		F76418B7CAE3F6027679F008 /* Pods_SMS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,17 +91,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E689768FEAE107208BBC8ED9 /* Pods_SMS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53F9788938B54563D1DC5A23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F76418B7CAE3F6027679F008 /* Pods_SMS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C34BA8711F04173500022E6B = {
 			isa = PBXGroup;
 			children = (
 				C34BA87C1F04173500022E6B /* SMS */,
 				C34BA87B1F04173500022E6B /* Products */,
+				E1CBA84F3738331F549B0449 /* Pods */,
+				53F9788938B54563D1DC5A23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,6 +190,15 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		E1CBA84F3738331F549B0449 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				73148D13B6370238CC4A32E1 /* Pods-SMS.debug.xcconfig */,
+				1C2C955866E28B340F8E0309 /* Pods-SMS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -182,9 +206,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C34BA88F1F04173500022E6B /* Build configuration list for PBXNativeTarget "SMS" */;
 			buildPhases = (
+				478175F02A308A23A12C08F7 /* [CP] Check Pods Manifest.lock */,
 				C34BA8761F04173500022E6B /* Sources */,
 				C34BA8771F04173500022E6B /* Frameworks */,
 				C34BA8781F04173500022E6B /* Resources */,
+				98D945658E6B2E5E18009630 /* [CP] Embed Pods Frameworks */,
+				D4F1C66418CC97C56A99FD06 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -260,6 +287,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		478175F02A308A23A12C08F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		98D945658E6B2E5E18009630 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMS/Pods-SMS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4F1C66418CC97C56A99FD06 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMS/Pods-SMS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C34BA8761F04173500022E6B /* Sources */ = {
@@ -399,6 +474,7 @@
 		};
 		C34BA8901F04173500022E6B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73148D13B6370238CC4A32E1 /* Pods-SMS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = U5A54XUB2N;
@@ -412,6 +488,7 @@
 		};
 		C34BA8911F04173500022E6B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C2C955866E28B340F8E0309 /* Pods-SMS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = U5A54XUB2N;
