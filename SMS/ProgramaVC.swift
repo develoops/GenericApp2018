@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import CoreData
-
+//import CoreData
+import Parse
 
 class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
@@ -18,7 +18,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var diaControl: UILabel!
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
-    var eventosFiltrados = [Evento]()
+    var eventosFiltrados = [PFObject]()
     var indicador = 0
 
     override func viewDidLoad() {
@@ -170,19 +170,19 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let evento = eventosFiltrados[indexPath.row]
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
 
-        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
+        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
-        vc.evento = evento
+      //  vc.evento = evento
         
-        if(evento.tipo == "Conferencia")
+        if(evento["tipo"] as! String == "Conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento.tipo == "Social") {
+        else if (evento["tipo"] as! String == "Social") {
             
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
@@ -195,23 +195,18 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
-    func getContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
     
-    func eventos() ->[Evento]{
-        
-        let employeesFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Evento")
+    func eventos() ->[PFObject]{
         
         do {
-            let fetchedEventos = try getContext().fetch(employeesFetch) as! [Evento]
-            
-            return fetchedEventos
+            let eventosQuery =  PFQuery(className: "Clase")
+
+            return try eventosQuery.findObjects()
             
         } catch {
             fatalError("Fallo: \(error)")
         }
+    
     }
     
     func diasPrograma() ->[String]{
@@ -219,8 +214,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         var diasPrograma = [String]()
         for index in 0...(eventos().count - 1) {
             
-            let fecha = eventos()[index].inicio
-            let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha!)
+            let fecha = eventos()[index]["inicio"]
+            let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha! as! NSDate)
             diasPrograma.append(fechaString)
         }
         let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
@@ -234,8 +229,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         for index in 0...(eventos().count - 1) {
             
-            let fecha = eventos()[index].inicio
-            let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha!)
+            let fecha = eventos()[index]["inicio"]
+            let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
             diasPrograma.append(fechaString)
         }
         
@@ -284,7 +279,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func cambiarFavorito(sender: UIButton!){
         let evento = eventosFiltrados[sender.tag]
-        if evento.favorito == true {
+        if evento["favorito"] as! Bool == true {
             evento.setValue(false, forKey: "favorito")
             sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
             
@@ -294,7 +289,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
            sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
         }
         do {
-            try getContext().save()
+//            try getContext().save()
         } catch {
             fatalError("Failure to save context: \(error)")
         }
@@ -302,11 +297,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
     func filtrarArray(indicador:Int) {
-        let date = dateFormatter.formatoAnoMesDiaDate(string:diasProgramaDate()[indicador])
+        let date1 = dateFormatter.formatoAnoMesDiaDate(string:diasProgramaDate()[indicador])
         
         let filteredArray = eventos().filter() {
             
-            return $0.inicio?.compare((date.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && $0.inicio?.compare(date) == ComparisonResult.orderedDescending
+            return ($0["inicio"] as AnyObject).compare((date1.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && ($0["inicio"] as AnyObject).compare(date1) == ComparisonResult.orderedDescending
         }
         
         eventosFiltrados = filteredArray
