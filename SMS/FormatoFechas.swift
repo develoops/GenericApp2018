@@ -14,7 +14,6 @@ extension DateFormatter {
     func formatoHoraMinutoString(fecha:NSDate) -> String {
         
         self.dateFormat = "HH:mm"
-//        fecha.addingTimeInterval(-978296400)
         return self.string(from: fecha.addingTimeInterval(60*60*2) as Date)
     }
 

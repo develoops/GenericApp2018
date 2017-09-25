@@ -25,14 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.clientKey = "Kt8tpCc4XK3APky1JsHa53fYjHMwWK9bCMPy7FvC"
             $0.server = "https://parseapi.back4app.com"
         }
-        Parse.initialize(with: configuration)
-//        let query = PFQuery(className: "Clase")
-//        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-//            
-//            print(task.result as Any)
-//            return task
-//        })
-        
+        Parse.initialize(with: configuration)        
         return true
     }
 

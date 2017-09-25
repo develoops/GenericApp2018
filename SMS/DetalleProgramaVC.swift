@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import CoreData
+//import CoreData
+import Parse
 
 class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
    
@@ -25,7 +26,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
-    var evento:Evento!
+    var evento:PFObject!
 
 
     override func viewDidLoad() {
@@ -47,7 +48,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
-        labelTituloDetallePrograma.text = evento.nombre
+        labelTituloDetallePrograma.text = evento["nombre"] as? String
         labelTituloDetallePrograma?.textAlignment = .left
         labelTituloDetallePrograma.numberOfLines = 0
         labelTituloDetallePrograma?.sizeToFit()
@@ -75,14 +76,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelLugarDetallePrograma.sizeThatFits(maximumLabelSizeLugar)
-        labelLugarDetallePrograma.text = evento.lugar
+        labelLugarDetallePrograma.text = evento["lugar"] as? String
         labelLugarDetallePrograma?.textAlignment = .left
         labelLugarDetallePrograma.numberOfLines = 0
         labelLugarDetallePrograma?.sizeToFit()
         
         
         
-        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * (evento.personas?.allObjects.count)!))
+        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * ((evento["personas"] as! NSArray).count)))
 
         self.tabla.isScrollEnabled = false
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
@@ -90,7 +91,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
-        textViewInfoDetallePrograma.text = evento.descripcion
+        textViewInfoDetallePrograma.text = evento["descripcion"] as! String
         textViewInfoDetallePrograma?.textAlignment = .left
         textViewInfoDetallePrograma?.sizeToFit()
 
@@ -110,14 +111,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
-        if (evento.lugar == "Salón Piccadilly y Esmeralda"){
+        if (evento["lugar"] as! String == "Salón Piccadilly y Esmeralda"){
             vc.nombreMapa = "mapaVinaPlantacasino2.png"
         }
         else{
             vc.nombreMapa = "mapaVinapiso3.png"
 
         }
-        vc.nombreSalon = evento.lugar
+        vc.nombreSalon = evento["lugar"] as! String
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
@@ -130,8 +131,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let personas = evento["personas"] as! NSArray
         
-        return (evento.personas?.allObjects.count)!
+        return personas.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -143,17 +145,23 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let persona = evento.personas?.allObjects[indexPath.row] as! Persona
-        
-        cell.labelNombre.text = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
+        let personas = evento["personas"] as! NSArray
 
-        cell.labelRol.text = persona.rol
-        if (persona.imagenPerfil?.length == 4) {
+        let persona = personas.object(at: indexPath.row) as! PFObject
+        
+        cell.labelNombre.text = (persona["tratamiento"] as! String) + " " + (persona["nombre"] as! String) + " " + (persona["apellido"] as! String)
+
+        cell.labelRol.text = persona["rol"] as? String
+        
+        
+        if (persona["imagenPerfil"] == nil) {
             
             cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            cell.imagenPerfil.image = UIImage(data: persona.imagenPerfil! as Data)
+            print(persona["imagenPerfil"])
+            cell.imagenPerfil.image = UIImage(data: persona["imagenPerfil"] as! Data)
+            
         }
 
         return cell
@@ -163,7 +171,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
         
-        if evento.favorito == true {
+        if evento["favorito"] as! Bool == true {
         
         barBotonFavorito = UIBarButtonItem(image: UIImage(named: "favMarcado.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
@@ -175,7 +183,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
 
     func cambiarFavorito(sender: UIBarButtonItem!){
-        if evento.favorito == true {
+        if evento["favorito"] as! Bool == true {
             evento.setValue(false, forKey: "favorito")
             sender.image = UIImage(named: "btnFavorito.png")
         }
@@ -183,19 +191,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             evento.setValue(true, forKey: "favorito")
             sender.image = UIImage(named: "favMarcado.png")
         }
-        do {
-            try getContext().save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
+        evento.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            return task
+        })
     }
     
-    func getContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

@@ -211,7 +211,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
         vc.hora = fechaInicio + " - " + fechaFin
-        vc.evento = evento
+       // vc.evento = evento
         if(evento.tipo == "Conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
