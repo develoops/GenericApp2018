@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -19,7 +20,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     @IBOutlet weak var imagenPersona: UIImageView!
 
     var nombrePersona:String!
-    var charlasArray: NSArray!
+    var charlasArray: [PFObject]!
     var institucion: String!
     var lugarPersona: String!
     var info:String!
@@ -32,6 +33,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         labelNombreDetallePersona.text = nombrePersona
         labelLugarPersonaDetallePersona.text = lugarPersona
@@ -104,7 +106,14 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return charlasArray.count
+        if let charlasArray = charlasArray {
+            return charlasArray.count
+        }
+
+        else{
+         
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -115,17 +124,17 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        let evento =  charlasArray.object(at: indexPath.row) as! Evento
+        let evento =  charlasArray[indexPath.row]
         
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
         
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
         cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
-        cell.labelTitulo.text = evento.nombre
+        cell.labelTitulo.text = evento["nombre"] as? String
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
@@ -146,22 +155,32 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
         cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
-        cell.labelLugar.text = evento.lugar
+        cell.labelLugar.text = evento["lugar"] as? String
         cell.labelLugar?.textAlignment = .left
         cell.labelLugar.numberOfLines = 0
         cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
-        if(evento.personas?.allObjects.count != 0){
+        if((evento["personas"] as! [PFObject]).count != 0){
+            
             
             var personasString = String()
-            for object in (evento.personas?.allObjects)!{
+            print(evento["personas"])
+            let personas = evento["personas"] as! NSArray
+            
+            
+            for object in (personas){
                 
-                let persona = object as! Persona
+                let persona = object as! PFObject
+                persona.fetchIfNeededInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
+                    
                 
-                personasString.append((persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)! + "\n")
-                personasTamano = personasTamano + (28 / (evento.personas?.allObjects.count)!)
-                
+                personasString.append((persona["tratamiento"] as? String)! + " " + (persona["nombre"] as? String)! + " " + (persona["apellido"] as! String) + "\n")
+                personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
+            
+                return task
+            })
+
             }
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
@@ -181,12 +200,12 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
-        if(evento.tipo == "Conferencia")
+        if(evento["tipo"] as! String == "Conferencia")
         {
             colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento.tipo == "Social") {
+        else if (evento["tipo"] as! String == "Social") {
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
@@ -203,22 +222,22 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let evento =  charlasArray.object(at: indexPath.row) as! Evento
+        let evento =  charlasArray[indexPath.row] 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento.inicio!)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento.fin!)
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
         
-        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento.inicio!)
+        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
        // vc.evento = evento
-        if(evento.tipo == "Conferencia")
+        if(evento["tipo"] as! String == "Conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
-            
-        else if (evento.tipo == "Social") {
-            
+        
+        if(evento["tipo"] as! String == "Social"){
+        
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
         }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import CoreData
 import Parse
 
 class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
@@ -171,7 +170,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
         
-        if evento["favorito"] as! Bool == true {
+        if evento["favorito"] as? Bool == true {
         
         barBotonFavorito = UIBarButtonItem(image: UIImage(named: "favMarcado.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
@@ -183,7 +182,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
 
     func cambiarFavorito(sender: UIBarButtonItem!){
-        if evento["favorito"] as! Bool == true {
+        if evento["favorito"] as? Bool == true {
             evento.setValue(false, forKey: "favorito")
             sender.image = UIImage(named: "btnFavorito.png")
         }

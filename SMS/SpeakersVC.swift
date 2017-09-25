@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreData
+import Parse
 
 class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -53,34 +53,26 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelNombre.font = UIFont.systemFont(ofSize: 16.0)
-        cell.labelNombre.text = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
+        cell.labelNombre.text = (persona["tratamiento"] as! String) + " " + (persona["nombre"] as! String) + " " + (persona["apellido"] as! String)
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
 
         cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-        cell.labelLugarPersona?.text = persona.procedencia
+        cell.labelLugarPersona?.text = persona["procedencia"] as? String
 
-        cell.labelInstitucion?.text = persona.institucion
-
+        cell.labelInstitucion?.text = persona["institucion"] as? String
         cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
-
-        if (persona.imagenPerfil?.length == 4) {
+        
+        if (persona["imagenPerfil"] == nil) {
             
             cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
         }
-        else if (persona.imagenPerfil?.length == nil) {
-            
-            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
-        }
-
         else{
-            cell.imagenPerfil.image = UIImage(data: persona.imagenPerfil! as Data)
+            print(persona["imagenPerfil"])
+            cell.imagenPerfil.image = UIImage(data: persona["imagenPerfil"] as! Data)
+            
         }
-        
-//    tamanoCelda = cell.labelNombre.frame.size.height + cell.labelLugar.frame.size.height + (cell.labelInstitucion?.frame.size.height)! + 20.0
-
-        
         return cell
     }
     
@@ -90,66 +82,45 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let vc = storyboard.instantiateViewController(withIdentifier: "detallePersonaVC") as! DetallePersonaVC
         let persona = personas()[indexPath.row]
                 
-        vc.nombrePersona = (persona.tratamiento)! + " " + (persona.nombre)! + " " + (persona.apellido)!
-        vc.institucion = persona.institucion
-        vc.rol = persona.rol
-        vc.lugarPersona = persona.procedencia
-        vc.info = persona.bio
-        vc.charlasArray = (persona.eventos?.allObjects)! as NSArray
+        vc.nombrePersona = (persona["tratamiento"] as! String) + " " + (persona["nombre"] as! String) + " " + (persona["apellido"] as! String)
+        vc.institucion = persona["institucion"] as? String
+        vc.rol = persona["rol"] as? String
+        vc.lugarPersona = persona["procedencia"] as? String
+        vc.info = persona["bio"] as? String
 
+        let eventosPersona = persona["eventos"] as! [PFObject]
         
-        if (persona.imagenPerfil?.length == 4) {
+        vc.charlasArray = eventosPersona
+        
+        if (persona["imagenPerfil"] == nil) {
             
             vc.imagen = UIImage(named: "Ponente_ausente_Hombre.png")
         }
-        else if (persona.imagenPerfil?.length == nil) {
-            
-            vc.imagen = UIImage(named: "Ponente_ausente_Hombre.png")
-        }
-            
         else{
-            vc.imagen = UIImage(data: persona.imagenPerfil! as Data)
+            print(persona["imagenPerfil"])
+            vc.imagen = UIImage(data: persona["imagenPerfil"] as! Data)
+            
         }
-
 
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
     
 
-    func getContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
+    func personas() ->[PFObject]{
+        
+        do {
+            let personasQuery =  PFQuery(className:"Persona")
+          //  personasQuery.fromLocalDatastore()
+            personasQuery.includeKey("eventos")
+            return try personasQuery.findObjects()
+            
+        } catch {
+            fatalError("Fallo: \(error)")
+        }
+        
     }
     
-    func personas() ->[Persona]{
-        
-        let employeesFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Persona")
-        let sortDescriptor = NSSortDescriptor(key: "apellido", ascending: true)
-        employeesFetch.sortDescriptors = [sortDescriptor]
-
-        do {
-            let fetchedEventos = try getContext().fetch(employeesFetch) as! [Persona]
-            
-            return fetchedEventos
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-    }
-    func eventos() ->[Evento]{
-        
-        let employeesFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Evento")
-        
-        do {
-            let fetchedEventos = try getContext().fetch(employeesFetch) as! [Evento]
-            
-            return fetchedEventos
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-    }
         override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

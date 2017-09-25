@@ -181,7 +181,8 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let filtroFavoritos = NSPredicate(format: "favorito == %@", NSNumber(value: true))
         do {
-            let eventosQuery =  PFQuery(className: "Clase", predicate: filtroFavoritos)
+            let eventosQuery =  PFQuery(className: "Evento", predicate: filtroFavoritos)
+          //  eventosQuery.fromLocalDatastore()
             eventosQuery.includeKey("personas")
             
             return try eventosQuery.findObjects()

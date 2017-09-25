@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Parse
 class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tabla: UITableView!
@@ -18,7 +18,7 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
     var fon:String!
     var we:String!
     var info:String!
-    var imagen:UIImage!
+    var imagen:PFFile!
 
     var arrayInfoPatrocinadores = NSMutableArray()
     
@@ -61,11 +61,16 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         let encabezado = objetoInfo.first as? String
         
         if(encabezado == "imagen"){
-            
+            let imagen = objetoInfo.last as? PFFile
             cell.labelTitulo?.text = ""
             cell.infoDetallePatrocinador?.text = ""
             cell.imagenPerfil.isHidden = false
-            cell.imagenPerfil.image = objetoInfo.last as? UIImage
+            imagen?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                
+                return task
+                
+            })
             cell.imagenPerfil.frame = CGRect(x: 100.0, y: 20.0, width: 550.0/3, height: 250.0/3)
             
         }

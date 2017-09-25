@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import Bolts
 import Parse
 
@@ -21,69 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Thread.sleep(forTimeInterval: 3.0)
         
         let configuration = ParseClientConfiguration {
-            $0.applicationId = "fJdyYQHNfWWqvC1NbgqlMTvNhbpWWFynRhYWt3oT"
-            $0.clientKey = "Kt8tpCc4XK3APky1JsHa53fYjHMwWK9bCMPy7FvC"
+//            $0.isLocalDatastoreEnabled = true
+            $0.applicationId = "iOXJQbQMF2gDMHb4sFHNGvaVkN3ILoLxPvvsAFVr"
+            $0.clientKey = "UnHbd5aNiE89zalzgT1i8OtcHDdsTOVNMvYvowgm"
             $0.server = "https://parseapi.back4app.com"
         }
-        Parse.initialize(with: configuration)        
+        Parse.initialize(with: configuration)
+        
         return true
     }
 
        func applicationWillTerminate(_ application: UIApplication) {
-        self.saveContext()
     }
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        
-        let container = NSPersistentContainer(name: "SMS")
-        
-        let seededData: String = "SMS"
-        var persistentStoreDescriptions: NSPersistentStoreDescription
-        
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        
-        let storeurl = URL(fileURLWithPath: paths).appendingPathComponent("SMS.sqlite")
-        
-        if(!FileManager.default.fileExists(atPath: storeurl.path)){
-            
-            var preloadUrl = NSURL.fileURL(withPath: Bundle.main.path(forResource:"SMS", ofType: "sqlite")!)
-            do {
-                try FileManager.default.copyItem(at: preloadUrl, to: storeurl)
-            } catch let error as NSError {
-                print("Error: \(error)")
-            }
-        }
-
-        if !FileManager.default.fileExists(atPath: (storeurl.path)) {
-            let seededDataUrl = Bundle.main.url(forResource: seededData, withExtension: "sqlite")
-            try! FileManager.default.copyItem(at: seededDataUrl!, to: storeurl)
-            
-        }
-        
-        
-        container.persistentStoreDescriptions = [NSPersistentStoreDescription(url: storeurl)]
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error {
-                
-                fatalError("Unresolved error \(error),")
-            }
-        })
-        
-        return container
-        
-    }()
-    
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
 }
 

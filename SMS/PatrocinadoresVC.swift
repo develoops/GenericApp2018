@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreData
+import Parse
 
 class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -48,12 +48,20 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
 
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        cell.labelNombre.text = patrocinador.nombre
-        if(patrocinador.imagenPerfil == nil){
+        cell.labelNombre.text = patrocinador["nombre"] as? String
+        if(patrocinador["imagenPerfil"] == nil){
             cell.imagenPerfil.image = UIImage(named: "")
 }
         else{
-            cell.imagenPerfil.image = UIImage(data: patrocinador.imagenPerfil! as Data)
+            let imagen = patrocinador["imagenPerfil"] as! PFFile
+            
+            
+            imagen.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+               
+                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                
+               return task.result
+            })
         }
         
         return cell
@@ -66,17 +74,17 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detallePatrocinadorVC") as! DetallePatrocinadorVC
         
-        vc.nombrePatrocinador = patrocinador.nombre
-        vc.info = patrocinador.bio
-        vc.direc = patrocinador.direccion
-        vc.we = patrocinador.sitioWeb
-        vc.fon = patrocinador.telefono
+        vc.nombrePatrocinador = patrocinador["nombre"] as? String
+        vc.info = patrocinador["bio"] as? String
+        vc.direc = patrocinador["direccion"] as? String
+        vc.we = patrocinador["sitioWeb"] as? String
+        vc.fon = patrocinador["telefono"] as? String
         
-        if(patrocinador.imagenFondo?.description == "<6e756c6c>"){
-            vc.imagen = UIImage(data: patrocinador.imagenPerfil! as Data)
+        if(patrocinador["imagenFondo"] == nil){
+            vc.imagen = patrocinador["imagenPerfil"] as! PFFile
         }
         else{
-            vc.imagen = UIImage(data: patrocinador.imagenFondo! as Data)
+            vc.imagen = patrocinador["imagenFondo"] as! PFFile
         }
 
 
@@ -84,19 +92,12 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                                                  animated: true)
     }
     
-    func getContext () -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
-    
-    func patrocinadores() ->[Organizacion]{
-        
-        let orgFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Organizacion")
+    func patrocinadores() ->[PFObject]{
         
         do {
-            let fetchedOrg = try getContext().fetch(orgFetch) as! [Organizacion]
-            
-            return fetchedOrg
+            let patrocinadoresQuery =  PFQuery(className:"Organizacion")
+           // patrocinadoresQuery.includeKey("eventos")
+            return try patrocinadoresQuery.findObjects()
             
         } catch {
             fatalError("Fallo: \(error)")

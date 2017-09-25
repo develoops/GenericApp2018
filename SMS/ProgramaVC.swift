@@ -159,7 +159,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
         
-        if evento["favorito"] as! Bool == true {
+        if evento["favorito"] as? Bool == true {
             cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
         }
         else{
@@ -204,7 +204,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     func eventos() ->[PFObject]{
         
         do {
-            let eventosQuery =  PFQuery(className: "Clase")
+            let eventosQuery =  PFQuery(className: "Evento")
+           // eventosQuery.fromLocalDatastore()
             eventosQuery.includeKey("personas")
             return try eventosQuery.findObjects()
             
@@ -283,7 +284,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func cambiarFavorito(sender: UIButton!){
         let evento = eventosFiltrados[sender.tag]
-        if (evento["favorito"] as! Bool == true) {
+        if (evento["favorito"] as? Bool == true) {
             evento.setValue(false, forKey: "favorito")
             sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
             
