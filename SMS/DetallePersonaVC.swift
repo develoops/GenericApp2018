@@ -165,7 +165,6 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             
             var personasString = String()
-            print(evento["personas"])
             let personas = evento["personas"] as! NSArray
             
             
@@ -230,7 +229,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
-       // vc.evento = evento
+        vc.evento = evento
         if(evento["tipo"] as! String == "Conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)

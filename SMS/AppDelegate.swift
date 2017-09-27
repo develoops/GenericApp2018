@@ -20,14 +20,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Thread.sleep(forTimeInterval: 3.0)
         
         let configuration = ParseClientConfiguration {
-//            $0.isLocalDatastoreEnabled = true
+            $0.isLocalDatastoreEnabled = true
             $0.applicationId = "iOXJQbQMF2gDMHb4sFHNGvaVkN3ILoLxPvvsAFVr"
             $0.clientKey = "UnHbd5aNiE89zalzgT1i8OtcHDdsTOVNMvYvowgm"
             $0.server = "https://parseapi.back4app.com"
         }
         Parse.initialize(with: configuration)
+    
+        let query = PFQuery(className: "Evento")
+        let query2 = PFQuery(className: "Persona")
+
+        let  queryCollections = [query,query2]
         
-        return true
+        let results = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        
+            return PFObject.pinAll(inBackground: task.result as? [PFObject])
+        })
+    }
+        
+       // print(results)
+        
+        
+    return true
+    }
+
+    
+       
+    func fetchAsync(object: PFQuery<PFObject>) -> BFTask<AnyObject> {
+        let task = BFTaskCompletionSource<AnyObject>()
+        object.findObjectsInBackground()
+        return task.task
     }
 
        func applicationWillTerminate(_ application: UIApplication) {

@@ -22,6 +22,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         tabla.delegate = self
         tabla.dataSource = self
         botonAvanzar.addTarget(self, action: #selector(avanzar), for: .touchUpInside)
@@ -109,9 +111,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             
             var personasString = String()
-            print(evento["personas"])
             let personas = evento["personas"] as! NSArray
-            
             
             for object in (personas){
                 
@@ -201,26 +201,64 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                                                  animated: true)
     }
     
-    func eventos() ->[PFObject]{
+//    func eventos() ->[PFObject]{
+//        
+//        let eventosQuery =  PFQuery(className: "Evento")
+//        eventosQuery.fromLocalDatastore()
+//        eventosQuery.includeKey("personas")
+//
+////    return fetchAsync(query: eventosQuery).continue { (task:BFTask<AnyObject>) -> Any? in
+////            return task.result as! [PFObject]
+////            
+////        }
+////        
+//        
+////       return fetchAsync(query: eventosQuery).continue({ (tas:BFTask<AnyObject>) -> Any? in
+////        
+////            print(task.result as Any)
+////            return task
+////        })
+////        
+////        
+////        
+//        return [ ]
+//        
+//    }
+//    
+    func eventos() ->AnyObject{
         
-        do {
-            let eventosQuery =  PFQuery(className: "Evento")
-           // eventosQuery.fromLocalDatastore()
-            eventosQuery.includeKey("personas")
-            return try eventosQuery.findObjects()
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-    
+        let eventosQuery =  PFQuery(className: "Evento")
+        eventosQuery.fromLocalDatastore()
+        eventosQuery.includeKey("personas")
+        
+        return fetchAsync(query: eventosQuery).continue({ (task:BFTask<AnyObject>) -> Any? in
+            return task.result as! [PFObject]
+        })
+        
     }
     
-    func diasPrograma() ->[String]{
-        
-        var diasPrograma = [String]()
-        for index in 0...(eventos().count - 1) {
+    
+    func fetchAsync(query: PFQuery<PFObject>) -> BFTask<AnyObject> {
+        let task = BFTaskCompletionSource<AnyObject>()
+
+        do {
+             task.setResult(try query.findObjects() as AnyObject )
             
-            let fecha = eventos()[index]["inicio"]
+        } catch {
+            task.setError("Fallo: \(error)" as! Error)
+        }
+        
+        return task.task
+    }
+
+    
+    func diasPrograma() ->[String]{
+        let results = eventos() 
+        let eventosP = results.value(forKeyPath: "result") as! [PFObject]
+
+        var diasPrograma = [String]()
+        for index in 0...(eventosP.count - 1) {
+            let fecha = eventosP[index]["inicio"]
             let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha! as! NSDate)
             diasPrograma.append(fechaString)
         }
@@ -232,10 +270,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     func diasProgramaDate() ->[String]{
         
         var diasPrograma = [String]()
-        
-        for index in 0...(eventos().count - 1) {
-            
-            let fecha = eventos()[index]["inicio"]
+        let results = eventos()
+        let eventosP = results.value(forKeyPath: "result") as! [PFObject]
+
+        for index in 0...(eventosP.count - 1) {
+
+            let fecha = eventosP[index]["inicio"]
             let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
             diasPrograma.append(fechaString)
         }
@@ -301,9 +341,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
     func filtrarArray(indicador:Int) {
+        let results = eventos()
+        let eventosP = results.value(forKeyPath: "result") as! [PFObject]
+
         let date1 = dateFormatter.formatoAnoMesDiaDate(string:diasProgramaDate()[indicador])
         
-        let filteredArray = eventos().filter() {
+        let filteredArray = eventosP.filter() {
             
             return ($0["inicio"] as AnyObject).compare((date1.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && ($0["inicio"] as AnyObject).compare(date1) == ComparisonResult.orderedDescending
         }

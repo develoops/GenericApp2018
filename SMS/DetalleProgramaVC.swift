@@ -20,7 +20,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
     @IBOutlet weak var botonMapa: UIButton!
 
-
     var hora: String!
     var dia:String!
     var colorFondo:UIColor!
@@ -29,7 +28,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
 
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        
+        
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
         labelTituloDetallePrograma.textColor = UIColor.white

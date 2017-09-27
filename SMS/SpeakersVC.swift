@@ -88,7 +88,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         vc.lugarPersona = persona["procedencia"] as? String
         vc.info = persona["bio"] as? String
 
-        let eventosPersona = persona["eventos"] as! [PFObject]
+        let eventosPersona = persona["eventos"] as? [PFObject]
         
         vc.charlasArray = eventosPersona
         
@@ -111,7 +111,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         do {
             let personasQuery =  PFQuery(className:"Persona")
-          //  personasQuery.fromLocalDatastore()
+            personasQuery.fromLocalDatastore()
             personasQuery.includeKey("eventos")
             return try personasQuery.findObjects()
             
