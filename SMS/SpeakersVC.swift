@@ -57,7 +57,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
-
+        
         cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
         cell.labelLugarPersona?.text = persona["procedencia"] as? String
 

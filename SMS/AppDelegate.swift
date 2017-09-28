@@ -29,16 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let query = PFQuery(className: "Evento")
         let query2 = PFQuery(className: "Persona")
+        let query3 = PFQuery(className: "Organizacion")
 
-        let  queryCollections = [query,query2]
+
+        let  queryCollections = [query,query2,query3]
         
-        let results = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        _ = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
         
             return PFObject.pinAll(inBackground: task.result as? [PFObject])
         })
     }
         
-       // print(results)
         
         
     return true

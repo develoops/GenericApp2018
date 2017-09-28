@@ -201,30 +201,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                                                  animated: true)
     }
     
-//    func eventos() ->[PFObject]{
-//        
-//        let eventosQuery =  PFQuery(className: "Evento")
-//        eventosQuery.fromLocalDatastore()
-//        eventosQuery.includeKey("personas")
-//
-////    return fetchAsync(query: eventosQuery).continue { (task:BFTask<AnyObject>) -> Any? in
-////            return task.result as! [PFObject]
-////            
-////        }
-////        
-//        
-////       return fetchAsync(query: eventosQuery).continue({ (tas:BFTask<AnyObject>) -> Any? in
-////        
-////            print(task.result as Any)
-////            return task
-////        })
-////        
-////        
-////        
-//        return [ ]
-//        
-//    }
-//    
     func eventos() ->AnyObject{
         
         let eventosQuery =  PFQuery(className: "Evento")
@@ -234,10 +210,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return fetchAsync(query: eventosQuery).continue({ (task:BFTask<AnyObject>) -> Any? in
             return task.result as! [PFObject]
         })
-        
     }
-    
-    
+
     func fetchAsync(query: PFQuery<PFObject>) -> BFTask<AnyObject> {
         let task = BFTaskCompletionSource<AnyObject>()
 
