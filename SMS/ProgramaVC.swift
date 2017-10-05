@@ -9,6 +9,12 @@
 import UIKit
 import Parse
 
+extension Array {
+    func containss<T>(obj: T) -> Bool where T : Equatable {
+        return self.filter({$0 as? T == obj}).count > 0
+    }
+}
+
 class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     @IBOutlet weak var tabla: UITableView!
@@ -18,25 +24,57 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
     var eventosFiltrados = [PFObject]()
+    var personas = [PFObject]()
+    var eventosVarLocal = [PFObject]()
     var indicador = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        tabla.delegate = self
-        tabla.dataSource = self
-        botonAvanzar.addTarget(self, action: #selector(avanzar), for: .touchUpInside)
-        botonRetroceder.addTarget(self, action: #selector(retroceder), for: .touchUpInside)
-        botonRetroceder.isHidden = true
-        diaControl.text = diasPrograma()[indicador]
-        filtrarArray(indicador: indicador)
-        
-        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
-        colorFondoHeaderDetalle.backgroundColor = UIColor(red: 194/255.0, green: 206/255.0, blue: 210/255.0, alpha: 1.0)
-        self.view.addSubview(colorFondoHeaderDetalle)
-        view.sendSubview(toBack: colorFondoHeaderDetalle)
+        self.tabla.delegate = self
+        self.tabla.dataSource = self
+
+        self.personas = self.personasQuery()
+        let eventosQuery =  PFQuery(className: "ActContAct")
+//        eventosQuery.fromLocalDatastore()
+        eventosQuery.includeKey("contenido")
+        eventosQuery.includeKey("contenedor")
+        eventosQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            
+            let actCollection = task.result as! [PFObject]
+            let contenido = actCollection.map{$0.value(forKey: "contenido") as! PFObject}
+
+            let a = contenido.map{$0.objectId}
+            
+            let query = PFQuery(className: "Actividad")
+            
+            return query.findObjectsInBackground().continue({ (taskActividades:BFTask<NSArray>) -> Any? in
+                
+                let actividades = taskActividades.result as! [PFObject]
+                
+                print(actividades)
+                
+                self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
+                }
+                DispatchQueue.main.async() {
+                    self.botonAvanzar.addTarget(self, action: #selector(self.avanzar), for: .touchUpInside)
+                    self.botonRetroceder.addTarget(self, action: #selector(self.retroceder), for: .touchUpInside)
+                    self.botonRetroceder.isHidden = true
+                    self.diaControl.text = self.diasPrograma()[self.indicador]
+                    self.filtrarArray(indicador: self.indicador)
+                    let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
+                    colorFondoHeaderDetalle.backgroundColor = UIColor(red: 194/255.0, green: 206/255.0, blue: 210/255.0, alpha: 1.0)
+                    
+                    self.view.addSubview(colorFondoHeaderDetalle)
+                    self.view.sendSubview(toBack: colorFondoHeaderDetalle)
+                }
+                
+                return taskActividades
+            })
+        })
     }
+    
+    
     
       override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
@@ -69,7 +107,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-
         let evento = eventosFiltrados[indexPath.row]
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
@@ -107,18 +144,17 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         var personasTamano = Int()
         
-        if((evento["personas"] as! [PFObject]).count != 0){
+        if(personas.count != 0){
             
             
             var personasString = String()
-            let personas = evento["personas"] as! NSArray
             
             for object in (personas){
                 
-                let persona = object as! PFObject
+                let persona = object
                 
-                personasString.append((persona["tratamiento"] as? String)! + " " + (persona["nombre"] as? String)! + " " + (persona["apellido"] as! String) + "\n")
-            personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
+                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
+            personasTamano = personasTamano + (28 / personas.count)
         }
             
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
@@ -139,19 +175,19 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
        
         var colorImage = UIColor()
-        if(evento["tipo"] as! String == "Conferencia")
+        
+        if(evento["tipo"] as? String == "conferencia")
         {
             colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento["tipo"] as! String == "Social") {
+        else if (evento["tipo"] as? String == "social") {
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
 
         }
         else{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
-
         }
         
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
@@ -165,7 +201,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         else{
             cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
         }
-        
         return cell
     }
 
@@ -181,6 +216,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
+        vc.personas = personas
         
         if(evento["tipo"] as! String == "Conferencia")
         {
@@ -201,39 +237,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                                                  animated: true)
     }
     
-    func eventos() ->AnyObject{
-        
-        let eventosQuery =  PFQuery(className: "Evento")
-        eventosQuery.fromLocalDatastore()
-        eventosQuery.includeKey("personas")
-        
-        return fetchAsync(query: eventosQuery).continue({ (task:BFTask<AnyObject>) -> Any? in
-            return task.result as! [PFObject]
-        })
-    }
-
-    func fetchAsync(query: PFQuery<PFObject>) -> BFTask<AnyObject> {
-        let task = BFTaskCompletionSource<AnyObject>()
-
-        do {
-             task.setResult(try query.findObjects() as AnyObject )
-            
-        } catch {
-            task.setError("Fallo: \(error)" as! Error)
-        }
-        
-        return task.task
-    }
-
-    
     func diasPrograma() ->[String]{
-        let results = eventos() 
-        let eventosP = results.value(forKeyPath: "result") as! [PFObject]
-
+        
         var diasPrograma = [String]()
-        for index in 0...(eventosP.count - 1) {
-            let fecha = eventosP[index]["inicio"]
-            let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha! as! NSDate)
+        for index in 0...(eventosVarLocal.count - 1) {
+            let fecha = eventosVarLocal[index]["inicio"] as? NSDate
+            let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha!)
             diasPrograma.append(fechaString)
         }
         let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
@@ -244,12 +253,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     func diasProgramaDate() ->[String]{
         
         var diasPrograma = [String]()
-        let results = eventos()
-        let eventosP = results.value(forKeyPath: "result") as! [PFObject]
 
-        for index in 0...(eventosP.count - 1) {
+        for index in 0...(eventosVarLocal.count - 1) {
 
-            let fecha = eventosP[index]["inicio"]
+            let fecha = eventosVarLocal[index]["inicio"]
             let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
             diasPrograma.append(fechaString)
         }
@@ -315,12 +322,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
     func filtrarArray(indicador:Int) {
-        let results = eventos()
-        let eventosP = results.value(forKeyPath: "result") as! [PFObject]
 
         let date1 = dateFormatter.formatoAnoMesDiaDate(string:diasProgramaDate()[indicador])
         
-        let filteredArray = eventosP.filter() {
+        let filteredArray = eventosVarLocal.filter() {
             
             return ($0["inicio"] as AnyObject).compare((date1.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && ($0["inicio"] as AnyObject).compare(date1) == ComparisonResult.orderedDescending
         }
@@ -352,7 +357,18 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
 
     
+    func personasQuery() -> [PFObject] {
     
+        let queryPersona = PFQuery(className: "Persona")
+        queryPersona.limit = 2
+        do {
+            return try queryPersona.findObjects()
+            
+        } catch {
+            fatalError("Fallo: \(error)")
+        }
+    }
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

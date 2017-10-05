@@ -95,7 +95,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     func patrocinadores() ->[PFObject]{
         
         do {
-            let patrocinadoresQuery =  PFQuery(className:"Organizacion")
+            let patrocinadoresQuery =  PFQuery(className:"Org")
             patrocinadoresQuery.fromLocalDatastore()
             return try patrocinadoresQuery.findObjects()
             

@@ -21,18 +21,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let configuration = ParseClientConfiguration {
             $0.isLocalDatastoreEnabled = true
-            $0.applicationId = "iOXJQbQMF2gDMHb4sFHNGvaVkN3ILoLxPvvsAFVr"
-            $0.clientKey = "UnHbd5aNiE89zalzgT1i8OtcHDdsTOVNMvYvowgm"
+            $0.applicationId = "7HdRvQNLc5PS3NQ4gTRUAeTMrgaTkKdx7T1G4rZR"
+            $0.clientKey = "rxSe7SYEgYprtm0i1jy1cxpNwT8gGqkBVbuH75j1"
             $0.server = "https://parseapi.back4app.com"
         }
         Parse.initialize(with: configuration)
-    
-        let query = PFQuery(className: "Evento")
-        let query2 = PFQuery(className: "Persona")
-        let query3 = PFQuery(className: "Organizacion")
+        let query2 = PFQuery(className: "Actividad")
+        let query = PFQuery(className: "ActContAct")
+        let query3 = PFQuery(className: "Persona")
+        let query4 = PFQuery(className: "Org")
 
 
-        let  queryCollections = [query,query2,query3]
+        let  queryCollections = [query,query2,query3,query4]
         
         _ = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
         

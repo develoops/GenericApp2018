@@ -25,6 +25,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var colorFondo:UIColor!
     var a = [String]()
     var evento:PFObject!
+    var personas = [PFObject]()
+
 
 
     override func viewDidLoad() {
@@ -83,7 +85,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         
         
-        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * ((evento["personas"] as! NSArray).count)))
+        
+        
+        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * personas.count))
 
         self.tabla.isScrollEnabled = false
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
@@ -91,7 +95,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
-        textViewInfoDetallePrograma.text = evento["descripcion"] as! String
+        textViewInfoDetallePrograma.text = evento["descripcion"] as? String
         textViewInfoDetallePrograma?.textAlignment = .left
         textViewInfoDetallePrograma?.sizeToFit()
 
@@ -131,8 +135,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let personas = evento["personas"] as! NSArray
-        
+
         return personas.count
     }
     
@@ -145,13 +148,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let personas = evento["personas"] as! NSArray
 
-        let persona = personas.object(at: indexPath.row) as! PFObject
+        let persona = personas[indexPath.row]
         
-        cell.labelNombre.text = (persona["tratamiento"] as! String) + " " + (persona["nombre"] as! String) + " " + (persona["apellido"] as! String)
+        cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
 
-        cell.labelRol.text = persona["rol"] as? String
+        
+        //cambiar preNombre Por Rol
+        cell.labelRol.text = persona["preNombre"] as? String
         
         
         if (persona["imagenPerfil"] == nil) {
