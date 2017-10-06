@@ -52,7 +52,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 let actividades = taskActividades.result as! [PFObject]
                 
-                print(actividades)
                 
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
                 }
@@ -108,6 +107,24 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         let evento = eventosFiltrados[indexPath.row]
+        
+        _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
+            
+            let persona = $0.value(forKey: "persona") as! PFObject
+            print(persona)
+            
+            
+            if !(evento.allKeys.containss(obj: "personas")){
+            evento.addUniqueObject(persona, forKey: "personas")
+            
+            }
+        }
+    }
+        
+        
+        let personaActividad = evento["personas"] as? [PFObject]
+
+        
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
@@ -144,17 +161,18 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         var personasTamano = Int()
         
-        if(personas.count != 0){
-            
+        
+        if(personaActividad != nil){
             
             var personasString = String()
             
-            for object in (personas){
+            for object in (personaActividad)!{
                 
                 let persona = object
                 
+                
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-            personasTamano = personasTamano + (28 / personas.count)
+            personasTamano = personasTamano + (28 / (personaActividad?.count)!)
         }
             
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
@@ -216,7 +234,28 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
-        vc.personas = personas
+
+        
+        _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
+            
+            let persona = $0.value(forKey: "persona") as! PFObject
+            print(persona)
+            
+            
+            if !(evento.allKeys.containss(obj: "personas")){
+                evento.addUniqueObject(persona, forKey: "personas")
+                
+            }
+            }
+        }
+        
+        
+        let personaActividad = evento["personas"] as? [PFObject]
+        if personaActividad != nil {
+            vc.personas = personaActividad!
+
+        }
+        
         
         if(evento["tipo"] as! String == "Conferencia")
         {
@@ -359,8 +398,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func personasQuery() -> [PFObject] {
     
-        let queryPersona = PFQuery(className: "Persona")
-        queryPersona.limit = 2
+        let queryPersona = PFQuery(className: "PersonaRolAct")
+        queryPersona.includeKey("persona")
+        queryPersona.includeKey("act")
         do {
             return try queryPersona.findObjects()
             
