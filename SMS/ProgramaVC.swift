@@ -235,34 +235,30 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
 
-        
         _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
-            
             let persona = $0.value(forKey: "persona") as! PFObject
-            print(persona)
-            
-            
+            let rol = $0.value(forKey: "rol") as? String
+            persona.addUniqueObject(rol!, forKey: "rol")
             if !(evento.allKeys.containss(obj: "personas")){
                 evento.addUniqueObject(persona, forKey: "personas")
-                
-            }
-            }
-        }
-        
+        }}}
         
         let personaActividad = evento["personas"] as? [PFObject]
         if personaActividad != nil {
+            
+            
             vc.personas = personaActividad!
+            
 
         }
         
         
-        if(evento["tipo"] as! String == "Conferencia")
+        if(evento["tipo"] as? String == "conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento["tipo"] as! String == "Social") {
+        else if (evento["tipo"] as? String == "social") {
             
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             

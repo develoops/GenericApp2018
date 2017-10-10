@@ -81,10 +81,10 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         vc.fon = patrocinador["telefono"] as? String
         
         if(patrocinador["imagenFondo"] == nil){
-            vc.imagen = patrocinador["imagenPerfil"] as! PFFile
+            vc.imagen = patrocinador["imgPerfil"] as! PFFile
         }
         else{
-            vc.imagen = patrocinador["imagenFondo"] as! PFFile
+            vc.imagen = patrocinador["imgFondo"] as! PFFile
         }
 
 

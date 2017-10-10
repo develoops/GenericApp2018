@@ -30,9 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let query = PFQuery(className: "ActContAct")
         let query3 = PFQuery(className: "Persona")
         let query4 = PFQuery(className: "Org")
+        let query5 = PFQuery(className: "Lugar")
+        let query6 = PFQuery(className: "PersonaRolAct")
 
 
-        let  queryCollections = [query,query2,query3,query4]
+
+
+        let  queryCollections = [query,query2,query3,query4,query5,query6]
         
         _ = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
         

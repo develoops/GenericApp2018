@@ -153,10 +153,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
 
-        
-        //cambiar preNombre Por Rol
-        cell.labelRol.text = persona["preNombre"] as? String
-        
+
+        let a = persona["rol"] as! NSArray
+      
+        cell.labelRol.text = a.firstObject as? String
         
         if (persona["imagenPerfil"] == nil) {
             
