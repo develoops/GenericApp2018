@@ -61,7 +61,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelNombre.font = UIFont.systemFont(ofSize: 18.0)
+        cell.labelNombre.font = UIFont.systemFont(ofSize: 17.0)
         cell.labelNombre.text = (eventos["nombre"] as! String)
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
@@ -74,7 +74,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         
         cell.labelLugarPersona?.text = DateFormatter().formatoDiaMesAnoLargoString(fecha: fechaInicio)
-        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 16.0)
+        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelLugarPersona.textAlignment = .left
         cell.labelLugarPersona.numberOfLines = 0
         cell.labelLugarPersona?.sizeToFit()
@@ -86,7 +86,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         //cell.labelInstitucion.sizeThatFits(maximumLabelSizeInstitucion)
         cell.labelInstitucion?.text = lugar["nombre"] as? String
         cell.labelInstitucion?.frame = CGRect(x: 98.0, y: cell.labelNombre.frame.size.height + cell.labelLugarPersona.frame.size.height + 20.0, width: view.frame.size.width - 100.0, height: 0.0)
-        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 16.0)
+        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelInstitucion.textAlignment = .left
         cell.labelInstitucion.numberOfLines = 0
         cell.labelInstitucion?.sizeToFit()

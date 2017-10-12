@@ -65,7 +65,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelNombre.font = UIFont.boldSystemFont(ofSize: 18.0)
+        cell.labelNombre.font = UIFont.boldSystemFont(ofSize: 17.0)
         cell.labelNombre.text = prenombre! + " " + primerNombre! + " " + primerApellido!
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
@@ -73,10 +73,10 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
         cell.labelLugarPersona?.text = lugar["nombre"] as? String
-        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 16.0)
+        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 14.0)
         
         cell.labelInstitucion?.text = personaRolOrg["rol"] as? String
-        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 16.0)
+        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 14.0)
         
         cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
         
