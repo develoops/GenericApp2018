@@ -33,9 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let query5 = PFQuery(className: "Lugar")
         let query6 = PFQuery(className: "PersonaRolAct")
 
-
-
-
         let  queryCollections = [query,query2,query3,query4,query5,query6]
         
         _ = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -43,8 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return PFObject.pinAll(inBackground: task.result as? [PFObject])
         })
     }
-        
-        
         
     return true
     }

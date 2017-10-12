@@ -12,9 +12,13 @@ import Parse
 class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
    
     @IBOutlet weak var tabla: UITableView!
-    
+    @IBOutlet weak var tablaActividades: UITableView!
+
     @IBOutlet weak var labelTituloDetallePrograma: UILabel!
     @IBOutlet weak var labelHoraDetallePrograma: UILabel!
+    
+    @IBOutlet weak var labelTitulo: UILabel!
+    
     @IBOutlet weak var labelDiaDetallePrograma: UILabel!
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
@@ -26,12 +30,25 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var a = [String]()
     var evento:PFObject!
     var personas = [PFObject]()
-
-
-
+    var actividadesAnidadas = [PFObject]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let query = PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", evento))
+        query.includeKey("contenido")
+        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            
+            print(task.result?.count as Any)
+            DispatchQueue.main.async() {
+                
+                let a = task.result as! [PFObject]
+                self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as! PFObject}
+                
+                self.tablaActividades.reloadData()
+            }
+            return task
+        })
         
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
@@ -83,10 +100,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.numberOfLines = 0
         labelLugarDetallePrograma?.sizeToFit()
         
-        
-        
-        
-        
         self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * personas.count))
 
         self.tabla.isScrollEnabled = false
@@ -127,8 +140,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                                                  animated: true)
     }
     
-    
-
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -136,7 +147,15 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return personas.count
+        if(tableView == tabla)
+        {
+            return personas.count
+
+        }
+        else{
+        
+            return actividadesAnidadas.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -148,7 +167,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-
+        if (tableView == tabla){
         let persona = personas[indexPath.row]
         
         cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
@@ -165,7 +184,13 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         else{
             print(persona["imagenPerfil"])
             cell.imagenPerfil.image = UIImage(data: persona["imagenPerfil"] as! Data)
+            }
+        }
+        else{
+        
+            let actividad = actividadesAnidadas[indexPath.row] as PFObject
             
+            cell.labelNombre.text = actividad["nombre"] as? String
         }
 
         return cell

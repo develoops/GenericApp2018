@@ -174,7 +174,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                 persona.fetchIfNeededInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
                     
                 
-                personasString.append((persona["tratamiento"] as? String)! + " " + (persona["nombre"] as? String)! + " " + (persona["apellido"] as! String) + "\n")
+                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
                 personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
             
                 return task

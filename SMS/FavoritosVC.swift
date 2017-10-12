@@ -183,7 +183,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         do {
             let eventosQuery =  PFQuery(className: "Actividad", predicate: filtroFavoritos)
             eventosQuery.fromLocalDatastore()
-            eventosQuery.includeKey("personas")
+         //   eventosQuery.includeKey("personas")
             
             return try eventosQuery.findObjects()
             

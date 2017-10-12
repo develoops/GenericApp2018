@@ -47,6 +47,14 @@ extension DateFormatter {
         return self.string(from: fecha as Date)
     }
 
-
+    func formatoDiaMesAnoLargoString(fecha:NSDate) -> String {
+        
+        self.locale = Locale(identifier: "es_CL")
+        self.dateStyle = .full
+        self.dateFormat = "dd 'de' MMMM 'de' yyyy"
+        fecha.addingTimeInterval(-978296400)
+        
+        return self.string(from: fecha as Date)
+    }
 
 }

@@ -33,7 +33,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
         self.tabla.delegate = self
         self.tabla.dataSource = self
-
         self.personas = self.personasQuery()
         let eventosQuery =  PFQuery(className: "ActContAct")
 //        eventosQuery.fromLocalDatastore()
@@ -54,6 +53,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
+                    
                 }
                 DispatchQueue.main.async() {
                     self.botonAvanzar.addTarget(self, action: #selector(self.avanzar), for: .touchUpInside)
@@ -73,10 +73,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         })
     }
     
-    
-    
-      override func viewDidAppear(_ animated: Bool) {
+override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
+
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Congresos", style: .plain, target: self, action: #selector(volver))
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,20 +112,14 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
             
             let persona = $0.value(forKey: "persona") as! PFObject
-            print(persona)
-            
             
             if !(evento.allKeys.containss(obj: "personas")){
             evento.addUniqueObject(persona, forKey: "personas")
-            
-            }
-        }
-    }
-        
+       
+        }}}
         
         let personaActividad = evento["personas"] as? [PFObject]
 
-        
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
@@ -160,7 +155,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
-        
         
         if(personaActividad != nil){
             
@@ -202,7 +196,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         else if (evento["tipo"] as? String == "social") {
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
-
         }
         else{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
@@ -222,7 +215,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return cell
     }
 
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let evento = eventosFiltrados[indexPath.row]
@@ -234,6 +226,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
+    
 
         _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
             let persona = $0.value(forKey: "persona") as! PFObject
@@ -248,12 +241,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             
             vc.personas = personaActividad!
-            
-
-        }
+    }
         
-        
-        if(evento["tipo"] as? String == "conferencia")
+    if(evento["tipo"] as? String == "conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
@@ -281,7 +271,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             diasPrograma.append(fechaString)
         }
         let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
-        
+    
         return diasProgramaFiltrados
     }
     
@@ -352,8 +342,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         evento.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
         return task
         })
-            
-    
     }
     
     func filtrarArray(indicador:Int) {
@@ -391,9 +379,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return image
     }
 
-    
     func personasQuery() -> [PFObject] {
-    
+        
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.includeKey("persona")
         queryPersona.includeKey("act")
@@ -405,6 +392,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
     }
    
+    func volver() {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
