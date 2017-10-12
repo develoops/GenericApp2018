@@ -15,11 +15,12 @@ class TabBarAppVC: UITabBarController,UITabBarControllerDelegate {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let navCongreso = storyboard.instantiateViewController(withIdentifier: "navCongresos") as! UINavigationController
-        let navDirectiva = storyboard.instantiateViewController(withIdentifier: "navDirectiva") as! UINavigationController
         let navSociedad = storyboard.instantiateViewController(withIdentifier: "navSociedad") as! UINavigationController
+        let navDirectiva = storyboard.instantiateViewController(withIdentifier: "navDirectiva") as! UINavigationController
+     
 
 
-        viewControllers = [navCongreso,navDirectiva,navSociedad]
+        viewControllers = [navCongreso,navSociedad,navDirectiva]
     }
 
     override func didReceiveMemoryWarning() {
