@@ -41,6 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
         
+        PFAnonymousUtils.logInInBackground().continue({ (task:BFTask<PFUser>) -> Any? in
+            
+            return task
+        })
+        
     return true
     }
 

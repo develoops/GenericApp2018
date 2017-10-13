@@ -13,10 +13,29 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tabla: UITableView!
     var tamanoCelda = CGFloat()
+    var personas = [PFObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        
+        let queryDirectiva = PFQuery(className:"PersonaRolOrg")
+        queryDirectiva.includeKey("persona.pais")
+
+        queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            
+            
+            DispatchQueue.main.async {
+                
+                self.personas = task.result as! [PFObject]
+                self.tabla.reloadData()
+
+            }
+            
+            return task
+        })
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,7 +54,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return personas().count
+        return personas.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -47,7 +66,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let personaRolOrg = personas()[indexPath.row]
+        let personaRolOrg = personas[indexPath.row]
         
         let persona = personaRolOrg["persona"] as! PFObject
         print (persona)
@@ -96,7 +115,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detallePersonaVC") as! DetallePersonaVC
-        let personaRolOrg = personas()[indexPath.row]
+        let personaRolOrg = personas[indexPath.row]
         
         let persona = personaRolOrg["persona"] as! PFObject
         let lugar = persona["pais"] as! PFObject
@@ -125,23 +144,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     
-    func personas() ->[PFObject]{
-        
-        do {
-            let personasQuery =  PFQuery(className:"PersonaRolOrg")
-            personasQuery.includeKey("persona.pais")
-            
-            //  personasQuery.fromLocalDatastore()
-            //personasQuery.whereKey("rol", equalTo: "Directiva")
-            //personasQuery.fromLocalDatastore()
-            return try personasQuery.findObjects()
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-        
-    }
-    
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

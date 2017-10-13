@@ -14,11 +14,29 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var tabla: UITableView!
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
+    var eventosCongreso = [PFObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        
+        let queryEventosCongreso = PFQuery(className: "Actividad")
+        queryEventosCongreso.whereKey("tipo", equalTo: "congreso")
+        queryEventosCongreso.includeKey("lugar")
+        
+        queryEventosCongreso.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            
+            DispatchQueue.main.async() {
+                self.eventosCongreso = task.result as! [PFObject]
+            self.tabla.reloadData()
+            }
+            
+            return task.result
+            
+        })
+
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,7 +60,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return eventosCongreso().count
+        return eventosCongreso.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -54,7 +72,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let eventos = eventosCongreso()[indexPath.row]
+        let eventos = eventosCongreso[indexPath.row]
         
         
         cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
@@ -123,32 +141,14 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ProgramaVC") as! ProgramaVC
+        let vc = storyboard.instantiateViewController(withIdentifier: "navCongreso") as! UINavigationController
         
         
-        navigationController?.pushViewController(vc,
-                                                 animated: true)
-    }
-    
-    
-    func eventosCongreso() ->[PFObject]{
-        
-        do {
-            let eventosCongresoQuery =  PFQuery(className:"Actividad")
-            eventosCongresoQuery.whereKey("tipo", equalTo: "congreso")
-            eventosCongresoQuery.includeKey("lugar")
-            //  eventosCongresoQuery.fromLocalDatastore()
-            //  personasQuery.fromLocalDatastore()
-            return try eventosCongresoQuery.findObjects()
-            
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
+        navigationController?.present(vc, animated: true, completion: nil)
         
     }
     
-    override func didReceiveMemoryWarning() {
+        override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }

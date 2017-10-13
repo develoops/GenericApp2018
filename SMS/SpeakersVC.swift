@@ -75,7 +75,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.sizeToFit()
         
         cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-//        cell.labelLugarPersona?.text = persona["procedencia"] as? String
+      //  cell.labelLugarPersona?.text = persona["procedencia"] as? String
 
       //  cell.labelInstitucion?.text = persona["institucion"] as? String
         cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)

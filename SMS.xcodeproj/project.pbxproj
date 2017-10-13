@@ -16,6 +16,7 @@
 		C3220A6D1F8FD13600A08B15 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A6C1F8FD13600A08B15 /* Home.png */; };
 		C3220A701F8FE50A00A08B15 /* directiva.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A6E1F8FE50A00A08B15 /* directiva.png */; };
 		C3220A711F8FE50A00A08B15 /* Sociedad.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A6F1F8FE50A00A08B15 /* Sociedad.png */; };
+		C3220A731F90002B00A08B15 /* SplashNefro2017.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A721F90002B00A08B15 /* SplashNefro2017.png */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */ = {isa = PBXBuildFile; fileRef = C33A1BE21F2C006500B6B744 /* favMarcado.png */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
@@ -23,7 +24,6 @@
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
 		C34BA8881F04173500022E6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8871F04173500022E6B /* Assets.xcassets */; };
 		C34BA88B1F04173500022E6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8891F04173500022E6B /* LaunchScreen.storyboard */; };
-		C34BA8941F04337900022E6B /* SMS.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8931F04337900022E6B /* SMS.sqlite */; };
 		C378EC371F05530900DE0318 /* SpeakersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC361F05530900DE0318 /* SpeakersVC.swift */; };
 		C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC381F05531B00DE0318 /* FavoritosVC.swift */; };
 		C378EC3B1F05532A00DE0318 /* PatrocinadoresVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC3A1F05532A00DE0318 /* PatrocinadoresVC.swift */; };
@@ -63,6 +63,7 @@
 		C3220A6C1F8FD13600A08B15 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		C3220A6E1F8FE50A00A08B15 /* directiva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directiva.png; sourceTree = "<group>"; };
 		C3220A6F1F8FE50A00A08B15 /* Sociedad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sociedad.png; sourceTree = "<group>"; };
+		C3220A721F90002B00A08B15 /* SplashNefro2017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashNefro2017.png; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C33A1BE21F2C006500B6B744 /* favMarcado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favMarcado.png; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +73,6 @@
 		C34BA8871F04173500022E6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C34BA88A1F04173500022E6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34BA88C1F04173500022E6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C34BA8931F04337900022E6B /* SMS.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SMS.sqlite; sourceTree = "<group>"; };
 		C378EC361F05530900DE0318 /* SpeakersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakersVC.swift; sourceTree = "<group>"; };
 		C378EC381F05531B00DE0318 /* FavoritosVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritosVC.swift; sourceTree = "<group>"; };
 		C378EC3A1F05532A00DE0318 /* PatrocinadoresVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatrocinadoresVC.swift; sourceTree = "<group>"; };
@@ -182,7 +182,6 @@
 				C34BA8811F04173500022E6B /* Main.storyboard */,
 				C34BA8871F04173500022E6B /* Assets.xcassets */,
 				C378EC401F055ADA00DE0318 /* PartesAPP */,
-				C34BA8931F04337900022E6B /* SMS.sqlite */,
 				C34BA8891F04173500022E6B /* LaunchScreen.storyboard */,
 				C34BA88C1F04173500022E6B /* Info.plist */,
 			);
@@ -195,6 +194,7 @@
 				C3C12F941F2B9E7A00D01AD4 /* pinilla.png */,
 				C3220A6C1F8FD13600A08B15 /* Home.png */,
 				C3220A6E1F8FE50A00A08B15 /* directiva.png */,
+				C3220A721F90002B00A08B15 /* SplashNefro2017.png */,
 				C3220A6F1F8FE50A00A08B15 /* Sociedad.png */,
 				C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */,
 				C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */,
@@ -312,7 +312,7 @@
 				C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */,
 				C378EC561F0576B900DE0318 /* btn_directiva.png in Resources */,
 				C3220A6D1F8FD13600A08B15 /* Home.png in Resources */,
-				C34BA8941F04337900022E6B /* SMS.sqlite in Resources */,
+				C3220A731F90002B00A08B15 /* SplashNefro2017.png in Resources */,
 				C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */,
 				C378EC4A1F055ADA00DE0318 /* Btn_avanzar_derecha.png in Resources */,
 				C3E728F61F06671B006203A8 /* isotip.png in Resources */,
@@ -532,7 +532,7 @@
 				DEVELOPMENT_TEAM = U5A54XUB2N;
 				INFOPLIST_FILE = SMS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.SMS;
+				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.Nefro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -546,7 +546,7 @@
 				DEVELOPMENT_TEAM = U5A54XUB2N;
 				INFOPLIST_FILE = SMS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.SMS;
+				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.Nefro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

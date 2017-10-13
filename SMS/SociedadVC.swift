@@ -19,6 +19,7 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var we:String!
     var info:String!
     var imagen:PFFile!
+    var sociedad:PFObject!
     
     var arrayInfoPatrocinadores = NSMutableArray()
     
@@ -26,15 +27,29 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         self.tabla.delegate = self
         self.tabla.dataSource = self
-        let imagenContenido = ["imagen",sociedad().value(forKey: "imgPerfil")]
-        let nombreContenido = ["Nombre",sociedad().value(forKey: "nombre")]
-        let descripcionContenido = ["Descripción",sociedad().value(forKey: "descripcion")]
-        let contactoContenido = ["Contacto",sociedad().value(forKey: "telefono")]
-        let mailContenido = ["Email",sociedad().value(forKey: "email")]
-        let webContenido = ["Sitio web",sociedad().value(forKey: "sitioWeb")]
-        let direccionContenido = ["Dirección",sociedad().value(forKey: "direccion")]
         
-        arrayInfoPatrocinadores.addObjects(from: [imagenContenido,nombreContenido,descripcionContenido,contactoContenido, mailContenido,webContenido,direccionContenido])
+        
+        let sociedadQuery =  PFQuery(className:"Org")
+        sociedadQuery.getFirstObjectInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
+            
+            DispatchQueue.main.async {
+                
+                let imagenContenido = ["imagen",task.result?.value(forKey: "imgPerfil")]
+                let nombreContenido = ["Nombre",task.result?.value(forKey: "nombre")]
+                let descripcionContenido = ["Descripción",task.result?.value(forKey: "descripcion")]
+                let contactoContenido = ["Contacto",task.result?.value(forKey: "telefono")]
+                let mailContenido = ["Email",task.result?.value(forKey: "email")]
+                let webContenido = ["Sitio web",task.result?.value(forKey: "sitioWeb")]
+                let direccionContenido = ["Dirección",task.result?.value(forKey: "direccion")]
+                
+                self.arrayInfoPatrocinadores.addObjects(from: [imagenContenido,nombreContenido,descripcionContenido,contactoContenido, mailContenido,webContenido,direccionContenido])
+
+               self.tabla.reloadData()
+            }
+            return task
+        })
+        
+        
         
     }
     
@@ -117,21 +132,6 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         
         return cell
-    }
-    
-    func sociedad() ->PFObject{
-        
-        do {
-            let sociedadQuery =  PFQuery(className:"Org")
-            
-            //sociedadQuery.fromLocalDatastore()
-            
-            // patrocinadoresQuery.includeKey("eventos")
-            return try sociedadQuery.getFirstObject()
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-        
     }
     
     override func didReceiveMemoryWarning() {

@@ -40,12 +40,15 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
             print(task.result?.count as Any)
+            let a = task.result as! [PFObject]
+
             DispatchQueue.main.async() {
                 
-                let a = task.result as! [PFObject]
+                if(a.count != 0){
                 self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as! PFObject}
                 
                 self.tablaActividades.reloadData()
+                }
             }
             return task
         })

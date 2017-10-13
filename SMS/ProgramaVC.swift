@@ -27,6 +27,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var personas = [PFObject]()
     var eventosVarLocal = [PFObject]()
     var indicador = 0
+    var favs = [PFObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +36,14 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.tabla.dataSource = self
         self.personas = self.personasQuery()
         let eventosQuery =  PFQuery(className: "ActContAct")
-//        eventosQuery.fromLocalDatastore()
         eventosQuery.includeKey("contenido")
         eventosQuery.includeKey("contenedor")
         eventosQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
             let actCollection = task.result as! [PFObject]
-            let contenido = actCollection.map{$0.value(forKey: "contenido") as! PFObject}
+            let contenido = actCollection.map{$0.value(forKey: "contenido") as? PFObject}
 
-            let a = contenido.map{$0.objectId}
+            let a = contenido.map{$0?.objectId}
             
             let query = PFQuery(className: "Actividad")
             
@@ -55,6 +55,19 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
                     
                 }
+                
+                let user = PFUser.current()
+                
+                let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+                favoritoQuery.includeKey("actividad")
+                favoritoQuery.includeKey("user")
+                
+                favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+               
+                    self.favs = taskFav.result as! [PFObject]
+                    return taskFav
+                })
+                
                 DispatchQueue.main.async() {
                     self.botonAvanzar.addTarget(self, action: #selector(self.avanzar), for: .touchUpInside)
                     self.botonRetroceder.addTarget(self, action: #selector(self.retroceder), for: .touchUpInside)
@@ -109,12 +122,12 @@ override func viewDidAppear(_ animated: Bool) {
         
         let evento = eventosFiltrados[indexPath.row]
         
-        _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
+        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             
-            let persona = $0.value(forKey: "persona") as! PFObject
+            let persona = $0.value(forKey: "persona") as? PFObject
             
             if !(evento.allKeys.containss(obj: "personas")){
-            evento.addUniqueObject(persona, forKey: "personas")
+            evento.addUniqueObject(persona as Any, forKey: "personas")
        
         }}}
         
@@ -206,8 +219,11 @@ override func viewDidAppear(_ animated: Bool) {
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
         
-        if evento["favorito"] as? Bool == true {
+        let actividadesFavs = favs.map{$0["actividad"]} as! [PFObject]
+        if actividadesFavs.contains(evento) {
             cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+            print(evento)
+
         }
         else{
             cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
@@ -228,12 +244,12 @@ override func viewDidAppear(_ animated: Bool) {
         vc.evento = evento
     
 
-        _ = personas.map{if($0.value(forKey:"act") as! PFObject == evento){
-            let persona = $0.value(forKey: "persona") as! PFObject
+        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
+            let persona = $0.value(forKey: "persona") as? PFObject
             let rol = $0.value(forKey: "rol") as? String
-            persona.addUniqueObject(rol!, forKey: "rol")
+            persona?.addUniqueObject(rol!, forKey: "rol")
             if !(evento.allKeys.containss(obj: "personas")){
-                evento.addUniqueObject(persona, forKey: "personas")
+                evento.addUniqueObject(persona as Any, forKey: "personas")
         }}}
         
         let personaActividad = evento["personas"] as? [PFObject]
@@ -329,18 +345,57 @@ override func viewDidAppear(_ animated: Bool) {
     }
     
     func cambiarFavorito(sender: UIButton!){
-        let evento = eventosFiltrados[sender.tag]
-        if (evento["favorito"] as? Bool == true) {
-            evento.setValue(false, forKey: "favorito")
-            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+        
+        let user = PFUser.current()
+        
+        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+        favoritoQuery.includeKey("actividad")
+        favoritoQuery.includeKey("user")
+        
+        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
             
+        self.favs = taskFav.result as! [PFObject]
+        let evento = self.eventosFiltrados[sender.tag]
+
+            
+        let actividades = self.favs.map{$0.value(forKey: "actividad") as? PFObject}
+        
+        if !(actividades.containss(obj: evento)) {
+            let f = PFObject(className: "ActFavUser")
+            f.setObject(evento, forKey: "actividad")
+            f.setObject(user as Any, forKey: "user")
+            self.favs.append(f)
+            f.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            
+                return task
+            })
+            DispatchQueue.main.async {
+                sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+                self.tabla.reloadData()
+
+            }
         }
+                
         else{
-            evento.setValue(true, forKey: "favorito")
-           sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
-        }
-        evento.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
-        return task
+            let object = actividades.filter{(evento.isEqual($0))}
+            let a = object.first
+            
+           let filtro = self.favs.filter{(($0.value(forKey: "actividad")) as! PFObject).isEqual(a!)}
+            
+            
+            if let index = self.favs.index(of:filtro.first!) {
+                self.favs.remove(at: index)
+                
+             _ =   filtro.map{$0.deleteInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                    return task
+                })}
+            }
+            
+            DispatchQueue.main.async {
+                sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+                self.tabla.reloadData()
+            }}
+                return taskFav
         })
     }
     

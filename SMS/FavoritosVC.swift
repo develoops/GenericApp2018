@@ -20,7 +20,6 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

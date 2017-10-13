@@ -49,11 +49,11 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         cell.labelNombre.text = patrocinador["nombre"] as? String
-        if(patrocinador["imagenPerfil"] == nil){
+        if(patrocinador["imgPerfil"] == nil){
             cell.imagenPerfil.image = UIImage(named: "")
 }
         else{
-            let imagen = patrocinador["imagenPerfil"] as! PFFile
+            let imagen = patrocinador["imgPerfil"] as! PFFile
             
             
             imagen.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
@@ -80,7 +80,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         vc.we = patrocinador["sitioWeb"] as? String
         vc.fon = patrocinador["telefono"] as? String
         
-        if(patrocinador["imagenFondo"] == nil){
+        if(patrocinador["imgFondo"] == nil){
             vc.imagen = patrocinador["imgPerfil"] as! PFFile
         }
         else{
