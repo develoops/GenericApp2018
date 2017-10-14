@@ -97,14 +97,11 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         cell.infoDetallePatrocinador?.sizeToFit()
             
         cell.imagenPerfil.isHidden = true
-        
     }
-        
         
     if(encabezado == "imagen"){
         
         tamanoCelda = cell.imagenPerfil.frame.size.height + 40.0
-    
         
         }
         

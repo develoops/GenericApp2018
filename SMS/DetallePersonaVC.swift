@@ -199,12 +199,12 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
-        if(evento["tipo"] as! String == "Conferencia")
+        if(evento["tipo"] as? String == "conferencia")
         {
             colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento["tipo"] as! String == "Social") {
+        else if (evento["tipo"] as? String == "social") {
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
@@ -230,12 +230,12 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
-        if(evento["tipo"] as! String == "Conferencia")
+        if(evento["tipo"] as? String == "conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
         
-        if(evento["tipo"] as! String == "Social"){
+        if(evento["tipo"] as? String == "social"){
         
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             

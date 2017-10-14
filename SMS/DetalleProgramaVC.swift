@@ -29,9 +29,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var colorFondo:UIColor!
     var a = [String]()
     var evento:PFObject!
+    var favoritoAct:PFObject!
     var personas = [PFObject]()
     var actividadesAnidadas = [PFObject]()
-    
+    var favorito:Bool!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -203,7 +205,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
         
-        if evento["favorito"] as? Bool == true {
+        if favorito == true {
         
         barBotonFavorito = UIBarButtonItem(image: UIImage(named: "favMarcado.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
@@ -215,17 +217,32 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
 
     func cambiarFavorito(sender: UIBarButtonItem!){
-        if evento["favorito"] as? Bool == true {
-            evento.setValue(false, forKey: "favorito")
-            sender.image = UIImage(named: "btnFavorito.png")
+        if favorito == true {
+
+            favoritoAct.deleteInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                
+                DispatchQueue.main.async {
+
+                sender.image = UIImage(named: "btnFavorito.png")
+                }
+                return task
+            })
         }
         else{
-            evento.setValue(true, forKey: "favorito")
-            sender.image = UIImage(named: "favMarcado.png")
+            let fav = PFObject(className: "ActFavUser")
+            fav.setObject(PFUser.current()!, forKey: "user")
+            fav.setObject(evento, forKey: "actividad")
+
+            fav.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                
+                DispatchQueue.main.async {
+                    
+                    sender.image = UIImage(named: "favMarcado.png")
+
+                }
+                return task
+            })
         }
-        evento.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
-            return task
-        })
     }
     
     override func didReceiveMemoryWarning() {

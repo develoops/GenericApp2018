@@ -1,24 +1,19 @@
 //
-//  TabBarAppVC.swift
+//  NovedadesVC.swift
 //  SMS
 //
-//  Created by Arturo Sanhueza on 12-10-17.
+//  Created by Arturo Sanhueza on 14-10-17.
 //  Copyright © 2017 Arturo Sanhueza. All rights reserved.
 //
 
 import UIKit
 
-class TabBarAppVC: UITabBarController,UITabBarControllerDelegate {
+class NovedadesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navCongreso = storyboard.instantiateViewController(withIdentifier: "navCongresos") as! UINavigationController
-        let navSociedad = storyboard.instantiateViewController(withIdentifier: "navSociedad") as! UINavigationController
-        let navDirectiva = storyboard.instantiateViewController(withIdentifier: "navDirectiva") as! UINavigationController
-
-        viewControllers = [navCongreso,navSociedad,navDirectiva]
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

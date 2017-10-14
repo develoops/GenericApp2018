@@ -15,7 +15,10 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
     var eventosFavoritos = [PFObject]()
+    var personas = [PFObject]()
+    var favs = [PFObject]()
     var rightButton = UIBarButtonItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -26,8 +29,35 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.navigationBar.topItem?.title = "Favoritos"
         rightButton = UIBarButtonItem(title: "Editar", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.showEditing(sender:))
 )
-        eventosFavoritos = eventos()
-        self.tabla.reloadData()
+        
+        let queryPersona = PFQuery(className: "PersonaRolAct")
+        queryPersona.includeKey("persona")
+        queryPersona.includeKey("act")
+
+        let user = PFUser.current()
+        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+        favoritoQuery.includeKey("actividad")
+        favoritoQuery.includeKey("user")
+        
+        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+            
+           self.favs =  taskFav.result as! [PFObject]
+            
+            
+            DispatchQueue.main.async {
+                
+                self.eventosFavoritos = self.favs.map{$0.value(forKey: "actividad") as! PFObject}
+                self.tabla.reloadData()
+
+            }
+            return queryPersona.findObjectsInBackground().continue({ (taskPersona:BFTask<NSArray>) -> Any? in
+                
+                self.personas = taskPersona.result as! [PFObject]
+                return taskPersona
+            })
+        })
+        
+
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
 
     }
@@ -63,6 +93,17 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
         
+        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
+            
+            let persona = $0.value(forKey: "persona") as? PFObject
+            
+            if !(evento.allKeys.containss(obj: "personas")){
+                evento.addUniqueObject(persona as Any, forKey: "personas")
+                
+            }}}
+        
+        let personaActividad = evento["personas"] as? [PFObject]
+
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
         cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
@@ -95,47 +136,45 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
-        if((evento["personas"] as! [PFObject]).count != 0){
-            
+        
+        if(personaActividad != nil){
             
             var personasString = String()
-            print(evento["personas"])
-            let personas = evento["personas"] as! NSArray
             
-            
-            for object in (personas){
+            for object in (personaActividad)!{
                 
-                let persona = object as! PFObject
+                let persona = object
                 
-                personasString.append((persona["tratamiento"] as? String)! + " " + (persona["nombre"] as? String)! + " " + (persona["apellido"] as! String) + "\n")
-                personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
                 
+                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
+                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
             }
-
+            
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
             cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelSpeaker1.text = personasString
-            cell.labelSpeaker1?.textAlignment = .left
             cell.labelSpeaker1.numberOfLines = 0
+            cell.labelSpeaker1?.textAlignment = .left
             cell.labelSpeaker1?.sizeToFit()
             
         }
         else{
             cell.labelSpeaker1.text = ""
         }
+
         
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
-        if(evento["tipo"] as! String == "Conferencia")
+        if(evento["tipo"] as? String == "conferencia")
         {
             colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento["tipo"] as! String == "Social") {
+        else if (evento["tipo"] as? String == "social") {
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
@@ -166,32 +205,26 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("Deleted")
-            let evento =  eventosFavoritos[indexPath.row]
-            evento.setValue(false, forKey: "favorito")
             
-            evento.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
-                return task
-            })
-        }
+            let evento = self.eventosFavoritos[indexPath.row]
+            let object = self.eventosFavoritos.filter{(evento.isEqual($0))}
+            let a = object.first
+            
+            let filtro = self.favs.filter{(($0.value(forKey: "actividad")) as! PFObject).isEqual(a!)}
+            
+            
+            if let index = self.favs.index(of:filtro.first!) {
+                self.favs.remove(at: index)
+                
+                _ =   filtro.map{$0.deleteInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                    return task
+                })}
+            }
+            
+            DispatchQueue.main.async {
+                self.tabla.reloadData()
+            }}
     }
-
-    func eventos() ->[PFObject]{
-        
-        let filtroFavoritos = NSPredicate(format: "favorito == %@", NSNumber(value: true))
-        do {
-            let eventosQuery =  PFQuery(className: "Actividad", predicate: filtroFavoritos)
-            eventosQuery.fromLocalDatastore()
-         //   eventosQuery.includeKey("personas")
-            
-            return try eventosQuery.findObjects()
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-        
-    }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -204,12 +237,12 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
-        if(evento["tipo"] as! String == "Conferencia")
+        if(evento["tipo"] as? String == "conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
             
-        else if (evento["tipo"] as! String == "Social") {
+        else if (evento["tipo"] as? String == "social") {
             
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
@@ -218,7 +251,6 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
-        
         
         navigationController?.pushViewController(vc,
                                                  animated: true)

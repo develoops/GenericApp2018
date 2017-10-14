@@ -34,8 +34,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
         self.tabla.delegate = self
         self.tabla.dataSource = self
-        self.personas = self.personasQuery()
-        let eventosQuery =  PFQuery(className: "ActContAct")
+        //self.personas = self.personasQuery()
+        
+        let queryPersona = PFQuery(className: "PersonaRolAct")
+        queryPersona.includeKey("persona")
+        queryPersona.includeKey("act")
+                let eventosQuery =  PFQuery(className: "ActContAct")
         eventosQuery.includeKey("contenido")
         eventosQuery.includeKey("contenedor")
         eventosQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -56,6 +60,15 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     
                 }
                 
+                queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in
+                    
+                    self.personas = (taskPersonas.result as? [PFObject])!
+                    
+                    return taskPersonas
+                    
+                })
+                
+
                 let user = PFUser.current()
                 
                 let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
@@ -222,7 +235,6 @@ override func viewDidAppear(_ animated: Bool) {
         let actividadesFavs = favs.map{$0["actividad"]} as! [PFObject]
         if actividadesFavs.contains(evento) {
             cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
-            print(evento)
 
         }
         else{
@@ -273,7 +285,21 @@ override func viewDidAppear(_ animated: Bool) {
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
+        let actividades = self.favs.map{$0.value(forKey: "actividad") as! PFObject}
 
+        if(actividades.containss(obj:evento)){
+        
+            vc.favorito = true
+            
+            vc.favoritoAct = self.favs[actividades.index(of: evento)!]
+            
+            print(self.favs[actividades.index(of: evento)!])
+            
+        }
+        else{
+            vc.favorito = false
+        }
+        
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
@@ -360,6 +386,7 @@ override func viewDidAppear(_ animated: Bool) {
             
         let actividades = self.favs.map{$0.value(forKey: "actividad") as? PFObject}
         
+            
         if !(actividades.containss(obj: evento)) {
             let f = PFObject(className: "ActFavUser")
             f.setObject(evento, forKey: "actividad")
@@ -434,18 +461,18 @@ override func viewDidAppear(_ animated: Bool) {
         return image
     }
 
-    func personasQuery() -> [PFObject] {
-        
-        let queryPersona = PFQuery(className: "PersonaRolAct")
-        queryPersona.includeKey("persona")
-        queryPersona.includeKey("act")
-        do {
-            return try queryPersona.findObjects()
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-    }
+//    func personasQuery() -> [PFObject] {
+//        
+//        let queryPersona = PFQuery(className: "PersonaRolAct")
+//        queryPersona.includeKey("persona")
+//        queryPersona.includeKey("act")
+//        do {
+//            return try queryPersona.findObjects()
+//            
+//        } catch {
+//            fatalError("Fallo: \(error)")
+//        }
+//    }
    
     func volver() {
         navigationController?.dismiss(animated: true, completion: nil)
@@ -456,4 +483,6 @@ override func viewDidAppear(_ animated: Bool) {
     }
     
   }
+
+
 

@@ -129,12 +129,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 return task
             })
-            
-            
         }
-        
-        
-        
         return cell
     }
     
@@ -143,9 +138,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "navCongreso") as! UINavigationController
         
-        
         navigationController?.present(vc, animated: true, completion: nil)
-        
     }
     
         override func didReceiveMemoryWarning() {
