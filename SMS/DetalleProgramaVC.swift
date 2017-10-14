@@ -32,7 +32,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var favoritoAct:PFObject!
     var personas = [PFObject]()
     var actividadesAnidadas = [PFObject]()
-    var favorito:Bool!
+    var favorito = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,16 +44,44 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             print(task.result?.count as Any)
             let a = task.result as! [PFObject]
 
+            
             DispatchQueue.main.async() {
                 
                 if(a.count != 0){
                 self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as! PFObject}
                 
                 self.tablaActividades.reloadData()
+
                 }
             }
             return task
         })
+        
+        
+        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@) AND (actividad == %@)", PFUser.current()!,self.evento))
+        
+        favoritoQuery.getFirstObjectInBackground().continue({ (taskFav:BFTask<PFObject>) -> Any? in
+            
+            if(taskFav.result != nil){
+                
+                self.favorito = true
+                self.favoritoAct = taskFav.result!
+
+            }
+            else{
+                self.favorito = false
+
+//                self.favoritoAct = taskFav.result!
+                
+            }
+            DispatchQueue.main.async {
+                self.agregarBotonFavoritoNav()
+                
+            }
+            
+            return taskFav
+        })
+
         
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
@@ -126,7 +154,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         ////
         botonMapa.frame.origin = CGPoint(x: 28.0, y: textViewInfoDetallePrograma.frame.origin.y + textViewInfoDetallePrograma.frame.size.height)
         
-        self.agregarBotonFavoritoNav()
     }
 
     func irAMapa()

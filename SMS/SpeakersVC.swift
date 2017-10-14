@@ -30,6 +30,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.personasRolAct = task.result as! [PFObject]
         self.personas = task.result?.value(forKey: "persona") as! [PFObject]
             
+
             DispatchQueue.main.async() {
             
                 self.tabla.reloadData()

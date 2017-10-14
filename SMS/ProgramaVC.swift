@@ -285,21 +285,21 @@ override func viewDidAppear(_ animated: Bool) {
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
-        let actividades = self.favs.map{$0.value(forKey: "actividad") as! PFObject}
-
-        if(actividades.containss(obj:evento)){
-        
-            vc.favorito = true
-            
-            vc.favoritoAct = self.favs[actividades.index(of: evento)!]
-            
-            print(self.favs[actividades.index(of: evento)!])
-            
-        }
-        else{
-            vc.favorito = false
-        }
-        
+//        let actividades = self.favs.map{$0.value(forKey: "actividad") as! PFObject}
+//
+//        if(actividades.containss(obj:evento)){
+//        
+//            vc.favorito = true
+//            
+//            vc.favoritoAct = self.favs[actividades.index(of: evento)!]
+//            
+//            print(self.favs[actividades.index(of: evento)!])
+//            
+//        }
+//        else{
+//            vc.favorito = false
+//        }
+//        
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }

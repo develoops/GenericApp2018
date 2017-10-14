@@ -19,6 +19,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var favs = [PFObject]()
     var rightButton = UIBarButtonItem()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -56,7 +57,6 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 return taskPersona
             })
         })
-        
 
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
 
