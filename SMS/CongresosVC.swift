@@ -20,6 +20,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        tabla.frame = view.frame
         
         let queryEventosCongreso = PFQuery(className: "Actividad")
         queryEventosCongreso.whereKey("tipo", equalTo: "congreso")
@@ -135,9 +136,11 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "navCongreso") as! UINavigationController
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "navCongreso") as! CongresoNavViewController
+        
+        vc.congreso = self.eventosCongreso[indexPath.row]
         navigationController?.present(vc, animated: true, completion: nil)
     }
     

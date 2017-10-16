@@ -16,14 +16,16 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var tabla: UITableView!
     var tamanoCelda = CGFloat()
     var personas = [PFObject]()
+    var congreso:PFObject!
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        tabla.frame = view.frame
+
+        let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "congreso == %@", congreso))
         
-        let queryDirectiva = PFQuery(className:"PersonaRolOrg")
         queryDirectiva.includeKey("persona.pais")
-        
         queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
             
@@ -41,7 +43,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.topItem?.title = "Directorio"
+        self.navigationController?.navigationBar.topItem?.title = "Comité Académico"
     }
     
     override func viewDidDisappear(_ animated: Bool) {

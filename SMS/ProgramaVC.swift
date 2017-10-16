@@ -27,21 +27,26 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var personas = [PFObject]()
     var eventosVarLocal = [PFObject]()
     var indicador = 0
+    var congreso:PFObject!
     var favs = [PFObject]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.tabla.delegate = self
         self.tabla.dataSource = self
-        //self.personas = self.personasQuery()
+        self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 65.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 125.0))
+
         
         let queryPersona = PFQuery(className: "PersonaRolAct")
+        queryPersona.limit = 1000
         queryPersona.includeKey("persona")
         queryPersona.includeKey("act")
-                let eventosQuery =  PFQuery(className: "ActContAct")
+        
+        let eventosQuery =  PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", congreso))
+        
         eventosQuery.includeKey("contenido")
         eventosQuery.includeKey("contenedor")
+        eventosQuery.limit = 1000
         eventosQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
             let actCollection = task.result as! [PFObject]
@@ -50,6 +55,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             let a = contenido.map{$0?.objectId}
             
             let query = PFQuery(className: "Actividad")
+            query.includeKey("lugar")
+            query.addAscendingOrder("inicio")
+
+            query.limit = 1000
             
             return query.findObjectsInBackground().continue({ (taskActividades:BFTask<NSArray>) -> Any? in
                 
@@ -69,18 +78,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 })
                 
 
-                let user = PFUser.current()
-                
-                let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
-                favoritoQuery.includeKey("actividad")
-                favoritoQuery.includeKey("user")
-                
-                favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
-               
-                    self.favs = taskFav.result as! [PFObject]
-                    return taskFav
-                })
-                
                 DispatchQueue.main.async() {
                     self.botonAvanzar.addTarget(self, action: #selector(self.avanzar), for: .touchUpInside)
                     self.botonRetroceder.addTarget(self, action: #selector(self.retroceder), for: .touchUpInside)
@@ -96,15 +93,34 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 return taskActividades
             })
-        })
-    }
+        })}
     
-override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
 
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Congresos", style: .plain, target: self, action: #selector(volver))
+    
+    self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Ahora", style: .plain, target: self, action: #selector(eem))
+
+        let user = PFUser.current()
+        
+        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+        favoritoQuery.includeKey("actividad")
+        favoritoQuery.includeKey("user")
+        
+        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+            
+            self.favs = taskFav.result as! [PFObject]
+            
+            DispatchQueue.main.async {
+                self.tabla.reloadData()
+            }
+            return taskFav
+        })
+        
 
     }
+  
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabla.reloadData()
@@ -112,6 +128,9 @@ override func viewDidAppear(_ animated: Bool) {
     
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = nil
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -170,12 +189,15 @@ override func viewDidAppear(_ animated: Bool) {
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
 
+        
+       let lugar = evento["lugar"] as? PFObject
+        
        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
         cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
         cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
         cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
-        cell.labelLugar.text = evento["lugar"] as? String
+        cell.labelLugar.text = lugar?["nombre"] as? String
         cell.labelLugar?.textAlignment = .left
         cell.labelLugar.numberOfLines = 0
         cell.labelLugar?.sizeToFit()
@@ -194,7 +216,6 @@ override func viewDidAppear(_ animated: Bool) {
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
             personasTamano = personasTamano + (28 / (personaActividad?.count)!)
         }
-            
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
@@ -285,52 +306,98 @@ override func viewDidAppear(_ animated: Bool) {
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
-//        let actividades = self.favs.map{$0.value(forKey: "actividad") as! PFObject}
-//
-//        if(actividades.containss(obj:evento)){
-//        
-//            vc.favorito = true
-//            
-//            vc.favoritoAct = self.favs[actividades.index(of: evento)!]
-//            
-//            print(self.favs[actividades.index(of: evento)!])
-//            
-//        }
-//        else{
-//            vc.favorito = false
-//        }
-//        
+        vc.congreso = congreso
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
     
+    
+    func eem(){
+        
+        let fechaHoy = Date.init(timeIntervalSinceNow: (-60*60-3))
+        
+        
+        let filteredArray = eventosVarLocal.filter() {
+            
+            return ($0["inicio"] as AnyObject).compare((fechaHoy.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && ($0["inicio"] as AnyObject).compare(fechaHoy) == ComparisonResult.orderedDescending
+        }
+        
+        eventosFiltrados = filteredArray
+        self.diaControl.isHidden = true
+        self.botonAvanzar.isHidden = true
+        self.botonRetroceder.isHidden = true
+        
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Programa", style: .plain, target: self, action: #selector(programa))
+        self.navigationController?.navigationBar.topItem?.title = "Ahora"
+
+        self.tabla.reloadData()
+
+    }
+    
+    func programa(){
+    
+        self.diaControl.text = self.diasPrograma()[self.indicador]
+        self.filtrarArray(indicador: self.indicador)
+
+        self.diaControl.isHidden = false
+        self.botonAvanzar.isHidden = false
+        self.botonRetroceder.isHidden = false
+        
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Ahora", style: .plain, target: self, action: #selector(eem))
+        self.tabla.reloadData()
+        self.navigationController?.navigationBar.topItem?.title = "Programa"
+
+    }
+    
+    
     func diasPrograma() ->[String]{
         
         var diasPrograma = [String]()
+        if (eventosVarLocal.count != 0){
+
         for index in 0...(eventosVarLocal.count - 1) {
             let fecha = eventosVarLocal[index]["inicio"] as? NSDate
             let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha!)
             diasPrograma.append(fechaString)
         }
+    }
+        else{
+            let fecha = congreso["inicio"]
+            let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
+            diasPrograma.append(fechaString)
+            
+        }
+        
         let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
     
         return diasProgramaFiltrados
     }
+    
+    
     
     func diasProgramaDate() ->[String]{
         
         var diasPrograma = [String]()
 
+        if (eventosVarLocal.count != 0){
         for index in 0...(eventosVarLocal.count - 1) {
 
             let fecha = eventosVarLocal[index]["inicio"]
             let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
             diasPrograma.append(fechaString)
+            }
         }
-        
+            else{
+                let fecha = congreso["inicio"]
+                let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
+                diasPrograma.append(fechaString)
+
+            }
+    
         let diasProgramaFiltrados = uniqueElementsFrom(array:diasPrograma)
         return diasProgramaFiltrados
     }
+    
     
     func avanzar(sender: UIButton!){
         
@@ -391,6 +458,7 @@ override func viewDidAppear(_ animated: Bool) {
             let f = PFObject(className: "ActFavUser")
             f.setObject(evento, forKey: "actividad")
             f.setObject(user as Any, forKey: "user")
+            f.setObject(self.congreso, forKey: "congreso")
             self.favs.append(f)
             f.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
             
@@ -398,8 +466,7 @@ override func viewDidAppear(_ animated: Bool) {
             })
             DispatchQueue.main.async {
                 sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
-                self.tabla.reloadData()
-
+            self.tabla.reloadData()
             }
         }
                 
@@ -461,19 +528,6 @@ override func viewDidAppear(_ animated: Bool) {
         return image
     }
 
-//    func personasQuery() -> [PFObject] {
-//        
-//        let queryPersona = PFQuery(className: "PersonaRolAct")
-//        queryPersona.includeKey("persona")
-//        queryPersona.includeKey("act")
-//        do {
-//            return try queryPersona.findObjects()
-//            
-//        } catch {
-//            fatalError("Fallo: \(error)")
-//        }
-//    }
-   
     func volver() {
         navigationController?.dismiss(animated: true, completion: nil)
     }

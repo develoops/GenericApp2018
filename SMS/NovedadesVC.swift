@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import Parse
 
-class NovedadesVC: UIViewController {
+class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet weak var tabla: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabla.delegate = self
+        tabla.dataSource = self
+        tabla.frame = view.frame
 
         // Do any additional setup after loading the view.
     }
@@ -21,6 +26,23 @@ class NovedadesVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
+
+        cell.labelNombre.text = "Bienvenidos al Congreso"
+        
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
 
     /*
     // MARK: - Navigation

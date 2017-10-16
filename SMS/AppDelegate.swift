@@ -33,6 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let query5 = PFQuery(className: "Lugar")
         let query6 = PFQuery(className: "PersonaRolAct")
 
+//        query.limit = 1000
+//        query2.limit = 1000
+//        query3.limit = 1000
+//        query4.limit = 1000
+//        query5.limit = 1000
+//        query6.limit = 1000
+        
         let  queryCollections = [query,query2,query3,query4,query5,query6]
         
         _ = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -45,6 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             return task
         })
+        
+        var localTimeZoneAbbreviation: String { return  NSTimeZone.local.abbreviation(for: Date())! }
+        
+        print(Date.init(timeIntervalSinceNow: -(60*60*3)))
         
     return true
     }
