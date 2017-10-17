@@ -53,10 +53,8 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetalleMaterialesVC") as! DetalleMaterialesVC
         
-        vc.url = media["url"] as! String
-       // vc.url = media["url"] as! String
+        vc.media = media
 
-        vc.tipo = media["tipo"] as! String
         navigationController?.pushViewController(vc,
                                                  animated: true)
 

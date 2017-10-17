@@ -14,13 +14,13 @@ extension DateFormatter {
     func formatoHoraMinutoString(fecha:NSDate) -> String {
         
         self.dateFormat = "HH:mm"
-        return self.string(from: fecha.addingTimeInterval(60*60*2) as Date)
+        return self.string(from: fecha.addingTimeInterval(60*60*3) as Date)
     }
 
     func formatoDiaMesString(fecha:NSDate) -> String {
         
         self.dateFormat = "dd MMMM"
-        fecha.addingTimeInterval(-978296400)
+        fecha.addingTimeInterval(60*60*3)
 
         return self.string(from: fecha as Date)
     }
@@ -28,7 +28,7 @@ extension DateFormatter {
     func formatoDiaMesCortoString(fecha:NSDate) -> String {
         
         self.dateFormat = "dd MMM"
-        fecha.addingTimeInterval(-978296400)
+        fecha.addingTimeInterval(60*60*3)
         
         return self.string(from: fecha as Date)
     }
@@ -42,7 +42,7 @@ extension DateFormatter {
     func formatoAnoMesDiaString(fecha:NSDate) -> String {
         
         self.dateFormat = "yyyy-MM-dd"
-        fecha.addingTimeInterval(-978296400)
+        fecha.addingTimeInterval(60*60*3)
     
         return self.string(from: fecha as Date)
     }
@@ -52,7 +52,7 @@ extension DateFormatter {
         self.locale = Locale(identifier: "es_CL")
         self.dateStyle = .full
         self.dateFormat = "dd 'de' MMMM 'de' yyyy"
-        fecha.addingTimeInterval(-978296400)
+        fecha.addingTimeInterval(60*60*3)
         
         return self.string(from: fecha as Date)
     }

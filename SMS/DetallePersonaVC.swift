@@ -20,11 +20,14 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     @IBOutlet weak var imagenPersona: UIImageView!
 
     var nombrePersona:String!
+    var congreso:PFObject!
     var charlasArray: [PFObject]!
+    var personasCharla: [PFObject]!
     var institucion: String!
     var lugarPersona: String!
     var info:String!
     var rol:String!
+    var imagenFile:PFFile!
     var imagen:UIImage!
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
@@ -42,7 +45,22 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
 
         labelRolDetallePersona.text = rol
         textViewInfoDetallePersona.text = info
-        imagenPersona.image = imagen
+        
+        if(imagen != nil){
+            imagenPersona.image = imagen
+            
+        }
+        else{
+          imagenFile.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            
+            DispatchQueue.main.async {
+                
+            
+            self.imagenPersona.image = UIImage(data: task.result! as Data)
+            }
+            return task
+            })
+        }
         
         labelNombreDetallePersona.textColor = UIColor.white
         labelLugarPersonaDetallePersona.textColor = UIColor.white
@@ -55,7 +73,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         labelInstitucionDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
         labelRolDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
         
-        textViewInfoDetallePersona.font = UIFont.systemFont(ofSize: 16.0)
+        textViewInfoDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
         
         imagenPersona.frame.origin = CGPoint(x: 20.0, y: 84.0)
         labelNombreDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 84.0)
@@ -81,6 +99,8 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         colorFondoHeaderDetalle.backgroundColor = UIColor.lightGray
         
         textViewInfoDetallePersona.frame.origin = CGPoint(x: 20.0, y: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0)
+        textViewInfoDetallePersona.frame.size = CGSize(width: view.frame.width - 20.0, height: 0.0)
+        
         textViewInfoDetallePersona.sizeToFit()
         
         
@@ -91,8 +111,10 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         }
         else{
             self.tabla.frame.origin = CGPoint(x: 0.0, y: textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height)
+self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.height - (textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height + 30))
         }
         
+
         tabla.tableFooterView = UIView()
 
         self.view.addSubview(colorFondoHeaderDetalle)
@@ -118,7 +140,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return tamanoCelda
+        return tamanoCelda + 20.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -161,41 +183,43 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
-        if((evento["personas"] as! [PFObject]).count != 0){
-            
-            
-            var personasString = String()
-            let personas = evento["personas"] as! NSArray
-            
-            
-            for object in (personas){
-                
-                let persona = object as! PFObject
-                persona.fetchIfNeededInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
-                    
-                
-                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-                personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
-            
-                return task
-            })
+//        print(evento)
+//        
+//        if((evento["personas"] as! [PFObject]).count != 0){
+//            
+//            
+//            var personasString = String()
+//            let personas = evento["personas"] as! NSArray
+//            
+//            for object in (personas){
+//                
+//                let persona = object as! PFObject
+//                persona.fetchIfNeededInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
+//                    
+//                
+//                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
+//                personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
+//            
+//                return task
+//            })
+//
+//            }
+//            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+//            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+//            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+//            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
+//            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
+//            cell.labelSpeaker1.text = personasString
+//            cell.labelSpeaker1?.textAlignment = .left
+//            cell.labelSpeaker1.numberOfLines = 0
+//            cell.labelSpeaker1?.sizeToFit()
+//            
+//        }
+//        else{
+//            cell.labelSpeaker1.text = ""
+//        }
+        cell.labelSpeaker1.text = ""
 
-            }
-            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
-            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
-            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
-            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
-            cell.labelSpeaker1.text = personasString
-            cell.labelSpeaker1?.textAlignment = .left
-            cell.labelSpeaker1.numberOfLines = 0
-            cell.labelSpeaker1?.sizeToFit()
-            
-        }
-        else{
-            cell.labelSpeaker1.text = ""
-        }
-        
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
@@ -244,11 +268,11 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
-        
+        vc.congreso = congreso
         
         navigationController?.pushViewController(vc,
-                                                 animated: true)    }
-
+                                                 animated: true)
+    }
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 2.0, width: size.width, height: size.height)

@@ -23,6 +23,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
     @IBOutlet weak var botonMapa: UIButton!
+    @IBOutlet weak var botonRating: UIButton!
+
 
     var hora: String!
     var dia:String!
@@ -63,7 +65,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return task
         })
         
-        
+        botonRating.setTitle("Evaluar", for: .normal)
+        botonRating.addTarget(self, action: #selector(evaluar), for: .touchUpInside)
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
         labelTituloDetallePrograma.textColor = UIColor.white
@@ -119,7 +122,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         self.tabla.isScrollEnabled = false
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
-            .width, height: 0.0)
+            .width - 10.0, height: 0.0)
 
         let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
@@ -128,7 +131,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         textViewInfoDetallePrograma?.sizeToFit()
 
         /////
-        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 10.0))
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 5.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
         
         self.view.addSubview(colorFondoHeaderDetalle)
@@ -136,22 +139,70 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         ////
         botonMapa.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + 160, y: labelHoraDetallePrograma.frame.origin.y)
 
+        botonRating.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + 160, y: labelHoraDetallePrograma.frame.origin.y + 30.0)
+
+        
         botonMapa.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
         botonMapa.titleLabel?.textAlignment = .left
-        
-      //  if(lugar == nil){
-        botonMapa.isHidden = true
-//        }
-//        else{
-//        botonMapa.isHidden = false
-//        }
+        botonRating.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
+        botonRating.titleLabel?.textAlignment = .left
+        botonRating.tintColor = UIColor.white
+
+        if(lugar?["imgPerfil"] != nil){
+            botonMapa.isHidden = false
+
+        }
+        else{
+            botonMapa.isHidden = true
+
+        }
         self.tablaActividades.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y))
+        view.addSubview(botonRating)
         self.tablaActividades.tableFooterView = UIView()
+        
+    }
+    
+    func evaluar(){
+    
+        let alert = UIAlertController(title: "Rating", message: "¿Qué te pareció ésta charla?", preferredStyle: .actionSheet)
+        
+        for i in ["★", "★★", "★★★", "★★★★","★★★★★"] {
+            alert.addAction(UIAlertAction(title: i, style: .default, handler: doSomething))
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+
+    }
+    func doSomething(action: UIAlertAction) {
+
+        let calificacion = action.title?.characters.count
+        let rating = PFObject(className: "Rating")
+        rating.setObject(calificacion!, forKey: "calificacion")
+        rating.setObject(evento, forKey: "evento")
+        rating.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            
+            return task
+        })
+        
         
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        let queryPersona = PFQuery(className: "PersonaRolAct")
+        queryPersona.limit = 1000
+        queryPersona.includeKey("persona")
+        queryPersona.includeKey("act")
+        queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in
+            
+            self.personas = taskPersonas.result as! [PFObject]
+            DispatchQueue.main.async {
+                
+                self.tablaActividades.reloadData()
+            }
+            return taskPersonas
+        })
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@) AND (actividad == %@)", PFUser.current()!,self.evento))
         
         favoritoQuery.getFirstObjectInBackground().continue({ (taskFav:BFTask<PFObject>) -> Any? in
@@ -173,20 +224,19 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             return taskFav
         })
+        
 
     }
     func irAMapa()
-    {
+    {   let lugar = evento["lugar"] as? PFObject
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
-        if (evento["lugar"] as! String == "Salón Piccadilly y Esmeralda"){
-            vc.nombreMapa = "mapaVinaPlantacasino2.png"
+        if (lugar?["imgPerfil"] != nil){
+            
+            vc.mapa = lugar?["imgPerfil"] as! PFFile
         }
-        else{
-            vc.nombreMapa = "mapaVinapiso3.png"
-
-        }
-        vc.nombreSalon = evento["lugar"] as! String
+        
+        vc.nombreSalon = lugar?["nombre"] as! String
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
@@ -233,21 +283,38 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
       
         cell.labelRol.text = a.firstObject as? String
         
-        if (persona["imagenPerfil"] == nil) {
-            
-            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
-        }
-        else{
-            print(persona["imagenPerfil"])
-            cell.imagenPerfil.image = UIImage(data: persona["imagenPerfil"] as! Data)
+            if (persona["ImgPerfil"] == nil) {
+                
+                cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
             }
-        }
+            else{
+                let im = persona["ImgPerfil"] as? PFFile
+                im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                    DispatchQueue.main.async {
+                        
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                        
+                    }
+                })
+            }}
+            
         else{
         
             let evento = actividadesAnidadas[indexPath.row] as PFObject
             
-            let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
-            let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
+            _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
+                
+                let persona = $0.value(forKey: "persona") as? PFObject
+                
+                if !(evento.allKeys.containss(obj: "personas")){
+                    evento.addUniqueObject(persona as Any, forKey: "personas")
+                    
+                }}}
+            
+            let personaActividad = evento["personas"] as? [PFObject]
+            
+            let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
+            let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
             
             cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
             cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
@@ -270,56 +337,48 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.labelHora.numberOfLines = 0
             cell.labelHora?.sizeToFit()
             
-           let lugar = evento["lugar"] as? PFObject
-
+            
+            let lugar = evento["lugar"] as? PFObject
+            
             let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
             cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
             cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
-            
             cell.labelLugar.text = lugar?["nombre"] as? String
             cell.labelLugar?.textAlignment = .left
             cell.labelLugar.numberOfLines = 0
             cell.labelLugar?.sizeToFit()
             
             var personasTamano = Int()
-            //        print(evento)
-            //
-            //        if((evento["personas"] as! [PFObject]).count != 0){
-            //
-            //
-            //            var personasString = String()
-            //            let personas = evento["personas"] as! NSArray
-            //
-            //            for object in (personas){
-            //
-            //                let persona = object as! PFObject
-            //                persona.fetchIfNeededInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
-            //
-            //
-            //                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-            //                personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
-            //
-            //                return task
-            //            })
-            //
-            //            }
-            //            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
-            //            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            //            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
-            //            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
-            //            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
-            //            cell.labelSpeaker1.text = personasString
-            //            cell.labelSpeaker1?.textAlignment = .left
-            //            cell.labelSpeaker1.numberOfLines = 0
-            //            cell.labelSpeaker1?.sizeToFit()
-            //
-            //        }
-            //        else{
-            //            cell.labelSpeaker1.text = ""
-            //        }
-            cell.labelSpeaker1.text = ""
+            
+            if(personaActividad != nil){
+                
+                var personasString = String()
+                
+                for object in (personaActividad)!{
+                    
+                    let persona = object
+                    
+                    
+                    personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
+                    personasTamano = personasTamano + (28 / (personaActividad?.count)!)
+                }
+                let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+                cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+                cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+                cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
+                cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
+                cell.labelSpeaker1.text = personasString
+                cell.labelSpeaker1.numberOfLines = 0
+                cell.labelSpeaker1?.textAlignment = .left
+                cell.labelSpeaker1?.sizeToFit()
+                
+            }
+            else{
+                cell.labelSpeaker1.text = ""
+            }
+
             
             tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
             
@@ -334,6 +393,12 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
                 
             }
+            else if (evento["tipo"] as? String == "break") {
+                
+                colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+                
+            }
+
             else{
                 colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
                 
@@ -412,13 +477,31 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
         }
+        if(evento["tipo"] as? String == "break"){
+            
+            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+            
+        }
+
         else{
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
         }
         vc.congreso = congreso
         
+        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
+            let persona = $0.value(forKey: "persona") as? PFObject
+            let rol = $0.value(forKey: "rol") as? String
+            persona?.addUniqueObject(rol!, forKey: "rol")
+            if !(evento.allKeys.containss(obj: "personas")){
+                evento.addUniqueObject(persona as Any, forKey: "personas")
+            }}}
         
+        let personaActividad = evento["personas"] as? [PFObject]
+        if personaActividad != nil {
+        
+            vc.personas = personaActividad!
+        }
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }

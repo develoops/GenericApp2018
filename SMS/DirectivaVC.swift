@@ -23,6 +23,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         
         let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "tipo == %@", "sociedad"))
+        queryDirectiva.includeKey("persona")
         queryDirectiva.includeKey("persona.pais")
 
         queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -76,7 +77,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let prenombre = (persona["preNombre"] as? String)
         let primerNombre = (persona["primerNombre"] as? String)
         let primerApellido = (persona["primerApellido"] as? String)
-    
+
         
         cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
@@ -101,8 +102,14 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            print(persona["ImgPerfil"])
-            cell.imagenPerfil.image = UIImage(data: persona["ImgPerfil"] as! Data)
+            let im = persona["ImgPerfil"] as? PFFile
+            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                DispatchQueue.main.async {
+            
+        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+
+                }
+            })
             
         }
         return cell
@@ -125,15 +132,14 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         vc.info = persona["descripcion"] as? String
         
         
-        
         if (persona["ImgPerfil"] == nil) {
             
             vc.imagen = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            print(persona["ImgPerfil"])
-            vc.imagen = UIImage(data: persona["ImgPerfil"] as! Data)
+            let im = persona["ImgPerfil"] as! PFFile
             
+            vc.imagenFile = im
         }
         
         navigationController?.pushViewController(vc,

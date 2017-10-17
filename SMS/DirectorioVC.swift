@@ -73,9 +73,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let personaRolOrg = personas[indexPath.row]
         
         let persona = personaRolOrg["persona"] as! PFObject
-        print (persona)
-        let lugar = (persona["pais"] as! PFObject)
-        print(lugar)
+        let lugar = (persona["pais"] as? PFObject)
         
         let prenombre = (persona["preNombre"] as? String)
         let primerNombre = (persona["primerNombre"] as? String)
@@ -95,7 +93,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.sizeToFit()
         
         cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-        cell.labelLugarPersona?.text = lugar["nombre"] as? String
+        cell.labelLugarPersona?.text = lugar?["nombre"] as? String
         cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 14.0)
         
         cell.labelInstitucion?.text = personaRolOrg["rol"] as? String
@@ -108,8 +106,14 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            print(persona["ImgPerfil"])
-            cell.imagenPerfil.image = UIImage(data: persona["ImgPerfil"] as! Data)
+            let im = persona["ImgPerfil"] as? PFFile
+            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                DispatchQueue.main.async {
+                    
+                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    
+                }
+            })
             
         }
         return cell
@@ -122,15 +126,14 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let personaRolOrg = personas[indexPath.row]
         
         let persona = personaRolOrg["persona"] as! PFObject
-        let lugar = persona["pais"] as! PFObject
+        let lugar = persona["pais"] as? PFObject
         
         vc.nombrePersona = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
         
         vc.institucion = persona["institucion"] as? String
         vc.rol = personaRolOrg["rol"] as? String
-        vc.lugarPersona = lugar["nombre"] as? String
+        vc.lugarPersona = lugar?["nombre"] as? String
         vc.info = persona["descripcion"] as? String
-        
         
         
         if (persona["ImgPerfil"] == nil) {
@@ -138,13 +141,14 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             vc.imagen = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            print(persona["ImgPerfil"])
-            vc.imagen = UIImage(data: persona["ImgPerfil"] as! Data)
+            let im = persona["ImgPerfil"] as! PFFile
             
+            vc.imagenFile = im
         }
         
         navigationController?.pushViewController(vc,
                                                  animated: true)
+
     }
     
     

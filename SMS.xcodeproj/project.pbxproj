@@ -16,11 +16,11 @@
 		C3220A6D1F8FD13600A08B15 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A6C1F8FD13600A08B15 /* Home.png */; };
 		C3220A701F8FE50A00A08B15 /* directiva.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A6E1F8FE50A00A08B15 /* directiva.png */; };
 		C3220A711F8FE50A00A08B15 /* Sociedad.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A6F1F8FE50A00A08B15 /* Sociedad.png */; };
-		C3220A731F90002B00A08B15 /* SplashNefro2017.png in Resources */ = {isa = PBXBuildFile; fileRef = C3220A721F90002B00A08B15 /* SplashNefro2017.png */; };
 		C3220A751F9296C700A08B15 /* DirectorioVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A741F9296C700A08B15 /* DirectorioVC.swift */; };
 		C3220A771F92970700A08B15 /* NovedadesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A761F92970700A08B15 /* NovedadesVC.swift */; };
 		C3220A7A1F92D85400A08B15 /* CongresoNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A791F92D85400A08B15 /* CongresoNavViewController.swift */; };
 		C3220A7C1F92F5A500A08B15 /* MaterialesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */; };
+		C32FF1611F9520FA00E41BA2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C337AAD51F94DA5700164780 /* materiales.png in Resources */ = {isa = PBXBuildFile; fileRef = C337AAD41F94DA5700164780 /* materiales.png */; };
 		C337AAD71F94DCA400164780 /* novedades.png in Resources */ = {isa = PBXBuildFile; fileRef = C337AAD61F94DCA400164780 /* novedades.png */; };
@@ -45,16 +45,12 @@
 		C378EC501F055ADA00DE0318 /* img_break.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC471F055ADA00DE0318 /* img_break.png */; };
 		C378EC511F055ADA00DE0318 /* ponente.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC481F055ADA00DE0318 /* ponente.png */; };
 		C378EC521F055ADA00DE0318 /* programa.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC491F055ADA00DE0318 /* programa.png */; };
-		C378EC541F0570EE00DE0318 /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC531F0570EE00DE0318 /* splash@2x.png */; };
 		C378EC561F0576B900DE0318 /* btn_directiva.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC551F0576B900DE0318 /* btn_directiva.png */; };
 		C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC571F05820300DE0318 /* DetallePersonaVC.swift */; };
 		C378EC5A1F05821900DE0318 /* DetallePatrocinadorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */; };
 		C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */; };
 		C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A58D3A1F054953003095FF /* TableViewCell.swift */; };
-		C3C12F921F2B998C00D01AD4 /* mapaVinapiso3.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */; };
-		C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */; };
 		C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F941F2B9E7A00D01AD4 /* pinilla.png */; };
-		C3E728F61F06671B006203A8 /* isotip.png in Resources */ = {isa = PBXBuildFile; fileRef = C3E728F51F06671B006203A8 /* isotip.png */; };
 		E689768FEAE107208BBC8ED9 /* Pods_SMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76418B7CAE3F6027679F008 /* Pods_SMS.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,17 +66,18 @@
 		C3220A6C1F8FD13600A08B15 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		C3220A6E1F8FE50A00A08B15 /* directiva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directiva.png; sourceTree = "<group>"; };
 		C3220A6F1F8FE50A00A08B15 /* Sociedad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sociedad.png; sourceTree = "<group>"; };
-		C3220A721F90002B00A08B15 /* SplashNefro2017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashNefro2017.png; sourceTree = "<group>"; };
 		C3220A741F9296C700A08B15 /* DirectorioVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectorioVC.swift; sourceTree = "<group>"; };
 		C3220A761F92970700A08B15 /* NovedadesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NovedadesVC.swift; sourceTree = "<group>"; };
 		C3220A791F92D85400A08B15 /* CongresoNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CongresoNavViewController.swift; sourceTree = "<group>"; };
 		C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialesVC.swift; sourceTree = "<group>"; };
+		C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		C32FF1621F9524E900E41BA2 /* SMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SMS.entitlements; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C337AAD41F94DA5700164780 /* materiales.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = materiales.png; sourceTree = "<group>"; };
 		C337AAD61F94DCA400164780 /* novedades.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = novedades.png; sourceTree = "<group>"; };
 		C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetalleMaterialesVC.swift; sourceTree = "<group>"; };
 		C33A1BE21F2C006500B6B744 /* favMarcado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favMarcado.png; sourceTree = "<group>"; };
-		C34BA87A1F04173500022E6B /* SMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C34BA87A1F04173500022E6B /* Nefro 2017.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nefro 2017.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
 		C34BA8821F04173500022E6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,16 +98,12 @@
 		C378EC471F055ADA00DE0318 /* img_break.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_break.png; sourceTree = "<group>"; };
 		C378EC481F055ADA00DE0318 /* ponente.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ponente.png; sourceTree = "<group>"; };
 		C378EC491F055ADA00DE0318 /* programa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = programa.png; sourceTree = "<group>"; };
-		C378EC531F0570EE00DE0318 /* splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@2x.png"; sourceTree = "<group>"; };
 		C378EC551F0576B900DE0318 /* btn_directiva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_directiva.png; sourceTree = "<group>"; };
 		C378EC571F05820300DE0318 /* DetallePersonaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePersonaVC.swift; sourceTree = "<group>"; };
 		C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePatrocinadorVC.swift; sourceTree = "<group>"; };
 		C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ponente_ausente_Hombre.png; sourceTree = "<group>"; };
 		C3A58D3A1F054953003095FF /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapaVinapiso3.png; sourceTree = "<group>"; };
-		C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapaVinaPlantacasino2.png; sourceTree = "<group>"; };
 		C3C12F941F2B9E7A00D01AD4 /* pinilla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinilla.png; sourceTree = "<group>"; };
-		C3E728F51F06671B006203A8 /* isotip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isotip.png; sourceTree = "<group>"; };
 		F76418B7CAE3F6027679F008 /* Pods_SMS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -119,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32FF1611F9520FA00E41BA2 /* UserNotifications.framework in Frameworks */,
 				E689768FEAE107208BBC8ED9 /* Pods_SMS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +123,7 @@
 		53F9788938B54563D1DC5A23 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */,
 				F76418B7CAE3F6027679F008 /* Pods_SMS.framework */,
 			);
 			name = Frameworks;
@@ -163,8 +158,8 @@
 				C378EC3C1F05542200DE0318 /* SMSVC.swift */,
 				C334EDE21F0D3E3700A084D4 /* MapVC.swift */,
 				C3220A741F9296C700A08B15 /* DirectorioVC.swift */,
-				C3220A761F92970700A08B15 /* NovedadesVC.swift */,
 				C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */,
+				C3220A761F92970700A08B15 /* NovedadesVC.swift */,
 			);
 			name = Congreso;
 			sourceTree = "<group>";
@@ -190,7 +185,7 @@
 		C34BA87B1F04173500022E6B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C34BA87A1F04173500022E6B /* SMS.app */,
+				C34BA87A1F04173500022E6B /* Nefro 2017.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,6 +193,7 @@
 		C34BA87C1F04173500022E6B /* SMS */ = {
 			isa = PBXGroup;
 			children = (
+				C32FF1621F9524E900E41BA2 /* SMS.entitlements */,
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
 				C378EC5C1F05823000DE0318 /* Controllers */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
@@ -222,14 +218,9 @@
 				C337AAD41F94DA5700164780 /* materiales.png */,
 				C3220A6C1F8FD13600A08B15 /* Home.png */,
 				C3220A6E1F8FE50A00A08B15 /* directiva.png */,
-				C3220A721F90002B00A08B15 /* SplashNefro2017.png */,
 				C3220A6F1F8FE50A00A08B15 /* Sociedad.png */,
-				C3C12F901F2B998C00D01AD4 /* mapaVinapiso3.png */,
-				C3C12F911F2B998C00D01AD4 /* mapaVinaPlantacasino2.png */,
-				C3E728F51F06671B006203A8 /* isotip.png */,
 				C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */,
 				C378EC551F0576B900DE0318 /* btn_directiva.png */,
-				C378EC531F0570EE00DE0318 /* splash@2x.png */,
 				C378EC411F055ADA00DE0318 /* Btn_avanzar_derecha.png */,
 				C378EC421F055ADA00DE0318 /* btn_back.png */,
 				C378EC431F055ADA00DE0318 /* btn_Favorito_marcado.png */,
@@ -293,7 +284,7 @@
 			);
 			name = SMS;
 			productName = SMS;
-			productReference = C34BA87A1F04173500022E6B /* SMS.app */;
+			productReference = C34BA87A1F04173500022E6B /* Nefro 2017.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -310,6 +301,14 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = U5A54XUB2N;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -342,10 +341,7 @@
 				C378EC561F0576B900DE0318 /* btn_directiva.png in Resources */,
 				C3220A6D1F8FD13600A08B15 /* Home.png in Resources */,
 				C337AAD51F94DA5700164780 /* materiales.png in Resources */,
-				C3220A731F90002B00A08B15 /* SplashNefro2017.png in Resources */,
-				C3C12F931F2B998C00D01AD4 /* mapaVinaPlantacasino2.png in Resources */,
 				C378EC4A1F055ADA00DE0318 /* Btn_avanzar_derecha.png in Resources */,
-				C3E728F61F06671B006203A8 /* isotip.png in Resources */,
 				C378EC4C1F055ADA00DE0318 /* btn_Favorito_marcado.png in Resources */,
 				C337AAD71F94DCA400164780 /* novedades.png in Resources */,
 				C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */,
@@ -355,11 +351,9 @@
 				C34BA8881F04173500022E6B /* Assets.xcassets in Resources */,
 				C378EC4E1F055ADA00DE0318 /* btn_patrocinadores.png in Resources */,
 				C378EC4D1F055ADA00DE0318 /* Btn_favoritos_SinMarcar.png in Resources */,
-				C3C12F921F2B998C00D01AD4 /* mapaVinapiso3.png in Resources */,
 				C34BA8831F04173500022E6B /* Main.storyboard in Resources */,
 				C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */,
 				C378EC4B1F055ADA00DE0318 /* btn_back.png in Resources */,
-				C378EC541F0570EE00DE0318 /* splash@2x.png in Resources */,
 				C378EC511F055ADA00DE0318 /* ponente.png in Resources */,
 				C378EC521F055ADA00DE0318 /* programa.png in Resources */,
 			);
@@ -565,14 +559,17 @@
 			baseConfigurationReference = 73148D13B6370238CC4A32E1 /* Pods-SMS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = SMS/SMS.entitlements;
 				DEVELOPMENT_TEAM = U5A54XUB2N;
 				INFOPLIST_FILE = SMS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.Nefro;
 				PRODUCT_MODULE_NAME = SMS;
-				PRODUCT_NAME = SMS;
+				PRODUCT_NAME = "Nefro 2017";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -581,14 +578,17 @@
 			baseConfigurationReference = 1C2C955866E28B340F8E0309 /* Pods-SMS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = SMS/SMS.entitlements;
 				DEVELOPMENT_TEAM = U5A54XUB2N;
 				INFOPLIST_FILE = SMS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.Nefro;
 				PRODUCT_MODULE_NAME = SMS;
-				PRODUCT_NAME = SMS;
+				PRODUCT_NAME = "Nefro 2017";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

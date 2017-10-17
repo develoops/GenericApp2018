@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Parse
 
 class MapVC: UIViewController,UIScrollViewDelegate {
 
     let scrollView = UIScrollView()
     var nombreMapa:String!
     var nombreSalon:String!
+    var mapa:PFFile!
+
 
     var imageView = UIImageView()
    
@@ -22,15 +25,23 @@ class MapVC: UIViewController,UIScrollViewDelegate {
     scrollView.isPagingEnabled = true
     scrollView.bounces = true
     scrollView.zoomScale = 2.0
-    scrollView.minimumZoomScale = 1.0
+    scrollView.minimumZoomScale = -2.0
     scrollView.maximumZoomScale = 12.0
     
     
-    imageView = UIImageView(image: UIImage(named: nombreMapa))
-    scrollView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.width, height: view.frame.height - (self.navigationController?.navigationBar.frame.height)!)
-        view.addSubview(self.scrollView)
-    imageView.frame = scrollView.frame
-    scrollView.addSubview(imageView)
+        mapa.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            
+            DispatchQueue.main.async {
+                
+            
+            self.imageView = UIImageView(image: UIImage(data:task.result! as Data))
+            self.scrollView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y + (self.navigationController?.navigationBar.frame.height)!, width: self.view.frame.width, height: self.view.frame.height - (self.navigationController?.navigationBar.frame.height)!)
+            self.view.addSubview(self.scrollView)
+            self.imageView.frame = self.scrollView.frame
+            self.scrollView.addSubview(self.imageView)
+            }
+            return task
+        })
     
     asignarCoordenadaPin(nombreSalon:nombreSalon)
     }

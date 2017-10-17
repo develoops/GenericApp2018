@@ -24,7 +24,7 @@ class SMSVC: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.topItem?.title = "SMS"
+        self.navigationController?.navigationBar.topItem?.title = ""
     }
     
     override func viewDidDisappear(_ animated: Bool) {

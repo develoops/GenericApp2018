@@ -18,12 +18,15 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var personas = [PFObject]()
     var favs = [PFObject]()
     var rightButton = UIBarButtonItem()
-    
+    var congreso:PFObject!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -36,7 +39,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         queryPersona.includeKey("act")
 
         let user = PFUser.current()
-        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@ ) AND (congreso == %@)", user!,congreso))
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         

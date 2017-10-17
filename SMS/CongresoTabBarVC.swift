@@ -30,12 +30,9 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
             quinto.congreso = congreso
         }
         
-        if let sexto = viewControllers?[6] as? MaterialesVC {
+        if let sexto = viewControllers?[5] as? MaterialesVC {
             sexto.congreso = congreso
         }
-
-
-
     }
 
     override func didReceiveMemoryWarning() {

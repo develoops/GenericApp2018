@@ -12,11 +12,25 @@ import Parse
 class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tabla: UITableView!
-    
+    var patrocinadores = [PFObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
+        
+        let patrocinadoresQuery =  PFQuery(className: "Org", predicate: NSPredicate(format:" tipo == %@","patrocinador"))
+        patrocinadoresQuery.addAscendingOrder("nombre")
+        patrocinadoresQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            
+            self.patrocinadores = task.result as! [PFObject]
+            DispatchQueue.main.async {
+                self.tabla.reloadData()
+            }
+            return task
+        })
+
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -34,7 +48,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return patrocinadores().count
+        return patrocinadores.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -44,7 +58,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let patrocinador = patrocinadores()[indexPath.row]
+        let patrocinador = patrocinadores[indexPath.row]
 
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
@@ -58,7 +72,10 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             imagen.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
                
-                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                DispatchQueue.main.async {
+                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+
+                }
                 
                return task.result
             })
@@ -68,7 +85,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let patrocinador = patrocinadores()[indexPath.row]
+        let patrocinador = patrocinadores[indexPath.row]
 
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -92,18 +109,15 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                                                  animated: true)
     }
     
-    func patrocinadores() ->[PFObject]{
-        
-        do {
-            let patrocinadoresQuery =  PFQuery(className:"Org")
-            patrocinadoresQuery.fromLocalDatastore()
-            return try patrocinadoresQuery.findObjects()
-            
-        } catch {
-            fatalError("Fallo: \(error)")
-        }
-        
-    }
+//    func patrocinadores() ->[PFObject]{
+//        
+//        do {
+//            
+//        } catch {
+//            fatalError("Fallo: \(error)")
+//        }
+//        
+//    }
 
     
     override func didReceiveMemoryWarning() {

@@ -21,7 +21,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
-        
+
         let queryEventosCongreso = PFQuery(className: "Actividad")
         queryEventosCongreso.whereKey("tipo", equalTo: "congreso")
         queryEventosCongreso.includeKey("lugar")
@@ -29,15 +29,13 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         queryEventosCongreso.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
             DispatchQueue.main.async() {
-                self.eventosCongreso = task.result as! [PFObject]
+            self.eventosCongreso = task.result as! [PFObject]
             self.tabla.reloadData()
             }
             
             return task.result
             
         })
-
-    
     }
     
     override func viewDidAppear(_ animated: Bool) {

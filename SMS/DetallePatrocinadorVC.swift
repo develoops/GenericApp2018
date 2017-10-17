@@ -26,6 +26,8 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         self.tabla.delegate = self
         self.tabla.dataSource = self
+        tabla.frame = view.frame
+
         let imagenContenido = ["imagen",imagen] as [AnyObject]
         let nombreContenido = ["Nombre",nombrePatrocinador]
         let descripcionContenido = ["Descripción",info]
@@ -62,20 +64,27 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         
         if(encabezado == "imagen"){
             let imagen = objetoInfo.last as? PFFile
-            cell.labelTitulo?.text = ""
-            cell.infoDetallePatrocinador?.text = ""
+            cell.labelTitulo?.isHidden = true
+            cell.infoDetallePatrocinador?.isHidden = true
             cell.imagenPerfil.isHidden = false
             imagen?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
-                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+               
+                DispatchQueue.main.async {
+                    
                 
+                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                }
                 return task
                 
             })
-            cell.imagenPerfil.frame = CGRect(x: 100.0, y: 20.0, width: 550.0/3, height: 250.0/3)
+            cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 10.0, width: 150.0, height: 150.0)
             
         }
             
         else{
+            cell.labelTitulo?.isHidden = false
+            cell.infoDetallePatrocinador?.isHidden = false
+
         
         cell.labelTitulo?.textColor = UIColor(red: 74/255, green: 144/255, blue: 226/255, alpha: 1)
         cell.labelTitulo?.frame = CGRect(x: 25.0, y: 10.0, width: view.frame.size.width - 100.0, height:0.0)
@@ -109,7 +118,6 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         tamanoCelda = cell.labelTitulo.frame.height + cell.infoDetallePatrocinador.frame.height + 15.0
         }
 
-        
         return cell
     }
     

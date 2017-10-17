@@ -1,6 +1,6 @@
 PODS:
   - Bolts/Tasks (1.8.4)
-  - Parse (1.15.2):
+  - Parse (1.15.3):
     - Bolts/Tasks (~> 1.8)
 
 DEPENDENCIES:
@@ -12,12 +12,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Parse:
-    :commit: ff15a3e7b6e268eda6cfd713e459309fe257367d
+    :commit: 98ba23c37f099464287a74df03f2e084ff91f0bb
     :git: https://github.com/parse-community/Parse-SDK-iOS-OSX.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Parse: 7daa8804b876d250a65420534c97d2d786c3b0b4
+  Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
 
 PODFILE CHECKSUM: 7caa63d96befcea751ef5706217360d4efe8af50
 

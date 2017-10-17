@@ -29,13 +29,18 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.limit = 1000
         query.includeKey("act")
         query.includeKey("act.lugar")
+        query.includeKey("persona")
         query.includeKey("persona.pais")
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-
+        
+        
             self.rolAct = task.result as! [PFObject]
+            
+            
+
             var counts: [PFObject: Int] = [:]
             
-            for ite in task.result as! [PFObject] {
+            for ite in self.rolAct {
                 counts[ite.value(forKey: "persona") as! PFObject] = (counts[ite.value(forKey: "persona") as! PFObject] ?? 0) + 1
         
             }
@@ -45,11 +50,8 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 self.personasRolAct.append(key)
                 }
         }
-            
         self.personas  = self.uniqueElementsFrom(array:self.personasRolAct)
-
         DispatchQueue.main.async() {
-            
                 self.tabla.reloadData()
             }
             return task
@@ -106,13 +108,22 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelInstitucion?.text = institucion?["nombre"] as? String
         cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
         
-        if (persona["imgPerfil"] == nil) {
+        if (persona["ImgPerfil"] == nil) {
             
             cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            print(persona["imgPerfil"])
-            cell.imagenPerfil.image = UIImage(data: persona["imgPerfil"] as! Data)
+            let im = persona["ImgPerfil"] as? PFFile
+            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+
+                DispatchQueue.main.async {
+                    
+                
+                cell.imagenPerfil.image = UIImage(data:task.result! as Data)
+                    
+            }
+                return task
+            })
             
         }
         return cell
@@ -131,7 +142,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         vc.institucion = persona["institucion"] as? String
         vc.rol = personaRA["rol"] as? String
         vc.lugarPersona = lugar?["nombre"] as? String
-        vc.info = personaRA["bio"] as? String
+        vc.info = persona["descripcion"] as? String
 
        let actividades = rolAct.filter({($0["persona"] as! PFObject) == persona})
         
@@ -139,14 +150,14 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         vc.charlasArray = act
         
-        if (persona["imgPerfil"] == nil) {
+        if (persona["ImgPerfil"] == nil) {
             
             vc.imagen = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-            print(persona["imgPerfil"])
-            vc.imagen = UIImage(data: persona["imgPerfil"] as! Data)
-            
+        let im = persona["ImgPerfil"] as! PFFile
+
+            vc.imagenFile = im
         }
         vc.congreso = congreso
         navigationController?.pushViewController(vc,

@@ -83,6 +83,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     self.botonRetroceder.addTarget(self, action: #selector(self.retroceder), for: .touchUpInside)
                     self.botonRetroceder.isHidden = true
                     self.diaControl.text = self.diasPrograma()[self.indicador]
+                    self.diaControl.center.x = self.view.center.x
+                    self.botonRetroceder.frame.origin = CGPoint(x: self.diaControl.frame.origin.x - 5.0, y: self.diaControl.center.y - 15.0)
+                    
+                    self.botonAvanzar.frame.origin = CGPoint(x: self.diaControl.frame.origin.x + self.diaControl.frame.size.width - 5.0, y: self.diaControl.center.y - 15.0)
+
+                    
                     self.filtrarArray(indicador: self.indicador)
                     let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
                     colorFondoHeaderDetalle.backgroundColor = UIColor(red: 194/255.0, green: 206/255.0, blue: 210/255.0, alpha: 1.0)
@@ -97,7 +103,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Programa"
-
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Congresos", style: .plain, target: self, action: #selector(volver))
     
     self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Ahora", style: .plain, target: self, action: #selector(eem))
@@ -117,10 +122,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             }
             return taskFav
         })
-        
-
     }
-  
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabla.reloadData()
@@ -157,7 +159,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             
             let persona = $0.value(forKey: "persona") as? PFObject
-            
+
             if !(evento.allKeys.containss(obj: "personas")){
             evento.addUniqueObject(persona as Any, forKey: "personas")
        
@@ -249,7 +251,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
-
+        cell.botonFavorito.center.x = cell.frame.size.width - 35.0
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
         
@@ -302,6 +304,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
         }
+    else if (evento["tipo"] as? String == "break") {
+        
+        vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+        
+    }
+
         else{
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             
@@ -314,12 +322,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func eem(){
         
-        let fechaHoy = Date.init(timeIntervalSinceNow: (-60*60-3))
+        let fechaHoy = Date.init(timeIntervalSinceNow: -(60*60*3))
         
         
         let filteredArray = eventosVarLocal.filter() {
             
-            return ($0["inicio"] as AnyObject).compare((fechaHoy.addingTimeInterval(60*60*24))) == ComparisonResult.orderedAscending && ($0["inicio"] as AnyObject).compare(fechaHoy) == ComparisonResult.orderedDescending
+            return ($0["fin"] as AnyObject).compare((fechaHoy.addingTimeInterval(60*60*3))) == ComparisonResult.orderedAscending && ($0["fin"] as AnyObject).compare(fechaHoy) == ComparisonResult.orderedDescending
         }
         
         eventosFiltrados = filteredArray

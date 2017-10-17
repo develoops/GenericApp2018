@@ -1,6 +1,6 @@
 {
   "name": "Parse",
-  "version": "1.15.2",
+  "version": "1.15.3",
   "license": {
     "type": "BSD",
     "file": "LICENSE"
@@ -10,7 +10,7 @@
   "authors": "Parse",
   "source": {
     "git": "https://github.com/parse-community/Parse-SDK-iOS-OSX.git",
-    "tag": "1.15.2"
+    "tag": "1.15.3"
   },
   "platforms": {
     "ios": "7.0",
