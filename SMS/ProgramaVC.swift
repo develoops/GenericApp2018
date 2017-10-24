@@ -39,11 +39,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
+        queryPersona.fromLocalDatastore()
         queryPersona.includeKey("persona")
         queryPersona.includeKey("act")
         
         let eventosQuery =  PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", congreso))
-        
+        eventosQuery.fromLocalDatastore()
         eventosQuery.includeKey("contenido")
         eventosQuery.includeKey("contenedor")
         eventosQuery.limit = 1000
@@ -55,6 +56,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             let a = contenido.map{$0?.objectId}
             
             let query = PFQuery(className: "Actividad")
+            query.fromLocalDatastore()
             query.includeKey("lugar")
             query.addAscendingOrder("inicio")
 

@@ -20,6 +20,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
         
         let patrocinadoresQuery =  PFQuery(className: "Org", predicate: NSPredicate(format:" tipo == %@","patrocinador"))
+        patrocinadoresQuery.fromLocalDatastore()
         patrocinadoresQuery.addAscendingOrder("nombre")
         patrocinadoresQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             

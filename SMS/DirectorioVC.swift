@@ -25,6 +25,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "congreso == %@", congreso))
         
+        queryDirectiva.fromLocalDatastore()
         queryDirectiva.includeKey("persona.pais")
         queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             

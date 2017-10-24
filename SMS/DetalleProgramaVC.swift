@@ -45,6 +45,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         super.viewDidLoad()
         
         let query = PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", evento))
+        query.fromLocalDatastore()
         query.includeKey("contenedor")
         query.includeKey("contenido")
         query.includeKey("contenido.lugar")
@@ -192,6 +193,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
+        queryPersona.fromLocalDatastore()
         queryPersona.includeKey("persona")
         queryPersona.includeKey("act")
         queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in

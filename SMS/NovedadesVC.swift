@@ -23,6 +23,7 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.navigationController?.navigationBar.topItem?.title = "Noticias"
 
         let query = PFQuery(className: "Info")
+        query.fromLocalDatastore()
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
             self.noticias = task.result as! [PFObject]

@@ -23,6 +23,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         
         let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "tipo == %@", "sociedad"))
+        queryDirectiva.fromLocalDatastore()
         queryDirectiva.includeKey("persona")
         queryDirectiva.includeKey("persona.pais")
 

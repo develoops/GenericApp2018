@@ -22,16 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         let configuration = ParseClientConfiguration {
             $0.isLocalDatastoreEnabled = true
             $0.applicationId = "ClUXXsCBfTmS6E9zxXKck1oX4hYSC2pyHarv4U8E"
-            $0.clientKey = "rxSe7SYEgYprtm0i1jy1cxpNwT8gGqkBVbuH75j1"
+            $0.clientKey = "IZ08jbbJwcLnDlEh79edrsxNIcU0iM9FG6Uwpj92"
             $0.server = "https://parseapi.back4app.com"
         }
         Parse.initialize(with: configuration)
         let query2 = PFQuery(className: "Actividad")
+        query2.includeKey("lugar")
         let query = PFQuery(className: "ActContAct")
         query.includeKey("contenido")
         query.includeKey("contenedor")
+        
         let query4 = PFQuery(className: "Org")
-        let query5 = PFQuery(className: "Lugar")
+        let query5 = PFQuery(className: "PersonaRolOrg")
         let query7 = PFQuery(className: "Media")
 
         let query6 = PFQuery(className: "PersonaRolAct")
@@ -48,15 +50,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         query4.limit = 1000
         query5.limit = 1000
         query6.limit = 1000
+        query7.limit = 1000
         
-        let  queryCollections = [query,query2,query3,query4,query5,query6,query7]
+        let  queryCollections = [query2,query,query3,query4,query5,query6,query7]
         
-        _ = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
         
-            return PFObject.pinAll(inBackground: task.result as? [PFObject])
+        
+        let tasks = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        
+            
+            return task
         })
     }
         
+        BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continue({ task -> Any? in
+
+            PFObject.pinAll(inBackground: task.result as! [PFObject]).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
+                
+                print(i)
+            })
+        
+        })
+    
+
         
         PFAnonymousUtils.logInInBackground().continue({ (task:BFTask<PFUser>) -> Any? in
             

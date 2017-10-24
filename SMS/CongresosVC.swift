@@ -23,6 +23,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.frame = view.frame
 
         let queryEventosCongreso = PFQuery(className: "Actividad")
+        queryEventosCongreso.fromLocalDatastore()
         queryEventosCongreso.whereKey("tipo", equalTo: "congreso")
         queryEventosCongreso.includeKey("lugar")
         

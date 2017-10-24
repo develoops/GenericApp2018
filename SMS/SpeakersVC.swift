@@ -25,7 +25,8 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.dataSource = self
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
 
-        let query = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "congreso == %@", self.congreso))
+        let query = PFQuery(className: "PersonaRolAct")
+        query.fromLocalDatastore()
         query.limit = 1000
         query.includeKey("act")
         query.includeKey("act.lugar")
@@ -42,8 +43,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             for ite in self.rolAct {
                 counts[ite.value(forKey: "persona") as! PFObject] = (counts[ite.value(forKey: "persona") as! PFObject] ?? 0) + 1
-        
-            }
+        }
         
             for (key, value) in counts {
                 if(value > 1){
