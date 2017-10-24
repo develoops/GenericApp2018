@@ -62,18 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             return task
         })
     }
-        
-        BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continue({ task -> Any? in
-
-            PFObject.pinAll(inBackground: task.result as! [PFObject]).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
-                
-                print(i)
-            })
-        
-        })
-    
-
-        
         PFAnonymousUtils.logInInBackground().continue({ (task:BFTask<PFUser>) -> Any? in
             
             return task
@@ -110,6 +98,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
+        
+        BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continue({ task -> Any? in
+            
+            PFObject.pinAll(inBackground: (task.result as! [PFObject])).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
+                
+                    print(i)
+            })
+        
+        })
     return true
     }
 
