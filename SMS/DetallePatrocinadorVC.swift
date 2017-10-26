@@ -19,7 +19,6 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
     var we:String!
     var info:String!
     var imagen:PFFile!
-
     var arrayInfoPatrocinadores = NSMutableArray()
     
     override func viewDidLoad() {
@@ -28,7 +27,16 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         self.tabla.dataSource = self
         tabla.frame = view.frame
 
-        let imagenContenido = ["imagen",imagen] as [AnyObject]
+        var imagenContenido = [AnyObject]()
+        if(imagen == nil){
+             imagenContenido = ["imagen",nil] as [AnyObject]
+
+        }
+        else{
+             imagenContenido = ["imagen",imagen] as [AnyObject]
+            
+        }
+        
         let nombreContenido = ["Nombre",nombrePatrocinador]
         let descripcionContenido = ["Descripción",info]
         let contactoContenido = ["Contacto",fon]

@@ -35,11 +35,13 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 )
         
         let queryPersona = PFQuery(className: "PersonaRolAct")
+        queryPersona.fromLocalDatastore()
         queryPersona.includeKey("persona")
         queryPersona.includeKey("act")
 
         let user = PFUser.current()
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@ ) AND (congreso == %@)", user!,congreso))
+        favoritoQuery.fromLocalDatastore()
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         

@@ -112,6 +112,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let user = PFUser.current()
         
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+        favoritoQuery.fromLocalDatastore()
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         
@@ -452,6 +453,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let user = PFUser.current()
         
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
+        favoritoQuery.fromLocalDatastore()
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         
@@ -470,7 +472,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             f.setObject(user as Any, forKey: "user")
             f.setObject(self.congreso, forKey: "congreso")
             self.favs.append(f)
-            f.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            f.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
             
                 return task
             })

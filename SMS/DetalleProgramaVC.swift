@@ -206,7 +206,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return taskPersonas
         })
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@) AND (actividad == %@)", PFUser.current()!,self.evento))
-        
+        favoritoQuery.fromLocalDatastore()
         favoritoQuery.getFirstObjectInBackground().continue({ (taskFav:BFTask<PFObject>) -> Any? in
             
             if(taskFav.result != nil){
@@ -446,7 +446,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             fav.setObject(PFUser.current()!, forKey: "user")
             fav.setObject(evento, forKey: "actividad")
             fav.setObject(congreso, forKey: "congreso")
-            fav.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            fav.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
                 DispatchQueue.main.async {
                     

@@ -26,6 +26,8 @@
 		C337AAD71F94DCA400164780 /* novedades.png in Resources */ = {isa = PBXBuildFile; fileRef = C337AAD61F94DCA400164780 /* novedades.png */; };
 		C337AAD91F94E2D200164780 /* DetalleMaterialesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */; };
 		C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */ = {isa = PBXBuildFile; fileRef = C33A1BE21F2C006500B6B744 /* favMarcado.png */; };
+		C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E29481FA2342500C11D4A /* SplashVC.swift */; };
+		C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
@@ -77,6 +79,8 @@
 		C337AAD61F94DCA400164780 /* novedades.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = novedades.png; sourceTree = "<group>"; };
 		C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetalleMaterialesVC.swift; sourceTree = "<group>"; };
 		C33A1BE21F2C006500B6B744 /* favMarcado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favMarcado.png; sourceTree = "<group>"; };
+		C33E29481FA2342500C11D4A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashSMS2017@3x.png"; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* Nefro 2017.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nefro 2017.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 		C3220A641F8FC33D00A08B15 /* Sociedad */ = {
 			isa = PBXGroup;
 			children = (
+				C33E29481FA2342500C11D4A /* SplashVC.swift */,
 				C3220A661F8FC48F00A08B15 /* CongresosVC.swift */,
 				C3220A681F8FC4A200A08B15 /* DirectivaVC.swift */,
 				C3220A6A1F8FC4AF00A08B15 /* SociedadVC.swift */,
@@ -213,6 +218,7 @@
 		C378EC401F055ADA00DE0318 /* PartesAPP */ = {
 			isa = PBXGroup;
 			children = (
+				C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */,
 				C337AAD61F94DCA400164780 /* novedades.png */,
 				C3C12F941F2B9E7A00D01AD4 /* pinilla.png */,
 				C337AAD41F94DA5700164780 /* materiales.png */,
@@ -347,6 +353,7 @@
 				C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */,
 				C3220A711F8FE50A00A08B15 /* Sociedad.png in Resources */,
 				C3220A701F8FE50A00A08B15 /* directiva.png in Resources */,
+				C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */,
 				C378EC4F1F055ADA00DE0318 /* btnFavorito.png in Resources */,
 				C34BA8881F04173500022E6B /* Assets.xcassets in Resources */,
 				C378EC4E1F055ADA00DE0318 /* btn_patrocinadores.png in Resources */,
@@ -419,6 +426,7 @@
 				C3220A751F9296C700A08B15 /* DirectorioVC.swift in Sources */,
 				C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */,
 				C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */,
+				C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */,
 				C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */,
 				C3220A7A1F92D85400A08B15 /* CongresoNavViewController.swift in Sources */,
 				C378EC3D1F05542200DE0318 /* SMSVC.swift in Sources */,

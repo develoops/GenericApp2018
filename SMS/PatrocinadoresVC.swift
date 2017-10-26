@@ -87,7 +87,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let patrocinador = patrocinadores[indexPath.row]
-
+        
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detallePatrocinadorVC") as! DetallePatrocinadorVC
@@ -99,7 +99,16 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         vc.fon = patrocinador["telefono"] as? String
         
         if(patrocinador["imgFondo"] == nil){
-            vc.imagen = patrocinador["imgPerfil"] as! PFFile
+            
+            if (patrocinador["imgPerfil"] == nil){
+                
+              //  vc.imagen = PFFile(
+
+            }
+            else{
+                vc.imagen = patrocinador["imgPerfil"] as! PFFile
+            }
+            
         }
         else{
             vc.imagen = patrocinador["imgFondo"] as! PFFile
