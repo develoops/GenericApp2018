@@ -36,7 +36,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.tabla.dataSource = self
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 65.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 125.0))
 
-        
+        let refresh = RefreshData()
+        refresh.primerLlamado()
+
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
         queryPersona.fromLocalDatastore()
@@ -150,26 +152,31 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        if(tamanoCelda < 75.0){
+            
+            return 75.0
+        }
+        else{
             return tamanoCelda
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        let evento = eventosFiltrados[indexPath.row]
-        
+        let evento = eventosFiltrados[indexPath.row] as PFObject
+        var object = Array<Any>()
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             
             let persona = $0.value(forKey: "persona") as? PFObject
-
-            if !(evento.allKeys.containss(obj: "personas")){
-            evento.addUniqueObject(persona as Any, forKey: "personas")
-       
-        }}}
+            
+                object.append(persona!)
+            
+        }}
         
-        let personaActividad = evento["personas"] as? [PFObject]
-
+        let personaActividad = object as? [PFObject]
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
@@ -219,8 +226,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-            personasTamano = personasTamano + (28 / (personaActividad?.count)!)
+
+                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
         }
+            
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
@@ -249,6 +258,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
         }
+        else if (evento["tipo"] as? String == "break") {
+            
+            colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+            
+        }
+
         else{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
         }
@@ -281,6 +296,17 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
     
+//        var object = Array<Any>()
+//        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
+//
+//            let persona = $0.value(forKey: "persona") as? PFObject
+//
+//            object.append(persona!)
+//
+//            }}
+//
+//        let personaActividad = object as? [PFObject]
+
 
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             let persona = $0.value(forKey: "persona") as? PFObject
