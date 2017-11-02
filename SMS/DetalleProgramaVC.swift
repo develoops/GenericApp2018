@@ -30,6 +30,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
+    var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!
     var favoritoAct:PFObject!
@@ -281,9 +282,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
 
 
-        let a = persona["rol"] as! NSArray
+        let a = roles[indexPath.row]
       
-        cell.labelRol.text = a.firstObject as? String
+        cell.labelRol.text = a
         
             if (persona["ImgPerfil"] == nil) {
                 
@@ -491,19 +492,26 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         vc.congreso = congreso
         
+        var object = Array<Any>()
+        var roles = Array<Any>()
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             let persona = $0.value(forKey: "persona") as? PFObject
             let rol = $0.value(forKey: "rol") as? String
-            persona?.addUniqueObject(rol!, forKey: "rol")
-            if !(evento.allKeys.containss(obj: "personas")){
-                evento.addUniqueObject(persona as Any, forKey: "personas")
-            }}}
-        
-        let personaActividad = evento["personas"] as? [PFObject]
-        if personaActividad != nil {
-        
-            vc.personas = personaActividad!
+            object.append(persona!)
+            roles.append(rol!)
+            
+            }
+            
         }
+        
+        let personaActividad = object as? [PFObject]
+        
+        if personaActividad != nil {
+            
+            vc.personas = personaActividad!
+            vc.roles = roles as? [String]
+        }
+        
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }

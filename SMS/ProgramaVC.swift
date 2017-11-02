@@ -29,7 +29,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     var indicador = 0
     var congreso:PFObject!
     var favs = [PFObject]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabla.delegate = self
@@ -111,6 +111,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Ahora", style: .plain, target: self, action: #selector(eem))
 
+        
         let user = PFUser.current()
         
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
@@ -122,9 +123,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             self.favs = taskFav.result as! [PFObject]
             
-            DispatchQueue.main.async {
                 self.tabla.reloadData()
-            }
             return taskFav
         })
     }
@@ -296,31 +295,22 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
     
-//        var object = Array<Any>()
-//        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
-//
-//            let persona = $0.value(forKey: "persona") as? PFObject
-//
-//            object.append(persona!)
-//
-//            }}
-//
-//        let personaActividad = object as? [PFObject]
-
-
+        var object = Array<Any>()
+        var roles = Array<Any>()
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             let persona = $0.value(forKey: "persona") as? PFObject
             let rol = $0.value(forKey: "rol") as? String
-            persona?.addUniqueObject(rol!, forKey: "rol")
-            if !(evento.allKeys.containss(obj: "personas")){
-                evento.addUniqueObject(persona as Any, forKey: "personas")
-        }}}
+            object.append(persona!)
+            roles.append(rol!)
+            
+            }}
         
-        let personaActividad = evento["personas"] as? [PFObject]
+        let personaActividad = object as? [PFObject]
+
         if personaActividad != nil {
             
-            
             vc.personas = personaActividad!
+            vc.roles = roles as? [String]
     }
         
     if(evento["tipo"] as? String == "conferencia")

@@ -24,7 +24,8 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        
+        let refresh = RefreshData()
+        refresh.primerLlamado()
         let patrocinadoresQuery =  PFQuery(className: "Org", predicate: NSPredicate(format:" tipo == %@","patrocinador"))
         patrocinadoresQuery.fromLocalDatastore()
         patrocinadoresQuery.addAscendingOrder("nombre")

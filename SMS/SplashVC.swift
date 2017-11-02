@@ -28,7 +28,6 @@ class SplashVC: UIViewController {
         if(contador == 1){
             self.primerLlamado()
         
-        
         }
         else{
             
@@ -72,14 +71,10 @@ class SplashVC: UIViewController {
             
             PFObject.pinAll(inBackground: (task.result as! [PFObject])).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
                 
-                
                 DispatchQueue.main.async {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
-                 //   if (i.isCompleted){
-                    self.navigationController?.present(vc, animated: true, completion: nil)
-                   // }
-                    
+                    self.navigationController?.present(vc, animated: true, completion: nil)                    
                 }
             })
         })
