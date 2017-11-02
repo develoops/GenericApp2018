@@ -40,9 +40,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.includeKey("persona.pais")
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
-            
-            self.rolAct = task.result as! [PFObject]
-            
+        self.rolAct = task.result as! [PFObject]
             
             
             var counts: [PFObject: Int] = [:]
@@ -52,7 +50,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             
             for (key, value) in counts {
-                if(value > 1){
+                if(value >= 1){
                     self.personasRolAct.append(key)
                 }
             }

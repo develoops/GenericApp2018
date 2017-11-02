@@ -74,10 +74,11 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let personaRolOrg = personas[indexPath.row]
         
         let persona = personaRolOrg["persona"] as! PFObject
-        let lugar = (persona["pais"] as! PFObject)
+        let lugar = persona.value(forKey: "pais") as? PFObject
         let prenombre = (persona["preNombre"] as? String)
         let primerNombre = (persona["primerNombre"] as? String)
         let primerApellido = (persona["primerApellido"] as? String)
+
 
         
         cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
@@ -90,7 +91,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.sizeToFit()
         
         cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-        cell.labelLugarPersona?.text = lugar["nombre"] as? String
+        cell.labelLugarPersona?.text = lugar?["nombre"] as? String
         cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 14.0)
         
         cell.labelInstitucion?.text = personaRolOrg["rol"] as? String
@@ -123,13 +124,13 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let personaRolOrg = personas[indexPath.row]
         
         let persona = personaRolOrg["persona"] as! PFObject
-        let lugar = persona["pais"] as! PFObject
-        
+        let lugar = persona.value(forKey: "pais") as? PFObject
+
         vc.nombrePersona = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
         
         vc.institucion = persona["institucion"] as? String
         vc.rol = personaRolOrg["rol"] as? String
-        vc.lugarPersona = lugar["nombre"] as? String
+        vc.lugarPersona = lugar?["nombre"] as? String
         vc.info = persona["descripcion"] as? String
         
         
