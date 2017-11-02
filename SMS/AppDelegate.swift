@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
             return task
         })
-        
         var localTimeZoneAbbreviation: String { return  NSTimeZone.local.abbreviation(for: Date())!
             
         }

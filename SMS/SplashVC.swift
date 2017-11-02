@@ -23,6 +23,8 @@ class SplashVC: UIViewController {
     
         let userDefaults = UserDefaults.standard
         let contador = userDefaults.integer(forKey: "contadorInicio")
+        self.primerLlamado()
+
         if(contador == 1){
             self.primerLlamado()
         

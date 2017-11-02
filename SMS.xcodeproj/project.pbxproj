@@ -21,6 +21,7 @@
 		C3220A7A1F92D85400A08B15 /* CongresoNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A791F92D85400A08B15 /* CongresoNavViewController.swift */; };
 		C3220A7C1F92F5A500A08B15 /* MaterialesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */; };
 		C32FF1611F9520FA00E41BA2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */; };
+		C332C2551FA91B04003F8DDE /* RefreshData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332C2541FA91B04003F8DDE /* RefreshData.swift */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C337AAD51F94DA5700164780 /* materiales.png in Resources */ = {isa = PBXBuildFile; fileRef = C337AAD41F94DA5700164780 /* materiales.png */; };
 		C337AAD71F94DCA400164780 /* novedades.png in Resources */ = {isa = PBXBuildFile; fileRef = C337AAD61F94DCA400164780 /* novedades.png */; };
@@ -74,6 +75,7 @@
 		C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialesVC.swift; sourceTree = "<group>"; };
 		C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C32FF1621F9524E900E41BA2 /* SMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SMS.entitlements; sourceTree = "<group>"; };
+		C332C2541FA91B04003F8DDE /* RefreshData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshData.swift; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C337AAD41F94DA5700164780 /* materiales.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = materiales.png; sourceTree = "<group>"; };
 		C337AAD61F94DCA400164780 /* novedades.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = novedades.png; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			children = (
 				C32FF1621F9524E900E41BA2 /* SMS.entitlements */,
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
+				C332C2541FA91B04003F8DDE /* RefreshData.swift */,
 				C378EC5C1F05823000DE0318 /* Controllers */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
 				C31C25071F0BF922006492EF /* FormatoFechas.swift */,
@@ -442,6 +445,7 @@
 				C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */,
 				C378EC3F1F05543000DE0318 /* DetalleProgramaVC.swift in Sources */,
 				C3220A7C1F92F5A500A08B15 /* MaterialesVC.swift in Sources */,
+				C332C2551FA91B04003F8DDE /* RefreshData.swift in Sources */,
 				C3220A6B1F8FC4AF00A08B15 /* SociedadVC.swift in Sources */,
 				C378EC5A1F05821900DE0318 /* DetallePatrocinadorVC.swift in Sources */,
 			);
