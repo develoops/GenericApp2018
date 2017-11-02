@@ -36,8 +36,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.tabla.dataSource = self
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 65.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 125.0))
 
-        let refresh = RefreshData()
-        refresh.primerLlamado()
 
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
@@ -106,6 +104,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         })}
     
     override func viewDidAppear(_ animated: Bool) {
+        let refresh = RefreshData()
+        refresh.primerLlamado()
+
         self.navigationController?.navigationBar.topItem?.title = "Programa"
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Congresos", style: .plain, target: self, action: #selector(volver))
     
@@ -123,7 +124,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             self.favs = taskFav.result as! [PFObject]
             
+            DispatchQueue.main.async {
+                
+            
                 self.tabla.reloadData()
+                
+            }
             return taskFav
         })
     }

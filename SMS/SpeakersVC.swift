@@ -42,7 +42,6 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
         self.rolAct = task.result as! [PFObject]
             
-            
             var counts: [PFObject: Int] = [:]
             
             for ite in self.rolAct {

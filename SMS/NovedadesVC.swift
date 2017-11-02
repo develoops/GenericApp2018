@@ -22,25 +22,23 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.frame = view.frame
         self.navigationController?.navigationBar.topItem?.title = "Noticias"
 
+        let refresh = RefreshData()
+        refresh.primerLlamado()
+
         let query = PFQuery(className: "Info")
         query.fromLocalDatastore()
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-            
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
-                
                 self.tabla.reloadData()
             }
-            
             return task
         })
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
