@@ -221,7 +221,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             if let index = self.favs.index(of:filtro.first!) {
                 self.favs.remove(at: index)
                 
-                _ =   filtro.map{$0.deleteInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                _ =   filtro.map{$0.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                     return task
                 })}
             }

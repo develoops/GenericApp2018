@@ -433,7 +433,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     func cambiarFavorito(sender: UIBarButtonItem!){
         if favorito == true {
 
-            favoritoAct.deleteInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            favoritoAct.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
                 DispatchQueue.main.async {
 
