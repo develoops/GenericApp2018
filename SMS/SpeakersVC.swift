@@ -24,7 +24,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.delegate = self
         tabla.dataSource = self
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         let refresh = RefreshData()
         refresh.primerLlamado()

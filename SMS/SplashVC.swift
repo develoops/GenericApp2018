@@ -30,14 +30,12 @@ class SplashVC: UIViewController {
         
         }
         else{
-            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
             self.navigationController?.present(vc, animated: true, completion: nil)
         }
     }
 
-    
     func primerLlamado(){
         
         let query = PFQuery(className: "Actividad")
