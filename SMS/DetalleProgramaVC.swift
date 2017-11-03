@@ -24,6 +24,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
     @IBOutlet weak var botonMapa: UIButton!
     @IBOutlet weak var botonRating: UIButton!
+    @IBOutlet weak var botonPreguntas: UIButton!
 
 
     var hora: String!
@@ -68,6 +69,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         })
         
         botonRating.setTitle("Evaluar", for: .normal)
+        botonPreguntas.setTitle("Preguntas", for: .normal)
+        botonPreguntas.addTarget(self, action: #selector(irAPreguntas), for: .touchUpInside)
+
         botonRating.addTarget(self, action: #selector(evaluar), for: .touchUpInside)
         botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
@@ -139,16 +143,25 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
         ////
-        botonMapa.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + 160, y: labelHoraDetallePrograma.frame.origin.y)
+        botonMapa.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + view.frame.width/2.5, y: labelHoraDetallePrograma.frame.origin.y - 10.0)
 
-        botonRating.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + 160, y: labelHoraDetallePrograma.frame.origin.y + 30.0)
+        botonRating.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + view.frame.width/2.5, y: labelHoraDetallePrograma.frame.origin.y + 20.0)
+
+        botonPreguntas.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + view.frame.width/2.5, y: labelHoraDetallePrograma.frame.origin.y + 50.0)
 
         
         botonMapa.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
         botonMapa.titleLabel?.textAlignment = .left
+        botonRating.tintColor = UIColor.white
+
         botonRating.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
         botonRating.titleLabel?.textAlignment = .left
         botonRating.tintColor = UIColor.white
+        
+        botonPreguntas.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
+        botonPreguntas.titleLabel?.textAlignment = .left
+        botonPreguntas.tintColor = UIColor.white
+
 
         if(lugar?["imgPerfil"] != nil){
             botonMapa.isHidden = false
@@ -156,16 +169,26 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         else{
             botonMapa.isHidden = true
-
         }
+    
         self.tablaActividades.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y))
         view.addSubview(botonRating)
         self.tablaActividades.tableFooterView = UIView()
-        
     }
     
-    func evaluar(){
+    func irAPreguntas(){
     
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PreguntasVC") as! PreguntasVC
+        
+        navigationController?.show(vc, sender: nil)
+       // navigationController?.pushViewController(vc,
+        //                                         animated: true)
+
+    }
+
+    func evaluar(){
+        
         let alert = UIAlertController(title: "Rating", message: "¿Qué te pareció ésta charla?", preferredStyle: .actionSheet)
         
         for i in ["★", "★★", "★★★", "★★★★","★★★★★"] {
@@ -173,8 +196,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         
         self.present(alert, animated: true, completion: nil)
-
+        
     }
+
+    
     func doSomething(action: UIAlertAction) {
 
         let calificacion = action.title?.characters.count

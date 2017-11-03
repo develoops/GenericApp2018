@@ -29,6 +29,7 @@
 		C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */ = {isa = PBXBuildFile; fileRef = C33A1BE21F2C006500B6B744 /* favMarcado.png */; };
 		C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E29481FA2342500C11D4A /* SplashVC.swift */; };
 		C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */; };
+		C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
@@ -83,6 +84,7 @@
 		C33A1BE21F2C006500B6B744 /* favMarcado.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favMarcado.png; sourceTree = "<group>"; };
 		C33E29481FA2342500C11D4A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashSMS2017@3x.png"; sourceTree = "<group>"; };
+		C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntasVC.swift; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* Nefro 2017.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nefro 2017.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				C3220A741F9296C700A08B15 /* DirectorioVC.swift */,
 				C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */,
 				C3220A761F92970700A08B15 /* NovedadesVC.swift */,
+				C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */,
 			);
 			name = Congreso;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				C3220A601F8FA90600A08B15 /* CongresoTabBarVC.swift in Sources */,
 				C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */,
 				C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */,
+				C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */,
 				C337AAD91F94E2D200164780 /* DetalleMaterialesVC.swift in Sources */,
 				C378EC3B1F05532A00DE0318 /* PatrocinadoresVC.swift in Sources */,
 				C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */,
