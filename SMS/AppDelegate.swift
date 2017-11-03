@@ -31,10 +31,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         Parse.initialize(with: configuration)
       
-        PFAnonymousUtils.logInInBackground().continue({ (task:BFTask<PFUser>) -> Any? in
-            
-            return task
-        })
+//        PFAnonymousUtils.logInInBackground().continue({ (task:BFTask<PFUser>) -> Any? in
+//            return task
+//        })
+        
+        PFUser.enableAutomaticUser()
+        PFUser.current()?.saveInBackground()
+        let defaultACL = PFACL()
+        
+        defaultACL.getPublicReadAccess = true
+        PFACL.setDefault(defaultACL, withAccessForCurrentUser:true)
+
         var localTimeZoneAbbreviation: String { return  NSTimeZone.local.abbreviation(for: Date())!
             
         }

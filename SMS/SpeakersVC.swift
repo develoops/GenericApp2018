@@ -18,7 +18,6 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var congreso:PFObject!
     var rolAct = [PFObject]()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -46,6 +45,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             for ite in self.rolAct {
                 counts[ite.value(forKey: "persona") as! PFObject] = (counts[ite.value(forKey: "persona") as! PFObject] ?? 0) + 1
+                
             }
             
             for (key, value) in counts {
@@ -58,7 +58,6 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 self.tabla.reloadData()
             }
             return task
-            
         })
 
         self.navigationController?.navigationBar.topItem?.title = "Ponentes"
@@ -68,7 +67,6 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.navigationController?.navigationBar.topItem?.title = ""
     }
 
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1

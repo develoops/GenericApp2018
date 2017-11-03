@@ -112,7 +112,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Ahora", style: .plain, target: self, action: #selector(eem))
 
-        
         let user = PFUser.current()
         
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", user!))
@@ -132,6 +131,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             }
             return taskFav
         })
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,7 +206,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
 
-        
        let lugar = evento["lugar"] as? PFObject
         
        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
@@ -343,7 +342,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
-    
     
     func eem(){
         
