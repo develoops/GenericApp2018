@@ -82,7 +82,6 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             if Thread.current != Thread.main {
                 self.datosAVista()
                 
-
             } else {
                 
                 self.datosAVista()
@@ -112,8 +111,13 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     func scrollToLastRow() {
+        
+        if(self.noticias.count != 0){
         let indexPath = IndexPath(row: self.noticias.count - 1, section: 0)
+        
         self.tabla.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+        
     }
 
     
