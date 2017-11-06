@@ -27,7 +27,8 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(hacerPregunta))
 
         let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", evento))
-        
+        query.includeKey("emisor")
+
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
@@ -117,7 +118,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             pregunta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
                 let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", self.evento))
-                
+                query.includeKey("emisor")
                 
                 return query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
                     self.noticias = task.result as! [PFObject]
