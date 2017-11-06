@@ -24,6 +24,46 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.frame = view.frame
         self.navigationItem.title = "Preguntas Al Expositor"
         
+        let defaults = UserDefaults.standard
+        let contador = defaults.integer(forKey: "contadorPreguntas")
+        defaults.set(contador + 1, forKey: "contadorPreguntas")
+        defaults.synchronize()
+        print(defaults.integer(forKey: "contadorPreguntas"))
+        if (defaults.integer(forKey: "contadorPreguntas") > 1) {
+        
+            let user = PFUser.current()
+            let alertController = UIAlertController(title: "Hola", message: "¿Deseas Ingresar tu nombre para reconocerte?", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addTextField { (textField : UITextField) -> Void in
+                textField.placeholder = "Escribe tu nombre"
+            }
+            let cancelAction = UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+                
+                let anonimo = "anon" + String(arc4random())
+                user?.setValue(anonimo, forKey: "nombre")
+                user?.saveInBackground()
+                DispatchQueue.main.async {
+                    self.tabla.reloadData()
+                }
+                
+            }
+            
+            let okAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+                
+                user?.setValue(alertController.textFields?.first?.text, forKey: "nombre")
+                user?.saveInBackground()
+                        DispatchQueue.main.async {
+                            self.tabla.reloadData()
+                        }
+                
+            }
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+
+        }
+
+        
+        
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(hacerPregunta))
 
         let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", evento))
@@ -53,7 +93,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelNombre.font = UIFont.boldSystemFont(ofSize: 17.0)
-        cell.labelNombre.text = user.username
+        cell.labelNombre.text = user["nombre"] as? String
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
@@ -73,12 +113,10 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
-        
         cell.labelHora.isHidden = true
         
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height) + 60.0
         
-    
         return cell
     }
     
@@ -95,7 +133,6 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return noticias.count
-        
     }
     
     func hacerPregunta(){
@@ -128,8 +165,6 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                     return task
                 })
             })
-            
-            
         }
         
         alertController.addAction(cancelAction)

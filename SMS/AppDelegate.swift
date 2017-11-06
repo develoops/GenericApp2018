@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         PFUser.enableAutomaticUser()
         let user = PFUser.current()
-        user?.setValue(arc4random(), forKey: "nombreUsuario")
         PFUser.current()?.saveInBackground()
         let defaultACL = PFACL()
         
