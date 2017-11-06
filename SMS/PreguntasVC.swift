@@ -29,7 +29,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         defaults.set(contador + 1, forKey: "contadorPreguntas")
         defaults.synchronize()
         print(defaults.integer(forKey: "contadorPreguntas"))
-        if (defaults.integer(forKey: "contadorPreguntas") > 1) {
+        if (defaults.integer(forKey: "contadorPreguntas") == 1) {
         
             let user = PFUser.current()
             let alertController = UIAlertController(title: "Hola", message: "¿Deseas Ingresar tu nombre para reconocerte?", preferredStyle: UIAlertControllerStyle.alert)
