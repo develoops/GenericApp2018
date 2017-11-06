@@ -8,7 +8,9 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 
+let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://smsdemo.back4app.io")
 
 class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -16,9 +18,20 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var noticias = [PFObject]()
     var tamanoCelda = CGFloat()
     var evento:PFObject!
+    private var subscription: Subscription<PFObject>!
+
     
+    func alert(message: NSString, title: NSString) -> Void {
+        let alert = UIAlertController(title: title as String, message: message as String, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     override func viewDidLoad() {
+    
         super.viewDidLoad()
+        
+
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
@@ -56,27 +69,53 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                         }
                 
             }
+            
             alertController.addAction(cancelAction)
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
-
         }
+            let msgQuery = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", evento))
+            msgQuery.includeKey("emisor")
 
+            subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
+
+            if Thread.current != Thread.main {
+                self.datosAVista()
+                
+
+            } else {
+                
+                self.datosAVista()
+                
+                }
+        }
         
-        
+        self.datosAVista()
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(hacerPregunta))
 
+    }
+    
+    func datosAVista(){
         let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", evento))
         query.includeKey("emisor")
-
+        
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tabla.reloadData()
+                self.scrollToLastRow()
             }
             return task
         })
+
+        
     }
+    
+    func scrollToLastRow() {
+        let indexPath = IndexPath(row: self.noticias.count - 1, section: 0)
+        self.tabla.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -1,24 +1,39 @@
 PODS:
+  - Bolts-Swift (1.3.0)
   - Bolts/Tasks (1.8.4)
   - Parse (1.15.3):
     - Bolts/Tasks (~> 1.8)
+  - ParseLiveQuery (2.2.1):
+    - Bolts-Swift (~> 1.3)
+    - Parse (~> 1.15.0)
+    - Starscream (= 2.1.1)
+  - Starscream (2.1.1)
 
 DEPENDENCIES:
   - Parse (from `https://github.com/parse-community/Parse-SDK-iOS-OSX.git`)
+  - ParseLiveQuery (from `https://github.com/parse-community/ParseLiveQuery-iOS-OSX.git`)
 
 EXTERNAL SOURCES:
   Parse:
     :git: https://github.com/parse-community/Parse-SDK-iOS-OSX.git
+  ParseLiveQuery:
+    :git: https://github.com/parse-community/ParseLiveQuery-iOS-OSX.git
 
 CHECKOUT OPTIONS:
   Parse:
     :commit: 98ba23c37f099464287a74df03f2e084ff91f0bb
     :git: https://github.com/parse-community/Parse-SDK-iOS-OSX.git
+  ParseLiveQuery:
+    :commit: cc1f520390edb94dfb8e92c0d2d5229b0485fd6d
+    :git: https://github.com/parse-community/ParseLiveQuery-iOS-OSX.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Bolts-Swift: fa98d1b59fc1acea9b21a21306dcdca1c85e3737
   Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
+  ParseLiveQuery: 9743983026fb94d0b43c460b2d98107e2f435abb
+  Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
 
-PODFILE CHECKSUM: 7caa63d96befcea751ef5706217360d4efe8af50
+PODFILE CHECKSUM: cdad9e2d3cb9b1de510502c44a1a28137180a888
 
 COCOAPODS: 1.1.1
