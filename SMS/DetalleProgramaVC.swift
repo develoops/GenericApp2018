@@ -181,6 +181,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PreguntasVC") as! PreguntasVC
         
+        vc.evento = evento!
         navigationController?.show(vc, sender: nil)
        // navigationController?.pushViewController(vc,
         //                                         animated: true)
