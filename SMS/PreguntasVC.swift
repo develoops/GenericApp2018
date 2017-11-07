@@ -19,8 +19,9 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tamanoCelda = CGFloat()
     var evento:PFObject!
     private var subscription: Subscription<PFObject>!
+    var ids = [String]()
+    let defaults = UserDefaults.standard
 
-    
     func alert(message: NSString, title: NSString) -> Void {
         let alert = UIAlertController(title: title as String, message: message as String, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -31,13 +32,18 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
         super.viewDidLoad()
         
-
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
         self.navigationItem.title = "Preguntas Al Expositor"
+        if(defaults.stringArray(forKey: "likeIds") == nil){
+            
+            ids = []
+        }
+        else{
+        ids = defaults.stringArray(forKey: "likeIds")!
+        }
         
-        let defaults = UserDefaults.standard
         let contador = defaults.integer(forKey: "contadorPreguntas")
         defaults.set(contador + 1, forKey: "contadorPreguntas")
         defaults.synchronize()
@@ -45,7 +51,8 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         if (defaults.integer(forKey: "contadorPreguntas") == 1) {
         
             let user = PFUser.current()
-            let alertController = UIAlertController(title: "Hola", message: "¿Deseas Ingresar tu nombre para reconocerte?", preferredStyle: UIAlertControllerStyle.alert)
+            user?.acl?.getPublicWriteAccess = true
+            let alertController = UIAlertController(title: "Hola", message: "¿Deseas ingresar tu nombre para reconocerte?", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addTextField { (textField : UITextField) -> Void in
                 textField.placeholder = "Escribe tu nombre"
             }
@@ -96,6 +103,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func datosAVista(){
         let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", evento))
+        query.order(byDescending: "likes")
         query.includeKey("emisor")
         
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -106,14 +114,12 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             return task
         })
-
-        
     }
     
     func scrollToLastRow() {
         
         if(self.noticias.count != 0){
-        let indexPath = IndexPath(row: self.noticias.count - 1, section: 0)
+        let indexPath = IndexPath(row: 0, section: 0)
         
         self.tabla.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
@@ -132,6 +138,12 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let user = emision["emisor"] as! PFUser
         
+        var like = emision["likes"] as? Int
+        if(like == nil){
+            
+            like = 0
+        }
+        
         cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
@@ -141,13 +153,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
         
-//        cell.labelTitulo?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-//        cell.labelTitulo.text = emision["subtitulo"] as? String
-//        cell.labelTitulo.font = UIFont.systemFont(ofSize: 13.0)
-//        cell.labelTitulo.textColor = UIColor.darkGray
-//        cell.labelTitulo?.textAlignment = .left
-//        cell.labelTitulo.numberOfLines = 0
-//        cell.labelTitulo?.sizeToFit()
+
         
         cell.labelTitulo?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + 18.0)
         cell.labelTitulo.frame.size = CGSize(width: self.view.frame.size.width - 40, height: 0.0)
@@ -156,7 +162,28 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
-        cell.labelHora.isHidden = true
+        
+        cell.botonFavorito.center.x = cell.frame.size.width - 35.0
+        cell.botonFavorito.tag = indexPath.row
+        cell.botonFavorito.addTarget(self, action: #selector(darLike), for: .touchUpInside)
+        
+        cell.labelHora?.frame.origin = CGPoint(x:cell.botonFavorito.frame.origin.x, y: cell.botonFavorito.frame.height + 24.0)
+        cell.labelHora.frame.size = CGSize(width: 60.0, height: 0.0)
+
+        cell.labelHora.text = String(like!)
+        cell.labelHora.font = UIFont.systemFont(ofSize: 13.0)
+        cell.labelHora.textColor = UIColor.darkGray
+        cell.labelHora?.textAlignment = .left
+        cell.labelHora.numberOfLines = 0
+        cell.labelHora?.sizeToFit()
+
+        if(ids.containss(obj: emision.objectId!)){
+        cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+        }
+        else{
+            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+        }
+    
         
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height) + 60.0
         
@@ -178,6 +205,40 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return noticias.count
     }
     
+    func darLike(sender: UIButton!){
+
+    let emision = self.noticias[sender.tag]
+    var likesNumber = emision["likes"] as? Int
+
+        if(likesNumber == nil){
+            
+            likesNumber = 0
+        }
+        
+        if !(ids.containss(obj: emision.objectId!)){
+            ids.append(emision.objectId!)
+            sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+            emision.setObject(likesNumber! + 1, forKey: "likes")
+        }
+        else{
+            if let index = ids.index(of:emision.objectId!) {
+                ids.remove(at: index)
+            }
+            emision.setObject(likesNumber! - 1, forKey: "likes")
+            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+}
+        defaults.set(ids, forKey: "likeIds")
+        defaults.synchronize()
+        emision.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            DispatchQueue.main.async {
+                self.tabla.reloadData()
+            }
+            return task
+        })
+
+    }
+    
+    
     func hacerPregunta(){
         
         let alertController = UIAlertController(title: "Pregunta", message: "¿Qué deseas preguntar?", preferredStyle: UIAlertControllerStyle.alert)
@@ -193,11 +254,11 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             pregunta.setObject(self.evento, forKey: "actividad")
             pregunta.setObject(PFUser.current() as Any, forKey: "emisor")
             pregunta.setObject(alertController.textFields?.first?.text as Any, forKey: "mensajeTexto")
-            pregunta.setObject("Titulo", forKey: "titulo")
-            pregunta.setObject("usuario", forKey: "subtitulo")
+            pregunta.acl?.getPublicWriteAccess = true
             pregunta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
                 let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", self.evento))
+                query.order(byDescending: "likes")
                 query.includeKey("emisor")
                 
                 return query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in

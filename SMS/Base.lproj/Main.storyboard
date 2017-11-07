@@ -1310,16 +1310,8 @@
                                     <outlet property="delegate" destination="cER-1T-fPp" id="oDi-cD-CH0"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PNu-gj-7tc">
-                                <rect key="frame" x="302" y="156" width="57" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Mapa">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="93" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wCd-GU-vfg">
-                                <rect key="frame" x="0.0" y="444" width="375" height="223"/>
+                                <rect key="frame" x="0.0" y="444" width="375" height="121"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1378,35 +1370,48 @@
                                     <outlet property="delegate" destination="cER-1T-fPp" id="Uke-SQ-JyE"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhe-qM-eCF">
-                                <rect key="frame" x="302" y="181" width="57" height="29"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VRz-hb-u6j">
+                                <rect key="frame" x="0.0" y="573" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Evaluar">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2p6-dh-Y1H">
-                                <rect key="frame" x="233" y="180" width="78" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Preguntas">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="57" id="x0A-4l-ctv" customClass="TableViewCell" customModule="SMS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="57"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x0A-4l-ctv" id="A4E-6k-nF5">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkJ-3M-it0">
+                                                    <rect key="frame" x="26" y="8" width="312" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="labelTitulo" destination="UkJ-3M-it0" id="egg-pb-Qza"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="cER-1T-fPp" id="cmT-3m-hkV"/>
+                                    <outlet property="delegate" destination="cER-1T-fPp" id="keF-gb-nr8"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="botonMapa" destination="PNu-gj-7tc" id="0Ju-re-pgE"/>
-                        <outlet property="botonPreguntas" destination="2p6-dh-Y1H" id="LhP-fs-gWr"/>
-                        <outlet property="botonRating" destination="Vhe-qM-eCF" id="7n0-KX-Wgu"/>
                         <outlet property="labelDiaDetallePrograma" destination="p2X-wG-gzL" id="gbw-41-SRC"/>
                         <outlet property="labelHoraDetallePrograma" destination="pde-9a-qMr" id="h5B-p9-0WF"/>
                         <outlet property="labelLugarDetallePrograma" destination="GTs-hR-yWY" id="Bpa-ol-dcM"/>
                         <outlet property="labelTituloDetallePrograma" destination="aRh-xo-WHi" id="jM2-xw-Jjb"/>
                         <outlet property="tabla" destination="gWV-kI-HPP" id="pJd-wd-6Xz"/>
                         <outlet property="tablaActividades" destination="wCd-GU-vfg" id="UMG-L1-SQT"/>
+                        <outlet property="tablaFunciones" destination="VRz-hb-u6j" id="Qil-cz-X29"/>
                         <outlet property="textViewInfoDetallePrograma" destination="JF7-Os-k0g" id="Rrk-qV-xzv"/>
                     </connections>
                 </viewController>
@@ -1452,8 +1457,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5M-jI-f6c">
-                                                    <rect key="frame" x="134" y="79" width="212" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yu-14-l3H">
+                                                    <rect key="frame" x="308" y="68" width="46" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1463,11 +1468,16 @@
                                                     <rect key="frame" x="0.0" y="8" width="116" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLr-Un-KWN">
+                                                    <rect key="frame" x="330" y="21" width="24" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="botonFavorito" destination="MLr-Un-KWN" id="9gZ-fr-pa4"/>
                                             <outlet property="imagenPerfil" destination="kLX-5G-2Tj" id="7Mv-BC-hcx"/>
-                                            <outlet property="labelHora" destination="k5M-jI-f6c" id="kmA-Zy-afi"/>
+                                            <outlet property="labelHora" destination="9Yu-14-l3H" id="OaP-Oy-1Zf"/>
                                             <outlet property="labelNombre" destination="jZJ-QN-Phw" id="is6-IU-1hb"/>
                                             <outlet property="labelTitulo" destination="xs7-jt-scG" id="mxE-rg-ous"/>
                                         </connections>
@@ -1487,7 +1497,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUB-1P-Nkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="650" y="-1554"/>
+            <point key="canvasLocation" x="648.79999999999995" y="-1554.872563718141"/>
         </scene>
         <!--Materiales-->
         <scene sceneID="ofV-GT-r56">

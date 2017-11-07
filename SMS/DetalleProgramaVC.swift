@@ -13,7 +13,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
    
     @IBOutlet weak var tabla: UITableView!
     @IBOutlet weak var tablaActividades: UITableView!
+    @IBOutlet weak var tablaFunciones: UITableView!
 
+    
     @IBOutlet weak var labelTituloDetallePrograma: UILabel!
     @IBOutlet weak var labelHoraDetallePrograma: UILabel!
     
@@ -22,15 +24,12 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var labelDiaDetallePrograma: UILabel!
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
-    @IBOutlet weak var botonMapa: UIButton!
-    @IBOutlet weak var botonRating: UIButton!
-    @IBOutlet weak var botonPreguntas: UIButton!
-
 
     var hora: String!
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
+    var funciones = ["Ir al Mapa","Evaluar","Preguntar"]
     var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!
@@ -40,7 +39,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var favorito = Bool()
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
-
     
 
     override func viewDidLoad() {
@@ -63,17 +61,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 self.tablaActividades.reloadData()
 
-                
             }
             return task
         })
         
-        botonRating.setTitle("Evaluar", for: .normal)
-        botonPreguntas.setTitle("Preguntas", for: .normal)
-        botonPreguntas.addTarget(self, action: #selector(irAPreguntas), for: .touchUpInside)
-
-        botonRating.addTarget(self, action: #selector(evaluar), for: .touchUpInside)
-        botonMapa.addTarget(self, action: #selector(irAMapa), for: .touchUpInside)
         self.tabla.isUserInteractionEnabled = false
         labelTituloDetallePrograma.textColor = UIColor.white
         labelHoraDetallePrograma.textColor = UIColor.white
@@ -143,37 +134,23 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
         ////
-        botonMapa.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + view.frame.width/2.5, y: labelHoraDetallePrograma.frame.origin.y - 10.0)
-
-        botonRating.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + view.frame.width/2.5, y: labelHoraDetallePrograma.frame.origin.y + 20.0)
-
-        botonPreguntas.frame.origin = CGPoint(x: labelHoraDetallePrograma.frame.size.width + labelHoraDetallePrograma.frame.origin.x + view.frame.width/2.5, y: labelHoraDetallePrograma.frame.origin.y + 50.0)
-
-        
-        botonMapa.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
-        botonMapa.titleLabel?.textAlignment = .left
-        botonRating.tintColor = UIColor.white
-
-        botonRating.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
-        botonRating.titleLabel?.textAlignment = .left
-        botonRating.tintColor = UIColor.white
-        
-        botonPreguntas.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
-        botonPreguntas.titleLabel?.textAlignment = .left
-        botonPreguntas.tintColor = UIColor.white
 
 
         if(lugar?["imgPerfil"] != nil){
-            botonMapa.isHidden = false
 
         }
         else{
-            botonMapa.isHidden = true
         }
     
         self.tablaActividades.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y))
-        view.addSubview(botonRating)
         self.tablaActividades.tableFooterView = UIView()
+        
+        
+        self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height, width: view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height))
+        self.tablaFunciones.tableFooterView = UIView()
+
+        self.tablaFunciones.separatorColor = UIColor.lightGray
+
     }
     
     func irAPreguntas(){
@@ -183,8 +160,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         vc.evento = evento!
         navigationController?.show(vc, sender: nil)
-       // navigationController?.pushViewController(vc,
-        //                                         animated: true)
 
     }
 
@@ -280,11 +255,17 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         if(tableView == tabla)
         {
             return personas.count
-
+            
         }
+         else if(tableView == tablaActividades)
+        {
+            return actividadesAnidadas.count
+            
+        }
+
         else{
         
-            return actividadesAnidadas.count
+            return funciones.count
         }
     }
     
@@ -292,8 +273,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if(tableView == tabla){
             return 60.0}
+        else if(tableView == tablaFunciones){
+            
+            return 48.0
+        }
         else{
-        print(tamanoCelda)
             return tamanoCelda + 20.0
         }
     }
@@ -322,12 +306,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                     DispatchQueue.main.async {
                         
                         cell.imagenPerfil.image = UIImage(data: task.result! as Data)
-                        
-                    }
-                })
-            }}
+                }
+            })}}
             
-        else{
+        else if (tableView == tablaActividades){
+
         
             let evento = actividadesAnidadas[indexPath.row] as PFObject
             
@@ -436,7 +419,22 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
             
         }
+        else {
+        let funcion = funciones[indexPath.row]
+            
+            cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
+            cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
+            let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+            cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
+            cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
+            cell.labelTitulo.text = funcion
 
+            cell.labelTitulo.textColor = UIColor(red: 173.0/255.0, green: 216.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+            cell.labelTitulo?.textAlignment = .left
+            cell.labelTitulo.numberOfLines = 0
+            cell.labelTitulo?.sizeToFit()
+            
+        }
         return cell
     }
     
@@ -487,6 +485,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if(tableView == tablaActividades){
         let evento =  actividadesAnidadas[indexPath.row]
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
@@ -540,7 +539,22 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         navigationController?.pushViewController(vc,
                                                  animated: true)
-    }
+            
+        }
+        else if(tableView == tablaFunciones){
+        
+        let funcion = funciones[indexPath.row]
+        
+            if(funcion == "Ir al Mapa"){
+                self.irAMapa()
+            }
+            else if(funcion == "Evaluar"){
+                
+                evaluar()
+            }
+            else{
+                irAPreguntas()
+            }}}
 
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
