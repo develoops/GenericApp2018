@@ -77,7 +77,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
         
         
-        labelTituloDetallePrograma.frame = CGRect(x: 38.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
+        labelTituloDetallePrograma.frame = CGRect(x: 16.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
@@ -86,7 +86,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelTituloDetallePrograma.numberOfLines = 0
         labelTituloDetallePrograma?.sizeToFit()
 
-        labelHoraDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
+        labelHoraDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
         
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelHoraDetallePrograma.sizeThatFits(maximumLabelSizeHora)
@@ -96,7 +96,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelHoraDetallePrograma?.sizeToFit()
 
         
-        labelDiaDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
+        labelDiaDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
         
         let maximumLabelSizeDia = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
         labelDiaDetallePrograma.sizeThatFits(maximumLabelSizeDia)
@@ -105,7 +105,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelDiaDetallePrograma.numberOfLines = 0
         labelDiaDetallePrograma?.sizeToFit()
 
-        labelLugarDetallePrograma.frame.origin = CGPoint(x: 38.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
+        labelLugarDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
         let lugar = evento["lugar"] as? PFObject
         
         let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
@@ -149,7 +149,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height, width: view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height))
         self.tablaFunciones.tableFooterView = UIView()
 
-        self.tablaFunciones.separatorColor = UIColor.lightGray
+        self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 1.0)
 
     }
     
@@ -293,7 +293,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
 
         let a = roles[indexPath.row]
-      
+      cell.imagenPerfil.frame.origin = CGPoint(x: 16.0, y: 5.0)
         cell.labelRol.text = a
         
             if (persona["ImgPerfil"] == nil) {
@@ -422,14 +422,13 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         else {
         let funcion = funciones[indexPath.row]
             
-            cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
             cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
             let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
             cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
             cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
             cell.labelTitulo.text = funcion
 
-            cell.labelTitulo.textColor = UIColor(red: 173.0/255.0, green: 216.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+            cell.labelTitulo.textColor = UIColor(red: 30.0/255.0, green: 144.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             cell.labelTitulo?.textAlignment = .left
             cell.labelTitulo.numberOfLines = 0
             cell.labelTitulo?.sizeToFit()
