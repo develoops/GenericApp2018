@@ -458,13 +458,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             favoritoAct.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
                 DispatchQueue.main.async {
-
-                sender.image = UIImage(named: "Btn_favoritos_SinMarcar.png")
+//                    self.favorito = false
+                sender.image = UIImage(named: "Btn_favoritos_SinMarcar")
                 }
                 return task
             })
         }
         else{
+//            favorito = true
             let fav = PFObject(className: "ActFavUser")
             fav.setObject(PFUser.current()!, forKey: "user")
             fav.setObject(evento, forKey: "actividad")
@@ -473,7 +474,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 DispatchQueue.main.async {
                     
-                    sender.image = UIImage(named: "btn_Favorito_marcado.png")
+                    sender.image = UIImage(named: "btn_Favorito_marcado")
 
                 }
                 return task
