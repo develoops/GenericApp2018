@@ -21,7 +21,6 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.dataSource = self
         tabla.frame = view.frame
 
-        
         let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "tipo == %@", "sociedad"))
         queryDirectiva.fromLocalDatastore()
         queryDirectiva.includeKey("persona")
@@ -34,9 +33,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 self.personas = task.result as! [PFObject]
                 self.tabla.reloadData()
-
-            }
-            
+}
             return task
         })
         

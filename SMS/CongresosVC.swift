@@ -51,8 +51,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.tabla.reloadData()
     }
     
-    
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
