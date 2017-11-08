@@ -79,7 +79,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         labelTituloDetallePrograma.frame = CGRect(x: 16.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
         
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
         labelTituloDetallePrograma.text = evento["nombre"] as? String
         labelTituloDetallePrograma?.textAlignment = .left
@@ -88,7 +88,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         labelHoraDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
         
-        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelHoraDetallePrograma.sizeThatFits(maximumLabelSizeHora)
         labelHoraDetallePrograma.text = hora
         labelHoraDetallePrograma?.textAlignment = .left
@@ -98,7 +98,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         labelDiaDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
         
-        let maximumLabelSizeDia = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        let maximumLabelSizeDia = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelDiaDetallePrograma.sizeThatFits(maximumLabelSizeDia)
         labelDiaDetallePrograma.text = dia
         labelDiaDetallePrograma?.textAlignment = .left
@@ -108,7 +108,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
         let lugar = evento["lugar"] as? PFObject
         
-        let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelLugarDetallePrograma.sizeThatFits(maximumLabelSizeLugar)
         labelLugarDetallePrograma.text = lugar?["nombre"] as? String
         labelLugarDetallePrograma?.textAlignment = .left
@@ -121,7 +121,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
             .width - 10.0, height: 0.0)
 
-        let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
+        let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
         textViewInfoDetallePrograma.text = evento["descripcion"] as? String
         textViewInfoDetallePrograma?.textAlignment = .left
@@ -130,7 +130,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         /////
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 5.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
-        
+//
         self.view.addSubview(colorFondoHeaderDetalle)
         view.sendSubview(toBack: colorFondoHeaderDetalle)
         ////
@@ -140,6 +140,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         }
         else{
+            funciones.remove(at: 0)
+
         }
     
         self.tablaActividades.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y))
@@ -149,7 +151,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height, width: view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height))
         self.tablaFunciones.tableFooterView = UIView()
 
-        self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 1.0)
+        self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
 
     }
     
