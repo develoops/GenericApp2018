@@ -280,11 +280,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let actividadesFavs = favs.map{$0["actividad"]} as! [PFObject]
         if actividadesFavs.contains(evento) {
-            cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+            cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado"), for: .normal)
 
         }
         else{
-            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
         }
         return cell
     }
@@ -498,7 +498,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 return task
             })
             DispatchQueue.main.async {
-                sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+                sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
             self.tabla.reloadData()
             }
         }
@@ -519,7 +519,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             }
             
             DispatchQueue.main.async {
-                sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+                sender.setImage(UIImage(named: "btn_Favorito_marcado"), for: .normal)
                 self.tabla.reloadData()
             }}
                 return taskFav

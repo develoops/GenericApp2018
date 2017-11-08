@@ -188,10 +188,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             return task
         })
-        
-        
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -442,14 +439,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func agregarBotonFavoritoNav(){
         
-    var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
+    var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
         
         if favorito == true {
         
-        barBotonFavorito = UIBarButtonItem(image: UIImage(named: "favMarcado.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
+        barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btn_Favorito_marcado"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
         else{
-            barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btnFavorito.png"), style: .plain, target: self, action: #selector(cambiarFavorito))
+            barBotonFavorito = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
         
         navigationItem.rightBarButtonItem = barBotonFavorito
@@ -462,7 +459,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 DispatchQueue.main.async {
 
-                sender.image = UIImage(named: "btnFavorito.png")
+                sender.image = UIImage(named: "Btn_favoritos_SinMarcar.png")
                 }
                 return task
             })
@@ -476,7 +473,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 DispatchQueue.main.async {
                     
-                    sender.image = UIImage(named: "favMarcado.png")
+                    sender.image = UIImage(named: "btn_Favorito_marcado.png")
 
                 }
                 return task

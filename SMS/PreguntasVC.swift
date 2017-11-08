@@ -27,7 +27,6 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-
     override func viewDidLoad() {
     
         super.viewDidLoad()
@@ -52,7 +51,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
             let user = PFUser.current()
             user?.acl?.getPublicWriteAccess = true
-            let alertController = UIAlertController(title: "Hola", message: "¿Deseas ingresar tu nombre para reconocerte?", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "Hola", message: "Ingresa tu nombre, para facilitar tu reconocimiento", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addTextField { (textField : UITextField) -> Void in
                 textField.placeholder = "Escribe tu nombre"
             }
@@ -63,10 +62,8 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 user?.saveInBackground()
                 DispatchQueue.main.async {
                     self.tabla.reloadData()
-                }
-                
             }
-            
+        }
             let okAction = UIAlertAction(title: "Ok", style: .default) { (_) in
                 
                 user?.setValue(alertController.textFields?.first?.text, forKey: "nombre")
@@ -74,7 +71,6 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                         DispatchQueue.main.async {
                             self.tabla.reloadData()
                         }
-                
             }
             
             alertController.addAction(cancelAction)
@@ -178,10 +174,10 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelHora?.sizeToFit()
 
         if(ids.containss(obj: emision.objectId!)){
-        cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+        cell.botonFavorito.setImage(UIImage(named: "btn_Favorito_marcado"), for: .normal)
         }
         else{
-            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+            cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
         }
     
         
@@ -217,7 +213,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         if !(ids.containss(obj: emision.objectId!)){
             ids.append(emision.objectId!)
-            sender.setImage(UIImage(named: "btn_Favorito_marcado.png"), for: .normal)
+            sender.setImage(UIImage(named: "btn_Favorito_marcado"), for: .normal)
             emision.setObject(likesNumber! + 1, forKey: "likes")
         }
         else{
@@ -225,7 +221,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 ids.remove(at: index)
             }
             emision.setObject(likesNumber! - 1, forKey: "likes")
-            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar.png"), for: .normal)
+            sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
 }
         defaults.set(ids, forKey: "likeIds")
         defaults.synchronize()
@@ -237,7 +233,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         })
 
     }
-    
+
     
     func hacerPregunta(){
         

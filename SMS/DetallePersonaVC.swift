@@ -183,26 +183,19 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
-//        print(evento)
-//        
-//        if((evento["personas"] as! [PFObject]).count != 0){
-//            
-//            
-//            var personasString = String()
-//            let personas = evento["personas"] as! NSArray
-//            
-//            for object in (personas){
-//                
-//                let persona = object as! PFObject
-//                persona.fetchIfNeededInBackground().continue({ (task:BFTask<PFObject>) -> Any? in
-//                    
-//                
-//                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-//                personasTamano = personasTamano + (28 / ((evento["personas"] as! [PFObject]).count))
-//            
-//                return task
-//            })
+//        let personaActividad = evento["personas"] as? [PFObject]
 //
+//        if(personaActividad != nil){
+//
+//            var personasString = String()
+//
+//            for object in (personaActividad)!{
+//
+//                let persona = object
+//
+//
+//                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
+//                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
 //            }
 //            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
 //            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
@@ -210,15 +203,12 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
 //            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
 //            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
 //            cell.labelSpeaker1.text = personasString
-//            cell.labelSpeaker1?.textAlignment = .left
 //            cell.labelSpeaker1.numberOfLines = 0
+//            cell.labelSpeaker1?.textAlignment = .left
 //            cell.labelSpeaker1?.sizeToFit()
-//            
+        
 //        }
-//        else{
-//            cell.labelSpeaker1.text = ""
-//        }
-        cell.labelSpeaker1.text = ""
+    cell.labelSpeaker1.text = ""
 
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         

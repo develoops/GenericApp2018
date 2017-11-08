@@ -1575,7 +1575,7 @@
     </scenes>
     <resources>
         <image name="Btn_avanzar_derecha.png" width="27" height="49"/>
-        <image name="Btn_favoritos_SinMarcar.png" width="39" height="39"/>
+        <image name="Btn_favoritos_SinMarcar.png" width="30" height="29"/>
         <image name="Home.png" width="30" height="27"/>
         <image name="Ponente_ausente_Hombre.png" width="100" height="100"/>
         <image name="Sociedad.png" width="30" height="25"/>
