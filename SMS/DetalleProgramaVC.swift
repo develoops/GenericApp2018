@@ -30,7 +30,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
-    var funciones = ["Ir al Mapa","Evaluar","Preguntar"]
+    var funciones = ["Ir al Mapa","Evaluar","Preguntar","Encuesta"]
     var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!
@@ -224,6 +224,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             }
             return taskPersonas
         })
+        
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@) AND (actividad == %@)", PFUser.current()!,self.evento))
         favoritoQuery.fromLocalDatastore()
         favoritoQuery.getFirstObjectInBackground().continue({ (taskFav:BFTask<PFObject>) -> Any? in
@@ -454,30 +455,34 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func agregarBotonFavoritoNav(){
         
-    var barBotonFavorito = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
         
         if favorito == true {
-        
-        barBotonFavorito = UIBarButtonItem(image: UIImage(named: "btn_Favorito_marcado"), style: .plain, target: self, action: #selector(cambiarFavorito))
+
+       navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_Favorito_marcado"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
         else{
-            barBotonFavorito = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
+
+           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
         
-        navigationItem.rightBarButtonItem = barBotonFavorito
     }
 
     func cambiarFavorito(sender: UIBarButtonItem!){
-        if favorito == true {
+        
 
+        if favorito == true {
+        
+            if(favoritoAct != nil){
             favoritoAct.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
-                return DispatchQueue.main.async {
-                    
-                     self.favorito = false
+                DispatchQueue.main.async {
                     sender.image = UIImage(named: "Btn_favoritos_SinMarcar")
-
-                } })}
+                    
+                }
+                self.favorito = false
+                return task
+            })}
+        }
         else{
             let fav = PFObject(className: "ActFavUser")
             fav.setObject(PFUser.current()!, forKey: "user")
@@ -485,15 +490,18 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             fav.setObject(congreso, forKey: "congreso")
             fav.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
-                return        DispatchQueue.main.async {
-                    self.favorito = true
+                DispatchQueue.main.async {
                     sender.image = UIImage(named: "btn_Favorito_marcado")
-                    
-                }
 
-            })
-        }
-    }
+                }
+                self.favorito = true
+                return task
+                
+                })
+            
+            }}
+        
+   // }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -567,7 +575,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             else{
                 irAPreguntas()
             }}
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

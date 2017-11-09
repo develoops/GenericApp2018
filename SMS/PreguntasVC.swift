@@ -82,14 +82,8 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
             subscription = liveQueryClient.subscribe(msgQuery).handle(Event.created) { _, message in
 
-            if Thread.current != Thread.main {
                 self.datosAVista()
                 
-            } else {
-                
-                self.datosAVista()
-                
-                }
         }
         
         self.datosAVista()
@@ -210,7 +204,6 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             likesNumber = 0
         }
-        
         if !(ids.containss(obj: emision.objectId!)){
             ids.append(emision.objectId!)
             sender.setImage(UIImage(named: "btn_Favorito_marcado"), for: .normal)
@@ -227,7 +220,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         defaults.synchronize()
         emision.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
             DispatchQueue.main.async {
-                self.tabla.reloadData()
+                self.datosAVista()
             }
             return task
         })
