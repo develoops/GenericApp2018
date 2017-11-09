@@ -78,7 +78,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
         
         
-        labelTituloDetallePrograma.frame = CGRect(x: 16.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
+        labelTituloDetallePrograma.frame = CGRect(x: 28.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
@@ -87,7 +87,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelTituloDetallePrograma.numberOfLines = 0
         labelTituloDetallePrograma?.sizeToFit()
 
-        labelHoraDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
+        labelHoraDetallePrograma.frame.origin = CGPoint(x: 28.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
         
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelHoraDetallePrograma.sizeThatFits(maximumLabelSizeHora)
@@ -97,7 +97,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelHoraDetallePrograma?.sizeToFit()
 
         
-        labelDiaDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
+        labelDiaDetallePrograma.frame.origin = CGPoint(x: 28.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
         
         let maximumLabelSizeDia = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelDiaDetallePrograma.sizeThatFits(maximumLabelSizeDia)
@@ -106,7 +106,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelDiaDetallePrograma.numberOfLines = 0
         labelDiaDetallePrograma?.sizeToFit()
 
-        labelLugarDetallePrograma.frame.origin = CGPoint(x: 16.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
+        labelLugarDetallePrograma.frame.origin = CGPoint(x: 28.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
         let lugar = evento["lugar"] as? PFObject
         
         let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
@@ -147,11 +147,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.scrollView.addSubview(colorFondoHeaderDetalle)
         scrollView.sendSubview(toBack: colorFondoHeaderDetalle)
 
-//        self.automaticallyAdjustsScrollViewInsets = false
-//        scrollView.contentInset = UIEdgeInsets.zero
-//        scrollView.scrollIndicatorInsets = UIEdgeInsets.init(top: 0.0, left: 0.0, bottom: 44.0, right: 0.0)
-//        scrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
-
 
         if(lugar?["imgPerfil"] != nil){
 
@@ -165,15 +160,17 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.tablaActividades.tableFooterView = UIView()
         
 
-        self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.origin.y, width: view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height))
+        self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.origin.y, width: view.frame.width, height: (48.0 * CGFloat(funciones.count)) + 30.0)
         self.tablaFunciones.tableFooterView = UIView()
         
         self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
         tablaFunciones.isScrollEnabled = false
         scrollView.frame = CGRect(x: 0.0, y: -44.0, width: view.frame.width, height: view.frame.height + 44.0)
-        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height + 44.0)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: tablaFunciones.frame.maxY)
         
-        scrollView.frame.origin = CGPoint(x: 0.0, y: -44.0)
+        print(tablaFunciones.frame.height)
+        print(tablaFunciones.frame.origin)
+        print(tablaFunciones.frame.maxY)
     }
     
     func irAPreguntas(){
@@ -439,7 +436,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         else {
         let funcion = funciones[indexPath.row]
             
-            cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
+            cell.labelTitulo?.frame = CGRect(x: 28.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
             let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
             cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
             cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
@@ -569,7 +566,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             }
             else{
                 irAPreguntas()
-            }}}
+            }}
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
