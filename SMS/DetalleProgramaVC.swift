@@ -14,6 +14,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var tabla: UITableView!
     @IBOutlet weak var tablaActividades: UITableView!
     @IBOutlet weak var tablaFunciones: UITableView!
+    @IBOutlet weak var scrollView: UIScrollView!
 
     
     @IBOutlet weak var labelTituloDetallePrograma: UILabel!
@@ -51,8 +52,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         query.includeKey("contenido.lugar")
         query.limit = 1000
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-            
-        let a = task.result as! [PFObject]
+
+            let a = task.result as! [PFObject]
             print(a)
             if(a.count != 0){
                 self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as? PFObject}.flatMap{$0}
@@ -126,14 +127,30 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         textViewInfoDetallePrograma.text = evento["descripcion"] as? String
         textViewInfoDetallePrograma?.textAlignment = .left
         textViewInfoDetallePrograma?.sizeToFit()
+        textViewInfoDetallePrograma.isScrollEnabled = false
+        
+        if((evento["descripcion"] as? String) == nil){
 
-        /////
+            textViewInfoDetallePrograma.frame.size.height = 5.0
+        
+        }
+        if(actividadesAnidadas.count == 0){
+            
+            self.tablaActividades.frame.size.height = 0.0
+        }
+        
+    
+        
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 5.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
 //
-        self.view.addSubview(colorFondoHeaderDetalle)
-        view.sendSubview(toBack: colorFondoHeaderDetalle)
-        ////
+        self.scrollView.addSubview(colorFondoHeaderDetalle)
+        scrollView.sendSubview(toBack: colorFondoHeaderDetalle)
+
+//        self.automaticallyAdjustsScrollViewInsets = false
+//        scrollView.contentInset = UIEdgeInsets.zero
+//        scrollView.scrollIndicatorInsets = UIEdgeInsets.init(top: 0.0, left: 0.0, bottom: 44.0, right: 0.0)
+//        scrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
 
 
         if(lugar?["imgPerfil"] != nil){
@@ -147,12 +164,16 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.tablaActividades.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y))
         self.tablaActividades.tableFooterView = UIView()
         
-        
-        self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height, width: view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height))
+
+        self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.origin.y, width: view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.height))
         self.tablaFunciones.tableFooterView = UIView()
-
+        
         self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
-
+        tablaFunciones.isScrollEnabled = false
+        scrollView.frame = CGRect(x: 0.0, y: -44.0, width: view.frame.width, height: view.frame.height + 44.0)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height + 44.0)
+        
+        scrollView.frame.origin = CGPoint(x: 0.0, y: -44.0)
     }
     
     func irAPreguntas(){
@@ -227,8 +248,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             return taskFav
         })
-        
-
     }
     func irAMapa()
     {   let lugar = evento["lugar"] as? PFObject
@@ -292,7 +311,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
 
         let a = roles[indexPath.row]
-      cell.imagenPerfil.frame.origin = CGPoint(x: 16.0, y: 5.0)
+        cell.imagenPerfil.frame.origin = CGPoint(x: 16.0, y: 5.0)
         cell.labelRol.text = a
         
             if (persona["ImgPerfil"] == nil) {
@@ -370,8 +389,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 for object in (personaActividad)!{
                     
                     let persona = object
-                    
-                    
+                
                     personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
                     personasTamano = personasTamano + (28 / (personaActividad?.count)!)
                 }
@@ -457,27 +475,25 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
             favoritoAct.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
-                DispatchQueue.main.async {
-//                    self.favorito = false
-                sender.image = UIImage(named: "Btn_favoritos_SinMarcar")
-                }
-                return task
-            })
-        }
+                return DispatchQueue.main.async {
+                    
+                     self.favorito = false
+                    sender.image = UIImage(named: "Btn_favoritos_SinMarcar")
+
+                } })}
         else{
-//            favorito = true
             let fav = PFObject(className: "ActFavUser")
             fav.setObject(PFUser.current()!, forKey: "user")
             fav.setObject(evento, forKey: "actividad")
             fav.setObject(congreso, forKey: "congreso")
             fav.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
-                DispatchQueue.main.async {
-                    
+                return        DispatchQueue.main.async {
+                    self.favorito = true
                     sender.image = UIImage(named: "btn_Favorito_marcado")
-
+                    
                 }
-                return task
+
             })
         }
     }
