@@ -1266,13 +1266,21 @@
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="Btn_favoritos_SinMarcar.png"/>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="btn_Favorito_marcado.png"/>
+                                                        <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                            <size key="value" width="30" height="30"/>
+                                                        </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B1o-oM-hfW">
+                                                    <rect key="frame" x="159" y="-54" width="240" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="botonFavorito" destination="Hez-Y8-n0D" id="rb3-p5-PsO"/>
                                             <outlet property="floatRatingView" destination="9IH-qb-6Qf" id="BiU-hx-ahY"/>
+                                            <outlet property="imagenPerfil" destination="B1o-oM-hfW" id="B2V-TZ-64H"/>
                                             <outlet property="labelNombre" destination="pQK-UL-dfQ" id="exc-Vi-h9a"/>
                                         </connections>
                                     </tableViewCell>

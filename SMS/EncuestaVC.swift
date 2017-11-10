@@ -38,6 +38,11 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             return task
         })
+        let greyView = UIView()
+        greyView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        self.tabla.tableFooterView = greyView
+        tabla.separatorStyle = UITableViewCellSeparatorStyle.none
+    
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,24 +62,14 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
-        
-//        cell.labelTitulo?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
-//        cell.labelTitulo.text = noticia["objectId"] as? String
-//        cell.labelTitulo.font = UIFont.systemFont(ofSize: 13.0)
-//        cell.labelTitulo.textColor = UIColor.darkGray
-//        cell.labelTitulo?.textAlignment = .left
-//        cell.labelTitulo.numberOfLines = 0
-//        cell.labelTitulo?.sizeToFit()
-//
-//        cell.labelHora?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelTitulo.frame.height + 30.0)
-//        cell.labelHora.frame.size = CGSize(width: self.view.frame.size.width - 40, height: 0.0)
-//        cell.labelHora.text = noticia["preguntaTexto"] as? String
-//        cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
-//        cell.labelHora?.textAlignment = .left
-//        cell.labelHora.numberOfLines = 0
-//        cell.labelHora?.sizeToFit()
-        
-        tamanoCelda = (cell.labelNombre.frame.size.height) + 80.0
+        cell.imagenPerfil.superview?.sendSubview(toBack: cell.imagenPerfil)
+        cell.imagenPerfil.image = getImageWithColor(color: UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0), size: cell.imagenPerfil.frame.size)
+
+        cell.imagenPerfil.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: cell.labelNombre.frame.origin.y + cell.labelNombre.frame.height + 20.0)
+       
+
+        cell.floatRatingView.frame = CGRect(x: 25.0, y: cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.height + 10.0, width: cell.frame.width - 50.0, height: 80.0)
+        tamanoCelda = (cell.labelNombre.frame.size.height + cell.floatRatingView.frame.height) + 55.0
                 
         return cell
     }
@@ -94,4 +89,15 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return noticias.count
         
 }
+    
+    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
 }
