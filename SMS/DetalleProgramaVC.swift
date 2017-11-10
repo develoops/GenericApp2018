@@ -182,6 +182,19 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         navigationController?.show(vc, sender: nil)
 
     }
+    
+    func irAEncuesta(){
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "EncuestaVC") as! EncuestaVC
+        
+        vc.evento = evento!
+        vc.tipoEncuesta = "actividad"
+
+        navigationController?.show(vc, sender: nil)
+        
+    }
+
 
     func evaluar(){
         
@@ -572,6 +585,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 evaluar()
             }
+            else if(funcion == "Encuesta"){
+                
+                irAEncuesta()
+            }
+
             else{
                 irAPreguntas()
             }}

@@ -88,9 +88,8 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         self.datosAVista()
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(hacerPregunta))
-
     }
-    
+
     func datosAVista(){
         let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", evento))
         query.order(byDescending: "likes")

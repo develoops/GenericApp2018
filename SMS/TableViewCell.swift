@@ -8,7 +8,8 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+
+class TableViewCell: UITableViewCell{
     
     @IBOutlet weak var labelTitulo: UILabel!
     @IBOutlet weak var labelHora: UILabel!
@@ -26,6 +27,8 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet weak var infoDetallePatrocinador: UITextView!
     
+    @IBOutlet var floatRatingView: FloatRatingView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -36,7 +39,17 @@ class TableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
-
 }
+
+extension TableViewCell: FloatRatingViewDelegate {
+    
+    
+    public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
+        print(self.floatRatingView.rating)
+        }
+    
+    public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
+    }
+}
+

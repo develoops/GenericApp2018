@@ -1218,6 +1218,81 @@
             </objects>
             <point key="canvasLocation" x="-183.19999999999999" y="-850.52473763118451"/>
         </scene>
+        <!--EncuestaVC-->
+        <scene sceneID="p68-zt-L8t">
+            <objects>
+                <viewController storyboardIdentifier="EncuestaVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o43-no-FYu" customClass="EncuestaVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zum-fY-ofI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Diy-ZJ-XGm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="X3s-OT-ag6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="122" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JZc-G2-gMr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="122" id="sma-pH-PPO" customClass="TableViewCell" customModule="SMS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="122"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sma-pH-PPO" id="SAT-f1-gTb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="121.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hez-Y8-n0D">
+                                                    <rect key="frame" x="330" y="21" width="24" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQK-UL-dfQ">
+                                                    <rect key="frame" x="15" y="8" width="233" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9IH-qb-6Qf" customClass="FloatRatingView" customModule="SMS" customModuleProvider="target">
+                                                    <rect key="frame" x="41" y="45" width="299" height="76"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="Btn_favoritos_SinMarcar.png"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="btn_Favorito_marcado.png"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="botonFavorito" destination="Hez-Y8-n0D" id="rb3-p5-PsO"/>
+                                            <outlet property="floatRatingView" destination="9IH-qb-6Qf" id="BiU-hx-ahY"/>
+                                            <outlet property="labelNombre" destination="pQK-UL-dfQ" id="exc-Vi-h9a"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="o43-no-FYu" id="Yeo-3y-DBh"/>
+                                    <outlet property="delegate" destination="o43-no-FYu" id="DKR-Y8-uh3"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tabla" destination="JZc-G2-gMr" id="eon-uv-l0E"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eOY-s0-gnl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-183.19999999999999" y="-2256.521739130435"/>
+        </scene>
         <!--Detalle ProgramaVC-->
         <scene sceneID="3eX-ZZ-n19">
             <objects>
@@ -1587,6 +1662,7 @@
         <image name="Ponente_ausente_Hombre.png" width="100" height="100"/>
         <image name="Sociedad.png" width="30" height="25"/>
         <image name="btnFavorito.png" width="30" height="30"/>
+        <image name="btn_Favorito_marcado.png" width="30" height="29"/>
         <image name="btn_back.png" width="26" height="49"/>
         <image name="btn_patrocinadores.png" width="30" height="30"/>
         <image name="directiva.png" width="30" height="28"/>

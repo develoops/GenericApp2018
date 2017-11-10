@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C317A0471FB615C9009B0F0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C317A0461FB615C9009B0F0D /* FloatRatingView.swift */; };
 		C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C25071F0BF922006492EF /* FormatoFechas.swift */; };
 		C3220A601F8FA90600A08B15 /* CongresoTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A5F1F8FA90600A08B15 /* CongresoTabBarVC.swift */; };
 		C3220A631F8FAD2A00A08B15 /* TabBarAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A621F8FAD2A00A08B15 /* TabBarAppVC.swift */; };
@@ -25,6 +26,7 @@
 		C32BFBD71FB38700002D4805 /* btn_Favorito_marcado@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C32BFBD31FB386FF002D4805 /* btn_Favorito_marcado@2x.png */; };
 		C32BFBD81FB38700002D4805 /* btn_Favorito_marcado@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C32BFBD41FB38700002D4805 /* btn_Favorito_marcado@3x.png */; };
 		C32FF1611F9520FA00E41BA2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */; };
+		C330F7331FB513D8005BAF8C /* EncuestaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C330F7321FB513D8005BAF8C /* EncuestaVC.swift */; };
 		C332C2551FA91B04003F8DDE /* RefreshData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C332C2541FA91B04003F8DDE /* RefreshData.swift */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C337AAD51F94DA5700164780 /* materiales.png in Resources */ = {isa = PBXBuildFile; fileRef = C337AAD41F94DA5700164780 /* materiales.png */; };
@@ -65,6 +67,7 @@
 /* Begin PBXFileReference section */
 		1C2C955866E28B340F8E0309 /* Pods-SMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMS/Pods-SMS.release.xcconfig"; sourceTree = "<group>"; };
 		73148D13B6370238CC4A32E1 /* Pods-SMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMS/Pods-SMS.debug.xcconfig"; sourceTree = "<group>"; };
+		C317A0461FB615C9009B0F0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
 		C3220A5F1F8FA90600A08B15 /* CongresoTabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CongresoTabBarVC.swift; sourceTree = "<group>"; };
 		C3220A621F8FAD2A00A08B15 /* TabBarAppVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarAppVC.swift; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		C32BFBD41FB38700002D4805 /* btn_Favorito_marcado@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_Favorito_marcado@3x.png"; sourceTree = "<group>"; };
 		C32FF1601F9520FA00E41BA2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C32FF1621F9524E900E41BA2 /* SMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SMS.entitlements; sourceTree = "<group>"; };
+		C330F7321FB513D8005BAF8C /* EncuestaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaVC.swift; sourceTree = "<group>"; };
 		C332C2541FA91B04003F8DDE /* RefreshData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshData.swift; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C337AAD41F94DA5700164780 /* materiales.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = materiales.png; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */,
 				C3220A761F92970700A08B15 /* NovedadesVC.swift */,
 				C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */,
+				C330F7321FB513D8005BAF8C /* EncuestaVC.swift */,
 			);
 			name = Congreso;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				C32FF1621F9524E900E41BA2 /* SMS.entitlements */,
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
 				C332C2541FA91B04003F8DDE /* RefreshData.swift */,
+				C317A0461FB615C9009B0F0D /* FloatRatingView.swift */,
 				C378EC5C1F05823000DE0318 /* Controllers */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
 				C31C25071F0BF922006492EF /* FormatoFechas.swift */,
@@ -449,6 +455,7 @@
 				C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */,
 				C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */,
 				C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */,
+				C330F7331FB513D8005BAF8C /* EncuestaVC.swift in Sources */,
 				C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */,
 				C3220A7A1F92D85400A08B15 /* CongresoNavViewController.swift in Sources */,
 				C378EC3D1F05542200DE0318 /* SMSVC.swift in Sources */,
@@ -457,6 +464,7 @@
 				C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */,
 				C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */,
 				C337AAD91F94E2D200164780 /* DetalleMaterialesVC.swift in Sources */,
+				C317A0471FB615C9009B0F0D /* FloatRatingView.swift in Sources */,
 				C378EC3B1F05532A00DE0318 /* PatrocinadoresVC.swift in Sources */,
 				C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */,
 				C378EC371F05530900DE0318 /* SpeakersVC.swift in Sources */,
