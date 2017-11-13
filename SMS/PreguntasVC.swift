@@ -194,7 +194,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return noticias.count
     }
     
-    func darLike(sender: UIButton!){
+    @objc func darLike(sender: UIButton!){
 
     let emision = self.noticias[sender.tag]
     var likesNumber = emision["likes"] as? Int
@@ -227,7 +227,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
 
     
-    func hacerPregunta(){
+    @objc func hacerPregunta(){
         
         let alertController = UIAlertController(title: "Pregunta", message: "¿Qué deseas preguntar?", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addTextField { (textField : UITextField) -> Void in

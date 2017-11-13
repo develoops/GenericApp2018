@@ -72,10 +72,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelDiaDetallePrograma.textColor = UIColor.white
         labelLugarDetallePrograma.textColor = UIColor.white
 
-        labelTituloDetallePrograma.font = UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
-        labelHoraDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
-        labelDiaDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
-        labelLugarDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
+        labelTituloDetallePrograma.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold)
+        labelHoraDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
+        labelDiaDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
+        labelLugarDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
         
         
         labelTituloDetallePrograma.frame = CGRect(x: 28.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
@@ -480,7 +480,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     }
 
-    func cambiarFavorito(sender: UIBarButtonItem!){
+    @objc func cambiarFavorito(sender: UIBarButtonItem!){
         
 
         if favorito == true {

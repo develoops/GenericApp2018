@@ -344,7 +344,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                                                  animated: true)
     }
     
-    func eem(){
+    @objc func eem(){
         
         let fechaHoy = Date.init(timeIntervalSinceNow: -(60*60*3))
         
@@ -366,7 +366,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     }
     
-    func programa(){
+    @objc func programa(){
     
         self.diaControl.text = self.diasPrograma()[self.indicador]
         self.filtrarArray(indicador: self.indicador)
@@ -431,7 +431,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
     
     
-    func avanzar(sender: UIButton!){
+    @objc func avanzar(sender: UIButton!){
         
         if(indicador < diasPrograma().count - 1){
             indicador = indicador + 1
@@ -450,7 +450,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         filtrarArray(indicador: indicador)
     }
     
-    func retroceder(sender: UIButton!){
+    @objc func retroceder(sender: UIButton!){
         
         if(indicador==1){
             botonRetroceder.isHidden = true
@@ -469,7 +469,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         filtrarArray(indicador: indicador)
     }
     
-    func cambiarFavorito(sender: UIButton!){
+    @objc func cambiarFavorito(sender: UIButton!){
         
         let user = PFUser.current()
         
@@ -561,7 +561,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return image
     }
 
-    func volver() {
+    @objc func volver() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     

@@ -98,7 +98,7 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
         cell.labelTitulo?.frame = CGRect(x: 25.0, y: 10.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightLight)
+        cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
         cell.labelTitulo?.text = objetoInfo.first as? String
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0

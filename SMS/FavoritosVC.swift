@@ -194,7 +194,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     
-    func showEditing(sender: UIBarButtonItem)
+    @objc func showEditing(sender: UIBarButtonItem)
     {
         if(self.tabla.isEditing == true)
         {
