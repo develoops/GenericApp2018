@@ -67,8 +67,8 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         cell.imagenPerfil.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: cell.labelNombre.frame.origin.y + cell.labelNombre.frame.height + 20.0)
        
-
-        cell.floatRatingView.frame = CGRect(x: 25.0, y: cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.height + 10.0, width: cell.frame.width - 50.0, height: 80.0)
+        cell.floatRatingView.frame = CGRect(x: 20.0, y: cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.height + 10.0, width: cell.frame.width - 40.0, height: 60.0)
+      
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.floatRatingView.frame.height) + 55.0
                 
         return cell

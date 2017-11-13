@@ -59,6 +59,12 @@
 		C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC571F05820300DE0318 /* DetallePersonaVC.swift */; };
 		C378EC5A1F05821900DE0318 /* DetallePatrocinadorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */; };
 		C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */; };
+		C3A20BAA1FBA1335009B2954 /* EstrellaTransparente@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A20BA41FBA1333009B2954 /* EstrellaTransparente@1x.png */; };
+		C3A20BAB1FBA1335009B2954 /* EstrellaTransparente@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A20BA51FBA1334009B2954 /* EstrellaTransparente@2x.png */; };
+		C3A20BAC1FBA1335009B2954 /* EstrellaTransparente@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A20BA61FBA1334009B2954 /* EstrellaTransparente@3x.png */; };
+		C3A20BAD1FBA1335009B2954 /* Estrellarellena@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A20BA71FBA1334009B2954 /* Estrellarellena@2x.png */; };
+		C3A20BAE1FBA1335009B2954 /* Estrellarellena@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A20BA81FBA1334009B2954 /* Estrellarellena@1x.png */; };
+		C3A20BAF1FBA1335009B2954 /* Estrellarellena@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A20BA91FBA1334009B2954 /* Estrellarellena@3x.png */; };
 		C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A58D3A1F054953003095FF /* TableViewCell.swift */; };
 		C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */ = {isa = PBXBuildFile; fileRef = C3C12F941F2B9E7A00D01AD4 /* pinilla.png */; };
 		E689768FEAE107208BBC8ED9 /* Pods_SMS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F76418B7CAE3F6027679F008 /* Pods_SMS.framework */; };
@@ -122,6 +128,12 @@
 		C378EC571F05820300DE0318 /* DetallePersonaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePersonaVC.swift; sourceTree = "<group>"; };
 		C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePatrocinadorVC.swift; sourceTree = "<group>"; };
 		C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ponente_ausente_Hombre.png; sourceTree = "<group>"; };
+		C3A20BA41FBA1333009B2954 /* EstrellaTransparente@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EstrellaTransparente@1x.png"; sourceTree = "<group>"; };
+		C3A20BA51FBA1334009B2954 /* EstrellaTransparente@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EstrellaTransparente@2x.png"; sourceTree = "<group>"; };
+		C3A20BA61FBA1334009B2954 /* EstrellaTransparente@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EstrellaTransparente@3x.png"; sourceTree = "<group>"; };
+		C3A20BA71FBA1334009B2954 /* Estrellarellena@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Estrellarellena@2x.png"; sourceTree = "<group>"; };
+		C3A20BA81FBA1334009B2954 /* Estrellarellena@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Estrellarellena@1x.png"; sourceTree = "<group>"; };
+		C3A20BA91FBA1334009B2954 /* Estrellarellena@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Estrellarellena@3x.png"; sourceTree = "<group>"; };
 		C3A58D3A1F054953003095FF /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		C3C12F941F2B9E7A00D01AD4 /* pinilla.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinilla.png; sourceTree = "<group>"; };
 		F76418B7CAE3F6027679F008 /* Pods_SMS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +250,12 @@
 		C378EC401F055ADA00DE0318 /* PartesAPP */ = {
 			isa = PBXGroup;
 			children = (
+				C3A20BA81FBA1334009B2954 /* Estrellarellena@1x.png */,
+				C3A20BA71FBA1334009B2954 /* Estrellarellena@2x.png */,
+				C3A20BA91FBA1334009B2954 /* Estrellarellena@3x.png */,
+				C3A20BA41FBA1333009B2954 /* EstrellaTransparente@1x.png */,
+				C3A20BA51FBA1334009B2954 /* EstrellaTransparente@2x.png */,
+				C3A20BA61FBA1334009B2954 /* EstrellaTransparente@3x.png */,
 				C32BFBD31FB386FF002D4805 /* btn_Favorito_marcado@2x.png */,
 				C32BFBD41FB38700002D4805 /* btn_Favorito_marcado@3x.png */,
 				C32BFBD11FB386FE002D4805 /* Btn_favoritos_SinMarcar@2x.png */,
@@ -369,6 +387,7 @@
 				C32BFBD81FB38700002D4805 /* btn_Favorito_marcado@3x.png in Resources */,
 				C378EC501F055ADA00DE0318 /* img_break.png in Resources */,
 				C34BA88B1F04173500022E6B /* LaunchScreen.storyboard in Resources */,
+				C3A20BAE1FBA1335009B2954 /* Estrellarellena@1x.png in Resources */,
 				C33A1BE31F2C006500B6B744 /* favMarcado.png in Resources */,
 				C378EC561F0576B900DE0318 /* btn_directiva.png in Resources */,
 				C3220A6D1F8FD13600A08B15 /* Home.png in Resources */,
@@ -384,12 +403,17 @@
 				C378EC4F1F055ADA00DE0318 /* btnFavorito.png in Resources */,
 				C34BA8881F04173500022E6B /* Assets.xcassets in Resources */,
 				C378EC4E1F055ADA00DE0318 /* btn_patrocinadores.png in Resources */,
+				C3A20BAF1FBA1335009B2954 /* Estrellarellena@3x.png in Resources */,
 				C378EC4D1F055ADA00DE0318 /* Btn_favoritos_SinMarcar.png in Resources */,
 				C32BFBD71FB38700002D4805 /* btn_Favorito_marcado@2x.png in Resources */,
+				C3A20BAD1FBA1335009B2954 /* Estrellarellena@2x.png in Resources */,
 				C34BA8831F04173500022E6B /* Main.storyboard in Resources */,
+				C3A20BAA1FBA1335009B2954 /* EstrellaTransparente@1x.png in Resources */,
 				C32BFBD61FB38700002D4805 /* Btn_favoritos_SinMarcar@3x.png in Resources */,
+				C3A20BAB1FBA1335009B2954 /* EstrellaTransparente@2x.png in Resources */,
 				C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */,
 				C378EC4B1F055ADA00DE0318 /* btn_back.png in Resources */,
+				C3A20BAC1FBA1335009B2954 /* EstrellaTransparente@3x.png in Resources */,
 				C378EC511F055ADA00DE0318 /* ponente.png in Resources */,
 				C378EC521F055ADA00DE0318 /* programa.png in Resources */,
 			);

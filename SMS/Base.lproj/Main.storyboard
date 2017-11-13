@@ -1254,7 +1254,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9IH-qb-6Qf" customClass="FloatRatingView" customModule="SMS" customModuleProvider="target">
-                                                    <rect key="frame" x="41" y="45" width="299" height="76"/>
+                                                    <rect key="frame" x="40" y="45" width="300" height="75"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
@@ -1264,10 +1264,10 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="Btn_favoritos_SinMarcar.png"/>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="btn_Favorito_marcado.png"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="EstrellaTransparente.png"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="Estrellarellena.png"/>
                                                         <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
-                                                            <size key="value" width="30" height="30"/>
+                                                            <size key="value" width="30" height="29"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
@@ -1666,11 +1666,12 @@
     <resources>
         <image name="Btn_avanzar_derecha.png" width="27" height="49"/>
         <image name="Btn_favoritos_SinMarcar.png" width="30" height="29"/>
+        <image name="EstrellaTransparente.png" width="75" height="74"/>
+        <image name="Estrellarellena.png" width="75" height="74"/>
         <image name="Home.png" width="30" height="27"/>
         <image name="Ponente_ausente_Hombre.png" width="100" height="100"/>
         <image name="Sociedad.png" width="30" height="25"/>
         <image name="btnFavorito.png" width="30" height="30"/>
-        <image name="btn_Favorito_marcado.png" width="30" height="29"/>
         <image name="btn_back.png" width="26" height="49"/>
         <image name="btn_patrocinadores.png" width="30" height="30"/>
         <image name="directiva.png" width="30" height="28"/>
