@@ -45,6 +45,16 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(guardar))
+        
+
+    }
+    
+    @objc func guardar(){
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -54,8 +64,8 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let noticia = noticias[indexPath.row]
         
-        cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+        cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 36.0, height:0.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 36.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelNombre.font = UIFont.boldSystemFont(ofSize: 17.0)
         cell.labelNombre.text = noticia["preguntaTexto"] as? String
@@ -89,6 +99,10 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return noticias.count
         
 }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
+    }
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
