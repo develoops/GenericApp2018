@@ -21,12 +21,12 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var indexPathInterno:IndexPath!
     var respuestas = [PFObject]()
     var valores = [Double]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
+        
         
         self.navigationController?.navigationBar.topItem?.title = "Encuesta"
         
@@ -46,13 +46,13 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         greyView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1.0)
         self.tabla.tableFooterView = greyView
         tabla.separatorStyle = UITableViewCellSeparatorStyle.none
-        
-        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Enviar", style: .plain, target: self, action: #selector(enviar))
+   
     }
     
     @objc func enviar(){
@@ -81,9 +81,9 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         indexPathInterno = indexPath
-
-        let noticia = noticias[indexPath.row]
         
+        let noticia = noticias[indexPath.row]
+
         cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 36.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 36.0), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
@@ -100,6 +100,7 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.floatRatingView.frame = CGRect(x: 20.0, y: cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.height + 10.0, width: cell.frame.width - 40.0, height: 60.0)
         
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.floatRatingView.frame.height) + 55.0
+        
         return cell
     }
     
@@ -114,30 +115,16 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return 1
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return noticias.count
     }
     
-    func añadirRating(valor:Double){
-    
-        let defaults = UserDefaults.standard
-        var res = [Any]()
-        if(defaults.array(forKey: "respuestas") != nil){
-            res = defaults.array(forKey: "respuestas")!
-            
-        }
-        res.append(valor)
-        print(res)
-        defaults.setValue(res, forKey: "respuestas")
-        defaults.synchronize()
-        print(res)
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
-        
     }
+    
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -148,7 +135,23 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         UIGraphicsEndImageContext()
         return image
     }
-    
+
+   
 }
 
+extension TableViewCell:FloatRatingViewDelegate{
+
+     public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
+
+        let i = self.superview as! UITableView
+        print(rating)
+        print(i.indexPath(for: self)?.row)
+        
+
+    }
+
+    public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
+
+    }
+}
 

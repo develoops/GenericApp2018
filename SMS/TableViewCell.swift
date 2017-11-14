@@ -9,7 +9,7 @@
 import UIKit
 
 
-class TableViewCell: UITableViewCell{
+ class TableViewCell: UITableViewCell{
     
     @IBOutlet weak var labelTitulo: UILabel!
     @IBOutlet weak var labelHora: UILabel!
@@ -28,7 +28,6 @@ class TableViewCell: UITableViewCell{
     @IBOutlet weak var infoDetallePatrocinador: UITextView!
     
     @IBOutlet var floatRatingView: FloatRatingView!
-    var encuesta:EncuestaVC!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,18 +45,4 @@ class TableViewCell: UITableViewCell{
     }
 }
 
-extension TableViewCell :FloatRatingViewDelegate{
-    
-    public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "EncuestaVC") as! EncuestaVC
-        vc.añadirRating(valor: rating)
-        
-    }
-    
-    public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
-        
-    }
 
-}
