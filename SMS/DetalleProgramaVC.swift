@@ -30,7 +30,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
-    var funciones = ["Ir al Mapa","Evaluar","Preguntar","Encuesta"]
+    var funciones = ["Ir al Mapa","Preguntar","Encuesta"]
     var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!

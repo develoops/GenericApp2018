@@ -28,28 +28,36 @@ class TableViewCell: UITableViewCell{
     @IBOutlet weak var infoDetallePatrocinador: UITextView!
     
     @IBOutlet var floatRatingView: FloatRatingView!
+    var encuesta:EncuestaVC!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
-    
-  
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
-}
-
-extension TableViewCell: FloatRatingViewDelegate {
     
-    
-    public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
-        print(self.floatRatingView.rating)
+    override func layoutSubviews() {
+        if(floatRatingView != nil){
+        floatRatingView.delegate = self
         }
-    
-    public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
     }
 }
 
+extension TableViewCell :FloatRatingViewDelegate{
+    
+    public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "EncuestaVC") as! EncuestaVC
+        vc.añadirRating(valor: rating)
+        
+    }
+    
+    public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
+        
+    }
+
+}

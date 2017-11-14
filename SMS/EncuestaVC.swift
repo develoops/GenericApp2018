@@ -17,20 +17,24 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tamanoCelda = CGFloat()
     var tipoEncuesta:String!
     var evento:PFObject!
+    var valor:Double!
+    var indexPathInterno:IndexPath!
+    var respuestas = [PFObject]()
+    var valores = [Double]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
+        
         self.navigationController?.navigationBar.topItem?.title = "Encuesta"
         
         let refresh = RefreshData()
         refresh.primerLlamado()
         
-        let query = PFQuery(className: "PreguntaDeEncuesta", predicate:NSPredicate(format: "tipo == %@", tipoEncuesta))
-        query.order(byDescending: "posicion")
-//        query.fromLocalDatastore()
+        let query = PFQuery(className: "PreguntaDeEncuesta", predicate:NSPredicate(format: "tipo == %@ OR tipo == %@", tipoEncuesta,"expositor"))
+        query.order(byAscending: "posicion")
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
@@ -42,18 +46,33 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         greyView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1.0)
         self.tabla.tableFooterView = greyView
         tabla.separatorStyle = UITableViewCellSeparatorStyle.none
-    
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Guardar", style: .plain, target: self, action: #selector(guardar))
-        
-
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Enviar", style: .plain, target: self, action: #selector(enviar))
     }
     
-    @objc func guardar(){
+    @objc func enviar(){
         
+        let respuesta = PFObject(className: "RespuestaEncuesta")
+        respuesta.setObject(PFUser.current()!, forKey: "user")
+        respuesta.setObject(valor, forKey: "valoracion")
+        respuesta.setObject(noticias[indexPathInterno.row], forKey: "pregunta")
+        respuesta.setObject(evento, forKey: "evento")
+        respuesta.setObject(noticias[indexPathInterno.row]["encuesta"], forKey: "encuesta")
+
+        respuesta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+
+            DispatchQueue.main.async {
+                
+                self.navigationController?.popViewController(animated: true)
+
+            }
+            return task
+       })
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,7 +80,8 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        
+        indexPathInterno = indexPath
+
         let noticia = noticias[indexPath.row]
         
         cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 36.0, height:0.0)
@@ -78,11 +98,11 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.imagenPerfil.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: cell.labelNombre.frame.origin.y + cell.labelNombre.frame.height + 20.0)
        
         cell.floatRatingView.frame = CGRect(x: 20.0, y: cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.height + 10.0, width: cell.frame.width - 40.0, height: 60.0)
-      
+        
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.floatRatingView.frame.height) + 55.0
-                
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -97,11 +117,26 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return noticias.count
-        
-}
+    }
+    
+    func añadirRating(valor:Double){
+    
+        let defaults = UserDefaults.standard
+        var res = [Any]()
+        if(defaults.array(forKey: "respuestas") != nil){
+            res = defaults.array(forKey: "respuestas")!
+            
+        }
+        res.append(valor)
+        print(res)
+        defaults.setValue(res, forKey: "respuestas")
+        defaults.synchronize()
+        print(res)
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
+        
     }
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
@@ -115,3 +150,5 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
 }
+
+

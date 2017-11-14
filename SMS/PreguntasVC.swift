@@ -173,6 +173,14 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
         }
     
+        cell.layer.cornerRadius = 8
+        cell.layer.masksToBounds = true
+        
+        cell.layer.masksToBounds = false
+        cell.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.23
+        cell.layer.shadowRadius = 4
         
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height) + 60.0
         

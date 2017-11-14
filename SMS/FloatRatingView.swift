@@ -294,6 +294,7 @@ open class FloatRatingView: UIView {
     override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Update delegate
         delegate?.floatRatingView?(self, didUpdate: rating)
+
     }
     
     override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
