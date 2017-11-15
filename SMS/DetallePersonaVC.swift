@@ -32,6 +32,8 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
     var personas = [PFObject]()
+    var roles = [String]()
+
 
     
     override func viewDidLoad() {
@@ -120,6 +122,8 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
 }
     
     override func viewDidAppear(_ animated: Bool) {
+        roles = []
+        personas = []
         for act in charlasArray {
             
             let personaQuery = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "act == %@", act))
@@ -202,16 +206,13 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         cell.labelLugar.numberOfLines = 0
         cell.labelLugar?.sizeToFit()
         
-        print(evento["lugar"])
-        
         var personasTamano = Int()
         
-//        if(personasCharla != nil){
-        let personaActividad = personasCharla[indexPath.row]
-//
-        if(evento == personaActividad.firstObject as! PFObject){
+        let personaActividad = personasCharla[safe: indexPath.row]
+        
+        if(evento == personaActividad?.firstObject as? PFObject){
             
-            let personasAct = personaActividad.lastObject as! [PFObject]
+            let personasAct = personaActividad?.lastObject as! [PFObject]
         
             var personasString = String()
 
@@ -220,7 +221,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
                 let persona = object["persona"] as! PFObject
 
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-                personasTamano = personasTamano + (28 / (personaActividad.count)!)
+                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
             }
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
@@ -236,7 +237,6 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         else{
             cell.labelSpeaker1.text = ""
         }
-//    }
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
@@ -274,13 +274,10 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         
         let personaActividad = personasCharla[indexPath.row]
         let personasAct = personaActividad.lastObject as! [PFObject]
-        var roles = [String]()
             for object in (personasAct){
                 
                 roles.append(object["rol"] as! String)
                 let persona = object["persona"] as! PFObject
-                print(persona)
-                
                 personas.append(persona)
 
         }
@@ -309,9 +306,13 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
             
         }
         vc.congreso = congreso
-        
+        tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.pushViewController(vc,
                                                  animated: true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
     }
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
@@ -328,5 +329,14 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+        
+        
 }
+
+    extension Collection where Indices.Iterator.Element == Index {
+        subscript (safe index: Index) -> Iterator.Element? {
+            return indices.contains(index) ? self[index] : nil
+        }
+}
+
 

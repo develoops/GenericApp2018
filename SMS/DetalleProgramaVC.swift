@@ -321,7 +321,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
 
 
-        let a = roles[indexPath.row]
+        let a = roles[safe: indexPath.row]
         cell.imagenPerfil.frame.origin = CGPoint(x: 16.0, y: 5.0)
         cell.labelRol.text = a
         
