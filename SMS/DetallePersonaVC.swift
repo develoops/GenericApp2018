@@ -31,32 +31,11 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     var imagen:UIImage!
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
-
+    var personas = [PFObject]()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        for act in charlasArray {
-        
-            let personaQuery = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "act == %@", act))
-            personaQuery.fromLocalDatastore()
-            personaQuery.includeKey("persona")
-            personaQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-            
-                let object = [act,task.result]
-                
-                self.personasCharla.append(object as AnyObject)
-                DispatchQueue.main.async {
-                    
-                    self.tabla.reloadData()
-                }
-                return task
-            })
-        
-        }
-        
         labelNombreDetallePersona.text = nombrePersona
         labelLugarPersonaDetallePersona.text = lugarPersona
         
@@ -140,6 +119,28 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         view.sendSubview(toBack: colorFondoHeaderDetalle)
 }
     
+    override func viewDidAppear(_ animated: Bool) {
+        for act in charlasArray {
+            
+            let personaQuery = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "act == %@", act))
+            personaQuery.fromLocalDatastore()
+            personaQuery.includeKey("persona")
+            personaQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+                
+                let object = [act,task.result]
+                
+                self.personasCharla.append(object as AnyObject)
+                DispatchQueue.main.async {
+                    
+                    self.tabla.reloadData()
+                }
+                return task
+            })
+        }
+        
+
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -165,7 +166,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        var evento =  charlasArray[indexPath.row]
+        let evento =  charlasArray[indexPath.row]
         
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
@@ -201,38 +202,41 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         cell.labelLugar.numberOfLines = 0
         cell.labelLugar?.sizeToFit()
         
+        print(evento["lugar"])
+        
         var personasTamano = Int()
         
-//        let personaActividad = personasCharla[indexPath.row]
+//        if(personasCharla != nil){
+        let personaActividad = personasCharla[indexPath.row]
 //
-//        if(evento == personaActividad.lastObject as! PFObject){
-//
-//            print(personaActividad)
-//        }
-//            var personasString = String()
-//
-//            for object in (personaActividad)!{
-//
-//                let persona = object
-//
-//
-//                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-//                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
-//            }
-//            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
-//            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-//            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
-//            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
-//            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
-//            cell.labelSpeaker1.text = personasString
-//            cell.labelSpeaker1.numberOfLines = 0
-//            cell.labelSpeaker1?.textAlignment = .left
-//            cell.labelSpeaker1?.sizeToFit()
-//
-//        }
-//        else{
+        if(evento == personaActividad.firstObject as! PFObject){
+            
+            let personasAct = personaActividad.lastObject as! [PFObject]
+        
+            var personasString = String()
+
+            for object in (personasAct){
+
+                let persona = object["persona"] as! PFObject
+
+                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
+                personasTamano = personasTamano + (28 / (personaActividad.count)!)
+            }
+            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
+            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
+            cell.labelSpeaker1.text = personasString
+            cell.labelSpeaker1.numberOfLines = 0
+            cell.labelSpeaker1?.textAlignment = .left
+            cell.labelSpeaker1?.sizeToFit()
+
+        }
+        else{
             cell.labelSpeaker1.text = ""
-       // }
+        }
+//    }
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
@@ -267,6 +271,23 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
         vc.hora = fechaInicio + " - " + fechaFin
         vc.evento = evento
+        
+        let personaActividad = personasCharla[indexPath.row]
+        let personasAct = personaActividad.lastObject as! [PFObject]
+        var roles = [String]()
+            for object in (personasAct){
+                
+                roles.append(object["rol"] as! String)
+                let persona = object["persona"] as! PFObject
+                print(persona)
+                
+                personas.append(persona)
+
+        }
+        
+        vc.personas = personas
+        vc.roles = roles
+        
         if(evento["tipo"] as? String == "conferencia")
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
