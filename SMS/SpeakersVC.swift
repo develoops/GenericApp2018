@@ -53,7 +53,11 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                     self.personasRolAct.append(key)
                 }
             }
-            self.personas  = self.uniqueElementsFrom(array:self.personasRolAct)
+            let arrayDePersonas  = self.uniqueElementsFrom(array:self.personasRolAct)
+
+            self.personas = arrayDePersonas.sorted { ($0["primerApellido"] as AnyObject).localizedCaseInsensitiveCompare($1["primerApellido"] as! String) == ComparisonResult.orderedAscending }
+
+            
             DispatchQueue.main.async() {
                 self.tabla.reloadData()
             }
@@ -90,7 +94,6 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let lugar = persona.value(forKey: "pais") as? PFObject
         let institucion = personasRolAct[indexPath.row].value(forKey: "institucion") as? PFObject
-        
         
         cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
@@ -148,6 +151,8 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let act = actividades.map({$0.value(forKey: "act") as? PFObject}).flatMap({$0})
         
         vc.charlasArray = act
+        
+        
         
         if (persona["ImgPerfil"] == nil) {
             

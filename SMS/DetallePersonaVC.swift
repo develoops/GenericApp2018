@@ -22,7 +22,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     var nombrePersona:String!
     var congreso:PFObject!
     var charlasArray: [PFObject]!
-    var personasCharla: [PFObject]!
+    var personasCharla:[AnyObject] = []
     var institucion: String!
     var lugarPersona: String!
     var info:String!
@@ -37,6 +37,25 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+        for act in charlasArray {
+        
+            let personaQuery = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "act == %@", act))
+            personaQuery.fromLocalDatastore()
+            personaQuery.includeKey("persona")
+            personaQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            
+                let object = [act,task.result]
+                
+                self.personasCharla.append(object as AnyObject)
+                DispatchQueue.main.async {
+                    
+                    self.tabla.reloadData()
+                }
+                return task
+            })
+        
+        }
         
         labelNombreDetallePersona.text = nombrePersona
         labelLugarPersonaDetallePersona.text = lugarPersona
@@ -146,7 +165,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        let evento =  charlasArray[indexPath.row]
+        var evento =  charlasArray[indexPath.row]
         
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
@@ -183,10 +202,13 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
-//        let personaActividad = evento["personas"] as? [PFObject]
+        
+//        let personaActividad = personasCharla[indexPath.row]
 //
-//        if(personaActividad != nil){
+//        if(evento == personaActividad.lastObject as! PFObject){
 //
+//            print(personaActividad)
+//        }
 //            var personasString = String()
 //
 //            for object in (personaActividad)!{
@@ -206,10 +228,11 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
 //            cell.labelSpeaker1.numberOfLines = 0
 //            cell.labelSpeaker1?.textAlignment = .left
 //            cell.labelSpeaker1?.sizeToFit()
-        
+//
 //        }
-    cell.labelSpeaker1.text = ""
-
+//        else{
+            cell.labelSpeaker1.text = ""
+       // }
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
         
         var colorImage = UIColor()
@@ -248,12 +271,18 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
-        
-        if(evento["tipo"] as? String == "social"){
-        
+            
+        else if (evento["tipo"] as? String == "social") {
+            
             vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
         }
+        else if (evento["tipo"] as? String == "break") {
+            
+            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+            
+        }
+            
         else{
             vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             

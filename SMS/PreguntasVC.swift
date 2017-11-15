@@ -51,9 +51,9 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
             let user = PFUser.current()
             user?.acl?.getPublicWriteAccess = true
-            let alertController = UIAlertController(title: "Hola", message: "Ingresa tu nombre, para facilitar tu reconocimiento", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "Hola, Identifícate", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addTextField { (textField : UITextField) -> Void in
-                textField.placeholder = "Escribe tu nombre"
+                textField.placeholder = "Escribe tu identificación"
             }
             let cancelAction = UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
                 
@@ -68,6 +68,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 user?.setValue(alertController.textFields?.first?.text, forKey: "nombre")
                 user?.saveInBackground()
+                self.hacerPregunta()
                         DispatchQueue.main.async {
                             self.tabla.reloadData()
                         }
@@ -233,13 +234,14 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         })
 
     }
-
-    
     @objc func hacerPregunta(){
         
-        let alertController = UIAlertController(title: "Pregunta", message: "¿Qué deseas preguntar?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Ingresa tu pregunta", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addTextField { (textField : UITextField) -> Void in
-            textField.placeholder = "Escribe tu pregunta"
+
+            textField.placeholder = "¿Qué deseas preguntar?"
+            textField.font = UIFont.systemFont(ofSize: 16.0)
+            
         }
         let cancelAction = UIAlertAction(title: "Cancelar", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
         }
@@ -264,8 +266,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                     }
                     return task
                 })
-            })
-        }
+            })}
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

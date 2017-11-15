@@ -50,16 +50,14 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Enviar", style: .plain, target: self, action: #selector(enviar))
-   
     }
     
     @objc func enviar(){
         
         let respuesta = PFObject(className: "RespuestaEncuesta")
         respuesta.setObject(PFUser.current()!, forKey: "user")
-        respuesta.setObject(valor, forKey: "valoracion")
+        respuesta.setObject(1, forKey: "valoracion")
         respuesta.setObject(noticias[indexPathInterno.row], forKey: "pregunta")
         respuesta.setObject(evento, forKey: "evento")
         respuesta.setObject(noticias[indexPathInterno.row]["encuesta"], forKey: "encuesta")
@@ -135,19 +133,15 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         UIGraphicsEndImageContext()
         return image
     }
-
-   
 }
 
 extension TableViewCell:FloatRatingViewDelegate{
 
      public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
-
         let i = self.superview as! UITableView
-        print(rating)
-        print(i.indexPath(for: self)?.row)
+//        print(rating)
+//        print(i.indexPath(for: self)?.row as Any)
         
-
     }
 
     public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
