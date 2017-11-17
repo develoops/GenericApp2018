@@ -10,9 +10,8 @@ import UIKit
 import Parse
 import BoltsSwift
 
-class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class EncuestaVC: UIViewController {
     
-    @IBOutlet weak var tabla: UITableView!
     var noticias = [PFObject]()
     var tamanoCelda = CGFloat()
     var tipoEncuesta:String!
@@ -20,16 +19,21 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var valor:Double!
     var indexPathInterno:IndexPath!
     var respuestas = [PFObject]()
-    var valores = [Double]()
+    var index = 0
+    var botonAtras = UIButton()
+    @IBOutlet var floatRatingView: FloatRatingView!
+    @IBOutlet weak var encabezado:UITextView!
+    @IBOutlet weak var textViewPregunta:UITextView!
+    @IBOutlet weak var subtitulo:UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabla.delegate = self
-        tabla.dataSource = self
-        tabla.frame = view.frame
-        
-        
         self.navigationController?.navigationBar.topItem?.title = "Encuesta"
-        
+        floatRatingView.backgroundColor = UIColor.clear
+        floatRatingView.delegate = self
+        floatRatingView.contentMode = UIViewContentMode.scaleAspectFit
+        floatRatingView.type = .wholeRatings
+
         let refresh = RefreshData()
         refresh.primerLlamado()
         
@@ -38,92 +42,98 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
-                self.tabla.reloadData()
+                
+                self.textViewPregunta.text = self.noticias[self.index]["preguntaTexto"] as! String
+
             }
             return task
         })
-        let greyView = UIView()
-        greyView.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1.0)
-        self.tabla.tableFooterView = greyView
-        tabla.separatorStyle = UITableViewCellSeparatorStyle.none
+        
+        botonAtras.frame = CGRect(x: 20, y: 480, width: 100, height: 50)
+        botonAtras.backgroundColor = .black
+        botonAtras.setTitle("Anterior", for: .normal)
+        botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
+        self.view.addSubview(botonAtras)
+        
+
+        self.desapareceAtras()
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Enviar", style: .plain, target: self, action: #selector(enviar))
+        
+        
     }
     
-    @objc func enviar(){
+    @objc func irAtras(){
+        if index > 0{
+            
+            index = index - 1
+        }
+        self.textViewPregunta.text = noticias[index]["preguntaTexto"] as! String
         
+        if(index < noticias.count){
+            
+            self.floatRatingView.isHidden = false
+            self.subtitulo.isHidden = false
+            self.encabezado.isHidden = false
+
+        }
+        self.desapareceAtras()
+
+        
+    }
+    @objc func enviar(){
         let respuesta = PFObject(className: "RespuestaEncuesta")
         respuesta.setObject(PFUser.current()!, forKey: "user")
         respuesta.setObject(1, forKey: "valoracion")
         respuesta.setObject(noticias[indexPathInterno.row], forKey: "pregunta")
         respuesta.setObject(evento, forKey: "evento")
         respuesta.setObject(noticias[indexPathInterno.row]["encuesta"], forKey: "encuesta")
-
         respuesta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
 
             DispatchQueue.main.async {
                 
                 self.navigationController?.popViewController(animated: true)
-
+                
             }
             return task
        })
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        indexPathInterno = indexPath
-        
-        let noticia = noticias[indexPath.row]
-
-        cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 36.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 36.0), height: 40000.0)
-        cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelNombre.font = UIFont.boldSystemFont(ofSize: 17.0)
-        cell.labelNombre.text = noticia["preguntaTexto"] as? String
-        cell.labelNombre?.textAlignment = .left
-        cell.labelNombre.numberOfLines = 0
-        cell.labelNombre?.sizeToFit()
-        cell.imagenPerfil.superview?.sendSubview(toBack: cell.imagenPerfil)
-        cell.imagenPerfil.image = getImageWithColor(color: UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1.0), size: cell.imagenPerfil.frame.size)
-
-        cell.imagenPerfil.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: cell.labelNombre.frame.origin.y + cell.labelNombre.frame.height + 20.0)
-       
-        cell.floatRatingView.frame = CGRect(x: 20.0, y: cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.height + 10.0, width: cell.frame.width - 40.0, height: 60.0)
-        
-        tamanoCelda = (cell.labelNombre.frame.size.height + cell.floatRatingView.frame.height) + 55.0
-        
-        return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return tamanoCelda
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return 1
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return noticias.count
-    }
-    
+  
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
     }
     
+    func desapareceAtras() {
+        
+        if index == 0 {
+            botonAtras.isHidden = true
+            subtitulo.isHidden = true
+        }
+        else{
+            botonAtras.isHidden = false
+            subtitulo.isHidden = false
+
+        }
+    }
     
+    func cambiarSubTitulo(){
+        if((noticias[index]["tipo"] as! String) == "actividad"){
+        subtitulo.text = "1. Con respecto a la sesión"
+        }
+        else if((noticias[index]["tipo"] as! String) == "expositor"){
+            subtitulo.text = "2. Con respecto al expositor"
+
+        }
+    }
+
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -132,16 +142,30 @@ class EncuestaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
+        
     }
 }
 
-extension TableViewCell:FloatRatingViewDelegate{
+
+extension EncuestaVC:FloatRatingViewDelegate{
 
      public func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
-        let i = self.superview as! UITableView
-//        print(rating)
-//        print(i.indexPath(for: self)?.row as Any)
-        
+       
+        self.desapareceAtras()
+        index = index + 1
+        if(index < noticias.count){
+            self.textViewPregunta.text = noticias[index]["preguntaTexto"] as! String
+            self.cambiarSubTitulo()
+
+        }
+        else {
+            self.textViewPregunta.text = "Muchas Gracias, tu valoración a sido enviada con éxito"
+            self.floatRatingView.isHidden = true
+            self.subtitulo.isHidden = true
+            self.encabezado.isHidden = true
+
+        }
+
     }
 
     public func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {

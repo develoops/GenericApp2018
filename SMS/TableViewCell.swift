@@ -26,8 +26,6 @@ import UIKit
     @IBOutlet weak var labelRol: UILabel!
     
     @IBOutlet weak var infoDetallePatrocinador: UITextView!
-    
-    @IBOutlet var floatRatingView: FloatRatingView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,14 +33,8 @@ import UIKit
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-    }
+}
     
-    override func layoutSubviews() {
-        if(floatRatingView != nil){
-        floatRatingView.delegate = self
-        }
-    }
 }
 
 
