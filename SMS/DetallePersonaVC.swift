@@ -124,6 +124,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
     override func viewDidAppear(_ animated: Bool) {
         roles = []
         personas = []
+        if charlasArray != nil{
         for act in charlasArray {
             
             let personaQuery = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "act == %@", act))
@@ -141,7 +142,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
                 return task
             })
         }
-        
+        }
 
     }
     
