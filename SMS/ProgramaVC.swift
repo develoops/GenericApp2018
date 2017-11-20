@@ -207,17 +207,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
 
-       let lugar = evento["lugar"] as? PFObject
-        
-       let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
-        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
-        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
-        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
-        cell.labelLugar.text = lugar?["nombre"] as? String
-        cell.labelLugar?.textAlignment = .left
-        cell.labelLugar.numberOfLines = 0
-        cell.labelLugar?.sizeToFit()
         
         var personasTamano = Int()
         
@@ -249,7 +238,30 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         else{
             cell.labelSpeaker1.text = ""
         }
-    
+        let lugar = evento["lugar"] as? PFObject
+        
+        var espacio = CGFloat()
+        
+        if(cell.labelSpeaker1.text == ""){
+            
+            espacio = 80.0 + cell.labelHora.frame.width
+        }
+        else{
+            
+            espacio = 80.0 + cell.labelSpeaker1.frame.width
+        }
+        
+        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
+        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelSpeaker1.frame.width + 5.0), height: 40.0)
+        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
+        cell.labelLugar.text = lugar?["nombre"] as? String
+        cell.labelLugar?.textAlignment = .left
+        cell.labelLugar.numberOfLines = 0
+        cell.labelLugar?.sizeToFit()
+
+        
         tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
        
         var colorImage = UIColor()
@@ -274,7 +286,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
-        cell.botonFavorito.center.x = cell.frame.size.width - 35.0
+        cell.botonFavorito.center.x = cell.frame.size.width - 25.0
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
         

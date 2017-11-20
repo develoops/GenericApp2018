@@ -21,7 +21,7 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tabla.frame = view.frame
 
         
-        let query = PFQuery(className:"Media", predicate: NSPredicate(format: "congreso == %@", congreso))
+        let query = PFQuery(className:"Media")
         query.fromLocalDatastore()
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             

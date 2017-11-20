@@ -19,8 +19,6 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         tabla.dataSource = self
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
         
-
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

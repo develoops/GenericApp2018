@@ -26,12 +26,16 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
             third.congreso = congreso
         }
         
-        if let quinto = viewControllers?[4] as? DirectorioVC {
+        if let quinto = viewControllers?[3] as? DirectorioVC {
             quinto.congreso = congreso
         }
         
-        if let sexto = viewControllers?[5] as? MaterialesVC {
+        if let sexto = viewControllers?[4] as? MaterialesVC {
             sexto.congreso = congreso
+        }
+        
+        if let septimo = viewControllers?[5] as? EncuestaGeneralVC {
+            septimo.tipoEncuesta = "general"
         }
     }
 

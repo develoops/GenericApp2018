@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OHz-Ef-gLO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OHz-Ef-gLO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,145 +40,145 @@
                                                         <fragment content="Charla">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="acerca">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="de">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="como">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="hacer">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="un">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="favorito">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=", ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="en">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="otra">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="app">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="para">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" ">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content="sms">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="LucidaGrande"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=".">
                                                             <attributes>
                                                                 <font key="NSFont" size="14" name="ArialHebrew"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -203,11 +203,18 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button" image="Btn_favoritos_SinMarcar.png"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salón A" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkK-0D-Fqd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkK-0D-Fqd">
                                                     <rect key="frame" x="201" y="59" width="120" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Salón Caracola Lobby">
+                                                            <attributes>
+                                                                <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <font key="NSFont" metaFont="system"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" hyphenationFactor="2" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lO-8G-2bb">
@@ -1083,6 +1090,7 @@
                         <segue destination="Htp-sw-vXK" kind="relationship" relationship="viewControllers" id="3RD-sE-eOB"/>
                         <segue destination="Zvc-Fm-Kai" kind="relationship" relationship="viewControllers" id="5Nd-3G-jDX"/>
                         <segue destination="lyf-FD-pPX" kind="relationship" relationship="viewControllers" id="dCh-b0-g7v"/>
+                        <segue destination="ysi-Hw-smw" kind="relationship" relationship="viewControllers" id="stJ-TD-bgJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qge-Ow-08L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1648,10 +1656,84 @@
             </objects>
             <point key="canvasLocation" x="-3958" y="3919"/>
         </scene>
+        <!--Encuesta-->
+        <scene sceneID="qul-mh-JfU">
+            <objects>
+                <viewController storyboardIdentifier="EncuestaGeneralVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ysi-Hw-smw" customClass="EncuestaGeneralVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GWN-qN-jXO"/>
+                        <viewControllerLayoutGuide type="bottom" id="uv3-jz-cTL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d5l-Sr-ilx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aml-8a-aBB" customClass="FloatRatingView" customModule="SMS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="361" width="343" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="EstrellaTransparente.png"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="Estrellarellena.png"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                        <size key="value" width="50" height="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Tú evaluación debe ser de 1 a 5, en donde 1 es totalmente en desacuerdo y 5 completamente de acuerdo." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8mM-L9-13K">
+                                <rect key="frame" x="22" y="65" width="331" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmo-ZH-pc4">
+                                <rect key="frame" x="29" y="152" width="316" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfu-Xl-9W0">
+                                <rect key="frame" x="22" y="201" width="331" height="127"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Encuesta" image="EditIcon.png" largeContentSizeImage="EditIcon.png" selectedImage="EditIcon.png" id="uJa-7G-y2a">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-7" maxY="0.0"/>
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="encabezado" destination="8mM-L9-13K" id="igq-KO-1eW"/>
+                        <outlet property="floatRatingView" destination="aml-8a-aBB" id="bZu-SD-275"/>
+                        <outlet property="subtitulo" destination="Xmo-ZH-pc4" id="D06-Pr-EDl"/>
+                        <outlet property="textViewPregunta" destination="Pfu-Xl-9W0" id="YBh-mZ-QTA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TYt-eI-TPG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2258" y="-278"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Btn_avanzar_derecha.png" width="27" height="49"/>
         <image name="Btn_favoritos_SinMarcar.png" width="30" height="29"/>
+        <image name="EditIcon.png" width="30" height="29"/>
         <image name="EstrellaTransparente.png" width="75" height="74"/>
         <image name="Estrellarellena.png" width="75" height="74"/>
         <image name="Home.png" width="30" height="27"/>

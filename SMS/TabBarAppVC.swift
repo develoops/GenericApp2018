@@ -17,6 +17,7 @@ class TabBarAppVC: UITabBarController,UITabBarControllerDelegate {
         let navCongreso = storyboard.instantiateViewController(withIdentifier: "navCongresos") as! UINavigationController
         let navSociedad = storyboard.instantiateViewController(withIdentifier: "navSociedad") as! UINavigationController
         let navDirectiva = storyboard.instantiateViewController(withIdentifier: "navDirectiva") as! UINavigationController
+        
 
         viewControllers = [navCongreso,navSociedad,navDirectiva]
     }

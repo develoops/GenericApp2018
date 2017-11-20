@@ -23,12 +23,11 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.dataSource = self
         tabla.frame = view.frame
 
-        let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "congreso == %@", congreso))
+        let queryDirectiva = PFQuery(className: "PersonaRolOrg")
         
         queryDirectiva.fromLocalDatastore()
         queryDirectiva.includeKey("persona.pais")
         queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-            
             
             DispatchQueue.main.async {
                 

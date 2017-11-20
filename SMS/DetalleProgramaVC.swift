@@ -30,7 +30,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
-    var funciones = ["Ir al Mapa","Preguntar","Encuesta"]
+    var funciones = ["Ir al Mapa","Preguntar","Evaluar"]
     var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!
@@ -153,6 +153,12 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         else{
             funciones.remove(at: 0)
+
+        }
+        if(evento["tipo"] as? String == "break" || evento["tipo"] as? String == "social"){
+            
+            
+            funciones.remove(at: funciones.count - 1)
 
         }
     
@@ -581,12 +587,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             if(funcion == "Ir al Mapa"){
                 self.irAMapa()
             }
+            
             else if(funcion == "Evaluar"){
-                
-                evaluar()
-            }
-            else if(funcion == "Encuesta"){
-                
                 irAEncuesta()
             }
 
