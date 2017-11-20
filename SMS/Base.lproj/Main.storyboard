@@ -1260,7 +1260,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Tú evaluación debe ser de 1 a 5, en donde 1 es totalmente en desacuerdo y 5 completamente de acuerdo." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GDq-b5-mEP">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Tú evaluación debe ser de 1 a 5, en donde 1 es tu complera insatisfacción y 5 es la absoluta satisfacción." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GDq-b5-mEP">
                                 <rect key="frame" x="22" y="65" width="331" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

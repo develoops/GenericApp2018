@@ -55,7 +55,6 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             DispatchQueue.main.async {
                 
-            
             self.imagenPersona.image = UIImage(data: task.result! as Data)
             }
             return task
@@ -103,18 +102,16 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         textViewInfoDetallePersona.sizeToFit()
         
-        
         if(textViewInfoDetallePersona.text == ""){
         
             self.tabla.frame.origin = CGPoint(x: 0.0, y: colorFondoHeaderDetalle.frame.origin.y + colorFondoHeaderDetalle.frame.size.height)
 
         }
-        else{
-            self.tabla.frame.origin = CGPoint(x: 0.0, y: textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height)
-self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.height - (textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height + 30))
+            else{
+        self.tabla.frame.origin = CGPoint(x: 0.0, y: textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height)
+        self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.height - (textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height + 30))
         }
         
-
         tabla.tableFooterView = UIView()
 
         self.view.addSubview(colorFondoHeaderDetalle)
@@ -141,10 +138,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
                 }
                 return task
             })
-        }
-        }
-
-    }
+        }}}
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -155,10 +149,9 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
         
         if let charlasArray = charlasArray {
             return charlasArray.count
+            
         }
-
         else{
-         
             return 0
         }
     }
@@ -218,9 +211,8 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
             var personasString = String()
 
             for object in (personasAct){
-
+                
                 let persona = object["persona"] as! PFObject
-
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
                 personasTamano = personasTamano + (28 / (personaActividad?.count)!)
             }
@@ -233,7 +225,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
             cell.labelSpeaker1.numberOfLines = 0
             cell.labelSpeaker1?.textAlignment = .left
             cell.labelSpeaker1?.sizeToFit()
-
+            
         }
         else{
             cell.labelSpeaker1.text = ""
@@ -280,8 +272,7 @@ self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.
                 roles.append(object["rol"] as! String)
                 let persona = object["persona"] as! PFObject
                 personas.append(persona)
-
-        }
+            }
         
         vc.personas = personas
         vc.roles = roles

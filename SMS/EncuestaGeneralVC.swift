@@ -41,13 +41,43 @@ class EncuestaGeneralVC: UIViewController {
         let refresh = RefreshData()
         refresh.primerLlamado()
         
-        let query = PFQuery(className: "PreguntaDeEncuesta", predicate:NSPredicate(format: "tipo == %@","general"))
         
+        let query = PFQuery(className: "PreguntaDeEncuesta", predicate:NSPredicate(format: "tipo == %@","general"))
+
         query.order(byAscending: "posicion")
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
+                self.encabezado.frame.size.width = self.view.frame.width - 26.0
+                self.encabezado.frame.origin.x = 13.0
+                
+                self.subtitulo.frame.size.width = self.view.frame.width - 26.0
+                self.subtitulo.frame.origin.x = 13.0
+
+                let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.width - 26.0), height: self.view.frame.height/8.0)
+                self.textViewPregunta.frame.origin.x = 13.0
+                self.textViewPregunta.frame.origin.y = self.subtitulo.frame.origin.y + self.subtitulo.frame.height
+                self.textViewPregunta.frame.size = maximumLabelSizeDetalleInfo
                 self.textViewPregunta.text = self.noticias[self.index]["preguntaTexto"] as! String
+                self.textViewPregunta?.textAlignment = .center
+                self.textViewPregunta.isScrollEnabled = false
+                self.textViewPregunta.isSelectable = false
+                self.textViewPregunta.isEditable = false
+
+                self.floatRatingView.frame.origin = CGPoint(x: 13.0, y: self.textViewPregunta.frame.height + self.textViewPregunta.frame.origin.y + 30.0)
+                self.floatRatingView.frame.size.width = self.view.frame.width - 26.0
+
+                self.botonAtras.frame = CGRect(x: 13.0, y: (self.floatRatingView.frame.origin.y + self.floatRatingView.frame.size.height + 30.0), width: 100, height: 50)
+                self.botonAtras.backgroundColor = .black
+                self.botonAtras.setTitle("Anterior", for: .normal)
+                self.botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
+                
+                self.botonAdelante.frame = CGRect(x: self.view.frame.width - 113, y: (self.floatRatingView.frame.origin.y + self.floatRatingView.frame.size.height + 30.0), width: 100, height: 50)
+                self.botonAdelante.backgroundColor = .black
+                self.botonAdelante.setTitle("Siguiente", for: .normal)
+                self.botonAdelante.addTarget(self, action:#selector(self.irAdelante), for: .touchUpInside)
+                
+                self.view.addSubview(self.botonAdelante)
                 self.view.addSubview(self.botonAtras)
                 self.desapareceAtras()
                 
@@ -55,40 +85,11 @@ class EncuestaGeneralVC: UIViewController {
             return task
         })
         
-        encabezado.frame.size.width = view.frame.width - 30.0
-        encabezado.frame.origin.x = 15.0
         
-        subtitulo.frame.size.width = view.frame.width - 30.0
-        subtitulo.frame.origin.x = 15.0
-        
-        textViewPregunta.frame.size.width = view.frame.width - 30.0
-        textViewPregunta.frame.origin.x = 15.0
-        textViewPregunta.frame.origin.y = subtitulo.frame.origin.y + subtitulo.frame.height
-        textViewPregunta.isEditable = false
-        
-        
-        floatRatingView.frame.origin = CGPoint(x: 15.0, y: view.center.y + 40.0)
-        floatRatingView.frame.size.width = view.frame.width - 30.0
-
-        
-        botonAtras.frame = CGRect(x: 20, y: view.frame.height/1.25, width: 100, height: 50)
-        botonAtras.backgroundColor = .black
-        botonAtras.setTitle("Anterior", for: .normal)
-        botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
-        
-        botonAdelante.frame = CGRect(x: view.frame.width - 120, y: view.frame.height/1.25, width: 100, height: 50)
-        botonAdelante.backgroundColor = .black
-        botonAdelante.setTitle("Siguiente", for: .normal)
-        botonAdelante.addTarget(self, action:#selector(self.irAdelante), for: .touchUpInside)
-        
-        
-        
-
-        
-        self.view.addSubview(botonAdelante)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     @objc func enviar(){
@@ -96,7 +97,6 @@ class EncuestaGeneralVC: UIViewController {
             let respuesta = PFObject(className: "RespuestaEncuesta")
             respuesta.setObject(PFUser.current()!, forKey: "user")
             respuesta.setObject(object, forKey: "valoracion")
-            print(noticias[Int(object)])
             respuesta.setObject(noticias[Int(object)], forKey: "pregunta")
             respuesta.setObject(noticias[Int(object)]["encuesta"], forKey: "encuesta")
             respuesta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
@@ -104,14 +104,11 @@ class EncuestaGeneralVC: UIViewController {
                 return task
             })
         }
-        
+
         self.navigationController?.popViewController(animated: true)
         botonAdelante.isHidden = true
         botonAtras.isHidden = true
         self.textViewPregunta.text = "Muchas gracias, tu encuesta ha sido enviada exitosamente"
-
-
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -130,7 +127,6 @@ class EncuestaGeneralVC: UIViewController {
             
         else{
             botonAdelante.isHidden = false
-            
         }
     }
     
@@ -146,17 +142,19 @@ class EncuestaGeneralVC: UIViewController {
         else{
             botonAtras.isHidden = false
             subtitulo.isHidden = false
-            
         }
     }
     
     func cambiarSubTitulo(){
-        if((noticias[index]["tipo"] as! String) == "actividad"){
-            subtitulo.text = "1. En relación al contenido tratado:"
+        if((noticias[index]["tipo"] as! String) == "general"){
+            subtitulo.text = "1. Evalua tú satisfacción con respecto a :"
         }
         else if((noticias[index]["tipo"] as! String) == "expositor"){
             subtitulo.text = "2. En relación al expositor, mi satisfacción en relación con:"
+        }
+        else{
             
+            subtitulo.text = ""
         }
     }
     
@@ -172,8 +170,8 @@ class EncuestaGeneralVC: UIViewController {
             self.floatRatingView.isHidden = false
             self.subtitulo.isHidden = false
             self.encabezado.isHidden = false
-            
         }
+        
         self.floatRatingView.rating = valores[safe:index]!
         
         desapareceAtras()
@@ -199,14 +197,11 @@ class EncuestaGeneralVC: UIViewController {
             self.floatRatingView.isHidden = true
             self.subtitulo.isHidden = true
             self.encabezado.isHidden = true
-            
+
             if(noticias.count < index){
-                
                 enviar()
             }
-            
         }
-        
         
         if(valores.count > index){
             
@@ -216,11 +211,9 @@ class EncuestaGeneralVC: UIViewController {
         else{
             valores.insert(self.floatRatingView.rating, at: index - 1)
             self.floatRatingView.rating = 0.0
-            
         }
     }
-    
-    
+
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)

@@ -45,7 +45,36 @@ class EncuestaVC: UIViewController {
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
+                self.encabezado.frame.size.width = self.view.frame.width - 26.0
+                self.encabezado.frame.origin.x = 13.0
+                
+                self.subtitulo.frame.size.width = self.view.frame.width - 26.0
+                self.subtitulo.frame.origin.x = 13.0
+                
+                let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.width - 26.0), height: self.view.frame.height/8.0)
+                self.textViewPregunta.frame.origin.x = 13.0
+                self.textViewPregunta.frame.origin.y = self.subtitulo.frame.origin.y + self.subtitulo.frame.height
+                self.textViewPregunta.frame.size = maximumLabelSizeDetalleInfo
                 self.textViewPregunta.text = self.noticias[self.index]["preguntaTexto"] as! String
+                self.textViewPregunta?.textAlignment = .left
+                self.textViewPregunta.isScrollEnabled = false
+                self.textViewPregunta.isSelectable = false
+                self.textViewPregunta.isEditable = false
+                
+                self.floatRatingView.frame.origin = CGPoint(x: 13.0, y: self.textViewPregunta.frame.height + self.textViewPregunta.frame.origin.y + 30.0)
+                self.floatRatingView.frame.size.width = self.view.frame.width - 26.0
+                
+                self.botonAtras.frame = CGRect(x: 13.0, y: (self.floatRatingView.frame.origin.y + self.floatRatingView.frame.size.height + 30.0), width: 100, height: 50)
+                self.botonAtras.backgroundColor = .black
+                self.botonAtras.setTitle("Anterior", for: .normal)
+                self.botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
+                
+                self.botonAdelante.frame = CGRect(x: self.view.frame.width - 113, y: (self.floatRatingView.frame.origin.y + self.floatRatingView.frame.size.height + 30.0), width: 100, height: 50)
+                self.botonAdelante.backgroundColor = .black
+                self.botonAdelante.setTitle("Siguiente", for: .normal)
+                self.botonAdelante.addTarget(self, action:#selector(self.irAdelante), for: .touchUpInside)
+                
+                self.view.addSubview(self.botonAdelante)
                 self.view.addSubview(self.botonAtras)
                 self.desapareceAtras()
 
@@ -53,31 +82,31 @@ class EncuestaVC: UIViewController {
             return task
         })
         
-        botonAtras.frame = CGRect(x: 20, y: 480, width: 100, height: 50)
-        botonAtras.backgroundColor = .black
-        botonAtras.setTitle("Anterior", for: .normal)
-        botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
-        
-        botonAdelante.frame = CGRect(x: view.frame.width - 120, y: 480, width: 100, height: 50)
-        botonAdelante.backgroundColor = .black
-        botonAdelante.setTitle("Siguiente", for: .normal)
-        botonAdelante.addTarget(self, action:#selector(self.irAdelante), for: .touchUpInside)
-
-        floatRatingView.frame.origin = CGPoint(x: 15.0, y: view.center.y + 40.0)
-        floatRatingView.frame.size.width = view.frame.width - 30.0
-
-        textViewPregunta.frame.size.width = view.frame.width - 30.0
-        textViewPregunta.frame.origin.x = 15.0
-        
-        
-        encabezado.frame.size.width = view.frame.width - 30.0
-        encabezado.frame.origin.x = 15.0
-
-        subtitulo.frame.size.width = view.frame.width - 30.0
-        subtitulo.frame.origin.x = 15.0
-
-
-        self.view.addSubview(botonAdelante)
+//        botonAtras.frame = CGRect(x: 20, y: 480, width: 100, height: 50)
+//        botonAtras.backgroundColor = .black
+//        botonAtras.setTitle("Anterior", for: .normal)
+//        botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
+//
+//        botonAdelante.frame = CGRect(x: view.frame.width - 120, y: 480, width: 100, height: 50)
+//        botonAdelante.backgroundColor = .black
+//        botonAdelante.setTitle("Siguiente", for: .normal)
+//        botonAdelante.addTarget(self, action:#selector(self.irAdelante), for: .touchUpInside)
+//
+//        floatRatingView.frame.origin = CGPoint(x: 15.0, y: view.center.y + 40.0)
+//        floatRatingView.frame.size.width = view.frame.width - 30.0
+//
+//        textViewPregunta.frame.size.width = view.frame.width - 30.0
+//        textViewPregunta.frame.origin.x = 15.0
+//
+//
+//        encabezado.frame.size.width = view.frame.width - 30.0
+//        encabezado.frame.origin.x = 15.0
+//
+//        subtitulo.frame.size.width = view.frame.width - 30.0
+//        subtitulo.frame.origin.x = 15.0
+//
+//
+//        self.view.addSubview(botonAdelante)
 }
     
     override func viewDidAppear(_ animated: Bool) {
