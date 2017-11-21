@@ -147,10 +147,10 @@ class EncuestaGeneralVC: UIViewController {
     
     func cambiarSubTitulo(){
         if((noticias[index]["tipo"] as! String) == "general"){
-            subtitulo.text = "1. Evalua tú satisfacción con respecto a :"
+            subtitulo.text = "Evalua tú satisfacción con respecto a :"
         }
-        else if((noticias[index]["tipo"] as! String) == "expositor"){
-            subtitulo.text = "2. En relación al expositor, mi satisfacción en relación con:"
+        else if((noticias[index]["tipo"] as! String) == "otro"){
+            subtitulo.text = noticias[index]["textoOpcional"] as? String
         }
         else{
             

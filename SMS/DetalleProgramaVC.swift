@@ -34,7 +34,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!
-    var favoritoAct:PFObject!
+    var favoritoAct = [PFObject]()
     var personas = [PFObject]()
     var actividadesAnidadas = [PFObject]()
     var favorito = Bool()
@@ -54,7 +54,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
 
             let a = task.result as! [PFObject]
-            print(a)
             if(a.count != 0){
                 self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as? PFObject}.flatMap{$0}
             }
@@ -238,7 +237,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             self.personas = taskPersonas.result as! [PFObject]
             DispatchQueue.main.async {
-                
                 self.tablaActividades.reloadData()
             }
             return taskPersonas
@@ -246,20 +244,25 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@) AND (actividad == %@)", PFUser.current()!,self.evento))
         favoritoQuery.fromLocalDatastore()
-        favoritoQuery.getFirstObjectInBackground().continue({ (taskFav:BFTask<PFObject>) -> Any? in
+        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
             
-            if(taskFav.result != nil){
-                
-                self.favorito = true
-                self.favoritoAct = taskFav.result!
-                
-            }
-            else{
-                self.favorito = false
-                
-            }
+            let fa = taskFav.result as? [PFObject]
             DispatchQueue.main.async {
-                self.agregarBotonFavoritoNav()
+                
+                if(fa?.count != 0){
+                    
+                    self.favorito = true
+                    self.favoritoAct = taskFav.result! as! [PFObject]
+                    self.agregarBotonFavoritoNav()
+
+                    
+                }
+                else{
+                    self.favorito = false
+                    self.agregarBotonFavoritoNav()
+
+                }
+
                 
             }
             
@@ -323,8 +326,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if (tableView == tabla){
         let persona = personas[indexPath.row]
-        
-        cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
+            
+            print(persona)
+        cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
 
 
         let a = roles[safe: indexPath.row]
@@ -486,41 +490,64 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     }
 
-    @objc func cambiarFavorito(sender: UIBarButtonItem!){
+    @objc func cambiarFavorito(sender:UIBarButtonItem!){
         
 
-        if favorito == true {
+        let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", PFUser.current()!))
+        favoritoQuery.fromLocalDatastore()
+        favoritoQuery.includeKey("actividad")
+        favoritoQuery.includeKey("user")
         
-            if(favoritoAct != nil){
-            favoritoAct.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
-                
-                DispatchQueue.main.async {
-                    sender.image = UIImage(named: "Btn_favoritos_SinMarcar")
-                    
-                }
-                self.favorito = false
-                return task
-            })}
-        }
-        else{
-            let fav = PFObject(className: "ActFavUser")
-            fav.setObject(PFUser.current()!, forKey: "user")
-            fav.setObject(evento, forKey: "actividad")
-            fav.setObject(congreso, forKey: "congreso")
-            fav.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
-                
-                DispatchQueue.main.async {
-                    sender.image = UIImage(named: "btn_Favorito_marcado")
-
-                }
-                self.favorito = true
-                return task
-                
-                })
+        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
             
-            }}
-        
-   // }
+            self.favoritoAct = taskFav.result as! [PFObject]
+            
+            
+            let actividades = self.favoritoAct.map{$0.value(forKey: "actividad") as? PFObject}
+            
+            
+            if !(actividades.containss(obj: self.evento)) {
+                let f = PFObject(className: "ActFavUser")
+                f.setObject(self.evento, forKey: "actividad")
+                f.setObject(PFUser.current()!, forKey: "user")
+                f.setObject(self.congreso, forKey: "congreso")
+                self.favoritoAct.append(f)
+                f.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                    
+                    return task
+                })
+                DispatchQueue.main.async {
+                    self.favorito = true
+                    self.tablaActividades.reloadData()
+                    self.agregarBotonFavoritoNav()
+                }
+            }
+                
+            else{
+                let object = actividades.filter{(self.evento.isEqual($0))}
+                let a = object.first
+                
+                let filtro = self.favoritoAct.filter{(($0.value(forKey: "actividad")) as! PFObject).isEqual(a!)}
+                
+                
+                if let index = self.favoritoAct.index(of:filtro.first!) {
+                    self.favoritoAct.remove(at: index)
+                    
+                    _ =   filtro.map{$0.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                        return task
+                    })}
+                }
+                
+                DispatchQueue.main.async {
+                    self.favorito = false
+                    self.tablaActividades.reloadData()
+                    self.agregarBotonFavoritoNav()
+
+                }}
+            return taskFav
+        })
+
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
