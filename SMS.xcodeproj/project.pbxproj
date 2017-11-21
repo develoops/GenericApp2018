@@ -107,7 +107,7 @@
 		C33E29481FA2342500C11D4A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashSMS2017@3x.png"; sourceTree = "<group>"; };
 		C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntasVC.swift; sourceTree = "<group>"; };
-		C34BA87A1F04173500022E6B /* Nefro 2017.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nefro 2017.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C34BA87A1F04173500022E6B /* SMS Chile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMS Chile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C34BA87F1F04173500022E6B /* ProgramaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramaVC.swift; sourceTree = "<group>"; };
 		C34BA8821F04173500022E6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		C34BA87B1F04173500022E6B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C34BA87A1F04173500022E6B /* Nefro 2017.app */,
+				C34BA87A1F04173500022E6B /* SMS Chile.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 			);
 			name = SMS;
 			productName = SMS;
-			productReference = C34BA87A1F04173500022E6B /* Nefro 2017.app */;
+			productReference = C34BA87A1F04173500022E6B /* SMS Chile.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -659,9 +659,9 @@
 				INFOPLIST_FILE = SMS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.SMS;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobicongress.sms-";
 				PRODUCT_MODULE_NAME = SMS;
-				PRODUCT_NAME = "Nefro 2017";
+				PRODUCT_NAME = "SMS Chile";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -680,9 +680,9 @@
 				INFOPLIST_FILE = SMS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mobicongress.SMS;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobicongress.sms-";
 				PRODUCT_MODULE_NAME = SMS;
-				PRODUCT_NAME = "Nefro 2017";
+				PRODUCT_NAME = "SMS Chile";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -31,11 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         Parse.initialize(with: configuration)
       
-//        PFAnonymousUtils.logInInBackground().continue({ (task:BFTask<PFUser>) -> Any? in
-//            return task
-//        })
-        
-        
         PFUser.enableAutomaticUser()
         let user = PFUser.current()
         PFUser.current()?.saveInBackground()
