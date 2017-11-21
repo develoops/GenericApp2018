@@ -659,7 +659,7 @@
 				INFOPLIST_FILE = SMS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobicongress.sms-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobicongress.sms;
 				PRODUCT_MODULE_NAME = SMS;
 				PRODUCT_NAME = "SMS Chile";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -680,7 +680,7 @@
 				INFOPLIST_FILE = SMS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mobicongress.sms-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobicongress.sms;
 				PRODUCT_MODULE_NAME = SMS;
 				PRODUCT_NAME = "SMS Chile";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
