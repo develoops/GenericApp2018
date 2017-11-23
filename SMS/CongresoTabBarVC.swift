@@ -37,6 +37,7 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
         if let septimo = viewControllers?[5] as? EncuestaGeneralVC {
             septimo.tipoEncuesta = "general"
         }
+
     }
 
     override func didReceiveMemoryWarning() {

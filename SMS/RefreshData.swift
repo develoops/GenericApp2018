@@ -17,6 +17,7 @@ class RefreshData {
         let query = PFQuery(className: "Actividad")
         let query2 = PFQuery(className: "ActContAct")
         let query3 = PFQuery(className: "Persona")
+        query3.includeKey("ImgPerfil")
         let query4 = PFQuery(className: "PersonaRolAct")
         let query5 = PFQuery(className: "Lugar")
         let query6 = PFQuery(className: "Org")

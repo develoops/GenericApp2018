@@ -55,7 +55,15 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             DispatchQueue.main.async {
                 
-            self.imagenPersona.image = UIImage(data: task.result! as Data)
+                if (task.error != nil){
+                    self.imagenPersona.image = self.imagen
+                    
+                }
+                else{
+                    
+                    self.imagenPersona.image = UIImage(data: (task.result as Data?)!)
+
+                }
             }
             return task
             })

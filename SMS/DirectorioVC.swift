@@ -23,8 +23,8 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.dataSource = self
         tabla.frame = view.frame
 
-        let queryDirectiva = PFQuery(className: "PersonaRolOrg")
-        
+        let queryDirectiva = PFQuery(className: "PersonaRolOrg", predicate: NSPredicate(format: "tipo = %@", "congreso"))
+        queryDirectiva.order(byAscending: "order")
         queryDirectiva.fromLocalDatastore()
         queryDirectiva.includeKey("persona.pais")
         queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -43,11 +43,20 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.topItem?.title = "Comité Académico"
+     //   self.navigationController?.navigationBar.topItem?.title = "Autoridades del Congreso"
+        self.navigationItem.title = "Autoridades del Congreso"
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: #selector(self.irAtras))
+
+    }
+    
+    func irAtras () {
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationItem.title = ""
+
     }
     
     
@@ -78,10 +87,6 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let prenombre = (persona["preNombre"] as? String)
         let primerNombre = (persona["primerNombre"] as? String)
         let primerApellido = (persona["primerApellido"] as? String)
-        
-        
-        
-        
         
         cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)

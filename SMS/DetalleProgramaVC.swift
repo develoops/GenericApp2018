@@ -327,30 +327,25 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         if (tableView == tabla){
         let persona = personas[indexPath.row]
             
-            print(persona)
         cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
-
 
         let a = roles[safe: indexPath.row]
         cell.imagenPerfil.frame.origin = CGPoint(x: 16.0, y: 5.0)
         cell.labelRol.text = a
-        
-            if (persona["ImgPerfil"] == nil) {
+            let im = persona["ImgPerfil"] as? PFFile
+            if !((im?.isDataAvailable)!) {
                 
                 cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
             }
             else{
-                let im = persona["ImgPerfil"] as? PFFile
                 im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
                     DispatchQueue.main.async {
-                        
-                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
                 }
             })}}
             
         else if (tableView == tablaActividades){
 
-        
             let evento = actividadesAnidadas[indexPath.row] as PFObject
             
             _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){

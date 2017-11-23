@@ -632,10 +632,10 @@
             </objects>
             <point key="canvasLocation" x="-5503.1999999999998" y="3476.3118440779613"/>
         </scene>
-        <!--Comité Académico-->
+        <!--Autoridades del Congreso-->
         <scene sceneID="cGh-yr-2sq">
             <objects>
-                <viewController storyboardIdentifier="DirectorioVC" title="Comité Académico" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Htp-sw-vXK" customClass="DirectorioVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DirectorioVC" title="Autoridades del Congreso" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Htp-sw-vXK" customClass="DirectorioVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ixG-Yo-Zfk"/>
                         <viewControllerLayoutGuide type="bottom" id="hnj-EO-tTb"/>
@@ -699,7 +699,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Comité Académico" image="directiva.png" id="QVO-vI-4sP"/>
+                    <tabBarItem key="tabBarItem" title="Autoridades del Congreso" image="directiva.png" id="QVO-vI-4sP"/>
                     <navigationItem key="navigationItem" id="b4a-vt-cJH"/>
                     <connections>
                         <outlet property="tabla" destination="SzA-U9-SOy" id="Is6-18-CUY"/>

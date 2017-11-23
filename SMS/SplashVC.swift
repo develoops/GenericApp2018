@@ -46,6 +46,8 @@ class SplashVC: UIViewController {
         let query6 = PFQuery(className: "Org")
         let query7 = PFQuery(className: "PersonaRolOrg")
         let query8 = PFQuery(className: "Media")
+        let query9 = PFQuery(className: "Info")
+
         
         
         query.limit = 1000
@@ -57,7 +59,7 @@ class SplashVC: UIViewController {
         query7.limit = 1000
         query8.limit = 1000
         
-        let  queryCollections = [query,query2,query3,query4,query5,query6,query7,query8]
+        let  queryCollections = [query,query2,query3,query4,query5,query6,query7,query8,query9]
         
         let tasks = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             

@@ -110,23 +110,49 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelInstitucion?.text = institucion?["nombre"] as? String
         cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
         
-        if (persona["ImgPerfil"] == nil) {
-            
+        let im = persona["ImgPerfil"] as? PFFile
+        
+
+        if (im == nil) {
             cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
         }
+        
         else{
-            let im = persona["ImgPerfil"] as? PFFile
             im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
-
+                
                 DispatchQueue.main.async {
                     
-                
-                cell.imagenPerfil.image = UIImage(data:task.result! as Data)
+                    if ((task.error) != nil){
+                        
+                        cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+
+                    }
+                    else{
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
                     
-            }
+                }
+
+                
                 return task
             })
-            
+//            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+//
+//        DispatchQueue.main.async {
+//
+//            if ((task.error) != nil){
+//
+//                cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+//            }
+//                    else{
+//
+//            cell.imagenPerfil.image = UIImage(data: (task.result as Data?)!)
+//                    }
+//
+//            }
+//                return task
+//            })
+//
         }
         return cell
     }
@@ -153,13 +179,13 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         vc.charlasArray = act
         
         
-        
+        let im = persona["ImgPerfil"] as! PFFile
+
         if (persona["ImgPerfil"] == nil) {
             
             vc.imagen = UIImage(named: "Ponente_ausente_Hombre.png")
         }
         else{
-        let im = persona["ImgPerfil"] as! PFFile
 
             vc.imagenFile = im
         }
@@ -183,5 +209,23 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+
 }
 
+extension Data {
+    init(reading input: InputStream) {
+        self.init()
+        input.open()
+        
+        let bufferSize = 1024
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
+        while input.hasBytesAvailable {
+            let read = input.read(buffer, maxLength: bufferSize)
+            self.append(buffer, count: read)
+        }
+        buffer.deallocate(capacity: bufferSize)
+        
+        input.close()
+    }
+}

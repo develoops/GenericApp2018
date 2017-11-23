@@ -64,10 +64,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             query.limit = 1000
             
             return query.findObjectsInBackground().continue({ (taskActividades:BFTask<NSArray>) -> Any? in
-                
                 let actividades = taskActividades.result as! [PFObject]
-                
-                
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
                     
                 }
