@@ -68,9 +68,7 @@ class SplashVC: UIViewController {
         })}
         
         BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continue({ task -> Any? in
-            
             PFObject.pinAll(inBackground: (task.result as! [PFObject])).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
-                
                 DispatchQueue.main.async {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
