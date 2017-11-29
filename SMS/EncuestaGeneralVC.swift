@@ -101,6 +101,7 @@ class EncuestaGeneralVC: UIViewController {
             respuesta.setObject(noticias[Int(object)]["encuesta"], forKey: "encuesta")
             respuesta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
                 
+                print(respuesta)
                 return task
             })
         }
