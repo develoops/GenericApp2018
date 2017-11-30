@@ -93,6 +93,7 @@ class EncuestaGeneralVC: UIViewController {
     }
     
     @objc func enviar(){
+        print(valores)
         for object in valores{
             let respuesta = PFObject(className: "RespuestaEncuesta")
             respuesta.setObject(PFUser.current()!, forKey: "user")
