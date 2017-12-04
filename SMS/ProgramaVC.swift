@@ -36,8 +36,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.tabla.delegate = self
         self.tabla.dataSource = self
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 65.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 125.0))
-
-
+        
+        
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
         queryPersona.fromLocalDatastore()
@@ -63,14 +63,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
             query.limit = 1000
             
-            return query.findObjectsInBackground().continue({ (taskActividades:BFTask<NSArray>) -> Any? in
+        return query.findObjectsInBackground().continue({ (taskActividades:BFTask<NSArray>) -> Any? in
                 let actividades = taskActividades.result as! [PFObject]
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
-                    
-                }
-                
-                queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in
-                    
+            }
+    queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in
                     self.personas = (taskPersonas.result as? [PFObject])!
                     
                     return taskPersonas
@@ -92,6 +89,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     self.filtrarArray(indicador: self.indicador)
                     let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
                     colorFondoHeaderDetalle.backgroundColor = UIColor(red: 194/255.0, green: 206/255.0, blue: 210/255.0, alpha: 1.0)
+                    
                     
                     self.view.addSubview(colorFondoHeaderDetalle)
                     self.view.sendSubview(toBack: colorFondoHeaderDetalle)
@@ -129,7 +127,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             }
             return taskFav
         })
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,7 +137,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = nil
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = nil
-
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -155,13 +152,13 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if(tamanoCelda < 75.0){
-            
-            return 75.0
-        }
-        else{
+//        if(tamanoCelda < 75.0){
+//
+//            return 75.0
+//        }
+//        else{
             return tamanoCelda
-        }
+//        }
         
     }
     
@@ -184,10 +181,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
+        cell.labelTitulo?.frame = CGRect(x: 15.0, y: 5.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
+//        cell.labelTitulo.font = UIFont(name: ".SFUIDisplay-Regular", size: 15.0)
+        cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
         cell.labelTitulo.text = evento["nombre"] as? String
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
@@ -196,7 +194,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
 
         cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelHora?.frame =  CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 35.0, width: 0.0, height: 0.0)
+        cell.labelHora?.frame =  CGRect(x: 15.0, y: cell.labelTitulo.frame.size.height + 15.0, width: 0.0, height: 0.0)
         cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelHora.sizeThatFits(maximumLabelSizeHora)
         cell.labelHora.text = fechaInicio + " - " + fechaFin
@@ -205,7 +203,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelHora?.sizeToFit()
 
         
-        var personasTamano = Int()
+//        var personasTamano = CGFloat()
         
         if(personaActividad != nil){
             
@@ -218,12 +216,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
 
-                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
+//                personasTamano = personasTamano + (7.5 / (personaActividad?.count)!)
         }
             
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+            cell.labelSpeaker1?.frame = CGRect(x: 15.0, y: cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + 22.5, width: 0.0, height: 0.0)
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
             cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelSpeaker1.text = personasString
@@ -239,27 +237,26 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         var espacio = CGFloat()
         
-        if(cell.labelSpeaker1.text == ""){
-            
-            espacio = 80.0 + cell.labelHora.frame.width
-        }
-        else{
-            
-            espacio = 80.0 + cell.labelSpeaker1.frame.width
-        }
+//        if(cell.labelSpeaker1.text == ""){
         
+            espacio = 43.0 + cell.labelHora.frame.width
+//        }
+//        else{
+//            espacio = 43.0 + cell.labelSpeaker1.frame.width
+//        }
+//
         let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
         cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelSpeaker1.frame.width + 5.0), height: 40.0)
+        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width + 5.0), height: 15.0)
         cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
         cell.labelLugar.text = lugar?["nombre"] as? String
         cell.labelLugar?.textAlignment = .left
-        cell.labelLugar.numberOfLines = 0
+        cell.labelLugar.numberOfLines = 1
         cell.labelLugar?.sizeToFit()
 
         
-        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
+        tamanoCelda = cell.labelTitulo.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + 15.0
        
         var colorImage = UIColor()
         
@@ -282,7 +279,14 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
         }
         
-        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
+        if(tamanoCelda < 75.0)
+        {
+            tamanoCelda = 75.0
+        }
+        
+        cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
+        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 5.5, height:tamanoCelda))
+        
         cell.botonFavorito.center.x = cell.frame.size.width - 25.0
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)

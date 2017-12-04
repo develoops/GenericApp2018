@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         defaults.synchronize()
         let configuration = ParseClientConfiguration {
             $0.isLocalDatastoreEnabled = true
-            $0.applicationId = "ClUXXsCBfTmS6E9zxXKck1oX4hYSC2pyHarv4U8E"
-            $0.clientKey = "IZ08jbbJwcLnDlEh79edrsxNIcU0iM9FG6Uwpj92"
+            $0.applicationId = "sq5wbMZGz2aDmzs7lWcDmfjCEhZo2FwP26mroTNe"
+            $0.clientKey = "nkQgReJciAbo3mlLktxU8elozQMDKSnKdHnfu99h"
             $0.server = "https://parseapi.back4app.com"
         }
         Parse.initialize(with: configuration)

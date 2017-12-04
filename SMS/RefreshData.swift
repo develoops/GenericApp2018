@@ -24,8 +24,6 @@ class RefreshData {
         let query8 = PFQuery(className: "Media")
         let query9 = PFQuery(className: "Info")
 
-        
-        
         query.limit = 1000
         query2.limit = 1000
         query3.limit = 1000
@@ -47,8 +45,7 @@ class RefreshData {
         BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continue({ task -> Any? in
             
             PFObject.pinAll(inBackground: (task.result as! [PFObject])).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
-                
-                
+
 //                DispatchQueue.main.async {
 //                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //                    let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC

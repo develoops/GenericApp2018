@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import ParseLiveQuery
 
-let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://smsdemo.back4app.io")
+let liveQueryClient: Client = ParseLiveQuery.Client(server: "wss://genericapp2018.back4app.io")
 
 class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
