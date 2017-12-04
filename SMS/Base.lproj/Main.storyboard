@@ -40,7 +40,7 @@
                                                         <fragment content="Charla acerca de como hacer un favorito, en otra app para sms.">
                                                             <attributes>
                                                                 <font key="NSFont" size="15" name="SFMono-RegularItalic"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" hyphenationFactor="1" tighteningFactorForTruncation="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" paragraphSpacingBefore="2" hyphenationFactor="2" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>

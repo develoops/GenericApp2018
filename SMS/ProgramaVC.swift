@@ -88,7 +88,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     
                     self.filtrarArray(indicador: self.indicador)
                     let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
-                    colorFondoHeaderDetalle.backgroundColor = UIColor(red: 194/255.0, green: 206/255.0, blue: 210/255.0, alpha: 1.0)
+                    colorFondoHeaderDetalle.backgroundColor = UIColor(red: 29.0/255.0, green: 29.0/255.0, blue: 38.0/255.0, alpha: 0.03)
                     
                     
                     self.view.addSubview(colorFondoHeaderDetalle)
@@ -182,16 +182,28 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
         cell.labelTitulo?.frame = CGRect(x: 15.0, y: 5.0, width: view.frame.size.width - 100.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.hyphenationFactor = 1.0
+        
+        let hyphenAttribute = [
+            NSAttributedStringKey.paragraphStyle : paragraphStyle,
+            ] as [NSAttributedStringKey : Any]
+        
+        let attributedString = NSMutableAttributedString(string: (evento["nombre"] as? String)!, attributes: hyphenAttribute)
+       // cell.labelTitulo.attributedText = attributedString
+
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-//        cell.labelTitulo.font = UIFont(name: ".SFUIDisplay-Regular", size: 15.0)
         cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
-        cell.labelTitulo.text = evento["nombre"] as? String
+        cell.labelTitulo.attributedText = attributedString
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
+        
+        
 
-        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
 
         cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
         cell.labelHora?.frame =  CGRect(x: 15.0, y: cell.labelTitulo.frame.size.height + 15.0, width: 0.0, height: 0.0)
@@ -219,7 +231,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 //                personasTamano = personasTamano + (7.5 / (personaActividad?.count)!)
         }
             
-            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             cell.labelSpeaker1?.frame = CGRect(x: 15.0, y: cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + 22.5, width: 0.0, height: 0.0)
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
@@ -279,9 +291,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
         }
         
+        print(tamanoCelda)
         if(tamanoCelda < 75.0)
         {
-            tamanoCelda = 75.0
+            tamanoCelda = tamanoCelda + 7.5
         }
         
         cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
