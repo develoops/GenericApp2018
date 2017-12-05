@@ -110,17 +110,17 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qar-iK-brH">
                                 <rect key="frame" x="247" y="73" width="20" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&gt;" image="Btn_avanzar_derecha.png"/>
+                                <state key="normal" image="next Arrow.png"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qos-Rz-gUe">
                                 <rect key="frame" x="108" y="72" width="20" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&lt;" image="btn_back.png"/>
+                                <state key="normal" image="Back_Arrow.png"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Programa" image="programa.png" id="Dc9-5x-Dw9"/>
+                    <tabBarItem key="tabBarItem" title="Programa" image="btn_programa_color.png" selectedImage="btn_programa.png" id="Dc9-5x-Dw9"/>
                     <connections>
                         <outlet property="botonAvanzar" destination="Qar-iK-brH" id="HiA-z8-Ilk"/>
                         <outlet property="botonRetroceder" destination="qos-Rz-gUe" id="dIL-pv-VqL"/>
@@ -324,7 +324,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Patrocindores" image="btn_patrocinadores.png" id="tXz-aN-bRZ"/>
+                    <tabBarItem key="tabBarItem" title="Patrocindores" image=" btn_Patrocinador_.png" selectedImage=" btn_Patrocinador_color.png" id="tXz-aN-bRZ"/>
                     <connections>
                         <outlet property="tabla" destination="JfY-eY-MVQ" id="Fx3-Lo-hci"/>
                     </connections>
@@ -408,7 +408,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favoritos" image="btnFavorito.png" id="nXx-2h-Rx2"/>
+                    <tabBarItem key="tabBarItem" title="Favoritos" image="btn_Favoritos.png" selectedImage="btn_Favoritos_calor.png" id="nXx-2h-Rx2"/>
                     <connections>
                         <outlet property="tabla" destination="qh3-IG-gaB" id="9Ii-fl-cc1"/>
                     </connections>
@@ -638,7 +638,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Ponentes" image="ponente.png" id="3uX-B5-Owb"/>
+                    <tabBarItem key="tabBarItem" title="Ponentes" image="Btn_Ponentes_color.png" selectedImage="Btn_Ponentes.png" id="3uX-B5-Owb"/>
                     <connections>
                         <outlet property="tabla" destination="3sg-t6-J1a" id="xPF-za-08x"/>
                     </connections>
@@ -1593,7 +1593,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Btn_avanzar_derecha.png" width="27" height="49"/>
+        <image name=" btn_Patrocinador_.png" width="32" height="29"/>
+        <image name=" btn_Patrocinador_color.png" width="32" height="29"/>
+        <image name="Back_Arrow.png" width="13" height="22"/>
+        <image name="Btn_Ponentes.png" width="25" height="25"/>
+        <image name="Btn_Ponentes_color.png" width="25" height="25"/>
         <image name="Btn_favoritos_SinMarcar.png" width="30" height="29"/>
         <image name="EditIcon.png" width="30" height="29"/>
         <image name="EstrellaTransparente.png" width="75" height="74"/>
@@ -1601,13 +1605,13 @@
         <image name="Home.png" width="30" height="27"/>
         <image name="Ponente_ausente_Hombre.png" width="100" height="100"/>
         <image name="Sociedad.png" width="30" height="25"/>
-        <image name="btnFavorito.png" width="30" height="30"/>
-        <image name="btn_back.png" width="26" height="49"/>
-        <image name="btn_patrocinadores.png" width="30" height="30"/>
+        <image name="btn_Favoritos.png" width="34" height="33"/>
+        <image name="btn_Favoritos_calor.png" width="34" height="33"/>
+        <image name="btn_programa.png" width="25" height="25"/>
+        <image name="btn_programa_color.png" width="25" height="25"/>
         <image name="directiva.png" width="30" height="28"/>
         <image name="materiales.png" width="30" height="30"/>
+        <image name="next Arrow.png" width="13" height="22"/>
         <image name="novedades.png" width="30" height="30"/>
-        <image name="ponente.png" width="30" height="30"/>
-        <image name="programa.png" width="30" height="30"/>
     </resources>
 </document>

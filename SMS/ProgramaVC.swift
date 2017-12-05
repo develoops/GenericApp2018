@@ -177,8 +177,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: 15.0, y: 5.0, width: view.frame.size.width - 100.0, height:0.0)
-        
+        cell.labelTitulo?.frame = CGRect(x: 15.0, y: 5.0, width: view.frame.size.width - 60.0, height:0.0)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.hyphenationFactor = 1.0
         
@@ -187,9 +186,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             ] as [NSAttributedStringKey : Any]
         
         let attributedString = NSMutableAttributedString(string: (evento["nombre"] as? String)!, attributes: hyphenAttribute)
-       // cell.labelTitulo.attributedText = attributedString
-
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
+        
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 60.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
         cell.labelTitulo.attributedText = attributedString
@@ -295,7 +293,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 5.5, height:tamanoCelda))
         
-        cell.botonFavorito.center.x = cell.frame.size.width - 25.0
+        cell.botonFavorito.frame.origin = CGPoint(x: view.frame.width - 35.0, y: 12.5)
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
         
