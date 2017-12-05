@@ -56,5 +56,19 @@ extension DateFormatter {
         
         return self.string(from: fecha as Date)
     }
+    
+    func formatoDiaMesLargoString(fecha:NSDate) -> String {
+        
+        self.locale = Locale(identifier: "es_CL")
+        self.dateStyle = .full
+        self.monthSymbols  = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+        self.weekdaySymbols = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+
+
+        self.dateFormat = "EEEE, MMMM dd"
+        fecha.addingTimeInterval(60*60*3)
+        return self.string(from: fecha as Date)
+    }
+
 
 }

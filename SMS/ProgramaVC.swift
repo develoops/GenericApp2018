@@ -74,18 +74,13 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     
                 })
                 
-
+            
                 DispatchQueue.main.async() {
                     self.botonAvanzar.addTarget(self, action: #selector(self.avanzar), for: .touchUpInside)
                     self.botonRetroceder.addTarget(self, action: #selector(self.retroceder), for: .touchUpInside)
                     self.botonRetroceder.isHidden = true
                     self.diaControl.text = self.diasPrograma()[self.indicador]
-                    self.diaControl.center.x = self.view.center.x
-                    self.botonRetroceder.frame.origin = CGPoint(x: self.diaControl.frame.origin.x - 5.0, y: self.diaControl.center.y - 15.0)
-                    
-                    self.botonAvanzar.frame.origin = CGPoint(x: self.diaControl.frame.origin.x + self.diaControl.frame.size.width - 5.0, y: self.diaControl.center.y - 15.0)
-
-                    
+                    self.configurarNavegacion()
                     self.filtrarArray(indicador: self.indicador)
                     let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y))
                     colorFondoHeaderDetalle.backgroundColor = UIColor(red: 29.0/255.0, green: 29.0/255.0, blue: 38.0/255.0, alpha: 0.03)
@@ -93,6 +88,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     
                     self.view.addSubview(colorFondoHeaderDetalle)
                     self.view.sendSubview(toBack: colorFondoHeaderDetalle)
+
                 }
                 
                 return taskActividades
@@ -228,7 +224,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
 
-//                personasTamano = personasTamano + (7.5 / (personaActividad?.count)!)
         }
             
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
@@ -415,7 +410,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
         for index in 0...(eventosVarLocal.count - 1) {
             let fecha = eventosVarLocal[index]["inicio"] as? NSDate
-            let fechaString = dateFormatter.formatoDiaMesCortoString(fecha: fecha!)
+            let fechaString = dateFormatter.formatoDiaMesLargoString(fecha: fecha!)
             diasPrograma.append(fechaString)
         }
     }
@@ -474,6 +469,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
+        self.configurarNavegacion()
     }
     
     @objc func retroceder(sender: UIButton!){
@@ -493,6 +489,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         diaControl.text = diasPrograma()[indicador]
         filtrarArray(indicador: indicador)
+        self.configurarNavegacion()
     }
     
     @objc func cambiarFavorito(sender: UIButton!){
@@ -589,6 +586,14 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     @objc func volver() {
         navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func configurarNavegacion(){
+        self.diaControl.center.x = self.view.center.x
+        self.diaControl.frame.size = CGSize(width: 0.0, height: 20.0)
+        self.diaControl.sizeToFit()
+        self.botonRetroceder.frame.origin = CGPoint(x: self.diaControl.frame.minX - 42.25, y: self.diaControl.center.y - 15.0)
+        self.botonAvanzar.frame.origin = CGPoint(x: self.diaControl.frame.maxX + 32.5, y: self.diaControl.center.y - 15.0)
     }
     
     override func didReceiveMemoryWarning() {
