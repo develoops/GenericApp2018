@@ -209,7 +209,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.present(alert, animated: true, completion: nil)
         
     }
-
     
     func doSomething(action: UIAlertAction) {
 
@@ -257,12 +256,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 else{
                     self.favorito = false
                     self.agregarBotonFavoritoNav()
-
+                    
                 }
-
-                
-            }
-            
+        }
             return taskFav
         })
         
