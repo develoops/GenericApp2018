@@ -169,15 +169,48 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             let persona = $0.value(forKey: "persona") as? PFObject
             
                 object.append(persona!)
-            
+//            cell.imagenPerfil.frame.origin.x = cell.imagenMargen.frame.maxX + 10.0
+
         }}
+        let im = evento["imgPerfil"] as? PFFile
+        var margenImg = CGFloat()
+        if(im == nil){
+            cell.imagenPerfil.frame.origin = CGPoint(x: 10.0, y: 12.5)
+            cell.imagenPerfil.isHidden = true
+            cell.imagenPerfil.frame.size = CGSize(width: 0.0, height: 0.0)
+            margenImg = 10.0
+            
+        }
+        
+        else{
+            cell.imagenPerfil.frame.origin = CGPoint(x: (cell.imagenMargen.frame.maxX + 10.0), y: 12.5)
+            cell.imagenPerfil.isHidden = false
+            cell.imagenPerfil.frame.size = CGSize(width: 29.41, height: 34.92)
+            margenImg = 12.5
+
+            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                
+                DispatchQueue.main.async {
+                    
+                    if ((task.error) != nil){
+                        
+                        cell.imagenPerfil.image = UIImage(named: "almuerzo.png")
+                        
+                    }
+                    else{
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
+            }
+                return task
+            })
+        }
         
         let personaActividad = object as? [PFObject]
         let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: 15.0, y: 5.0, width: view.frame.size.width - 60.0, height:0.0)
+        cell.labelTitulo?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: 7.5, width: view.frame.size.width - 60.0, height:0.0)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.hyphenationFactor = 1.0
         
@@ -200,7 +233,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
 
         cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelHora?.frame =  CGRect(x: 15.0, y: cell.labelTitulo.frame.size.height + 15.0, width: 0.0, height: 0.0)
+        cell.labelHora?.frame =  CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: cell.labelTitulo.frame.size.height + 15.0, width: 0.0, height: 0.0)
         cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelHora.sizeThatFits(maximumLabelSizeHora)
         cell.labelHora.text = fechaInicio + " - " + fechaFin
@@ -219,14 +252,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 let persona = object
                 
-                
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-
-        }
+            }
             
             let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            cell.labelSpeaker1?.frame = CGRect(x: 15.0, y: cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + 22.5, width: 0.0, height: 0.0)
+            cell.labelSpeaker1?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + 22.5, width: 0.0, height: 0.0)
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
             cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelSpeaker1.text = personasString
@@ -244,7 +275,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
 //        if(cell.labelSpeaker1.text == ""){
         
-            espacio = 43.0 + cell.labelHora.frame.width
+            espacio = 43.0 + cell.labelHora.frame.width + cell.imagenPerfil.frame.maxX
 //        }
 //        else{
 //            espacio = 43.0 + cell.labelSpeaker1.frame.width
