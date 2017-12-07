@@ -40,6 +40,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var favorito = Bool()
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
+    var tamanoTabla = CGFloat()
+
     
 
     override func viewDidLoad() {
@@ -60,8 +62,24 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             DispatchQueue.main.async() {
                 
                 self.tablaActividades.reloadData()
-
-            }
+                self.tablaActividades.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: 0.0)
+                self.tablaActividades.tableFooterView = UIView()
+                self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y + self.tablaActividades.frame.size.height, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
+                self.tablaFunciones.tableFooterView = UIView()
+                
+                self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
+                self.tablaFunciones.isScrollEnabled = false
+                self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: self.view.frame.height + 44.0)
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.tablaFunciones.frame.maxY)
+                
+                if(self.actividadesAnidadas.count == 0){
+                    
+                    self.tablaActividades.frame.size.height = 0.0
+                }
+                else{
+                    self.tablaActividades.frame.size.height = (95.0 * CGFloat(self.actividadesAnidadas.count))
+                }
+        }
             return task
         })
         
@@ -121,25 +139,19 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
             .width - 10.0, height: 0.0)
 
-        let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
-        textViewInfoDetallePrograma.sizeThatFits(maximumLabelSizeDetalleInfo)
         textViewInfoDetallePrograma.text = evento["descripcion"] as? String
+        textViewInfoDetallePrograma.translatesAutoresizingMaskIntoConstraints = true
         textViewInfoDetallePrograma?.textAlignment = .left
         textViewInfoDetallePrograma?.sizeToFit()
         textViewInfoDetallePrograma.isScrollEnabled = false
+        
         
         if((evento["descripcion"] as? String) == nil){
 
             textViewInfoDetallePrograma.frame.size.height = 5.0
         
         }
-        if(actividadesAnidadas.count == 0){
-            
-            self.tablaActividades.frame.size.height = 0.0
-        }
-        
     
-        
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 5.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
 //
@@ -158,24 +170,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             
             funciones.remove(at: funciones.count - 1)
-
+            
         }
-    
-        self.tablaActividades.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: view.frame.height - (textViewInfoDetallePrograma.frame.height + textViewInfoDetallePrograma.frame.origin.y))
-        self.tablaActividades.tableFooterView = UIView()
-        
-
-        self.tablaFunciones.frame = CGRect(x: 0.0, y: textViewInfoDetallePrograma.frame.height + self.tablaActividades.frame.origin.y, width: view.frame.width, height: (48.0 * CGFloat(funciones.count)) + 30.0)
-        self.tablaFunciones.tableFooterView = UIView()
-        
-        self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
-        tablaFunciones.isScrollEnabled = false
-        scrollView.frame = CGRect(x: 0.0, y: -44.0, width: view.frame.width, height: view.frame.height + 44.0)
-        scrollView.contentSize = CGSize(width: view.frame.width, height: tablaFunciones.frame.maxY)
-        
-        print(tablaFunciones.frame.height)
-        print(tablaFunciones.frame.origin)
-        print(tablaFunciones.frame.maxY)
+        self.scrollView.canCancelContentTouches = false
     }
     
     func irAPreguntas(){
@@ -268,6 +265,12 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             return taskFav
         })
+        
+        self.tablaActividades.frame.size.height = tamanoTabla
+        self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y + self.tablaActividades.frame.size.height, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
+        self.tablaFunciones.tableFooterView = UIView()
+        self.tablaActividades.isScrollEnabled = false
+
     }
     func irAMapa()
     {   let lugar = evento["lugar"] as? PFObject
@@ -300,7 +303,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return actividadesAnidadas.count
             
         }
-
         else{
         
             return funciones.count
@@ -316,7 +318,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return 48.0
         }
         else{
-            return tamanoCelda + 20.0
+            return tamanoCelda
         }
     }
     
@@ -426,7 +428,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
             
             tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
-            
+            tamanoTabla = tamanoTabla + tamanoCelda
             var colorImage = UIColor()
             if(evento["tipo"] as? String == "conferencia")
             {
@@ -470,7 +472,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         return cell
     }
     
-    
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        return UITableViewAutomaticDimension
+//    }
+
     func agregarBotonFavoritoNav(){
         
         
