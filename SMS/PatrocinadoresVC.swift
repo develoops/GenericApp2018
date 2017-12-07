@@ -103,8 +103,6 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             if (patrocinador["imgPerfil"] == nil){
                 
-              //  vc.imagen = PFFile(
-
             }
             else{
                 vc.imagen = patrocinador["imgPerfil"] as! PFFile
@@ -120,15 +118,6 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                                                  animated: true)
     }
     
-//    func patrocinadores() ->[PFObject]{
-//        
-//        do {
-//            
-//        } catch {
-//            fatalError("Fallo: \(error)")
-//        }
-//        
-//    }
 
     
     override func didReceiveMemoryWarning() {
