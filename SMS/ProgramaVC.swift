@@ -185,7 +185,21 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         else{
             cell.imagenPerfil.frame.origin = CGPoint(x: (cell.imagenMargen.frame.maxX + 10.0), y: 12.5)
             cell.imagenPerfil.isHidden = false
-            cell.imagenPerfil.frame.size = CGSize(width: 29.41, height: 34.92)
+            if(evento["tipo"] as? String == "social"){
+                cell.imagenPerfil.frame.size = CGSize(width: 29.41, height: 34.92)
+
+                
+            }
+            else if(evento["tipo"] as? String == "break"){
+                
+                cell.imagenPerfil.frame.size = CGSize(width: 46.0, height: 30.5)
+                
+            }
+            else if(evento["tipo"] as? String == "conferenciaPatrocinada"){
+                cell.imagenPerfil.frame.size = CGSize(width: 62.5, height: 36.5)
+
+            }
+            
             margenImg = 12.5
 
             im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
@@ -210,7 +224,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
 
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: 7.5, width: view.frame.size.width - 60.0, height:0.0)
+        cell.labelTitulo?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: 7.5, width: view.frame.size.width - (60.0 + cell.imagenPerfil.frame.maxX + margenImg), height:0.0)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.hyphenationFactor = 1.0
         
@@ -220,7 +234,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let attributedString = NSMutableAttributedString(string: (evento["nombre"] as? String)!, attributes: hyphenAttribute)
         
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 60.0), height: 40000.0)
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - (60.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
         cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
         cell.labelTitulo.attributedText = attributedString
@@ -230,7 +244,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         
 
-        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width  - (43.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
 
         cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
         cell.labelHora?.frame =  CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: cell.labelTitulo.frame.size.height + 15.0, width: 0.0, height: 0.0)
@@ -255,7 +269,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
             }
             
-            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 43.0), height: 40000.0)
+            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - (43.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             cell.labelSpeaker1?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + 22.5, width: 0.0, height: 0.0)
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
@@ -273,17 +287,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         var espacio = CGFloat()
         
-//        if(cell.labelSpeaker1.text == ""){
         
             espacio = 43.0 + cell.labelHora.frame.width + cell.imagenPerfil.frame.maxX
-//        }
-//        else{
-//            espacio = 43.0 + cell.labelSpeaker1.frame.width
-//        }
-//
+
         let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
         cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width + 5.0), height: 15.0)
+        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width + 5.0 +  cell.imagenPerfil.frame.maxX + margenImg + cell.imagenMargen.frame.maxX), height: 15.0)
         cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
         cell.labelLugar.text = lugar?["nombre"] as? String
@@ -300,6 +309,11 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         {
             colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
+        else if(evento["tipo"] as? String == "conferenciaPatrocinada")
+        {
+            colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+
             
         else if (evento["tipo"] as? String == "social") {
             
@@ -372,6 +386,12 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         {
             vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
+        
+      else if(evento["tipo"] as? String == "conferenciaPatrocinada")
+        {
+            vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+
             
         else if (evento["tipo"] as? String == "social") {
             
