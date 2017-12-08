@@ -36,6 +36,7 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             DispatchQueue.main.async {
                 
                 let imagenContenido = ["imagen",task.result?.value(forKey: "imgPerfil")]
+                
                 let nombreContenido = ["Nombre",task.result?.value(forKey: "nombre")]
                 let descripcionContenido = ["Descripción",task.result?.value(forKey: "descripcion")]
                 let contactoContenido = ["Contacto",task.result?.value(forKey: "telefono")]

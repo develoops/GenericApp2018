@@ -17,6 +17,8 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var personasRolAct = [PFObject]()
     var congreso:PFObject!
     var rolAct = [PFObject]()
+    //var institucion = PFObject
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.includeKey("act.lugar")
         query.includeKey("persona")
         query.includeKey("persona.pais")
-        query.includeKey("persona.institucion")
+        query.includeKey("institucion")
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
         self.rolAct = task.result as! [PFObject]
@@ -94,8 +96,16 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let persona = personas[indexPath.row]
         let lugar = persona.value(forKey: "pais") as? PFObject
         
+        
         //arreglar
-        let institucion = persona["institucion"] as? PFObject
+       /*  let queryInstitucion = PFQuery(className: "PersonaRol", predicate: NSPredicate(format: "persona = %@", persona))
+         queryInstitucion.fromLocalDatastore()
+         queryInstitucion.getFirstObjectInBackground().continue({ (task2:BFTask<PFObject>) -> Any? in
+            
+            institucion = task2.result?.value(forKey: "institucion")
+         })
+        */
+        //let institucion = persona["institucion"] as? PFObject
         
         let im = persona["ImgPerfil"] as? PFFile
         
