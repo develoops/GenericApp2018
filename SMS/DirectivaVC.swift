@@ -26,6 +26,8 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         queryDirectiva.order(byAscending: "order")
         queryDirectiva.includeKey("persona")
         queryDirectiva.includeKey("persona.pais")
+        queryDirectiva.includeKey("persona.institucion")
+
 
         queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
@@ -34,6 +36,8 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 self.personas = task.result as! [PFObject]
                 self.tabla.reloadData()
+                self.tabla.tableFooterView = UIView()
+
 }
             return task
         })
@@ -62,59 +66,83 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 90.0
+        return tamanoCelda
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        
+
         let personaRolOrg = personas[indexPath.row]
-        
         let persona = personaRolOrg["persona"] as! PFObject
+
         let lugar = persona.value(forKey: "pais") as? PFObject
-        let prenombre = (persona["preNombre"] as? String)
-        let primerNombre = (persona["primerNombre"] as? String)
-        let primerApellido = (persona["primerApellido"] as? String)
-
-
         
-        cell.labelNombre?.frame = CGRect(x: 98.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
-        cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelNombre.font = UIFont.boldSystemFont(ofSize: 17.0)
-        cell.labelNombre.text = prenombre! + " " + primerNombre! + " " + primerApellido!
+        let im = persona["ImgPerfil"] as? PFFile
+        cell.imagenPerfil.frame = CGRect(x: 15.0, y: 7.5, width: 50.0, height: 50.0)
+        
+        if (im == nil) {
+            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+        }
+            
+        else{
+            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                
+                DispatchQueue.main.async {
+                    
+                    if ((task.error) != nil){
+                        
+                        cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+                        
+                    }
+                    else{
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
+                    
+                }
+                
+                
+                return task
+            })
+        }
+        
+        cell.labelNombre?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + 12.5 , y: 7.5, width: self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5), height:0.0)
+        let maximumLabelSize = CGSize(width: (self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5)), height: 40000.0)
+        cell.labelNombre.sizeThatFits(maximumLabelSize)
+        cell.labelNombre.font = UIFont.systemFont(ofSize: 15.0)
+        cell.labelNombre?.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
         
-        cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.height + 18.0)
+        cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.maxY + 5.0)
+        
+        cell.labelLugarPersona.sizeThatFits(maximumLabelSize)
+        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 12.0)
         cell.labelLugarPersona?.text = lugar?["nombre"] as? String
-        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelLugarPersona?.textAlignment = .left
+        cell.labelLugarPersona.numberOfLines = 0
+        cell.labelLugarPersona?.sizeToFit()
         
+        
+        cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelLugarPersona.frame.maxY + 5.0)
+        
+        cell.labelInstitucion.sizeThatFits(maximumLabelSize)
+        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 12.0)
         cell.labelInstitucion?.text = personaRolOrg["rol"] as? String
-        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelInstitucion?.textAlignment = .left
+        cell.labelInstitucion.numberOfLines = 0
+        cell.labelInstitucion?.sizeToFit()
         
-        cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 18.0)
+        tamanoCelda = cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.size.height + 15.0
         
-        if (persona["ImgPerfil"] == nil) {
-            
-            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
-        }
-        else{
-            let im = persona["ImgPerfil"] as? PFFile
-            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
-                DispatchQueue.main.async {
-            
-        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
-
-                }
-            })
-            
-        }
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+        cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+        
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -54,7 +54,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 self.eventosFavoritos = self.favs.map{$0.value(forKey: "actividad") as! PFObject}
                 self.tabla.reloadData()
-
+            
             }
             return queryPersona.findObjectsInBackground().continue({ (taskPersona:BFTask<NSArray>) -> Any? in
                 
@@ -87,42 +87,99 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return tamanoCelda
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        
-        let evento = eventosFavoritos[indexPath.row]
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
-        
+        let evento = eventosFavoritos[indexPath.row] as PFObject
+        var object = Array<Any>()
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
             
             let persona = $0.value(forKey: "persona") as? PFObject
             
-            if !(evento.allKeys.containss(obj: "personas")){
-                evento.addUniqueObject(persona as Any, forKey: "personas")
+            object.append(persona!)
+            //            cell.imagenPerfil.frame.origin.x = cell.imagenMargen.frame.maxX + 10.0
+            
+            }}
+        let im = evento["imgPerfil"] as? PFFile
+        var margenImg = CGFloat()
+        if(im == nil){
+            cell.imagenPerfil.frame.origin = CGPoint(x: 10.0, y: 12.5)
+            cell.imagenPerfil.isHidden = true
+            cell.imagenPerfil.frame.size = CGSize(width: 0.0, height: 0.0)
+            margenImg = 10.0
+            
+        }
+            
+        else{
+            cell.imagenPerfil.frame.origin = CGPoint(x: (cell.imagenMargen.frame.maxX + 10.0), y: 12.5)
+            cell.imagenPerfil.isHidden = false
+            if(evento["tipo"] as? String == "social"){
+                cell.imagenPerfil.frame.size = CGSize(width: 29.41, height: 34.92)
                 
-            }}}
+                
+            }
+            else if(evento["tipo"] as? String == "break"){
+                
+                cell.imagenPerfil.frame.size = CGSize(width: 46.0, height: 30.5)
+                
+            }
+            else if(evento["tipo"] as? String == "conferenciaPatrocinada"){
+                cell.imagenPerfil.frame.size = CGSize(width: 62.5, height: 36.5)
+                
+            }
+            
+            margenImg = 12.5
+            
+            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                
+                DispatchQueue.main.async {
+                    
+                    if ((task.error) != nil){
+                        
+                        cell.imagenPerfil.image = UIImage(named: "almuerzo.png")
+                        
+                    }
+                    else{
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
+                }
+                return task
+            })
+        }
         
-        let personaActividad = evento["personas"] as? [PFObject]
-
+        let personaActividad = object as? [PFObject]
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
+        
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+        cell.labelTitulo?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: 7.5, width: view.frame.size.width - (60.0 + cell.imagenPerfil.frame.maxX + margenImg), height:0.0)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.hyphenationFactor = 1.0
+        
+        let hyphenAttribute = [
+            NSAttributedStringKey.paragraphStyle : paragraphStyle,
+            ] as [NSAttributedStringKey : Any]
+        
+        let attributedString = NSMutableAttributedString(string: (evento["nombre"] as? String)!, attributes: hyphenAttribute)
+        
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - (60.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
-        cell.labelTitulo.text = evento["nombre"] as? String
+        cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
+        cell.labelTitulo.attributedText = attributedString
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
         
-        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
+        
+        
+        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width  - (43.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
         
         cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelHora?.frame =  CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 35.0, width: 0.0, height: 0.0)
+        cell.labelHora?.frame =  CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: cell.labelTitulo.frame.size.height + 15.0, width: 0.0, height: 0.0)
         cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelHora.sizeThatFits(maximumLabelSizeHora)
         cell.labelHora.text = fechaInicio + " - " + fechaFin
@@ -130,17 +187,8 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
         
-        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
-        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
-        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
-        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
-        cell.labelLugar.text = evento["lugar"] as? String
-        cell.labelLugar?.textAlignment = .left
-        cell.labelLugar.numberOfLines = 0
-        cell.labelLugar?.sizeToFit()
         
-        var personasTamano = Int()
+        //        var personasTamano = CGFloat()
         
         if(personaActividad != nil){
             
@@ -150,14 +198,12 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
                 let persona = object
                 
-                
                 personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
             }
             
-            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
+            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - (43.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
             cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
+            cell.labelSpeaker1?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + 22.5, width: 0.0, height: 0.0)
             cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
             cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelSpeaker1.text = personasString
@@ -169,31 +215,63 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         else{
             cell.labelSpeaker1.text = ""
         }
-
+        let lugar = evento["lugar"] as? PFObject
         
-        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
+        var espacio = CGFloat()
+        
+        
+        espacio = 43.0 + cell.labelHora.frame.width + cell.imagenPerfil.frame.maxX
+        
+        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
+        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width + 5.0 +  cell.imagenPerfil.frame.maxX + margenImg + cell.imagenMargen.frame.maxX), height: 15.0)
+        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
+        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
+        cell.labelLugar.text = lugar?["nombre"] as? String
+        cell.labelLugar?.textAlignment = .left
+        cell.labelLugar.numberOfLines = 1
+        cell.labelLugar?.sizeToFit()
+        
+        
+        tamanoCelda = cell.labelTitulo.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + 15.0
         
         var colorImage = UIColor()
+        
         if(evento["tipo"] as? String == "conferencia")
         {
             colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
         }
+        else if(evento["tipo"] as? String == "conferenciaPatrocinada")
+        {
+            colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
+        }
+            
             
         else if (evento["tipo"] as? String == "social") {
             
             colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+        }
+        else if (evento["tipo"] as? String == "break") {
+            
+            colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
             
         }
+            //
         else{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
-            
         }
         
-        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
-
+        if(tamanoCelda < 75.0)
+        {
+            tamanoCelda = tamanoCelda + 7.5
+        }
+        
+        cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
+        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 5.5, height:tamanoCelda))
+        
         return cell
     }
-    
+
     @objc func showEditing(sender: UIBarButtonItem)
     {
         if(self.tabla.isEditing == true)
@@ -222,13 +300,18 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 self.favs.remove(at: index)
                 
                 _ =   filtro.map{$0.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                  
+                    
+                    DispatchQueue.main.async {
+                        self.tabla.reloadData()
+                    }
                     return task
+                    
                 })}
             }
             
-            DispatchQueue.main.async {
-                self.tabla.reloadData()
-            }}
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

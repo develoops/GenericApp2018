@@ -79,12 +79,19 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
                
                 DispatchQueue.main.async {
                     
-                
-                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    if ((task.error) != nil){
+                        
+                        cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+                        
+                    }
+                    else{
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
+                    
                 }
-                return task
-                
+                return task.result
             })
+        
             cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 10.0, width: 150.0, height: 150.0)
             
         }

@@ -55,7 +55,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 110.0
+        return 90.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,26 +63,37 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         let patrocinador = patrocinadores[indexPath.row]
 
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
+        cell.imagenPerfil.frame = CGRect(x: 15.0, y: 7.5, width: 75.0, height: 75.0)
         
-        cell.labelNombre.text = patrocinador["nombre"] as? String
         if(patrocinador["imgPerfil"] == nil){
-            cell.imagenPerfil.image = UIImage(named: "")
+            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
 }
         else{
             let imagen = patrocinador["imgPerfil"] as! PFFile
-            
-            
             imagen.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
                
                 DispatchQueue.main.async {
-                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
-
-                }
                 
+                if ((task.error) != nil){
+                    
+                    cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+                    
+                }
+                else{
+                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                }
+
+            }
                return task.result
             })
         }
-        
+        cell.labelNombre.frame.origin = CGPoint(x: 102.5, y: 15.0)
+        cell.labelNombre.text = patrocinador["nombre"] as? String
+      
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+        cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+
         return cell
     }
     

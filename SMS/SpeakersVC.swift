@@ -17,7 +17,6 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var personasRolAct = [PFObject]()
     var congreso:PFObject!
     var rolAct = [PFObject]()
-    //var institucion = PFObject
     
 
     override func viewDidLoad() {
@@ -39,7 +38,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.includeKey("act.lugar")
         query.includeKey("persona")
         query.includeKey("persona.pais")
-        query.includeKey("institucion")
+        query.includeKey("persona.institucion")
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
             
         self.rolAct = task.result as! [PFObject]
@@ -95,24 +94,14 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let persona = personas[indexPath.row]
         let lugar = persona.value(forKey: "pais") as? PFObject
-        
-        
-        //arreglar
-       /*  let queryInstitucion = PFQuery(className: "PersonaRol", predicate: NSPredicate(format: "persona = %@", persona))
-         queryInstitucion.fromLocalDatastore()
-         queryInstitucion.getFirstObjectInBackground().continue({ (task2:BFTask<PFObject>) -> Any? in
-            
-            institucion = task2.result?.value(forKey: "institucion")
-         })
-        */
-        //let institucion = persona["institucion"] as? PFObject
+        let institucion = persona.value(forKey: "institucion") as? PFObject
         
         let im = persona["ImgPerfil"] as? PFFile
         
         cell.imagenPerfil.frame = CGRect(x: 15.0, y: 7.5, width: 50.0, height: 50.0)
         
         if (im == nil) {
-            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+            cell.imagenPerfil.image = UIImage(named: "")
         }
             
         else{
@@ -136,23 +125,39 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             })
         }
 
-        cell.labelNombre?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + 27.5 , y: 7.5, width: view.frame.size.width - 100.0, height:0.0)
-        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
-        cell.labelNombre.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelNombre.font = UIFont.systemFont(ofSize: 16.0)
+        cell.labelNombre?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + 12.5 , y: 7.5, width: self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5), height:0.0)
+        let maximumLabelSize = CGSize(width: (self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5)), height: 40000.0)
+        cell.labelNombre.sizeThatFits(maximumLabelSize)
+        cell.labelNombre.font = UIFont.systemFont(ofSize: 15.0)
         cell.labelNombre.text = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
         
-        cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.maxY + 15.0)
+        cell.labelLugarPersona?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.maxY + 5.0)
+        
+        cell.labelLugarPersona.sizeThatFits(maximumLabelSize)
+        cell.labelLugarPersona.font = UIFont.systemFont(ofSize: 12.0)
         cell.labelLugarPersona?.text = lugar?["nombre"] as? String
+        cell.labelLugarPersona?.textAlignment = .left
+        cell.labelLugarPersona.numberOfLines = 0
+        cell.labelLugarPersona?.sizeToFit()
+        
 
+        cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelLugarPersona.frame.maxY + 5.0)
+       
+        cell.labelInstitucion.sizeThatFits(maximumLabelSize)
+        cell.labelInstitucion.font = UIFont.systemFont(ofSize: 12.0)
         cell.labelInstitucion?.text = institucion?["nombre"] as? String
-        cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + 20.0)
+        cell.labelInstitucion?.textAlignment = .left
+        cell.labelInstitucion.numberOfLines = 0
+        cell.labelInstitucion?.sizeToFit()
         
-        
-        tamanoCelda = cell.labelNombre.frame.height + cell.labelLugarPersona.frame.height + cell.labelInstitucion.frame.height + 37.0
+        tamanoCelda = cell.imagenPerfil.frame.origin.y + cell.imagenPerfil.frame.size.height + 15.0
+
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+        cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
 
         return cell
     }

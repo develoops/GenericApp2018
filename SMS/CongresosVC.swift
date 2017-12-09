@@ -32,6 +32,8 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             DispatchQueue.main.async() {
             self.eventosCongreso = task.result as! [PFObject]
             self.tabla.reloadData()
+                self.tabla.tableFooterView = UIView()
+
             }
             
             return task.result
