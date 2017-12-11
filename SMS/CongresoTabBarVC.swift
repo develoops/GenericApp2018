@@ -13,7 +13,18 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
     var congreso:PFObject!
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+    
+let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+    let programaVC = storyboard.instantiateViewController(withIdentifier: "ProgramaVC") as! ProgramaVC
+    let speakerVC = storyboard.instantiateViewController(withIdentifier: "SpeakersVC") as! SpeakersVC
+    let favsVC = storyboard.instantiateViewController(withIdentifier: "FavoritosVC") as! FavoritosVC
+    let moreVC = storyboard.instantiateViewController(withIdentifier: "MoreVC") as! MoreVC
+        
+
+
+//        self.viewControllers = [programaVC,speakerVC,favsVC,moreVC]
+
         if let rootViewController = viewControllers?.first as? ProgramaVC {
             rootViewController.congreso = congreso
             
@@ -26,18 +37,22 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
             third.congreso = congreso
         }
         
-        if let quinto = viewControllers?[3] as? DirectorioVC {
-            quinto.congreso = congreso
-        }
-        
-        if let sexto = viewControllers?[4] as? MaterialesVC {
-            sexto.congreso = congreso
-        }
-        
-        if let septimo = viewControllers?[5] as? EncuestaGeneralVC {
-            septimo.tipoEncuesta = "general"
-        }
+        if let cuarto = viewControllers?.last as? MoreVC {
+            
+            let directorioVC = storyboard.instantiateViewController(withIdentifier: "DirectorioVC") as! DirectorioVC
+            let patrocinadoresVC = storyboard.instantiateViewController(withIdentifier: "PatrocinadoresVC") as! PatrocinadoresVC
+            let materialesVC = storyboard.instantiateViewController(withIdentifier: "MaterialesVC") as! MaterialesVC
+            let noticiasVC = storyboard.instantiateViewController(withIdentifier: "NovedadesVC") as! NovedadesVC
+            let encuestaVC = storyboard.instantiateViewController(withIdentifier: "EncuestaGeneralVC") as! EncuestaGeneralVC
 
+            
+
+            
+            cuarto.titulos = ["Directorio","Patrocinadores","Materiales","Novedades","Encuesta"]
+            cuarto.imagenes = [UIImage(named:"directiva.png")!,UIImage(named:" btn_Patrocinador_.png")!,UIImage(named:"materiales.png")!,UIImage(named:"materiales.png")!,UIImage(named:"EditIcon.png")!]
+            cuarto.vistas = [directorioVC,patrocinadoresVC,materialesVC,noticiasVC,encuestaVC]
+
+        }
     }
 
     override func didReceiveMemoryWarning() {

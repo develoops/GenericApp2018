@@ -19,8 +19,8 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
+        self.navigationController?.navigationBar.topItem?.title = "Materiales"
 
-        
         let query = PFQuery(className:"Media")
         query.fromLocalDatastore()
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
