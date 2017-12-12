@@ -73,25 +73,6 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height) + 60.0
         
-//
-//        if (persona["ImgPerfil"] == nil) {
-//            
-//            cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
-//        }
-//        else{
-//            let im = persona["ImgPerfil"] as? PFFile
-//            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
-//                DispatchQueue.main.async {
-//                    
-//                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
-//                    
-//                }
-//            })
-//            
-//        }
-//       return cell
-//    }
-
         return cell
     }
     

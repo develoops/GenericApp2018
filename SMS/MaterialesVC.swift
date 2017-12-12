@@ -19,8 +19,9 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tabla.delegate = self
         tabla.dataSource = self
         tabla.frame = view.frame
+        tabla.tableFooterView = UIView()
         self.navigationController?.navigationBar.topItem?.title = "Materiales"
-
+        
         let query = PFQuery(className:"Media")
         query.fromLocalDatastore()
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
@@ -44,7 +45,8 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let media = lista[indexPath.row]
         cell.labelNombre.text = media["nombre"] as? String
-        
+
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     

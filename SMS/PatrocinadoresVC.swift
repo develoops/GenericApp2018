@@ -93,6 +93,8 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
         cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+        
+        cell.accessoryType = .disclosureIndicator
 
         return cell
     }
