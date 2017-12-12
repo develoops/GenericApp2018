@@ -53,15 +53,16 @@ class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        cell.imagenPerfil.frame.origin.y = 17.5
+        cell.imagenPerfil.frame.origin.y = 11.0
         cell.imagenPerfil.frame.origin.x = 17.5
         cell.imagenPerfil.frame.size = CGSize(width: 22.5, height: 22.5)
         
-        print(cell.imagenPerfil.frame)
         cell.labelNombre.frame.origin = CGPoint(x:cell.imagenPerfil.frame.maxX + 15.0 , y: cell.imagenPerfil.frame.origin.y)
         
         cell.labelNombre.text = titulos[indexPath.row]
         cell.imagenPerfil.image = imagenes[indexPath.row]
+        
+        cell.accessoryType = .disclosureIndicator
 
         return cell
     }
