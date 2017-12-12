@@ -39,13 +39,25 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         super.didReceiveMemoryWarning()
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 62.5
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         let media = lista[indexPath.row]
+        
+        cell.imagenPerfil.frame.origin.y = 10.08
+        cell.imagenPerfil.frame.origin.x = 15.0
+        cell.imagenPerfil.frame.size = CGSize(width: 33.0, height: 42.42)
+        
+        cell.labelNombre.frame.origin.x = cell.imagenPerfil.frame.maxX + 15.0
+        cell.labelNombre.frame.origin.y = 22.75
+                
         cell.labelNombre.text = media["nombre"] as? String
-
         cell.accessoryType = .disclosureIndicator
         return cell
     }
