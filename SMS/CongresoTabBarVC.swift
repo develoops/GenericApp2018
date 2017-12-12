@@ -14,12 +14,11 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-    let programaVC = storyboard.instantiateViewController(withIdentifier: "ProgramaVC") as! ProgramaVC
-    let speakerVC = storyboard.instantiateViewController(withIdentifier: "SpeakersVC") as! SpeakersVC
-    let favsVC = storyboard.instantiateViewController(withIdentifier: "FavoritosVC") as! FavoritosVC
-    let moreVC = storyboard.instantiateViewController(withIdentifier: "MoreVC") as! MoreVC
+//    let programaVC = storyboard.instantiateViewController(withIdentifier: "ProgramaVC") as! ProgramaVC
+//    let speakerVC = storyboard.instantiateViewController(withIdentifier: "SpeakersVC") as! SpeakersVC
+//    let favsVC = storyboard.instantiateViewController(withIdentifier: "FavoritosVC") as! FavoritosVC
+//    let moreVC = storyboard.instantiateViewController(withIdentifier: "MoreVC") as! MoreVC
         
 
 
@@ -38,19 +37,6 @@ let storyboard = UIStoryboard(name: "Main", bundle: nil)
         }
         
         if let cuarto = viewControllers?.last as? MoreVC {
-            
-            let directorioVC = storyboard.instantiateViewController(withIdentifier: "DirectorioVC") as! DirectorioVC
-            let patrocinadoresVC = storyboard.instantiateViewController(withIdentifier: "PatrocinadoresVC") as! PatrocinadoresVC
-            let materialesVC = storyboard.instantiateViewController(withIdentifier: "MaterialesVC") as! MaterialesVC
-            let noticiasVC = storyboard.instantiateViewController(withIdentifier: "NovedadesVC") as! NovedadesVC
-            let encuestaVC = storyboard.instantiateViewController(withIdentifier: "EncuestaGeneralVC") as! EncuestaGeneralVC
-
-            
-
-            
-            cuarto.titulos = ["Directorio","Patrocinadores","Materiales","Novedades","Encuesta"]
-            cuarto.imagenes = [UIImage(named:"directiva.png")!,UIImage(named:" btn_Patrocinador_.png")!,UIImage(named:"materiales.png")!,UIImage(named:"materiales.png")!,UIImage(named:"EditIcon.png")!]
-            cuarto.vistas = [directorioVC,patrocinadoresVC,materialesVC,noticiasVC,encuestaVC]
 
         }
     }

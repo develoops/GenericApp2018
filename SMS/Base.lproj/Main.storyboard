@@ -125,7 +125,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Programa" image="btn_programa_color.png" selectedImage="btn_programa.png" id="Dc9-5x-Dw9"/>
+                    <tabBarItem key="tabBarItem" title="Programa" image="Btn_programa_final_plomo.png" selectedImage="Btn_programa_final.png" id="Dc9-5x-Dw9"/>
                     <connections>
                         <outlet property="botonAvanzar" destination="Qar-iK-brH" id="HiA-z8-Ilk"/>
                         <outlet property="botonRetroceder" destination="qos-Rz-gUe" id="dIL-pv-VqL"/>
@@ -195,7 +195,7 @@
         <scene sceneID="eZD-zj-stE">
             <objects>
                 <navigationController storyboardIdentifier="navSociedad" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5rk-NI-f2U" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sociedad" image="Sociedad.png" id="VsL-7K-qtS"/>
+                    <tabBarItem key="tabBarItem" title="Sociedad" image="Comite_academico.png" id="VsL-7K-qtS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3LP-WN-FAI">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -329,7 +329,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="1Tg-B2-4ur"/>
+                    <tabBarItem key="tabBarItem" title="Otros" image="menu.png" selectedImage="menu_azul.png" id="1Tg-B2-4ur"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yj2-fh-yiq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -386,7 +386,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Patrocindores" image=" btn_Patrocinador_.png" selectedImage=" btn_Patrocinador_color.png" id="tXz-aN-bRZ"/>
+                    <tabBarItem key="tabBarItem" title="Patrocindores" id="tXz-aN-bRZ"/>
                     <connections>
                         <outlet property="tabla" destination="JfY-eY-MVQ" id="Fx3-Lo-hci"/>
                     </connections>
@@ -551,7 +551,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Noticias" image="novedades.png" selectedImage="novedades.png" id="bvX-WJ-YQQ"/>
+                    <tabBarItem key="tabBarItem" title="Noticias" id="bvX-WJ-YQQ"/>
                     <navigationItem key="navigationItem" title="Noticias" id="6YK-un-f5x"/>
                     <connections>
                         <outlet property="tabla" destination="PWB-hd-R1A" id="J0R-w2-oBB"/>
@@ -628,7 +628,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Autoridades del Congreso" image="directiva.png" id="QVO-vI-4sP"/>
                     <navigationItem key="navigationItem" id="b4a-vt-cJH"/>
                     <connections>
                         <outlet property="tabla" destination="SzA-U9-SOy" id="Is6-18-CUY"/>
@@ -705,7 +704,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Ponentes" image="Btn_Ponentes_color.png" selectedImage="Btn_Ponentes.png" id="3uX-B5-Owb"/>
+                    <tabBarItem key="tabBarItem" title="Ponentes" image="Btn_ponentes_plomo.png" selectedImage="Btn_ponentes_azul.png" id="3uX-B5-Owb"/>
                     <connections>
                         <outlet property="tabla" destination="3sg-t6-J1a" id="xPF-za-08x"/>
                     </connections>
@@ -802,7 +801,7 @@
         <scene sceneID="m14-u8-i7U">
             <objects>
                 <navigationController storyboardIdentifier="navCongresos" useStoryboardIdentifierAsRestorationIdentifier="YES" id="udk-5J-hSO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Eventos" image="Home.png" id="YNm-y1-z6e"/>
+                    <tabBarItem key="tabBarItem" title="Eventos" image="Btn_programa_final_plomo.png" selectedImage="Btn_programa_final.png" id="YNm-y1-z6e"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B7g-fA-xgK">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -819,7 +818,7 @@
         <scene sceneID="mMJ-tU-hpP">
             <objects>
                 <navigationController storyboardIdentifier="navDirectiva" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JRK-ah-UEF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Directiva" image="directiva.png" id="hE5-2m-OJl"/>
+                    <tabBarItem key="tabBarItem" title="Directiva" id="hE5-2m-OJl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dS4-Am-qQm">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1510,7 +1509,7 @@
             </objects>
             <point key="canvasLocation" x="648.79999999999995" y="-1554.872563718141"/>
         </scene>
-        <!--Materiales-->
+        <!--MaterialesVC-->
         <scene sceneID="ofV-GT-r56">
             <objects>
                 <viewController storyboardIdentifier="MaterialesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zvc-Fm-Kai" customClass="MaterialesVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
@@ -1556,7 +1555,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Materiales" image="materiales.png" id="zgo-cQ-4aS"/>
                     <connections>
                         <outlet property="tabla" destination="RNy-fL-lIX" id="Mjq-pG-3pz"/>
                     </connections>
@@ -1583,7 +1581,7 @@
             </objects>
             <point key="canvasLocation" x="-3958" y="3919"/>
         </scene>
-        <!--Encuesta-->
+        <!--Encuesta GeneralVC-->
         <scene sceneID="qul-mh-JfU">
             <objects>
                 <viewController storyboardIdentifier="EncuestaGeneralVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ysi-Hw-smw" customClass="EncuestaGeneralVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
@@ -1641,10 +1639,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Encuesta" image="EditIcon.png" largeContentSizeImage="EditIcon.png" selectedImage="EditIcon.png" id="uJa-7G-y2a">
-                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-7" maxY="0.0"/>
-                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
-                    </tabBarItem>
                     <connections>
                         <outlet property="encabezado" destination="8mM-L9-13K" id="igq-KO-1eW"/>
                         <outlet property="floatRatingView" destination="aml-8a-aBB" id="bZu-SD-275"/>
@@ -1658,25 +1652,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name=" btn_Patrocinador_.png" width="32" height="29"/>
-        <image name=" btn_Patrocinador_color.png" width="32" height="29"/>
         <image name="Back_Arrow.png" width="13" height="22"/>
-        <image name="Btn_Ponentes.png" width="25" height="25"/>
-        <image name="Btn_Ponentes_color.png" width="25" height="25"/>
         <image name="Btn_favoritos_SinMarcar.png" width="30" height="29"/>
-        <image name="EditIcon.png" width="30" height="29"/>
+        <image name="Btn_ponentes_azul.png" width="22" height="23"/>
+        <image name="Btn_ponentes_plomo.png" width="22" height="23"/>
+        <image name="Btn_programa_final.png" width="27" height="23"/>
+        <image name="Btn_programa_final_plomo.png" width="27" height="23"/>
+        <image name="Comite_academico.png" width="28" height="26"/>
         <image name="EstrellaTransparente.png" width="75" height="74"/>
         <image name="Estrellarellena.png" width="75" height="74"/>
-        <image name="Home.png" width="30" height="27"/>
         <image name="Ponente_ausente_Hombre.png" width="100" height="100"/>
-        <image name="Sociedad.png" width="30" height="25"/>
         <image name="btn_Favoritos.png" width="34" height="33"/>
         <image name="btn_Favoritos_calor.png" width="34" height="33"/>
-        <image name="btn_programa.png" width="25" height="25"/>
-        <image name="btn_programa_color.png" width="25" height="25"/>
-        <image name="directiva.png" width="30" height="28"/>
-        <image name="materiales.png" width="30" height="30"/>
+        <image name="menu.png" width="25" height="19"/>
+        <image name="menu_azul.png" width="25" height="19"/>
         <image name="next Arrow.png" width="13" height="22"/>
-        <image name="novedades.png" width="30" height="30"/>
     </resources>
 </document>
