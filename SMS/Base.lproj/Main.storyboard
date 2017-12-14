@@ -1361,10 +1361,15 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fwV-ei-kMm">
+                                                            <rect key="frame" x="79" y="1" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="imagenMargen" destination="YwJ-Kb-sct" id="1j6-LO-oYW"/>
+                                                    <outlet property="imagenPerfil" destination="fwV-ei-kMm" id="UQY-KE-V1P"/>
                                                     <outlet property="labelHora" destination="j5b-wU-Xls" id="4RR-2z-giO"/>
                                                     <outlet property="labelLugar" destination="C4f-Q6-4s5" id="z3z-hs-YKp"/>
                                                     <outlet property="labelSpeaker1" destination="yaf-NF-0qg" id="atZ-NL-54j"/>

@@ -33,7 +33,6 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             return task
         })
     }
-        
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,7 +55,7 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         cell.labelNombre.frame.origin.x = cell.imagenPerfil.frame.maxX + 15.0
         cell.labelNombre.frame.origin.y = 22.75
-                
+        
         cell.labelNombre.text = media["nombre"] as? String
         cell.accessoryType = .disclosureIndicator
         return cell

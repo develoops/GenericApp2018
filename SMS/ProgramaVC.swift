@@ -148,13 +148,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-//        if(tamanoCelda < 75.0){
-//
-//            return 75.0
-//        }
-//        else{
             return tamanoCelda
-//        }
         
     }
     
