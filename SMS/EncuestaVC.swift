@@ -81,33 +81,7 @@ class EncuestaVC: UIViewController {
             }
             return task
         })
-        
-//        botonAtras.frame = CGRect(x: 20, y: 480, width: 100, height: 50)
-//        botonAtras.backgroundColor = .black
-//        botonAtras.setTitle("Anterior", for: .normal)
-//        botonAtras.addTarget(self, action:#selector(self.irAtras), for: .touchUpInside)
-//
-//        botonAdelante.frame = CGRect(x: view.frame.width - 120, y: 480, width: 100, height: 50)
-//        botonAdelante.backgroundColor = .black
-//        botonAdelante.setTitle("Siguiente", for: .normal)
-//        botonAdelante.addTarget(self, action:#selector(self.irAdelante), for: .touchUpInside)
-//
-//        floatRatingView.frame.origin = CGPoint(x: 15.0, y: view.center.y + 40.0)
-//        floatRatingView.frame.size.width = view.frame.width - 30.0
-//
-//        textViewPregunta.frame.size.width = view.frame.width - 30.0
-//        textViewPregunta.frame.origin.x = 15.0
-//
-//
-//        encabezado.frame.size.width = view.frame.width - 30.0
-//        encabezado.frame.origin.x = 15.0
-//
-//        subtitulo.frame.size.width = view.frame.width - 30.0
-//        subtitulo.frame.origin.x = 15.0
-//
-//
-//        self.view.addSubview(botonAdelante)
-}
+        }
     
     override func viewDidAppear(_ animated: Bool) {
         

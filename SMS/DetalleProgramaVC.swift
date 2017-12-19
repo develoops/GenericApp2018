@@ -61,28 +61,33 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             DispatchQueue.main.async() {
                 
                 self.tablaActividades.reloadData()
-                self.tablaActividades.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: 0.0)
+                self.tablaActividades.frame = CGRect(x: 0.0, y:self.textViewInfoDetallePrograma.frame.maxY, width: self.view.frame.width, height: 0.0)
+                self.tablaFunciones.frame = CGRect(x: 0.0, y:self.tablaActividades.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
+
                 self.tablaActividades.tableFooterView = UIView()
                 self.tablaFunciones.tableFooterView = UIView()
                 
                 self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
                 self.tablaFunciones.isScrollEnabled = false
-                self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: self.view.frame.height + 44.0)
                 
+                self.fijarOriginScroll(pointY: self.view.frame.height)
+
                 if(self.actividadesAnidadas.count == 0){
                     
                     self.tablaActividades.frame.size.height = 0.0
+                    self.tablaFunciones.isHidden = false
+                    self.fijarOriginScroll(pointY: self.tablaFunciones.frame.maxY)
                 }
                 else{
                     self.tablaActividades.frame.size.height = 1.0 * CGFloat(self.actividadesAnidadas.count)
-                    
+                    self.tablaFunciones.isHidden = true
+                    self.fijarOriginScroll(pointY: self.tablaActividades.frame.maxY)
+
                 }
                 
                 self.tablaActividades.isScrollEnabled = false
                 
-        
-
-        }
+            }
             return task
         })
         
@@ -140,7 +145,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         self.tabla.isScrollEnabled = false
         
-        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.origin.y + self.tabla.frame.height + 10.0, width: self.view.frame.size
+        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y:self.tabla.frame.maxY + 10.0, width: self.view.frame.size
             .width - 10.0, height: 0.0)
 
         textViewInfoDetallePrograma.text = evento["descripcion"] as? String
@@ -256,9 +261,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                     self.favorito = true
                     self.favoritoAct = taskFav.result! as! [PFObject]
                     self.agregarBotonFavoritoNav()
-
-                    
-                }
+        }
                 else{
                     self.favorito = false
                     self.agregarBotonFavoritoNav()
@@ -267,7 +270,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
             return taskFav
         })
-        self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y + self.tablaActividades.frame.size.height, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
 
     }
     
@@ -356,7 +358,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let persona = $0.value(forKey: "persona") as? PFObject
                 
                 object.append(persona!)
-                //            cell.imagenPerfil.frame.origin.x = cell.imagenMargen.frame.maxX + 10.0
                 
                 }}
             let im = evento["imgPerfil"] as? PFFile
@@ -496,16 +497,17 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             print(indexPath.row,"row")
             print(actividadesAnidadas.count,"actividades")
-                print(tamanoTabla)
                 tablaActividades.frame.size.height = tamanoTabla
             
-                self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y + self.tablaActividades.frame.size.height, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
-                
-                self.tablaFunciones.tableFooterView = UIView()
+            if(self.actividadesAnidadas.count == 0){
 
-                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.tablaFunciones.frame.maxY)
+                self.fijarOriginScroll(pointY: self.tablaFunciones.frame.maxY + 44.0)
 
-            
+            }
+            else{
+                self.fijarOriginScroll(pointY: self.tablaActividades.frame.maxY)
+
+            }
             var colorImage = UIColor()
             
             if(evento["tipo"] as? String == "conferencia")
@@ -711,7 +713,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
     override func viewDidDisappear(_ animated: Bool) {
         
-        print(tamanoTabla)
         tamanoTabla = 0.0
 
     }
@@ -726,7 +727,18 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         return image
     }
     
+    func fijarOriginScroll(pointY:CGFloat){
+        
+        if(pointY < self.view.frame.height){
+            
+            self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: 700.0)
+            
+        }
+        else{
+            self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: 700.0)
+        }
 
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

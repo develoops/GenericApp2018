@@ -78,7 +78,7 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let encabezado = objetoInfo.first as? String
         
-        if(encabezado == "imagen"){
+    if(encabezado == "imagen"){
             let imagen = objetoInfo.last as? PFFile
             cell.labelTitulo?.isHidden = true
             cell.infoDetallePatrocinador?.isHidden = true
@@ -87,15 +87,14 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 cell.imagenPerfil.image = UIImage(data: task.result! as Data)
                 
                 return task
-                
-            })
+        })
+        
             cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 10.0, width: 150.0, height: 150.0)
         }
             
         else{
             cell.labelTitulo?.isHidden = false
             cell.infoDetallePatrocinador?.isHidden = false
-
             //cell.labelTitulo?.textColor = UIColor(red: 74/255, green: 144/255, blue: 226/255, alpha: 1)
             cell.labelTitulo?.frame = CGRect(x: 25.0, y: 10.0, width: view.frame.size.width - 100.0, height:0.0)
             let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
