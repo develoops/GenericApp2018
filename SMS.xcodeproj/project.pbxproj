@@ -36,6 +36,12 @@
 		C33B00EB1FD98FF2002F3467 /* almuerzo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00E81FD98FF2002F3467 /* almuerzo@2x.png */; };
 		C33B00EC1FD98FF2002F3467 /* almuerzo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00E91FD98FF2002F3467 /* almuerzo@3x.png */; };
 		C33B00ED1FD98FF2002F3467 /* almuerzo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00EA1FD98FF2002F3467 /* almuerzo@1x.png */; };
+		C33B350E1FEB06A000F90B86 /* icono_ociedad_plomo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B35081FEB069D00F90B86 /* icono_ociedad_plomo@3x.png */; };
+		C33B350F1FEB06A000F90B86 /* icono_ociedad_azul.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B35091FEB069E00F90B86 /* icono_ociedad_azul.png */; };
+		C33B35101FEB06A000F90B86 /* icono_ociedad_azul@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B350A1FEB069F00F90B86 /* icono_ociedad_azul@2x.png */; };
+		C33B35111FEB06A000F90B86 /* icono_ociedad_azul@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B350B1FEB069F00F90B86 /* icono_ociedad_azul@3x.png */; };
+		C33B35121FEB06A000F90B86 /* icono_ociedad_plomo.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B350C1FEB069F00F90B86 /* icono_ociedad_plomo.png */; };
+		C33B35131FEB06A000F90B86 /* icono_ociedad_plomo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */; };
 		C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E29481FA2342500C11D4A /* SplashVC.swift */; };
 		C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */; };
 		C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */; };
@@ -155,6 +161,12 @@
 		C33B00E81FD98FF2002F3467 /* almuerzo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@2x.png"; sourceTree = "<group>"; };
 		C33B00E91FD98FF2002F3467 /* almuerzo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@3x.png"; sourceTree = "<group>"; };
 		C33B00EA1FD98FF2002F3467 /* almuerzo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@1x.png"; sourceTree = "<group>"; };
+		C33B35081FEB069D00F90B86 /* icono_ociedad_plomo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono_ociedad_plomo@3x.png"; sourceTree = "<group>"; };
+		C33B35091FEB069E00F90B86 /* icono_ociedad_azul.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icono_ociedad_azul.png; sourceTree = "<group>"; };
+		C33B350A1FEB069F00F90B86 /* icono_ociedad_azul@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono_ociedad_azul@2x.png"; sourceTree = "<group>"; };
+		C33B350B1FEB069F00F90B86 /* icono_ociedad_azul@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono_ociedad_azul@3x.png"; sourceTree = "<group>"; };
+		C33B350C1FEB069F00F90B86 /* icono_ociedad_plomo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icono_ociedad_plomo.png; sourceTree = "<group>"; };
+		C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono_ociedad_plomo@2x.png"; sourceTree = "<group>"; };
 		C33E29481FA2342500C11D4A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashSMS2017@3x.png"; sourceTree = "<group>"; };
 		C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntasVC.swift; sourceTree = "<group>"; };
@@ -324,6 +336,19 @@
 				C332B2651FD74AA500D4A94D /* next Arrow@3x.png */,
 			);
 			path = "Botones navegacion";
+			sourceTree = "<group>";
+		};
+		C33B35141FEB06A800F90B86 /* sociedadIcono */ = {
+			isa = PBXGroup;
+			children = (
+				C33B35091FEB069E00F90B86 /* icono_ociedad_azul.png */,
+				C33B350A1FEB069F00F90B86 /* icono_ociedad_azul@2x.png */,
+				C33B350B1FEB069F00F90B86 /* icono_ociedad_azul@3x.png */,
+				C33B350C1FEB069F00F90B86 /* icono_ociedad_plomo.png */,
+				C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */,
+				C33B35081FEB069D00F90B86 /* icono_ociedad_plomo@3x.png */,
+			);
+			path = sociedadIcono;
 			sourceTree = "<group>";
 		};
 		C34BA8711F04173500022E6B = {
@@ -529,6 +554,7 @@
 		C378EC401F055ADA00DE0318 /* PartesAPP */ = {
 			isa = PBXGroup;
 			children = (
+				C33B35141FEB06A800F90B86 /* sociedadIcono */,
 				C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */,
 				C3C12F941F2B9E7A00D01AD4 /* pinilla.png */,
 				C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */,
@@ -670,7 +696,10 @@
 				C359BFD71FE030A10040355F /* Patrocinador_azul@2x.png in Resources */,
 				C33B00EB1FD98FF2002F3467 /* almuerzo@2x.png in Resources */,
 				C359BFE51FE030A10040355F /* Btn_programa_final_plomo@1x.png in Resources */,
+				C33B35111FEB06A000F90B86 /* icono_ociedad_azul@3x.png in Resources */,
+				C33B35121FEB06A000F90B86 /* icono_ociedad_plomo.png in Resources */,
 				C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */,
+				C33B35131FEB06A000F90B86 /* icono_ociedad_plomo@2x.png in Resources */,
 				C332B2681FD74AA500D4A94D /* Back_Arrow@3x.png in Resources */,
 				C359C0111FE036FE0040355F /* Materiales_Icon@2x.png in Resources */,
 				C359BFE01FE030A10040355F /* Btn_ponentes_plomo@2x.png in Resources */,
@@ -707,14 +736,17 @@
 				C362F2BA1FCF194F00C9ED3C /* Btn_favoritos_SinMarcar@3x.png in Resources */,
 				C3A20BAA1FBA1335009B2954 /* EstrellaTransparente@1x.png in Resources */,
 				C359BFF91FE033B00040355F /* menu_azul@3x.png in Resources */,
+				C33B35101FEB06A000F90B86 /* icono_ociedad_azul@2x.png in Resources */,
 				C3A20BAB1FBA1335009B2954 /* EstrellaTransparente@2x.png in Resources */,
 				C3C12F951F2B9E7A00D01AD4 /* pinilla.png in Resources */,
 				C359C0081FE036FE0040355F /* Comite_academico@2x.png in Resources */,
 				C33455AE1FDF2E18006E548A /* ImgDoc@2x.png in Resources */,
 				C362F2BE1FCF194F00C9ED3C /* btn_Favorito_marcado@1x.png in Resources */,
+				C33B350E1FEB06A000F90B86 /* icono_ociedad_plomo@3x.png in Resources */,
 				C359BFF51FE033B00040355F /* menu@2x.png in Resources */,
 				C33B00EC1FD98FF2002F3467 /* almuerzo@3x.png in Resources */,
 				C359BFCC1FE030A10040355F /* btn_Favoritos@3x.png in Resources */,
+				C33B350F1FEB06A000F90B86 /* icono_ociedad_azul.png in Resources */,
 				C359C0101FE036FE0040355F /* Materiales_Icon@1x.png in Resources */,
 				C359C00C1FE036FE0040355F /* EncuestaIcono@3x.png in Resources */,
 				C33455AD1FDF2E18006E548A /* ImgDoc@1x.png in Resources */,

@@ -335,7 +335,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return 55.5}
         else if(tableView == tablaFunciones){
             
-            return 48.0
+            return 37.5
         }
         else{
             return tamanoCelda
@@ -497,8 +497,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             let lugar = evento["lugar"] as? PFObject
             
             var espacio = CGFloat()
-            
-            
+
             espacio = 43.0 + cell.labelHora.frame.width + cell.imagenPerfil.frame.maxX
             
             let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
@@ -568,10 +567,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         else {
             let funcion = funciones[indexPath.row]
             
-            cell.labelTitulo?.frame = CGRect(x: 28.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
+            cell.labelTitulo?.frame = CGRect(x: 15.0, y: 11.25, width: view.frame.size.width - 100.0, height:0.0)
             let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
             cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-            cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
+            cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
             cell.labelTitulo.text = funcion
             
             cell.labelTitulo.textColor = UIColor(red: 30.0/255.0, green: 144.0/255.0, blue: 255.0/255.0, alpha: 1.0)

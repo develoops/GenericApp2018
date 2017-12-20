@@ -480,6 +480,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             let fecha = eventosVarLocal[index]["inicio"]
             let fechaString = dateFormatter.formatoAnoMesDiaString(fecha:fecha! as! NSDate)
             diasPrograma.append(fechaString)
+            
             }
         }
             else{
