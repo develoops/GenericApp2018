@@ -5,17 +5,16 @@
 //  Created by Arturo Sanhueza on 29-06-17.
 //  Copyright © 2017 Arturo Sanhueza. All rights reserved.
 //
-
 import UIKit
 import Parse
 
 class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
-   
+    
     @IBOutlet weak var tabla: UITableView!
     @IBOutlet weak var tablaActividades: UITableView!
     @IBOutlet weak var tablaFunciones: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
-
+    
     
     @IBOutlet weak var labelTituloDetallePrograma: UILabel!
     @IBOutlet weak var labelHoraDetallePrograma: UILabel!
@@ -25,7 +24,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var labelDiaDetallePrograma: UILabel!
     @IBOutlet weak var labelLugarDetallePrograma: UILabel!
     @IBOutlet weak var textViewInfoDetallePrograma: UITextView!
-
+    
     var hora: String!
     var dia:String!
     var colorFondo:UIColor!
@@ -41,9 +40,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
     var tamanoTabla = CGFloat()
-
     
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let query = PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", evento))
@@ -53,7 +52,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         query.includeKey("contenido.lugar")
         query.limit = 1000
         query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-
+            
             let a = task.result as! [PFObject]
             if(a.count != 0){
                 self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as? PFObject}.flatMap{$0}
@@ -61,31 +60,30 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             DispatchQueue.main.async() {
                 
                 self.tablaActividades.reloadData()
-                self.tablaActividades.frame = CGRect(x: 0.0, y:self.textViewInfoDetallePrograma.frame.maxY, width: self.view.frame.width, height: 0.0)
-                self.tablaFunciones.frame = CGRect(x: 0.0, y:self.tablaActividades.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
-
+                self.tablaActividades.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: 0.0)
                 self.tablaActividades.tableFooterView = UIView()
                 self.tablaFunciones.tableFooterView = UIView()
                 
                 self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
                 self.tablaFunciones.isScrollEnabled = false
+                self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: self.view.frame.height + 44.0)
                 
-                self.fijarOriginScroll(pointY: self.view.frame.height)
-
                 if(self.actividadesAnidadas.count == 0){
-                    
-                    self.tablaActividades.frame.size.height = 0.0
                     self.tablaFunciones.isHidden = false
-                    self.fijarOriginScroll(pointY: self.tablaFunciones.frame.maxY)
+                    self.tablaActividades.frame.size.height = 0.0
+                    
                 }
                 else{
-                    self.tablaActividades.frame.size.height = 1.0 * CGFloat(self.actividadesAnidadas.count)
                     self.tablaFunciones.isHidden = true
-                    self.fijarOriginScroll(pointY: self.tablaActividades.frame.maxY)
-
+                    self.tablaActividades.frame.size.height = 1.0 * CGFloat(self.actividadesAnidadas.count)
+                    
                 }
                 
+                self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
+
                 self.tablaActividades.isScrollEnabled = false
+                
+                
                 
             }
             return task
@@ -96,14 +94,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelHoraDetallePrograma.textColor = UIColor.white
         labelDiaDetallePrograma.textColor = UIColor.white
         labelLugarDetallePrograma.textColor = UIColor.white
+        
+        labelTituloDetallePrograma.font =  UIFont.systemFont(ofSize: 15.0)
+        labelHoraDetallePrograma.font =  UIFont.systemFont(ofSize: 12.0)
+        labelDiaDetallePrograma.font =  UIFont.systemFont(ofSize: 12.0)
+        labelLugarDetallePrograma.font =  UIFont.systemFont(ofSize: 12.0)
+        
 
-        labelTituloDetallePrograma.font = UIFont.systemFont(ofSize: 16.0, weight: UIFont.Weight.semibold)
-        labelHoraDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
-        labelDiaDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
-        labelLugarDetallePrograma.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
-        
-        
-        labelTituloDetallePrograma.frame = CGRect(x: 28.0, y: 84.0, width: self.view.frame.size.width - 76.0, height: 0.0)
+        labelTituloDetallePrograma.frame = CGRect(x: 15.0, y:51.5, width: self.view.frame.size.width - 76.0, height: 0.0)
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
@@ -111,8 +109,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelTituloDetallePrograma?.textAlignment = .left
         labelTituloDetallePrograma.numberOfLines = 0
         labelTituloDetallePrograma?.sizeToFit()
+        
+        labelHoraDetallePrograma.frame.origin = CGPoint(x: 15.0, y: labelTituloDetallePrograma.frame.maxY + 5.0)
+        
 
-        labelHoraDetallePrograma.frame.origin = CGPoint(x: 28.0, y: 94.0 + labelTituloDetallePrograma.frame.size.height)
         
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelHoraDetallePrograma.sizeThatFits(maximumLabelSizeHora)
@@ -120,9 +120,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelHoraDetallePrograma?.textAlignment = .left
         labelHoraDetallePrograma.numberOfLines = 0
         labelHoraDetallePrograma?.sizeToFit()
-
         
-        labelDiaDetallePrograma.frame.origin = CGPoint(x: 28.0, y: 99.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height)
+        
+        labelDiaDetallePrograma.frame.origin = CGPoint(x: 15.0, y: labelHoraDetallePrograma.frame.maxY + 2.5)
         
         let maximumLabelSizeDia = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelDiaDetallePrograma.sizeThatFits(maximumLabelSizeDia)
@@ -130,8 +130,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelDiaDetallePrograma?.textAlignment = .left
         labelDiaDetallePrograma.numberOfLines = 0
         labelDiaDetallePrograma?.sizeToFit()
-
-        labelLugarDetallePrograma.frame.origin = CGPoint(x: 28.0, y: 104.0 + labelTituloDetallePrograma.frame.size.height + labelHoraDetallePrograma.frame.size.height + labelDiaDetallePrograma.frame.size.height)
+        
+        labelLugarDetallePrograma.frame.origin = CGPoint(x: 15.0, y:labelDiaDetallePrograma.frame.maxY + 2.5)
         let lugar = evento["lugar"] as? PFObject
         
         let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
@@ -141,13 +141,13 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.numberOfLines = 0
         labelLugarDetallePrograma?.sizeToFit()
         
-        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.origin.y + labelLugarDetallePrograma.frame.size.height + 25.0, width: self.view.frame.width, height: CGFloat(60 * personas.count))
-
+        self.tabla.frame = CGRect(x: 0.0, y: labelLugarDetallePrograma.frame.maxY + 7.5, width: self.view.frame.width, height: CGFloat(personas.count) * 55.5)
+        
         self.tabla.isScrollEnabled = false
         
-        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y:self.tabla.frame.maxY + 10.0, width: self.view.frame.size
+        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.maxY + 2.5, width: self.view.frame.size
             .width - 10.0, height: 0.0)
-
+        
         textViewInfoDetallePrograma.text = evento["descripcion"] as? String
         textViewInfoDetallePrograma.translatesAutoresizingMaskIntoConstraints = true
         textViewInfoDetallePrograma?.textAlignment = .left
@@ -156,24 +156,24 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         
         if((evento["descripcion"] as? String) == nil){
-
+            
             textViewInfoDetallePrograma.frame.size.height = 5.0
-        
+            
         }
-    
-        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.tabla.frame.origin.y - 5.0))
+        
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: labelLugarDetallePrograma.frame.maxY + 10.0))
         colorFondoHeaderDetalle.backgroundColor = colorFondo
-//
+
         self.scrollView.addSubview(colorFondoHeaderDetalle)
         scrollView.sendSubview(toBack: colorFondoHeaderDetalle)
-
-
+        
+        
         if(lugar?["imgPerfil"] != nil){
-
+            
         }
         else{
             funciones.remove(at: 0)
-
+            
         }
         if(evento["tipo"] as? String == "break" || evento["tipo"] as? String == "social"){
             
@@ -185,28 +185,28 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func irAPreguntas(){
-    
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PreguntasVC") as! PreguntasVC
         
         vc.evento = evento!
         navigationController?.show(vc, sender: nil)
-
+        
     }
     
     func irAEncuesta(){
-
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "EncuestaVC") as! EncuestaVC
         
         vc.evento = evento!
         vc.tipoEncuesta = "actividad"
-
+        
         navigationController?.show(vc, sender: nil)
         
     }
-
-
+    
+    
     func evaluar(){
         
         let alert = UIAlertController(title: "Rating", message: "¿Qué te pareció ésta charla?", preferredStyle: .actionSheet)
@@ -220,8 +220,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func doSomething(action: UIAlertAction) {
-
-        let calificacion = action.title?.characters.count
+        
+        let calificacion = action.title?.count
         let rating = PFObject(className: "Rating")
         rating.setObject(calificacion!, forKey: "calificacion")
         rating.setObject(evento, forKey: "evento")
@@ -234,7 +234,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewDidAppear(_ animated: Bool) {
         
-
+        
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
         queryPersona.fromLocalDatastore()
@@ -261,15 +261,20 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                     self.favorito = true
                     self.favoritoAct = taskFav.result! as! [PFObject]
                     self.agregarBotonFavoritoNav()
-        }
+                    
+                    
+                }
                 else{
                     self.favorito = false
                     self.agregarBotonFavoritoNav()
                     
                 }
-        }
+            }
             return taskFav
         })
+        self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
+        
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.tablaFunciones.frame.maxY + 44.0)
 
     }
     
@@ -293,19 +298,19 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         if(tableView == tabla)
         {
             return personas.count
             
         }
-         else if(tableView == tablaActividades)
+        else if(tableView == tablaActividades)
         {
             return actividadesAnidadas.count
             
         }
         else{
-        
+            
             return funciones.count
         }
     }
@@ -314,7 +319,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if(tableView == tabla){
-            return 60.0}
+            return 55.5}
         else if(tableView == tablaFunciones){
             
             return 48.0
@@ -329,13 +334,21 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         if (tableView == tabla){
-        let persona = personas[indexPath.row]
+            let persona = personas[indexPath.row]
             
-        cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
+            cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
+            
+            let a = roles[safe: indexPath.row]
+            cell.imagenPerfil.frame.origin = CGPoint(x: 15.0, y: 7.5)
+            cell.imagenPerfil.frame.size = CGSize(width: 40.0, height: 40.0)
 
-        let a = roles[safe: indexPath.row]
-        cell.imagenPerfil.frame.origin = CGPoint(x: 16.0, y: 5.0)
-        cell.labelRol.text = a
+            cell.labelNombre.font = UIFont.systemFont(ofSize: 15.0)
+            cell.labelNombre.frame.origin = CGPoint(x: cell.imagenPerfil.frame.maxX + 22.5, y: 7.5)
+            
+            cell.labelRol.font = UIFont.systemFont(ofSize: 12.0)
+            cell.labelRol.frame.origin = CGPoint(x: cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.maxY + 2.5)
+
+            cell.labelRol.text = a
             let im = persona["ImgPerfil"] as? PFFile
             if !((im?.isDataAvailable)!) {
                 
@@ -344,12 +357,12 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             else{
                 im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
                     DispatchQueue.main.async {
-                    cell.imagenPerfil.image = UIImage(data: task.result! as Data)
-                }
-            })}}
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
+                })}}
             
         else if (tableView == tablaActividades){
-
+            
             let evento = actividadesAnidadas[indexPath.row] as PFObject
             
             var object = Array<Any>()
@@ -358,6 +371,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let persona = $0.value(forKey: "persona") as? PFObject
                 
                 object.append(persona!)
+                //            cell.imagenPerfil.frame.origin.x = cell.imagenMargen.frame.maxX + 10.0
                 
                 }}
             let im = evento["imgPerfil"] as? PFFile
@@ -485,7 +499,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.labelLugar?.sizeToFit()
             
             tamanoCelda = cell.labelTitulo.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + 15.0
-
+            
             
             if(tamanoCelda < 75.0)
             {
@@ -497,17 +511,16 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             print(indexPath.row,"row")
             print(actividadesAnidadas.count,"actividades")
-                tablaActividades.frame.size.height = tamanoTabla
+            print(tamanoTabla)
+            tablaActividades.frame.size.height = tamanoTabla
             
-            if(self.actividadesAnidadas.count == 0){
-
-                self.fijarOriginScroll(pointY: self.tablaFunciones.frame.maxY + 44.0)
-
-            }
-            else{
-                self.fijarOriginScroll(pointY: self.tablaActividades.frame.maxY)
-
-            }
+            self.tablaFunciones.frame = CGRect(x: 0.0, y:self.tablaActividades.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
+            
+            self.tablaFunciones.tableFooterView = UIView()
+            
+            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.tablaFunciones.frame.maxY)
+            
+            
             var colorImage = UIColor()
             
             if(evento["tipo"] as? String == "conferencia")
@@ -540,14 +553,14 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
         }
         else {
-        let funcion = funciones[indexPath.row]
+            let funcion = funciones[indexPath.row]
             
             cell.labelTitulo?.frame = CGRect(x: 28.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
             let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
             cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
             cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
             cell.labelTitulo.text = funcion
-
+            
             cell.labelTitulo.textColor = UIColor(red: 30.0/255.0, green: 144.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             cell.labelTitulo?.textAlignment = .left
             cell.labelTitulo.numberOfLines = 0
@@ -558,27 +571,27 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         return UITableViewAutomaticDimension
     }
-
+    
     func agregarBotonFavoritoNav(){
         
         
         if favorito == true {
-
-       navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_Favorito_marcado"), style: .plain, target: self, action: #selector(cambiarFavorito))
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_Favorito_marcado"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
         else{
-
-           navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Btn_favoritos_SinMarcar"), style: .plain, target: self, action: #selector(cambiarFavorito))
         }
         
     }
-
+    
     @objc func cambiarFavorito(sender:UIBarButtonItem!){
         
-
+        
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "user == %@", PFUser.current()!))
         favoritoQuery.fromLocalDatastore()
         favoritoQuery.includeKey("actividad")
@@ -628,93 +641,94 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                     self.favorito = false
                     self.tablaActividades.reloadData()
                     self.agregarBotonFavoritoNav()
-
+                    
                 }}
             return taskFav
         })
-
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if(tableView == tablaActividades){
-        let evento =  actividadesAnidadas[indexPath.row]
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
-        
-        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
-        vc.hora = fechaInicio + " - " + fechaFin
-        vc.evento = evento
-        if(evento["tipo"] as? String == "conferencia")
-        {
-            vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
-        }
-        
-        if(evento["tipo"] as? String == "social"){
+            let evento =  actividadesAnidadas[indexPath.row]
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
+            let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
+            let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
             
-            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
-            
-        }
-        if(evento["tipo"] as? String == "break"){
-            
-            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
-            
-        }
-
-        else{
-            vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
-            
-        }
-        vc.congreso = congreso
-        
-        var object = Array<Any>()
-        var roles = Array<Any>()
-        _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
-            let persona = $0.value(forKey: "persona") as? PFObject
-            let rol = $0.value(forKey: "rol") as? String
-            object.append(persona!)
-            roles.append(rol!)
-            
+            vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
+            vc.hora = fechaInicio + " - " + fechaFin
+            vc.evento = evento
+            if(evento["tipo"] as? String == "conferencia")
+            {
+                vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
             }
             
-        }
-        
-        let personaActividad = object as? [PFObject]
-        
-        if personaActividad != nil {
+            if(evento["tipo"] as? String == "social"){
+                
+                vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+                
+            }
+            if(evento["tipo"] as? String == "break"){
+                
+                vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
+                
+            }
+                
+            else{
+                vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
+                
+            }
+            vc.congreso = congreso
             
-            vc.personas = personaActividad!
-            vc.roles = roles as? [String]
-        }
-        
-        navigationController?.pushViewController(vc,
-                                                 animated: true)
+            var object = Array<Any>()
+            var roles = Array<Any>()
+            _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
+                let persona = $0.value(forKey: "persona") as? PFObject
+                let rol = $0.value(forKey: "rol") as? String
+                object.append(persona!)
+                roles.append(rol!)
+                
+                }
+                
+            }
+            
+            let personaActividad = object as? [PFObject]
+            
+            if personaActividad != nil {
+                
+                vc.personas = personaActividad!
+                vc.roles = roles as? [String]
+            }
+            
+            navigationController?.pushViewController(vc,
+                                                     animated: true)
             
         }
         else if(tableView == tablaFunciones){
-        
-        let funcion = funciones[indexPath.row]
-        
+            
+            let funcion = funciones[indexPath.row]
+            
             if(funcion == "Ir al Mapa"){
                 self.irAMapa()
             }
-            
+                
             else if(funcion == "Evaluar"){
                 irAEncuesta()
             }
-
+                
             else{
                 irAPreguntas()
             }}
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         
+        print(tamanoTabla)
         tamanoTabla = 0.0
-
+        
     }
     
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
@@ -727,21 +741,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         return image
     }
     
-    func fijarOriginScroll(pointY:CGFloat){
-        
-        if(pointY < self.view.frame.height){
-            
-            self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: 700.0)
-            
-        }
-        else{
-            self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: 700.0)
-        }
-
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
-
