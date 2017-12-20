@@ -1413,12 +1413,20 @@
                                             <outlet property="delegate" destination="cER-1T-fPp" id="keF-gb-nr8"/>
                                         </connections>
                                     </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gI1-p3-m1r">
+                                        <rect key="frame" x="43" y="6" width="136" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="botonModulo" destination="gI1-p3-m1r" id="FVD-re-foE"/>
                         <outlet property="labelDiaDetallePrograma" destination="p2X-wG-gzL" id="gbw-41-SRC"/>
                         <outlet property="labelHoraDetallePrograma" destination="pde-9a-qMr" id="h5B-p9-0WF"/>
                         <outlet property="labelLugarDetallePrograma" destination="GTs-hR-yWY" id="Bpa-ol-dcM"/>

@@ -15,7 +15,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var tablaFunciones: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
+    @IBOutlet weak var botonModulo: UIButton!
+
     @IBOutlet weak var labelTituloDetallePrograma: UILabel!
     @IBOutlet weak var labelHoraDetallePrograma: UILabel!
     
@@ -40,8 +41,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dateFormatter = DateFormatter()
     var tamanoCelda = CGFloat()
     var tamanoTabla = CGFloat()
-    
-    
+    var tieneModulo: Bool!
+    var nombreModulo: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +59,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as? PFObject}.flatMap{$0}
             }
             DispatchQueue.main.async() {
-                
-                self.tablaActividades.reloadData()
-                self.tablaActividades.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: 0.0)
+        self.tablaActividades.reloadData()
+        self.tablaActividades.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.height + self.textViewInfoDetallePrograma.frame.origin.y, width: self.view.frame.width, height: 0.0)
                 self.tablaActividades.tableFooterView = UIView()
                 self.tablaFunciones.tableFooterView = UIView()
-                
                 self.tablaFunciones.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
                 self.tablaFunciones.isScrollEnabled = false
                 self.scrollView.frame = CGRect(x: 0.0, y: -44.0, width: self.view.frame.width, height: self.view.frame.height + 44.0)
@@ -75,7 +74,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 }
                 else{
                     self.tablaFunciones.isHidden = true
-                    self.tablaActividades.frame.size.height = 1.0 * CGFloat(self.actividadesAnidadas.count)
+                    self.tablaActividades.frame.size.height = 0.01
                     
                 }
                 
@@ -83,12 +82,28 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
                 self.tablaActividades.isScrollEnabled = false
                 
-                
-                
-            }
+        }
             return task
         })
         
+        if(tieneModulo == true){
+            
+            print(nombreModulo)
+            botonModulo.isHidden = false
+            botonModulo.setTitle(nombreModulo + " >", for: .normal)
+            botonModulo.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
+            botonModulo.titleLabel?.textAlignment = .left
+            botonModulo.tintColor = UIColor.white
+            botonModulo.frame =  CGRect(x: 15.0, y:51.5, width: self.view.frame.size.width - 76.0, height: 12.0)
+            
+            labelTituloDetallePrograma.frame = CGRect(x: 15.0, y:botonModulo.frame.maxY + 7.5, width: self.view.frame.size.width - 76.0, height: 0.0)
+
+        }
+        else{
+            botonModulo.isHidden = true
+            labelTituloDetallePrograma.frame = CGRect(x: 15.0, y:51.5, width: self.view.frame.size.width - 76.0, height: 0.0)
+
+        }
         self.tabla.isUserInteractionEnabled = false
         labelTituloDetallePrograma.textColor = UIColor.white
         labelHoraDetallePrograma.textColor = UIColor.white
@@ -101,7 +116,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelLugarDetallePrograma.font =  UIFont.systemFont(ofSize: 12.0)
         
 
-        labelTituloDetallePrograma.frame = CGRect(x: 15.0, y:51.5, width: self.view.frame.size.width - 76.0, height: 0.0)
         
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelTituloDetallePrograma.sizeThatFits(maximumLabelSizeTitulo)
@@ -233,7 +247,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     
     override func viewDidAppear(_ animated: Bool) {
-        
         
         let queryPersona = PFQuery(className: "PersonaRolAct")
         queryPersona.limit = 1000
@@ -650,6 +663,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let nombreEvento = evento["nombre"]
+
         if(tableView == tablaActividades){
             let evento =  actividadesAnidadas[indexPath.row]
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -660,6 +675,15 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
             vc.hora = fechaInicio + " - " + fechaFin
             vc.evento = evento
+            vc.nombreModulo = nombreEvento as! String
+            
+            if (actividadesAnidadas.count == 0){
+                vc.tieneModulo = false
+            }
+            else{
+                vc.tieneModulo = true
+            }
+
             if(evento["tipo"] as? String == "conferencia")
             {
                 vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
