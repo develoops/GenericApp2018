@@ -127,7 +127,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         labelHoraDetallePrograma.frame.origin = CGPoint(x: 15.0, y: labelTituloDetallePrograma.frame.maxY + 5.0)
         
 
-        
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 26.0), height: 40000.0)
         labelHoraDetallePrograma.sizeThatFits(maximumLabelSizeHora)
         labelHoraDetallePrograma.text = hora
@@ -159,8 +158,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         self.tabla.isScrollEnabled = false
         
-        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.maxY + 2.5, width: self.view.frame.size
-            .width - 10.0, height: 0.0)
+        self.textViewInfoDetallePrograma.frame = CGRect(x: 10.0, y: self.tabla.frame.maxY + 2.5, width:self.view.frame.size.width - 15.0, height: 0.0)
         
         textViewInfoDetallePrograma.text = evento["descripcion"] as? String
         textViewInfoDetallePrograma.translatesAutoresizingMaskIntoConstraints = true
@@ -266,30 +264,29 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         favoritoQuery.fromLocalDatastore()
         favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
             
-            let fa = taskFav.result as? [PFObject]
-            DispatchQueue.main.async {
-                
-                if(fa?.count != 0){
+    let fa = taskFav.result as? [PFObject]
+    DispatchQueue.main.async {
+    
+        if(fa?.count != 0){
+            
+        self.favorito = true
+        self.favoritoAct = taskFav.result! as! [PFObject]
+        self.agregarBotonFavoritoNav()
+        
+        }
+    else
+        {
+        self.favorito = false
+        self.agregarBotonFavoritoNav()
                     
-                    self.favorito = true
-                    self.favoritoAct = taskFav.result! as! [PFObject]
-                    self.agregarBotonFavoritoNav()
-                    
-                    
-                }
-                else{
-                    self.favorito = false
-                    self.agregarBotonFavoritoNav()
-                    
-                }
-            }
+        }
+    }
             return taskFav
         })
         self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
         
         self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.tablaFunciones.frame.maxY + 44.0)
-
-    }
+}
     
     func irAMapa()
     {   let lugar = evento["lugar"] as? PFObject
@@ -338,8 +335,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return 37.5
         }
         else{
+            
             return tamanoCelda
         }
+    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -348,6 +347,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if (tableView == tabla){
             let persona = personas[indexPath.row]
+            
+            cell.accessoryType = .disclosureIndicator
             
             cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
             
@@ -400,6 +401,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             }
                 
             else{
+                
                 cell.imagenPerfil.frame.origin = CGPoint(x: (cell.imagenMargen.frame.maxX + 10.0), y: 12.5)
                 cell.imagenPerfil.isHidden = false
                 if(evento["tipo"] as? String == "social"){
@@ -518,14 +520,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             if(tamanoCelda < 75.0)
             {
                 tamanoCelda = tamanoCelda + 7.5
+                
             }
-            
-            
+
             tamanoTabla = tamanoTabla + tamanoCelda
             
-            print(indexPath.row,"row")
-            print(actividadesAnidadas.count,"actividades")
-            print(tamanoTabla)
             tablaActividades.frame.size.height = tamanoTabla
             
             self.tablaFunciones.frame = CGRect(x: 0.0, y:self.tablaActividades.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
@@ -561,10 +560,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
             }
             
-            
+            cell.imagenMargen.frame.origin = CGPoint(x: 0.0, y: 0.0)
             cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
             cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 5.5, height:tamanoCelda))
-            
+
         }
         else {
             let funcion = funciones[indexPath.row]

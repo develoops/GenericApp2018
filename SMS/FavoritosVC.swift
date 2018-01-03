@@ -264,8 +264,9 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         if(tamanoCelda < 75.0)
         {
             tamanoCelda = tamanoCelda + 7.5
+            
         }
-        
+
         cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 5.5, height:tamanoCelda))
         

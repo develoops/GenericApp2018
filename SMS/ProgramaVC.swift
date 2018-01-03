@@ -237,7 +237,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelTitulo?.sizeToFit()
         
         
-
         let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width  - (43.0 + cell.imagenPerfil.frame.maxX + margenImg)), height: 40000.0)
 
         cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
@@ -249,8 +248,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
 
-        
-//        var personasTamano = CGFloat()
         
         if(personaActividad != nil){
             
@@ -323,14 +320,23 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
         }
         
-        if(tamanoCelda < 75.0)
-        {
-            tamanoCelda = tamanoCelda + 7.5
-        }
+//        if((cell.frame.height - cell.labelLugar.frame.maxY) < 7.5){
+////        if(tamanoCelda < 90.0)
+////        {
+//            print(cell.frame.height - cell.labelLugar.frame.maxY)
+//            tamanoCelda = tamanoCelda + 7.5
+//        }
         
+                if(tamanoCelda < 75.0)
+                {
+                    tamanoCelda = tamanoCelda + 7.5
+
+        }
+
         cell.imagenMargen.frame.size = CGSize(width: 5.5, height: tamanoCelda)
         cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 5.5, height:tamanoCelda))
         
+        print(cell.imagenMargen.frame.origin)
         cell.botonFavorito.frame.origin = CGPoint(x: view.frame.width - 35.0, y: 12.5)
         cell.botonFavorito.tag = indexPath.row
         cell.botonFavorito.addTarget(self, action: #selector(cambiarFavorito), for: .touchUpInside)
