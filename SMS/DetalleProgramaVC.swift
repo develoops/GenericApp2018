@@ -378,6 +378,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             let evento = actividadesAnidadas[indexPath.row] as PFObject
             
+            
+            
             var object = Array<Any>()
             _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
                 
