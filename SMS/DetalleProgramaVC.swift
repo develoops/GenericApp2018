@@ -345,6 +345,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
+
         if (tableView == tabla){
             let persona = personas[indexPath.row]
             
@@ -373,7 +374,13 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                     DispatchQueue.main.async {
                         cell.imagenPerfil.image = UIImage(data: task.result! as Data)
                     }
-                })}}
+                })}
+            
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+            cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
+
+        }
             
         else if (tableView == tablaActividades){
             
@@ -514,6 +521,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.labelLugar.numberOfLines = 1
             cell.labelLugar?.sizeToFit()
             
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+            cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+
+            
             tamanoCelda = cell.labelTitulo.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + 15.0
             
             
@@ -578,8 +590,13 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.labelTitulo?.textAlignment = .left
             cell.labelTitulo.numberOfLines = 0
             cell.labelTitulo?.sizeToFit()
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+            cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+
             
         }
+
         return cell
     }
     
@@ -744,7 +761,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
             else{
                 irAPreguntas()
-            }}
+            }
+            
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

@@ -156,6 +156,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
+
         let evento = eventosFiltrados[indexPath.row] as PFObject
         var object = Array<Any>()
         _ = personas.map{if($0.value(forKey:"act") as? PFObject == evento){
@@ -349,9 +350,13 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         else{
             cell.botonFavorito.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
         }
+        
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+        cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+
         return cell
     }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let evento = eventosFiltrados[indexPath.row]
