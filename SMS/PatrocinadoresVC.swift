@@ -90,10 +90,13 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         cell.labelNombre.frame.origin = CGPoint(x: 102.5, y: 15.0)
         cell.labelNombre.text = patrocinador["nombre"] as? String
       
+        cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width) / 2
+        cell.imagenPerfil.layer.masksToBounds = true
+
+        
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
         cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
-        
         cell.accessoryType = .disclosureIndicator
 
         return cell
@@ -107,7 +110,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         let vc = storyboard.instantiateViewController(withIdentifier: "detallePatrocinadorVC") as! DetallePatrocinadorVC
         
         vc.nombrePatrocinador = patrocinador["nombre"] as? String
-        vc.info = patrocinador["bio"] as? String
+        vc.info = patrocinador["descripcion"] as? String
         vc.direc = patrocinador["direccion"] as? String
         vc.we = patrocinador["sitioWeb"] as? String
         vc.fon = patrocinador["telefono"] as? String
