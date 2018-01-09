@@ -125,6 +125,11 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             })
         }
 
+        cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width)/2
+        cell.imagenPerfil.layer.masksToBounds = true
+      //  cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width)/2
+
+        
         cell.labelNombre?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + 12.5 , y: 7.5, width: self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5), height:0.0)
         let maximumLabelSize = CGSize(width: (self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5)), height: 40000.0)
         cell.labelNombre.sizeThatFits(maximumLabelSize)
@@ -170,10 +175,12 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let lugar = persona.value(forKey: "pais") as? PFObject
         
+        let institucion = persona.value(forKey: "institucion") as? PFObject
+
         vc.nombrePersona = (persona["preNombre"] as! String) + " " + (persona["primerNombre"] as! String) + " " + (persona["primerApellido"] as! String)
         vc.lugarPersona = lugar?["nombre"] as? String
         vc.info = persona["descripcion"] as? String
-
+        vc.institucion = institucion?["nombre"] as? String
        let actividades = rolAct.filter({($0["persona"] as! PFObject) == persona})
         
         let act = actividades.map({$0.value(forKey: "act") as? PFObject}).flatMap({$0})

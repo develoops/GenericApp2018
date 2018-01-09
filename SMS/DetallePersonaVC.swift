@@ -22,6 +22,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     var nombrePersona:String!
     var congreso:PFObject!
     var charlasArray: [PFObject]!
+    var funcionesPersona: [String]!
     var personasCharla:[AnyObject] = []
     var institucion: String!
     var lugarPersona: String!
@@ -38,13 +39,11 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelNombreDetallePersona.text = nombrePersona
-        labelLugarPersonaDetallePersona.text = lugarPersona
-        
-        labelInstitucionDetallePersona.text = institucion
-
-        labelRolDetallePersona.text = rol
+        funcionesPersona = ["Sesiones","Materiales","Evaluar","Preguntar"]
+        self.tabla.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
+        self.tabla.isScrollEnabled = false
         textViewInfoDetallePersona.text = info
+        self.textViewInfoDetallePersona.frame = CGRect(x: 15.0, y: self.tabla.frame.maxY + 2.5, width:self.view.frame.size.width - 15.0, height: 0.0)
         
         if(imagen != nil){
             imagenPersona.image = imagen
@@ -62,50 +61,117 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                 else{
                     
                     self.imagenPersona.image = UIImage(data: (task.result as Data?)!)
-
-                }
-            }
+                    
+                }}
             return task
             })
         }
-        
+        imagenPersona.layer.cornerRadius = (imagenPersona.frame.size.width) / 2
+        imagenPersona.layer.masksToBounds = true
+
         labelNombreDetallePersona.textColor = UIColor.white
         labelLugarPersonaDetallePersona.textColor = UIColor.white
         labelInstitucionDetallePersona.textColor = UIColor.white
         labelRolDetallePersona.textColor = UIColor.white
 
         
-        labelNombreDetallePersona.font = UIFont.systemFont(ofSize: 16.0)
-        labelLugarPersonaDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
-        labelInstitucionDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
-        labelRolDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
-        
+        labelNombreDetallePersona.font = UIFont.systemFont(ofSize: 15.0)
+        labelLugarPersonaDetallePersona.font = UIFont.systemFont(ofSize: 15.0)
+        labelInstitucionDetallePersona.font = UIFont.systemFont(ofSize: 15.0)
+        labelRolDetallePersona.font = UIFont.systemFont(ofSize: 15.0)
         textViewInfoDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
         
-        imagenPersona.frame.origin = CGPoint(x: 20.0, y: 84.0)
-        labelNombreDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 84.0)
+        
+
+        imagenPersona.frame.origin = CGPoint(x: 15.0
+            , y: 79.0)
+
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - (imagenPersona.frame.maxX + 30.0)), height: 40000.0)
+        labelNombreDetallePersona.sizeThatFits(maximumLabelSizeTitulo)
+        labelNombreDetallePersona.text = nombrePersona
+        labelNombreDetallePersona?.textAlignment = .left
+        labelNombreDetallePersona.numberOfLines = 0
+        labelNombreDetallePersona?.sizeToFit()
+
+        
+        let maximumLabelSizeInstitucion = CGSize(width: (self.view.frame.size.width - (imagenPersona.frame.maxX + 30.0)), height: 40000.0)
+        labelInstitucionDetallePersona.sizeThatFits(maximumLabelSizeInstitucion)
+        labelInstitucionDetallePersona.text = institucion
+        labelInstitucionDetallePersona?.textAlignment = .left
+        labelInstitucionDetallePersona.numberOfLines = 0
+        labelInstitucionDetallePersona?.sizeToFit()
+
+        let maximumLabelSizeLugar = CGSize(width: (self.view.frame.size.width - (imagenPersona.frame.maxX + 30.0)), height: 40000.0)
+        labelLugarPersonaDetallePersona.sizeThatFits(maximumLabelSizeLugar)
+        labelLugarPersonaDetallePersona.text = lugarPersona
+        labelLugarPersonaDetallePersona?.textAlignment = .left
+        labelLugarPersonaDetallePersona.numberOfLines = 0
+        labelLugarPersonaDetallePersona?.sizeToFit()
+        
+        labelRolDetallePersona.text = rol
+
+        let maximumLabelSizeRol = CGSize(width: (self.view.frame.size.width - (imagenPersona.frame.maxX + 30.0)), height: 40000.0)
+        labelRolDetallePersona.sizeThatFits(maximumLabelSizeRol)
+        labelRolDetallePersona.text = rol
+        labelRolDetallePersona?.textAlignment = .left
+        labelRolDetallePersona.numberOfLines = 0
+        labelRolDetallePersona?.sizeToFit()
+        
+
+
+        
+        labelNombreDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: 79.0)
         
         if(labelInstitucionDetallePersona.text ==  "" || labelInstitucionDetallePersona.text ==  nil){
-            
-            
-        labelRolDetallePersona.frame = CGRect(x: imagenPersona.frame.width + 45.0, y: labelNombreDetallePersona.frame.origin.y + labelNombreDetallePersona.frame.size.height, width: 100.0, height: 30.0)
-            labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: labelRolDetallePersona.frame.origin.y + labelRolDetallePersona.frame.size.height)
+        
+        labelRolDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: labelNombreDetallePersona.frame.maxY + 5.0)
+           
+            if((labelRolDetallePersona.text == "") || labelRolDetallePersona.text == nil){
+                
+                labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: labelRolDetallePersona.frame.maxY)
+                
+            }
+            else{
+                labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: labelRolDetallePersona.frame.maxY + 5.0)
+                
+            }
 
         }
         else {
-            labelInstitucionDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 99.0 + labelNombreDetallePersona.frame.size.height)
-            labelInstitucionDetallePersona.frame.size = CGSize(width: 30.0, height: 30.0)
+            labelInstitucionDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: labelNombreDetallePersona.frame.maxY + 5.0)
 
-            labelRolDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 104.0 + labelInstitucionDetallePersona.frame.size.height  + labelNombreDetallePersona.frame.size.height)
-            labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.width + 45.0, y: 109.0 + labelRolDetallePersona.frame.size.height + labelInstitucionDetallePersona.frame.size.height + labelNombreDetallePersona.frame.size.height)
+            labelRolDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y:labelInstitucionDetallePersona.frame.maxY + 5.0)
+            
+            if((labelRolDetallePersona.text == "") || labelRolDetallePersona.text == nil){
+                
+                labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: labelRolDetallePersona.frame.maxY)
+
+            }
+            else{
+                labelLugarPersonaDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: labelRolDetallePersona.frame.maxY + 5.0)
+                
+            }
         }
         
-
       
-        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0))
-        colorFondoHeaderDetalle.backgroundColor = UIColor.lightGray
+        var coordenadaFinalY = CGFloat()
+    
+        if(self.labelLugarPersonaDetallePersona.frame.maxY > self.imagenPersona.frame.maxY){
+            
+            coordenadaFinalY = self.labelLugarPersonaDetallePersona.frame.maxY + 15.0
+            
+        }
+        else{
+            
+            coordenadaFinalY = self.imagenPersona.frame.maxY + 15.0
+        }
+        let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: coordenadaFinalY))
         
-        textViewInfoDetallePersona.frame.origin = CGPoint(x: 20.0, y: self.labelLugarPersonaDetallePersona.frame.origin.y + self.labelLugarPersonaDetallePersona.frame.size.height + 30.0)
+        let colorFondo = UIColor(red: 186.0/255.0, green: 119.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        
+        colorFondoHeaderDetalle.backgroundColor = colorFondo
+
+        textViewInfoDetallePersona.frame.origin = CGPoint(x: 10.0, y:colorFondoHeaderDetalle.frame.maxY + 7.5)
         textViewInfoDetallePersona.frame.size = CGSize(width: view.frame.width - 20.0, height: 0.0)
         
         textViewInfoDetallePersona.sizeToFit()
@@ -117,6 +183,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         }
             else{
         self.tabla.frame.origin = CGPoint(x: 0.0, y: textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height)
+            
         self.tabla.frame.size = CGSize(width: view.frame.size.width, height: view.frame.height - (textViewInfoDetallePersona.frame.origin.y + textViewInfoDetallePersona.frame.size.height + 30))
         }
         
@@ -155,8 +222,8 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let charlasArray = charlasArray {
-            return charlasArray.count
+        if let funcionesPersona = funcionesPersona {
+            return funcionesPersona.count
             
         }
         else{
@@ -166,98 +233,38 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return tamanoCelda + 20.0
+        return 37.5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
-        let evento =  charlasArray[indexPath.row]
         
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
+        let funcion = funcionesPersona[indexPath.row]
+        cell.labelTitulo?.frame = CGRect(x: 15.0, y: 11.25, width: view.frame.size.width - 100.0, height:0.0)
         
-        cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
-        cell.labelTitulo?.frame = CGRect(x: 38.0, y: 20.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
         cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-        cell.labelTitulo.font = UIFont.systemFont(ofSize: 16.0)
-        cell.labelTitulo.text = evento["nombre"] as? String
+        cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0)
+        cell.labelTitulo.text = funcion
+        
         cell.labelTitulo?.textAlignment = .left
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
-        
-        let maximumLabelSizeHora = CGSize(width: (self.view.frame.size.width - 114.0), height: 40000.0)
-        
-        cell.labelHora?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelHora?.frame =  CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 35.0, width: 0.0, height: 0.0)
-        cell.labelHora.font = UIFont.systemFont(ofSize: 14.0)
-        cell.labelHora.sizeThatFits(maximumLabelSizeHora)
-        cell.labelHora.text = fechaInicio + " - " + fechaFin
-        cell.labelHora?.textAlignment = .left
-        cell.labelHora.numberOfLines = 0
-        cell.labelHora?.sizeToFit()
-        
-        let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
-        cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-        cell.labelLugar?.frame = CGRect(x: 65.0 + cell.labelHora.frame.width, y: cell.labelTitulo.frame.size.height + 35.0, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width), height: 40.0)
-        cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
-        cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
-        cell.labelLugar.text = evento["lugar"] as? String
-        cell.labelLugar?.textAlignment = .left
-        cell.labelLugar.numberOfLines = 0
-        cell.labelLugar?.sizeToFit()
-        
-        var personasTamano = Int()
-        
-        let personaActividad = personasCharla[safe: indexPath.row]
-        
-        if(evento == personaActividad?.firstObject as? PFObject){
-            
-            let personasAct = personaActividad?.lastObject as! [PFObject]
-        
-            var personasString = String()
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+        cell.layoutMargins = UIEdgeInsets(top: 0.0, left: cell.labelTitulo.frame.origin.x, bottom: 0.0, right: 10.0)
+        if (funcion == "Sesiones" || funcion == "Materiales") {
+            cell.accessoryType = .disclosureIndicator
+            cell.labelTitulo.textColor = UIColor.darkText
 
-            for object in (personasAct){
-                
-                let persona = object["persona"] as! PFObject
-                personasString.append((persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String) + "\n")
-                personasTamano = personasTamano + (28 / (personaActividad?.count)!)
-            }
-            let maximumLabelSizePonente = CGSize(width: (self.view.frame.size.width - 152.0), height: 40000.0)
-            cell.labelSpeaker1?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            cell.labelSpeaker1?.frame = CGRect(x: 38.0, y: cell.labelTitulo.frame.size.height + 60.0, width: 0.0, height: 0.0)
-            cell.labelSpeaker1.sizeThatFits(maximumLabelSizePonente)
-            cell.labelSpeaker1.font = UIFont.systemFont(ofSize: 14.0)
-            cell.labelSpeaker1.text = personasString
-            cell.labelSpeaker1.numberOfLines = 0
-            cell.labelSpeaker1?.textAlignment = .left
-            cell.labelSpeaker1?.sizeToFit()
-            
         }
         else{
-            cell.labelSpeaker1.text = ""
+            cell.accessoryType = .none
+            cell.labelTitulo.textColor = UIColor(red: 30.0/255.0, green: 144.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+
         }
-        tamanoCelda = cell.labelTitulo.frame.height + cell.labelLugar.frame.height + cell.labelHora.frame.height + cell.labelSpeaker1.frame.height + CGFloat(personasTamano)
-        
-        var colorImage = UIColor()
-        if(evento["tipo"] as? String == "conferencia")
-        {
-            colorImage = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
-        }
-            
-        else if (evento["tipo"] as? String == "social") {
-            
-            colorImage = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
-            
-        }
-        else{
-            colorImage = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
-            
-        }
-        
-        cell.imagenMargen.image = getImageWithColor(color: colorImage, size: CGSize(width: 10.0, height:tamanoCelda))
-        
+
         return cell
     }
     
