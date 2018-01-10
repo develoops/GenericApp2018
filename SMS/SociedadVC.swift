@@ -78,41 +78,55 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let encabezado = objetoInfo.first as? String
         
-    if(encabezado == "imagen"){
+        if(encabezado == "imagen"){
             let imagen = objetoInfo.last as? PFFile
             cell.labelTitulo?.isHidden = true
             cell.infoDetallePatrocinador?.isHidden = true
             cell.imagenPerfil.isHidden = false
             imagen?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
-                cell.imagenPerfil.image = UIImage(data: task.result! as Data)
                 
-                return task
-        })
-        
-            cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 10.0, width: 150.0, height: 150.0)
+                DispatchQueue.main.async {
+                    
+                    if ((task.error) != nil){
+                        
+                        cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
+                        
+                    }
+                    else{
+                        cell.imagenPerfil.image = UIImage(data: task.result! as Data)
+                    }
+                    
+                }
+                return task.result
+            })
+            
+            cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 7.5, width: 150.0, height: 147.0)
+            cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width) / 2
+            cell.imagenPerfil.layer.masksToBounds = true
+            
+            
         }
             
         else{
             cell.labelTitulo?.isHidden = false
             cell.infoDetallePatrocinador?.isHidden = false
-            //cell.labelTitulo?.textColor = UIColor(red: 74/255, green: 144/255, blue: 226/255, alpha: 1)
-            cell.labelTitulo?.frame = CGRect(x: 25.0, y: 10.0, width: view.frame.size.width - 100.0, height:0.0)
+            
+            cell.labelTitulo?.textColor = UIColor(red: 74/255, green: 144/255, blue: 226/255, alpha: 1)
+            cell.labelTitulo?.frame = CGRect(x: 25.0, y: 7.5, width: view.frame.size.width - 100.0, height:0.0)
             let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
             cell.labelTitulo.sizeThatFits(maximumLabelSizeTitulo)
-            cell.labelTitulo.font = UIFont.boldSystemFont(ofSize: 18.0)
+            cell.labelTitulo.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.light)
             cell.labelTitulo?.text = objetoInfo.first as? String
             cell.labelTitulo?.textAlignment = .left
             cell.labelTitulo.numberOfLines = 0
             cell.labelTitulo?.sizeToFit()
             
             
-            cell.infoDetallePatrocinador.frame = CGRect(x: 21.0, y: cell.labelTitulo.frame.origin.y + cell.labelTitulo.frame.height, width: view.frame.size.width - 40.0, height: 0.0)
-            //cell.infoDetallePatrocinador?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
+            cell.infoDetallePatrocinador.frame = CGRect(x: 21.0, y: cell.labelTitulo.frame.maxY, width: view.frame.size.width - 40.0, height: 0.0)
+            cell.infoDetallePatrocinador?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
             let maximumLabelSizeDetalleInfo = CGSize(width: (self.view.frame.size.width - 76.0), height: 40000.0)
             cell.infoDetallePatrocinador.sizeThatFits(maximumLabelSizeDetalleInfo)
             cell.infoDetallePatrocinador.text = objetoInfo.last as? String
-            cell.infoDetallePatrocinador.font = UIFont.systemFont(ofSize: 16.0)
-            
             cell.infoDetallePatrocinador?.textAlignment = .left
             cell.infoDetallePatrocinador?.sizeToFit()
             
@@ -120,21 +134,19 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
         }
         
-        
         if(encabezado == "imagen"){
             
-            tamanoCelda = cell.imagenPerfil.frame.size.height + 40.0
-            
+            tamanoCelda = cell.imagenPerfil.frame.maxY + 7.5
             
         }
             
         else{
-            tamanoCelda = cell.labelTitulo.frame.height + cell.infoDetallePatrocinador.frame.height + 15.0
+            tamanoCelda = cell.infoDetallePatrocinador.frame.maxY + 7.5
         }
-        
         
         return cell
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

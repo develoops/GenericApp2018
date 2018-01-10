@@ -26,6 +26,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         tabla.delegate = self
         tabla.dataSource = self
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
+        self.tabla.tableFooterView = UIView()
 
     }
 
@@ -187,9 +188,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
         
-        
-        //        var personasTamano = CGFloat()
-        
+                
         if(personaActividad != nil){
             
             var personasString = String()

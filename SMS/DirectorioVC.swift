@@ -129,7 +129,6 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelLugarPersona.numberOfLines = 0
         cell.labelLugarPersona?.sizeToFit()
         
-        
         cell.labelInstitucion?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelLugarPersona.frame.maxY + 5.0)
         
         cell.labelInstitucion.sizeThatFits(maximumLabelSize)
@@ -177,11 +176,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         navigationController?.pushViewController(vc,
                                                  animated: true)
-
-    }
-    
-    
-    
+}
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
