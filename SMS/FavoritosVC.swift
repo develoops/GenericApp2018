@@ -46,7 +46,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         
-        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+        favoritoQuery.findObjectsInBackground().continueWith{(taskFav:BFTask<NSArray>) -> Any? in
             
            self.favs =  taskFav.result as! [PFObject]
             
@@ -57,12 +57,12 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 self.tabla.reloadData()
             
             }
-            return queryPersona.findObjectsInBackground().continue({ (taskPersona:BFTask<NSArray>) -> Any? in
+            return queryPersona.findObjectsInBackground().continueWith{ (taskPersona:BFTask<NSArray>) -> Any? in
                 
                 self.personas = taskPersona.result as! [PFObject]
                 return taskPersona
-            })
-        })
+            }
+        }
 
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = rightButton
 
@@ -135,7 +135,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             margenImg = 12.5
             
-            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                 
                 DispatchQueue.main.async {
                     
@@ -149,7 +149,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     }
                 }
                 return task
-            })
+            }
         }
         
         let personaActividad = object as? [PFObject]
@@ -299,7 +299,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             if let index = self.favs.index(of:filtro.first!) {
                 self.favs.remove(at: index)
                 
-                _ =   filtro.map{$0.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                _ =   filtro.map{$0.unpinInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                   
                     
                     DispatchQueue.main.async {
@@ -307,7 +307,7 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     }
                     return task
                     
-                })}
+                }}
             }
             
         }

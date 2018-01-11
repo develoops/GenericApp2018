@@ -61,14 +61,16 @@ class SplashVC: UIViewController {
         
         let  queryCollections = [query,query2,query3,query4,query5,query6,query7,query8,query9]
         
-        let tasks = queryCollections.map{$0.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        let tasks = queryCollections.map{$0.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
             
             return task
-        })}
+        }}
         
-        BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continue({ task -> Any? in
-            PFObject.pinAll(inBackground: (task.result as! [PFObject])).continue(successBlock: { (i:BFTask<NSNumber>) -> Any? in
+        BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continueWith(block: { task -> Any? in
+            PFObject.pinAll(inBackground: (task.result as! [PFObject])).continueOnSuccessWith(block: { (i:BFTask<NSNumber>) -> Any? in
+                
+          
                 DispatchQueue.main.async {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC

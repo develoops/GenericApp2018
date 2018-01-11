@@ -8,50 +8,52 @@
 
 import UIKit
 import Parse
+import SWSegmentedControl
 
-class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource,SWSegmentedControlDelegate {
     
     @IBOutlet weak var tabla: UITableView!
     var tamanoCelda = CGFloat()
     var dateFormatter = DateFormatter()
     var eventosCongreso = [PFObject]()
-//    var toolbarEventosFechas = UIToolbar()
-    
+    @IBOutlet weak var segmentedControl: SWSegmentedControl!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
 
-//        let toolbarEventos = UIToolbar(frame: CGRect(x: 0.0, y: 64.0, width: view.frame.width, height: 40.0))
-    
-//       let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-        
-//        toolbarEventos.setItems([button], animated: true)
-//        view.addSubview(toolbarEventos)
-        
-//        tabla.frame = CGRect(x: view.frame.origin.x, y: toolbarEventos.frame.maxY, width: view.frame.width, height: (view.frame.height - toolbarEventos.frame.height))
 
-        tabla.frame = view.frame
+        let sc = SWSegmentedControl(items: ["Pasados", "Actuales","Próximos"])
+        sc.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        sc.frame = CGRect(x: 5.0, y: 64.0, width: view.frame.width - 10.0, height: 44.0)
+        sc.delegate = self
+        sc.selectedSegmentIndex = 1
+        self.view.addSubview(sc)
+    
         
-        UIControl
+        tabla.frame = CGRect(x: 0.0, y: sc.frame.maxY + 5.0, width: view.frame.width, height: view.frame.height - sc.frame.height)
+        
         
         let queryEventosCongreso = PFQuery(className: "Actividad")
         queryEventosCongreso.fromLocalDatastore()
         queryEventosCongreso.whereKey("tipo", equalTo: "congreso")
         queryEventosCongreso.includeKey("lugar")
         
-        queryEventosCongreso.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
-            
+        queryEventosCongreso.findObjectsInBackground().continueWith { (task:BFTask<NSArray>) -> Any? in
+         
             DispatchQueue.main.async() {
-            self.eventosCongreso = task.result as! [PFObject]
-            self.tabla.reloadData()
+                self.eventosCongreso = task.result as! [PFObject]
+                self.tabla.reloadData()
                 self.tabla.tableFooterView = UIView()
-
+                
             }
             
             return task.result
+        }
+        
+
             
-        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,7 +96,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             let file = eventos["imgPerfil"] as? PFFile
             
-            file?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            file?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                 
                 if(task.result != nil){
                     cell.imagenPerfil.image = UIImage(data: task.result! as Data)
@@ -102,7 +104,7 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 
                 return task
-            })
+            }
         }
         cell.imagenPerfil.frame = CGRect(x: 7.5, y: 7.5, width: 63.5, height: 63.5)
         
@@ -155,6 +157,30 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         navigationController?.present(vc, animated: true, completion: nil)
     }
     
+    func segmentedControl(_ control: SWSegmentedControl, willSelectItemAtIndex index: Int) {
+        print("will select \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, didSelectItemAtIndex index: Int) {
+        print("did select \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, willDeselectItemAtIndex index: Int) {
+        print("will deselect \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, didDeselectItemAtIndex index: Int) {
+        print("did deselect \(index)")
+    }
+    
+//    func segmentedControl(_ control: SWSegmentedControl, canSelectItemAtIndex index: Int) -> Bool {
+//        if index == 1 {
+//            return false
+//        }
+//
+//        return true
+//    }
+
         override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

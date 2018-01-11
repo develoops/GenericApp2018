@@ -45,7 +45,7 @@ class EncuestaGeneralVC: UIViewController {
         let query = PFQuery(className: "PreguntaDeEncuesta", predicate:NSPredicate(format: "tipo == %@","general"))
 
         query.order(byAscending: "posicion")
-        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
                 self.encabezado.frame.size.width = self.view.frame.width - 26.0
@@ -83,7 +83,7 @@ class EncuestaGeneralVC: UIViewController {
                 
             }
             return task
-        })
+        }
         
         
     }
@@ -100,11 +100,11 @@ class EncuestaGeneralVC: UIViewController {
             respuesta.setObject(object, forKey: "valoracion")
             respuesta.setObject(noticias[Int(object)], forKey: "pregunta")
             respuesta.setObject(noticias[Int(object)]["encuesta"], forKey: "encuesta")
-            respuesta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            respuesta.saveInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                 
                 print(respuesta)
                 return task
-            })
+            }
         }
 
         self.navigationController?.popViewController(animated: true)

@@ -77,7 +77,7 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
             cell.labelTitulo?.isHidden = true
             cell.infoDetallePatrocinador?.isHidden = true
             cell.imagenPerfil.isHidden = false
-            imagen?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            imagen?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                
                 DispatchQueue.main.async {
                     
@@ -92,7 +92,7 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
                     
                 }
                 return task.result
-            })
+            }
         
             cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 7.5, width: 150.0, height: 147.0)
             cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width) / 2

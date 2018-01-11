@@ -28,19 +28,22 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         queryDirectiva.includeKey("persona.pais")
         queryDirectiva.includeKey("persona.institucion")
 
-
-        queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        queryDirectiva.findObjectsInBackground().continueWith { (task:BFTask<NSArray>) -> Any? in
             
+                        DispatchQueue.main.async {
             
-            DispatchQueue.main.async {
-                
-                self.personas = task.result as! [PFObject]
-                self.tabla.reloadData()
-                self.tabla.tableFooterView = UIView()
+                            self.personas = task.result as! [PFObject]
+                            self.tabla.reloadData()
+                            self.tabla.tableFooterView = UIView()
+            
+            }
+                        return task
+        }
 
-}
-            return task
-        })
+//        queryDirectiva.findObjectsInBackground().continueWith({ (task:BFTask<NSArray>) -> Any? in
+//
+//
+//        })
         
         
     }
@@ -86,7 +89,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         }
             
         else{
-            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                 
                 DispatchQueue.main.async {
                     
@@ -103,7 +106,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 
                 return task
-            })
+            }
         }
         
         cell.labelNombre?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + 12.5 , y: 7.5, width: self.view.frame.width - (cell.imagenPerfil.frame.maxX + 27.5), height:0.0)

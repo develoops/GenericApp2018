@@ -27,13 +27,13 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         let query = PFQuery(className: "Info")
         query.fromLocalDatastore()
-        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tabla.reloadData()
             }
             return task
-        })
+        }
     }
 
     override func didReceiveMemoryWarning() {

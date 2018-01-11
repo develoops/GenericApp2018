@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ReadMoreTextView
 
  class TableViewCell: UITableViewCell{
     
@@ -25,7 +25,7 @@ import UIKit
     @IBOutlet weak var labelInstitucion: UILabel!
     @IBOutlet weak var labelRol: UILabel!
     
-    @IBOutlet weak var infoDetallePatrocinador: UITextView!
+    @IBOutlet weak var infoDetallePatrocinador:ReadMoreTextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

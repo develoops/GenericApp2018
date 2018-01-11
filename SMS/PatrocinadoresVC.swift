@@ -27,14 +27,14 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         let patrocinadoresQuery =  PFQuery(className: "Org", predicate: NSPredicate(format:" tipo == %@","patrocinador"))
         patrocinadoresQuery.fromLocalDatastore()
         patrocinadoresQuery.addAscendingOrder("nombre")
-        patrocinadoresQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        patrocinadoresQuery.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
             self.patrocinadores = task.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tabla.reloadData()
             }
             return task
-        })
+        }
 
         self.navigationController?.navigationBar.topItem?.title = "Patrocinadores"
     }
@@ -70,7 +70,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
 }
         else{
             let imagen = patrocinador["imgPerfil"] as! PFFile
-            imagen.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            imagen.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                
                 DispatchQueue.main.async {
                 
@@ -85,7 +85,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
 
             }
                return task.result
-            })
+            }
         }
         cell.labelNombre.frame.origin = CGPoint(x: 102.5, y: 15.0)
         cell.labelNombre.text = patrocinador["nombre"] as? String

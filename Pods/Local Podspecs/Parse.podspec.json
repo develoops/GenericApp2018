@@ -1,19 +1,20 @@
 {
   "name": "Parse",
-  "version": "1.15.3",
+  "version": "1.15.4",
   "license": {
     "type": "BSD",
     "file": "LICENSE"
   },
   "homepage": "http://parseplatform.org/",
   "summary": "A library that gives you access to the powerful Parse cloud platform from your iOS/OS X/watchOS/tvOS app.",
-  "authors": "Parse",
+  "authors": "Parse Community",
+  "social_media_url": "https://twitter.com/ParsePlatform",
   "source": {
     "git": "https://github.com/parse-community/Parse-SDK-iOS-OSX.git",
-    "tag": "1.15.3"
+    "tag": "1.15.4"
   },
   "platforms": {
-    "ios": "7.0",
+    "ios": "8.0",
     "osx": "10.9",
     "tvos": "9.0",
     "watchos": "2.0"
@@ -112,7 +113,7 @@
   ],
   "dependencies": {
     "Bolts/Tasks": [
-      "~> 1.8"
+      "~> 1.9"
     ]
   }
 }

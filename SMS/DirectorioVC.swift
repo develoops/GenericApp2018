@@ -28,7 +28,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         queryDirectiva.order(byAscending: "order")
         queryDirectiva.fromLocalDatastore()
         queryDirectiva.includeKey("persona.pais")
-        queryDirectiva.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        queryDirectiva.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
             DispatchQueue.main.async {
                 
@@ -38,7 +38,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             
             return task
-        })
+        }
         
         
     }
@@ -91,7 +91,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         }
             
         else{
-            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            im?.getDataInBackground().continueWith(block: { (task:BFTask<NSData>) -> Any? in
                 
                 DispatchQueue.main.async {
                     
@@ -106,8 +106,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                     
                 }
                 
-                
-                return task
+            return task
             })
         }
         

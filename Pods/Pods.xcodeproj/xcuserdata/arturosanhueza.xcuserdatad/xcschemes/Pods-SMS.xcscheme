@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0910"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "61986310A937899E2ED99EF1DE641007"
+               BlueprintIdentifier = "B17FC40B6602AF6EDE1A43E248AC527E"
                BuildableName = "Pods_SMS.framework"
                BlueprintName = "Pods-SMS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "61986310A937899E2ED99EF1DE641007"
+            BlueprintIdentifier = "B17FC40B6602AF6EDE1A43E248AC527E"
             BuildableName = "Pods_SMS.framework"
             BlueprintName = "Pods-SMS"
             ReferencedContainer = "container:Pods.xcodeproj">

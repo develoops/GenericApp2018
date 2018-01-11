@@ -29,7 +29,7 @@ class MapVC: UIViewController,UIScrollViewDelegate {
     scrollView.maximumZoomScale = 12.0
     
     
-        mapa.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+        mapa.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
             
             DispatchQueue.main.async {
                 
@@ -41,7 +41,7 @@ class MapVC: UIViewController,UIScrollViewDelegate {
             self.scrollView.addSubview(self.imageView)
             }
             return task
-        })
+        }
     
     asignarCoordenadaPin(nombreSalon:nombreSalon)
     }

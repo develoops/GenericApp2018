@@ -39,7 +39,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.includeKey("persona")
         query.includeKey("persona.pais")
         query.includeKey("persona.institucion")
-        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
         self.rolAct = task.result as! [PFObject]
             
@@ -64,7 +64,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 self.tabla.reloadData()
             }
             return task
-        })
+        }
 
         self.navigationController?.navigationBar.topItem?.title = "Ponentes"
     }
@@ -105,7 +105,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         }
             
         else{
-            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                 
                 DispatchQueue.main.async {
                     
@@ -122,7 +122,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
                 
                 
                 return task
-            })
+            }
         }
 
         cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width)/2

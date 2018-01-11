@@ -1,17 +1,21 @@
 PODS:
   - Bolts-Swift (1.3.0)
-  - Bolts/Tasks (1.8.4)
-  - Parse (1.15.3):
-    - Bolts/Tasks (~> 1.8)
-  - ParseLiveQuery (2.2.1):
+  - Bolts/Tasks (1.9.0)
+  - Parse (1.15.4):
+    - Bolts/Tasks (~> 1.9)
+  - ParseLiveQuery (2.2.3):
     - Bolts-Swift (~> 1.3)
     - Parse (~> 1.15.0)
     - Starscream (= 2.1.1)
+  - ReadMoreTextView (3.0.0)
   - Starscream (2.1.1)
+  - SWSegmentedControl (2.3.0)
 
 DEPENDENCIES:
   - Parse (from `https://github.com/parse-community/Parse-SDK-iOS-OSX.git`)
   - ParseLiveQuery (from `https://github.com/parse-community/ParseLiveQuery-iOS-OSX.git`)
+  - ReadMoreTextView
+  - SWSegmentedControl
 
 EXTERNAL SOURCES:
   Parse:
@@ -21,19 +25,21 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Parse:
-    :commit: 98ba23c37f099464287a74df03f2e084ff91f0bb
+    :commit: 2032defa956121c20828b46a4d99a2712474a00a
     :git: https://github.com/parse-community/Parse-SDK-iOS-OSX.git
   ParseLiveQuery:
-    :commit: cc1f520390edb94dfb8e92c0d2d5229b0485fd6d
+    :commit: e04adfe654676867459338b3e7bbcba0a1bf85b6
     :git: https://github.com/parse-community/ParseLiveQuery-iOS-OSX.git
 
 SPEC CHECKSUMS:
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Bolts-Swift: fa98d1b59fc1acea9b21a21306dcdca1c85e3737
-  Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
-  ParseLiveQuery: 9743983026fb94d0b43c460b2d98107e2f435abb
+  Parse: 1968c634e1c782fb31aad6872f6d32de911bb122
+  ParseLiveQuery: a81dd8c8530a4b409aef66346be0cf9c26231e0e
+  ReadMoreTextView: d872de55c5850c702f8d8ce591fb70e5d00c873a
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
+  SWSegmentedControl: 2e0b7328fddfe23817e0a2007fd07fbb1a32787a
 
-PODFILE CHECKSUM: cdad9e2d3cb9b1de510502c44a1a28137180a888
+PODFILE CHECKSUM: dc01026c2d5b396595fa064f2b52d1e1394f1be6
 
 COCOAPODS: 1.1.1

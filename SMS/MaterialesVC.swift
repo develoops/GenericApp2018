@@ -24,14 +24,14 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let query = PFQuery(className:"Media")
         query.fromLocalDatastore()
-        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
             self.lista = task.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tabla.reloadData()
             }
             return task
-        })
+        }
     }
     
     override func didReceiveMemoryWarning() {

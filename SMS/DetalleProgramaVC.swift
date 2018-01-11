@@ -52,7 +52,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         query.includeKey("contenido")
         query.includeKey("contenido.lugar")
         query.limit = 1000
-        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
             let a = task.result as! [PFObject]
             if(a.count != 0){
@@ -84,7 +84,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
         }
             return task
-        })
+        }
         
         if(tieneModulo == true){
             
@@ -166,6 +166,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         textViewInfoDetallePrograma?.sizeToFit()
         textViewInfoDetallePrograma.isScrollEnabled = false
         
+        let imagenLinea = UIImageView(frame: CGRect(x: 15.0, y: textViewInfoDetallePrograma.frame.maxY, width: view.frame.width - 25.0, height: 2.5))
+        
+        let a = getImageWithColor(color: UIColor.lightGray, size: CGSize (width: view.frame.width - 10.0, height: 2.5))
+        imagenLinea.image = a
+        self.scrollView.addSubview(imagenLinea)
         
         if((evento["descripcion"] as? String) == nil){
             
@@ -237,10 +242,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         let rating = PFObject(className: "Rating")
         rating.setObject(calificacion!, forKey: "calificacion")
         rating.setObject(evento, forKey: "evento")
-        rating.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+        rating.saveInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
             
             return task
-        })
+        }
     }
     
     
@@ -251,18 +256,18 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         queryPersona.fromLocalDatastore()
         queryPersona.includeKey("persona")
         queryPersona.includeKey("act")
-        queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in
+        queryPersona.findObjectsInBackground().continueWith{ (taskPersonas:BFTask<NSArray>) -> Any? in
             
             self.personas = taskPersonas.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tablaActividades.reloadData()
             }
             return taskPersonas
-        })
+        }
         
         let favoritoQuery = PFQuery(className: "ActFavUser", predicate: NSPredicate(format: "(user == %@) AND (actividad == %@)", PFUser.current()!,self.evento))
         favoritoQuery.fromLocalDatastore()
-        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+        favoritoQuery.findObjectsInBackground().continueWith{ (taskFav:BFTask<NSArray>) -> Any? in
             
     let fa = taskFav.result as? [PFObject]
     DispatchQueue.main.async {
@@ -282,7 +287,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
     }
             return taskFav
-        })
+        }
         self.tablaFunciones.frame = CGRect(x: 0.0, y: self.textViewInfoDetallePrograma.frame.maxY, width: self.view.frame.width, height: (48.0 * CGFloat(self.funciones.count)) + 30.0)
         
         self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.tablaFunciones.frame.maxY + 44.0)
@@ -335,10 +340,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             return 37.5
         }
         else{
-            
             return tamanoCelda
         }
-    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -370,11 +373,11 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
             }
             else{
-                im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                     DispatchQueue.main.async {
                         cell.imagenPerfil.image = UIImage(data: task.result! as Data)
                     }
-                })}
+                }}
             
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets(top: 0.0, left: cell.labelNombre.frame.origin.x, bottom: 0.0, right: 10.0)
@@ -425,7 +428,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 margenImg = 12.5
                 
-                im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+                im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                     
                     DispatchQueue.main.async {
                         
@@ -439,7 +442,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                         }
                     }
                     return task
-                })
+                }
             }
             
             let personaActividad = object as? [PFObject]
@@ -624,7 +627,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         
-        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+        favoritoQuery.findObjectsInBackground().continueWith{ (taskFav:BFTask<NSArray>) -> Any? in
             
             self.favoritoAct = taskFav.result as! [PFObject]
             
@@ -638,10 +641,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 f.setObject(PFUser.current()!, forKey: "user")
                 f.setObject(self.congreso, forKey: "congreso")
                 self.favoritoAct.append(f)
-                f.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                f.pinInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                     
                     return task
-                })
+                }
                 DispatchQueue.main.async {
                     self.favorito = true
                     self.tablaActividades.reloadData()
@@ -659,9 +662,9 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if let index = self.favoritoAct.index(of:filtro.first!) {
                     self.favoritoAct.remove(at: index)
                     
-                    _ =   filtro.map{$0.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+                    _ =   filtro.map{$0.unpinInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                         return task
-                    })}
+                    }}
                 }
                 
                 DispatchQueue.main.async {
@@ -671,7 +674,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                 }}
             return taskFav
-        })
+        }
         
     }
     

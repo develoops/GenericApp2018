@@ -50,12 +50,12 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             
         }
         else{
-          imagenFile.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+          imagenFile.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
             
             DispatchQueue.main.async {
                 
                 if (task.error != nil){
-                    self.imagenPersona.image = self.imagen
+                    self.imagenPersona.image = UIImage(named: "Ponente_ausente_Hombre.png")
                     
                 }
                 else{
@@ -64,7 +64,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                     
                 }}
             return task
-            })
+            }
         }
         imagenPersona.layer.cornerRadius = (imagenPersona.frame.size.width) / 2
         imagenPersona.layer.masksToBounds = true
@@ -202,7 +202,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             let personaQuery = PFQuery(className: "PersonaRolAct", predicate: NSPredicate(format: "act == %@", act))
             personaQuery.fromLocalDatastore()
             personaQuery.includeKey("persona")
-            personaQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+            personaQuery.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
                 
                 let object = [act,task.result]
                 
@@ -212,7 +212,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                     self.tabla.reloadData()
                 }
                 return task
-            })
+            }
         }}}
     
     func numberOfSections(in tableView: UITableView) -> Int {

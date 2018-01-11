@@ -96,14 +96,14 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         query.order(byDescending: "likes")
         query.includeKey("emisor")
         
-        query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tabla.reloadData()
                 self.scrollToLastRow()
             }
             return task
-        })
+        }
     }
     
     func scrollToLastRow() {
@@ -226,12 +226,12 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 }
         defaults.set(ids, forKey: "likeIds")
         defaults.synchronize()
-        emision.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+        emision.saveInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
             DispatchQueue.main.async {
                 self.datosAVista()
             }
             return task
-        })
+        }
 
     }
     @objc func hacerPregunta(){
@@ -253,20 +253,20 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             pregunta.setObject(PFUser.current() as Any, forKey: "emisor")
             pregunta.setObject(alertController.textFields?.first?.text as Any, forKey: "mensajeTexto")
             pregunta.acl?.getPublicWriteAccess = true
-            pregunta.saveInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            pregunta.saveInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                 
                 let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", self.evento))
                 query.order(byDescending: "likes")
                 query.includeKey("emisor")
                 
-                return query.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+                return query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
                     self.noticias = task.result as! [PFObject]
                     DispatchQueue.main.async {
                         self.tabla.reloadData()
                     }
                     return task
-                })
-            })}
+                }
+            }}
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

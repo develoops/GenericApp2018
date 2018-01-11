@@ -49,7 +49,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         eventosQuery.includeKey("contenido")
         eventosQuery.includeKey("contenedor")
         eventosQuery.limit = 1000
-        eventosQuery.findObjectsInBackground().continue({ (task:BFTask<NSArray>) -> Any? in
+        eventosQuery.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
             let actCollection = task.result as! [PFObject]
             let contenido = actCollection.map{$0.value(forKey: "contenido") as? PFObject}
@@ -63,16 +63,16 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
             query.limit = 1000
             
-        return query.findObjectsInBackground().continue({ (taskActividades:BFTask<NSArray>) -> Any? in
+        return query.findObjectsInBackground().continueWith{ (taskActividades:BFTask<NSArray>) -> Any? in
                 let actividades = taskActividades.result as! [PFObject]
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
             }
-    queryPersona.findObjectsInBackground().continue({ (taskPersonas:BFTask<NSArray>) -> Any? in
+    queryPersona.findObjectsInBackground().continueWith{ (taskPersonas:BFTask<NSArray>) -> Any? in
                     self.personas = (taskPersonas.result as? [PFObject])!
                     
                     return taskPersonas
                     
-                })
+                }
                 
             
                 DispatchQueue.main.async() {
@@ -92,8 +92,8 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 }
                 
                 return taskActividades
-            })
-        })}
+            }
+        }}
     
     override func viewDidAppear(_ animated: Bool) {
         let refresh = RefreshData()
@@ -111,7 +111,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         
-        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+        favoritoQuery.findObjectsInBackground().continueWith{ (taskFav:BFTask<NSArray>) -> Any? in
             
             self.favs = taskFav.result as! [PFObject]
             
@@ -122,7 +122,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 
             }
             return taskFav
-        })
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -197,7 +197,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             
             margenImg = 12.5
 
-            im?.getDataInBackground().continue({ (task:BFTask<NSData>) -> Any? in
+            im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                 
                 DispatchQueue.main.async {
                     
@@ -211,7 +211,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                     }
             }
                 return task
-            })
+            }
         }
         
         let personaActividad = object as? [PFObject]
@@ -555,7 +555,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         favoritoQuery.includeKey("actividad")
         favoritoQuery.includeKey("user")
         
-        favoritoQuery.findObjectsInBackground().continue({ (taskFav:BFTask<NSArray>) -> Any? in
+        favoritoQuery.findObjectsInBackground().continueWith{ (taskFav:BFTask<NSArray>) -> Any? in
             
         self.favs = taskFav.result as! [PFObject]
         let evento = self.eventosFiltrados[sender.tag]
@@ -570,10 +570,10 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             f.setObject(user as Any, forKey: "user")
             f.setObject(self.congreso, forKey: "congreso")
             self.favs.append(f)
-            f.pinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+            f.pinInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
             
                 return task
-            })
+            }
             DispatchQueue.main.async {
                 sender.setImage(UIImage(named: "Btn_favoritos_SinMarcar"), for: .normal)
             self.tabla.reloadData()
@@ -590,9 +590,9 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
             if let index = self.favs.index(of:filtro.first!) {
                 self.favs.remove(at: index)
                 
-             _ =   filtro.map{$0.unpinInBackground().continue({ (task:BFTask<NSNumber>) -> Any? in
+             _ =   filtro.map{$0.unpinInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                     return task
-                })}
+                }}
             }
             
             DispatchQueue.main.async {
@@ -600,7 +600,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 self.tabla.reloadData()
             }}
                 return taskFav
-        })
+        }
     }
     
     func filtrarArray(indicador:Int) {
