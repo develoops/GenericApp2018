@@ -12,6 +12,14 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tabla: UITableView!
     
+//    @IBOutlet weak var tabla: UITableView!
+//    {
+//        didSet {
+////            tabla.estimatedRowHeight = 200
+//            tabla.rowHeight = UITableViewAutomaticDimension
+//        }
+//    }
+
     var tamanoCelda = CGFloat()
     var nombrePatrocinador:String!
     var direc: String!
@@ -50,11 +58,10 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             return task
         }
-        
-        
-        
     }
     
+    var expandedCells = Set<Int>()
+
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -63,12 +70,12 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayInfoPatrocinadores.count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return tamanoCelda
+
+            return tamanoCelda
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
@@ -134,15 +141,18 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             if (cell.infoDetallePatrocinador.frame.height > 200.0){
                 
-                cell.infoDetallePatrocinador?.shouldTrim = true
-                cell.infoDetallePatrocinador?.maximumNumberOfLines = 4
-                cell.infoDetallePatrocinador?.attributedReadMoreText = NSAttributedString(string: "... Leer más")
-                cell.infoDetallePatrocinador?.attributedReadLessText = NSAttributedString(string: " Leer menos")
-                print(cell.infoDetallePatrocinador.frame.height)
+//                let readMoreTextView = cell.contentView.viewWithTag(1) as! ReadMoreTextView
+                cell.infoDetallePatrocinador.shouldTrim = !expandedCells.contains(indexPath.row)
+                cell.infoDetallePatrocinador.setNeedsUpdateTrim()
+                cell.infoDetallePatrocinador.layoutIfNeeded()
+                return cell
             }
             cell.imagenPerfil.isHidden = true
             
-           // cell.infoDetallePatrocinador.onSizeChange
+//            cell.infoDetallePatrocinador.onSizeChange{_ in self
+//
+//                print("tocado")
+//            }
         }
         
         if(encabezado == "imagen"){
@@ -158,6 +168,10 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tabla.reloadRows(at: [indexPath], with: .fade)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

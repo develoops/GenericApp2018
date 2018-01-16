@@ -47,7 +47,6 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         if(imagen != nil){
             imagenPersona.image = imagen
-            
         }
         else{
           imagenFile.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
@@ -81,8 +80,6 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         labelRolDetallePersona.font = UIFont.systemFont(ofSize: 15.0)
         textViewInfoDetallePersona.font = UIFont.systemFont(ofSize: 14.0)
         
-        
-
         imagenPersona.frame.origin = CGPoint(x: 15.0
             , y: 79.0)
 
@@ -116,9 +113,6 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         labelRolDetallePersona?.textAlignment = .left
         labelRolDetallePersona.numberOfLines = 0
         labelRolDetallePersona?.sizeToFit()
-        
-
-
         
         labelNombreDetallePersona.frame.origin = CGPoint(x: imagenPersona.frame.maxX + 15.0, y: 79.0)
         
