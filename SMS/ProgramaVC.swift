@@ -422,7 +422,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let fechaHoy = Date.init(timeIntervalSinceNow: -(60*60*3))
         
-        
+       // self.tabla.scrollToRow(at: IndexPath, at: .middle, animated: true)
         let filteredArray = eventosVarLocal.filter() {
             
             return ($0["fin"] as AnyObject).compare((fechaHoy.addingTimeInterval(60*60*3))) == ComparisonResult.orderedAscending && ($0["fin"] as AnyObject).compare(fechaHoy) == ComparisonResult.orderedDescending
@@ -449,7 +449,6 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.botonAvanzar.isHidden = false
         self.botonRetroceder.isHidden = false
         
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Ahora", style: .plain, target: self, action: #selector(eem))
         self.tabla.reloadData()
         self.navigationController?.navigationBar.topItem?.title = "Programa"
 

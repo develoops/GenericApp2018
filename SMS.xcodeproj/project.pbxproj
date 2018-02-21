@@ -44,6 +44,8 @@
 		C33B35131FEB06A000F90B86 /* icono_ociedad_plomo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */; };
 		C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E29481FA2342500C11D4A /* SplashVC.swift */; };
 		C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */; };
+		C340B2D5203DA60D004EEAEF /* CTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340B2D4203DA60D004EEAEF /* CTableViewCell.swift */; };
+		C340B2D9203DA633004EEAEF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340B2D8203DA633004EEAEF /* CollectionViewCell.swift */; };
 		C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
@@ -169,6 +171,9 @@
 		C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono_ociedad_plomo@2x.png"; sourceTree = "<group>"; };
 		C33E29481FA2342500C11D4A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashSMS2017@3x.png"; sourceTree = "<group>"; };
+		C340B2D4203DA60D004EEAEF /* CTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CTableViewCell.swift; path = ../../muro/muro/CTableViewCell.swift; sourceTree = "<group>"; };
+		C340B2D6203DA62F004EEAEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../../muro/muro/CollectionViewCell.swift; sourceTree = "<group>"; };
+		C340B2D8203DA633004EEAEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../../muro/muro/CollectionViewCell.swift; sourceTree = "<group>"; };
 		C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntasVC.swift; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS Chile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMS Chile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -378,6 +383,8 @@
 				C317A0461FB615C9009B0F0D /* FloatRatingView.swift */,
 				C378EC5C1F05823000DE0318 /* Controllers */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
+				C340B2D4203DA60D004EEAEF /* CTableViewCell.swift */,
+				C340B2D8203DA633004EEAEF /* CollectionViewCell.swift */,
 				C31C25071F0BF922006492EF /* FormatoFechas.swift */,
 				C378EC5B1F05822400DE0318 /* Detalles */,
 				C3220A611F8FA93200A08B15 /* TabBars */,
@@ -572,6 +579,7 @@
 		C378EC5B1F05822400DE0318 /* Detalles */ = {
 			isa = PBXGroup;
 			children = (
+				C340B2D6203DA62F004EEAEF /* CollectionViewCell.swift */,
 				C378EC3E1F05543000DE0318 /* DetalleProgramaVC.swift */,
 				C378EC571F05820300DE0318 /* DetallePersonaVC.swift */,
 				C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */,
@@ -628,7 +636,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Arturo Sanhueza";
 				TargetAttributes = {
 					C34BA8791F04173500022E6B = {
@@ -770,13 +778,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SMS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		98D945658E6B2E5E18009630 /* [CP] Embed Pods Frameworks */ = {
@@ -785,9 +796,24 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SMS/Pods-SMS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts-Swift/BoltsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/ParseLiveQuery/ParseLiveQuery.framework",
+				"${BUILT_PRODUCTS_DIR}/ReadMoreTextView/ReadMoreTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/SWSegmentedControl/SWSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoltsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseLiveQuery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReadMoreTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -818,6 +844,7 @@
 			files = (
 				C3220A691F8FC4A200A08B15 /* DirectivaVC.swift in Sources */,
 				C3220A671F8FC48F00A08B15 /* CongresosVC.swift in Sources */,
+				C340B2D9203DA633004EEAEF /* CollectionViewCell.swift in Sources */,
 				C3220A751F9296C700A08B15 /* DirectorioVC.swift in Sources */,
 				C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */,
 				C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */,
@@ -840,6 +867,7 @@
 				C3220A631F8FAD2A00A08B15 /* TabBarAppVC.swift in Sources */,
 				C3220A771F92970700A08B15 /* NovedadesVC.swift in Sources */,
 				C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */,
+				C340B2D5203DA60D004EEAEF /* CTableViewCell.swift in Sources */,
 				C378EC3F1F05543000DE0318 /* DetalleProgramaVC.swift in Sources */,
 				C3220A7C1F92F5A500A08B15 /* MaterialesVC.swift in Sources */,
 				C332C2551FA91B04003F8DDE /* RefreshData.swift in Sources */,
