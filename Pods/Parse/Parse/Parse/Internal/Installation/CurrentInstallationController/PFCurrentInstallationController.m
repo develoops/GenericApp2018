@@ -252,7 +252,7 @@ NSString *const PFCurrentInstallationPinName = @"_currentInstallation";
 - (PFInstallation *)currentInstallation {
     __block PFInstallation *installation = nil;
     dispatch_sync(_dataQueue, ^{
-        installation = _currentInstallation;
+        installation = self->_currentInstallation;
     });
     return installation;
 }
