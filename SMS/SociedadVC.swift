@@ -19,7 +19,7 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 //            tabla.rowHeight = UITableViewAutomaticDimension
 //        }
 //    }
-
+//
     var tamanoCelda = CGFloat()
     var nombrePatrocinador:String!
     var direc: String!
