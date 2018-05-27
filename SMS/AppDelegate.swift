@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         PFUser.current()?.saveInBackground()
         let defaultACL = PFACL()
         
-        defaultACL.getPublicReadAccess = true
+        defaultACL.hasPublicReadAccess = true
         PFACL.setDefault(defaultACL, withAccessForCurrentUser:true)
 
         var localTimeZoneAbbreviation: String { return  NSTimeZone.local.abbreviation(for: Date())!

@@ -183,8 +183,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         self.scrollView.addSubview(colorFondoHeaderDetalle)
         scrollView.sendSubview(toBack: colorFondoHeaderDetalle)
-        
-        
+
         if(lugar?["imgPerfil"] != nil){
             
         }
@@ -513,7 +512,8 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
             cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-            cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width + 5.0 +  cell.imagenPerfil.frame.maxX + margenImg + cell.imagenMargen.frame.maxX), height: 15.0)
+            //compleja
+//            cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: self.view.frame.size.width - (100.0 + cell.labelHora.frame.width + 5.0 +  cell.imagenPerfil.frame.maxX + margenImg + cell.imagenMargen.frame.maxX), height: 15.0)
             cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
             cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
             cell.labelLugar.text = lugar?["nombre"] as? String

@@ -50,7 +50,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         if (defaults.integer(forKey: "contadorPreguntas") == 1) {
         
             let user = PFUser.current()
-            user?.acl?.getPublicWriteAccess = true
+            user?.acl?.hasPublicWriteAccess = true
             let alertController = UIAlertController(title: "Hola, Identifícate", message: "", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addTextField { (textField : UITextField) -> Void in
                 textField.placeholder = "Escribe tu identificación"
@@ -252,7 +252,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             pregunta.setObject(self.evento, forKey: "actividad")
             pregunta.setObject(PFUser.current() as Any, forKey: "emisor")
             pregunta.setObject(alertController.textFields?.first?.text as Any, forKey: "mensajeTexto")
-            pregunta.acl?.getPublicWriteAccess = true
+            pregunta.acl?.hasPublicWriteAccess = true
             pregunta.saveInBackground().continueWith{ (task:BFTask<NSNumber>) -> Any? in
                 
                 let query = PFQuery(className: "Emision", predicate: NSPredicate(format: "actividad == %@", self.evento))

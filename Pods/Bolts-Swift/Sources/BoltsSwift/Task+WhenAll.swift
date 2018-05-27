@@ -44,7 +44,7 @@ extension Task {
                     if cancelledCount > 0 {
                         tcs.cancel()
                     } else if errorCount > 0 {
-                        tcs.set(error: AggregateError(errors: tasks.flatMap({ $0.error })))
+                        tcs.set(error: AggregateError(errors: tasks.compactMap({ $0.error })))
                     } else {
                         tcs.set(result: ())
                     }
