@@ -51,9 +51,6 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource,SW
             
             return task.result
         }
-        
-
-            
     }
     
     override func viewDidAppear(_ animated: Bool) {

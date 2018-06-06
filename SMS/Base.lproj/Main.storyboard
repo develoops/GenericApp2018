@@ -565,7 +565,7 @@
                                                             </view>
                                                             <connections>
                                                                 <outlet property="imagen" destination="xgF-JS-oap" id="IgA-No-Lee"/>
-                                                                <segue destination="7FC-Ng-jTQ" kind="show" id="dTO-b5-T4h"/>
+                                                                <segue destination="7FC-Ng-jTQ" kind="show" identifier="Segue" id="dTO-b5-T4h"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>

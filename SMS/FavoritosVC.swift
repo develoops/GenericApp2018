@@ -153,8 +153,8 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }
         
         let personaActividad = object as? [PFObject]
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate!)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate!)
+        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: (evento["inicio"] as! NSDate!)!)
+        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: (evento["fin"] as! NSDate!)!)
         
         cell.labelTitulo?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 1)
         cell.labelTitulo?.frame = CGRect(x: cell.imagenPerfil.frame.maxX + margenImg, y: 7.5, width: view.frame.size.width - (60.0 + cell.imagenPerfil.frame.maxX + margenImg), height:0.0)
@@ -223,12 +223,12 @@ class FavoritosVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         
         let maximumLabelSizeLugar = CGSize(width: 10.0, height: 40000.0)
         cell.labelLugar?.textColor = UIColor(red: 8/255, green: 8/255, blue: 8/255, alpha: 0.5)
-//compleja
+        //compleja
         let constanteX = 105.0 + cell.labelHora.frame.width +  cell.imagenPerfil.frame.maxX + margenImg + cell.imagenMargen.frame.maxX
         
         let valorXLugar = self.view.frame.size.width - (constanteX)
         
-    cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: valorXLugar, height:15.0)
+        cell.labelLugar?.frame = CGRect(x: espacio, y: cell.labelHora.frame.origin.y, width: valorXLugar, height:15.0)
         cell.labelLugar.font = UIFont.systemFont(ofSize: 14.0)
         cell.labelLugar.sizeThatFits(maximumLabelSizeLugar)
         cell.labelLugar.text = lugar?["nombre"] as? String

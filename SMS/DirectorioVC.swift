@@ -39,8 +39,6 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             return task
         }
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

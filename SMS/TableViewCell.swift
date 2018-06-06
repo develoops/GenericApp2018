@@ -67,12 +67,24 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
         visor.indicador = indexPath.row
         visor.imagenes = imagenes
 
+
         let userDefaults = UserDefaults()
         userDefaults.set(indexPath.row, forKey: "indicadorZoom")
         userDefaults.synchronize()
         
         return true
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        let story = UIStoryboard(name: "Main", bundle: nil)
+
+        let visor = story.instantiateViewController(withIdentifier: "VisorDeImagenesVC") as! VisorDeImagenesVC
+        visor.imagenes = imagenes
+
+        (visor ).performSegue(withIdentifier: "Segue", sender: self)
+
+        
+    }
+
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
