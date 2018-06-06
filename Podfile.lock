@@ -1,17 +1,17 @@
 PODS:
   - Bolts-Swift (1.3.0)
   - Bolts/Tasks (1.9.0)
-  - Parse (1.16.0):
-    - Parse/Core (= 1.16.0)
-  - Parse/Core (1.16.0):
+  - Parse (1.17.1):
+    - Parse/Core (= 1.17.1)
+  - Parse/Core (1.17.1):
     - Bolts/Tasks (~> 1.9)
-  - ParseLiveQuery (2.3.0):
+  - ParseLiveQuery (2.4.0):
     - Bolts-Swift (~> 1.3.0)
-    - Parse (~> 1.16.0)
+    - Parse (~> 1.17.0)
     - Starscream (~> 3.0.4)
   - ReadMoreTextView (3.0.0)
-  - Starscream (3.0.4)
-  - SWSegmentedControl (2.3.0)
+  - Starscream (3.0.5)
+  - SWSegmentedControl (2.6.1)
 
 DEPENDENCIES:
   - Parse
@@ -19,15 +19,25 @@ DEPENDENCIES:
   - ReadMoreTextView
   - SWSegmentedControl
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bolts
+    - Bolts-Swift
+    - Parse
+    - ParseLiveQuery
+    - ReadMoreTextView
+    - Starscream
+    - SWSegmentedControl
+
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Bolts-Swift: fa98d1b59fc1acea9b21a21306dcdca1c85e3737
-  Parse: 5b36dc2c2f0a2fd82a257ae018bc3d68cf2c24e7
-  ParseLiveQuery: 8c7025d6dd4330db29e3ee5c3bc64eff58a80ad2
+  Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
+  ParseLiveQuery: 0ea078a12015d64070d0ae07da32fae3d3198c42
   ReadMoreTextView: d872de55c5850c702f8d8ce591fb70e5d00c873a
-  Starscream: f5da93fe6984c77b694366bf7299b7dc63a76f26
-  SWSegmentedControl: 2e0b7328fddfe23817e0a2007fd07fbb1a32787a
+  Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
+  SWSegmentedControl: 5770c91bb4b438be300371221e38f4af5100bba2
 
 PODFILE CHECKSUM: 0095862904607a9f15f2a3c90eb9ebb5bb1a87b2
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3
