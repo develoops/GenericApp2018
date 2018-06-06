@@ -17,8 +17,8 @@ class VisorDeImagenesVC: UIViewController,UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagenes = [UIImage(named:"0.png")!,UIImage(named:"1.png")!,UIImage(named:"2.png")!]
         scrollView.delegate = self
+        imagenes = [UIImage(named: "btn_Favoritos"),UIImage(named: "Btn_Favoritos_azul"),UIImage(named: "btn_Favoritos_calor")] as! [UIImage]
         scrollView.frame = CGRect(x: 80.0, y: 80.0, width: view.frame.width, height: view.frame.height - 200.0)
         scrollView.contentSize.width = (view.frame.width * CGFloat(imagenes.count))
         scrollView.isScrollEnabled = true

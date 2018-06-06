@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -564,6 +565,7 @@
                                                             </view>
                                                             <connections>
                                                                 <outlet property="imagen" destination="xgF-JS-oap" id="IgA-No-Lee"/>
+                                                                <segue destination="7FC-Ng-jTQ" kind="show" id="dTO-b5-T4h"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -1735,6 +1737,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ho-rc-nzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Visor De ImagenesVC-->
+        <scene sceneID="yF4-FX-EPC">
+            <objects>
+                <viewController storyboardIdentifier="VisorDeImagenesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7FC-Ng-jTQ" customClass="VisorDeImagenesVC" customModule="SMS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TQP-Hf-kEC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5QK-xC-fLE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zIk-fe-Pev" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6674" y="3476"/>
         </scene>
     </scenes>
     <resources>

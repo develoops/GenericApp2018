@@ -53,7 +53,7 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200.0, height: 80.0)
+        return CGSize(width: 200.0, height: 110.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -65,7 +65,8 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
                 
         let visor = story.instantiateViewController(withIdentifier: "VisorDeImagenesVC") as! VisorDeImagenesVC
         visor.indicador = indexPath.row
-        
+        visor.imagenes = imagenes
+
         let userDefaults = UserDefaults()
         userDefaults.set(indexPath.row, forKey: "indicadorZoom")
         userDefaults.synchronize()
