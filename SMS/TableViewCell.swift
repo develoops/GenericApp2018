@@ -33,22 +33,27 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
     @IBOutlet weak var infoDetallePatrocinador:ReadMoreTextView!
 
     override func awakeFromNib() {
+        imagenes = [UIImage(named: "btn_Favoritos"),UIImage(named: "Btn_Favoritos_azul"),UIImage(named: "btn_Favoritos_calor")] as! [UIImage]
         super.awakeFromNib()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return imagenes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
-        collectionCell.imagen.image = UIImage(named:String(indexPath.row) + ".png")
+        
+        
+        
+        collectionCell.imagen.image = imagenes[indexPath.row]
         
         return collectionCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200.0, height: 133.0)
+        return CGSize(width: 200.0, height: 80.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -57,9 +62,7 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
         self.posicion = (collectionView.superview?.superview?.frame.origin)!
         
         let story = UIStoryboard(name: "Main", bundle: nil)
-        
-        // print(visor.indicador)
-        
+                
         let visor = story.instantiateViewController(withIdentifier: "VisorDeImagenesVC") as! VisorDeImagenesVC
         visor.indicador = indexPath.row
         
