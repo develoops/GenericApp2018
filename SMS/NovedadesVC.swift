@@ -63,6 +63,7 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelTitulo.numberOfLines = 0
         cell.labelTitulo?.sizeToFit()
 
+        //// usar elemento de la celda correspondiente
         cell.labelHora?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + cell.labelTitulo.frame.height + 30.0)
         cell.labelHora.frame.size = CGSize(width: self.view.frame.size.width - 40, height: 0.0)
         cell.labelHora.text = noticia["cuerpotxt"] as? String

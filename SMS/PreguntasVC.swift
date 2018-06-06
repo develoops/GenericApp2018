@@ -142,8 +142,7 @@ class PreguntasVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelNombre?.textAlignment = .left
         cell.labelNombre.numberOfLines = 0
         cell.labelNombre?.sizeToFit()
-        
-
+    
         
         cell.labelTitulo?.frame.origin = CGPoint(x:cell.labelNombre.frame.origin.x, y:  cell.labelNombre.frame.height + 18.0)
         cell.labelTitulo.frame.size = CGSize(width: self.view.frame.size.width - 40, height: 0.0)

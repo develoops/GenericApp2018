@@ -33,6 +33,8 @@
 		C33455B11FDF48E5006E548A /* MoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33455B01FDF48E5006E548A /* MoreVC.swift */; };
 		C334EDE31F0D3E3700A084D4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334EDE21F0D3E3700A084D4 /* MapVC.swift */; };
 		C337AAD91F94E2D200164780 /* DetalleMaterialesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */; };
+		C33A990E20C8488E00B5CA88 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33A990D20C8488E00B5CA88 /* CollectionViewCell.swift */; };
+		C33A991020C848CD00B5CA88 /* VisorDeImagenesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */; };
 		C33B00EB1FD98FF2002F3467 /* almuerzo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00E81FD98FF2002F3467 /* almuerzo@2x.png */; };
 		C33B00EC1FD98FF2002F3467 /* almuerzo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00E91FD98FF2002F3467 /* almuerzo@3x.png */; };
 		C33B00ED1FD98FF2002F3467 /* almuerzo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00EA1FD98FF2002F3467 /* almuerzo@1x.png */; };
@@ -44,8 +46,6 @@
 		C33B35131FEB06A000F90B86 /* icono_ociedad_plomo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */; };
 		C33E29491FA2342500C11D4A /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E29481FA2342500C11D4A /* SplashVC.swift */; };
 		C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */; };
-		C340B2D5203DA60D004EEAEF /* CTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340B2D4203DA60D004EEAEF /* CTableViewCell.swift */; };
-		C340B2D9203DA633004EEAEF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340B2D8203DA633004EEAEF /* CollectionViewCell.swift */; };
 		C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */; };
 		C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87D1F04173500022E6B /* AppDelegate.swift */; };
 		C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34BA87F1F04173500022E6B /* ProgramaVC.swift */; };
@@ -160,6 +160,8 @@
 		C33455B01FDF48E5006E548A /* MoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreVC.swift; sourceTree = "<group>"; };
 		C334EDE21F0D3E3700A084D4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetalleMaterialesVC.swift; sourceTree = "<group>"; };
+		C33A990D20C8488E00B5CA88 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../../muro/muro/CollectionViewCell.swift; sourceTree = "<group>"; };
+		C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisorDeImagenesVC.swift; sourceTree = "<group>"; };
 		C33B00E81FD98FF2002F3467 /* almuerzo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@2x.png"; sourceTree = "<group>"; };
 		C33B00E91FD98FF2002F3467 /* almuerzo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@3x.png"; sourceTree = "<group>"; };
 		C33B00EA1FD98FF2002F3467 /* almuerzo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@1x.png"; sourceTree = "<group>"; };
@@ -171,9 +173,7 @@
 		C33B350D1FEB069F00F90B86 /* icono_ociedad_plomo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icono_ociedad_plomo@2x.png"; sourceTree = "<group>"; };
 		C33E29481FA2342500C11D4A /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashSMS2017@3x.png"; sourceTree = "<group>"; };
-		C340B2D4203DA60D004EEAEF /* CTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CTableViewCell.swift; path = ../../muro/muro/CTableViewCell.swift; sourceTree = "<group>"; };
 		C340B2D6203DA62F004EEAEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../../muro/muro/CollectionViewCell.swift; sourceTree = "<group>"; };
-		C340B2D8203DA633004EEAEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../../muro/muro/CollectionViewCell.swift; sourceTree = "<group>"; };
 		C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreguntasVC.swift; sourceTree = "<group>"; };
 		C34BA87A1F04173500022E6B /* SMS Chile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMS Chile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34BA87D1F04173500022E6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -305,6 +305,7 @@
 		C3220A651F8FC34900A08B15 /* Congreso */ = {
 			isa = PBXGroup;
 			children = (
+				C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */,
 				C34BA87F1F04173500022E6B /* ProgramaVC.swift */,
 				C378EC361F05530900DE0318 /* SpeakersVC.swift */,
 				C378EC381F05531B00DE0318 /* FavoritosVC.swift */,
@@ -381,10 +382,9 @@
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
 				C332C2541FA91B04003F8DDE /* RefreshData.swift */,
 				C317A0461FB615C9009B0F0D /* FloatRatingView.swift */,
-				C378EC5C1F05823000DE0318 /* Controllers */,
+				C378EC5C1F05823000DE0318 /* ViewControllers */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
-				C340B2D4203DA60D004EEAEF /* CTableViewCell.swift */,
-				C340B2D8203DA633004EEAEF /* CollectionViewCell.swift */,
+				C33A990D20C8488E00B5CA88 /* CollectionViewCell.swift */,
 				C31C25071F0BF922006492EF /* FormatoFechas.swift */,
 				C378EC5B1F05822400DE0318 /* Detalles */,
 				C3220A611F8FA93200A08B15 /* TabBars */,
@@ -588,13 +588,13 @@
 			name = Detalles;
 			sourceTree = "<group>";
 		};
-		C378EC5C1F05823000DE0318 /* Controllers */ = {
+		C378EC5C1F05823000DE0318 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				C3220A641F8FC33D00A08B15 /* Sociedad */,
 				C3220A651F8FC34900A08B15 /* Congreso */,
 			);
-			name = Controllers;
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		E1CBA84F3738331F549B0449 /* Pods */ = {
@@ -827,8 +827,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3220A691F8FC4A200A08B15 /* DirectivaVC.swift in Sources */,
+				C33A991020C848CD00B5CA88 /* VisorDeImagenesVC.swift in Sources */,
 				C3220A671F8FC48F00A08B15 /* CongresosVC.swift in Sources */,
-				C340B2D9203DA633004EEAEF /* CollectionViewCell.swift in Sources */,
 				C3220A751F9296C700A08B15 /* DirectorioVC.swift in Sources */,
 				C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */,
 				C34BA8801F04173500022E6B /* ProgramaVC.swift in Sources */,
@@ -847,11 +847,11 @@
 				C317A0471FB615C9009B0F0D /* FloatRatingView.swift in Sources */,
 				C378EC3B1F05532A00DE0318 /* PatrocinadoresVC.swift in Sources */,
 				C3A58D3B1F054953003095FF /* TableViewCell.swift in Sources */,
+				C33A990E20C8488E00B5CA88 /* CollectionViewCell.swift in Sources */,
 				C378EC371F05530900DE0318 /* SpeakersVC.swift in Sources */,
 				C3220A631F8FAD2A00A08B15 /* TabBarAppVC.swift in Sources */,
 				C3220A771F92970700A08B15 /* NovedadesVC.swift in Sources */,
 				C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */,
-				C340B2D5203DA60D004EEAEF /* CTableViewCell.swift in Sources */,
 				C378EC3F1F05543000DE0318 /* DetalleProgramaVC.swift in Sources */,
 				C3220A7C1F92F5A500A08B15 /* MaterialesVC.swift in Sources */,
 				C332C2551FA91B04003F8DDE /* RefreshData.swift in Sources */,

@@ -33,13 +33,12 @@ class MapVC: UIViewController,UIScrollViewDelegate {
             
             DispatchQueue.main.async {
                 
-            
             self.imageView = UIImageView(image: UIImage(data:task.result! as Data))
             self.scrollView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y + (self.navigationController?.navigationBar.frame.height)!, width: self.view.frame.width, height: self.view.frame.height - (self.navigationController?.navigationBar.frame.height)!)
             self.view.addSubview(self.scrollView)
             self.imageView.frame = self.scrollView.frame
             self.scrollView.addSubview(self.imageView)
-            }
+        }
             return task
         }
     
