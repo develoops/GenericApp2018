@@ -18,6 +18,7 @@ class VisorDeImagenesVC: UIViewController,UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
+        print(imagenes)
         imagenes = [UIImage(named: "btn_Favoritos"),UIImage(named: "Btn_Favoritos_azul"),UIImage(named: "btn_Favoritos_calor")] as! [UIImage]
         scrollView.frame = CGRect(x: 80.0, y: 80.0, width: view.frame.width, height: view.frame.height - 200.0)
         scrollView.contentSize.width = (view.frame.width * CGFloat(imagenes.count))
@@ -28,6 +29,7 @@ class VisorDeImagenesVC: UIViewController,UIScrollViewDelegate {
         pageControl.frame = CGRect(x: view.frame.width/2.0 - 20.0, y: scrollView.frame.maxY, width: 50.0, height: 30.0)
         view.addSubview(pageControl)
         pageControl.numberOfPages = imagenes.count
+        
         
         let indi = userDefaults.integer(forKey: "indicadorZoom")
         pageControl.currentPage = indi
