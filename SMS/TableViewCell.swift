@@ -33,7 +33,7 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
     @IBOutlet weak var infoDetallePatrocinador:ReadMoreTextView!
 
     override func awakeFromNib() {
-        imagenes = [UIImage(named: "btn_Favoritos"),UIImage(named: "Btn_Favoritos_azul"),UIImage(named: "btn_Favoritos_calor")] as! [UIImage]
+        imagenes = [UIImage(named: "1.jpg"),UIImage(named: "2.jpg"),UIImage(named: "3.jpg"),UIImage(named: "4.jpg")] as! [UIImage]
         super.awakeFromNib()
 
     }
@@ -51,7 +51,7 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200.0, height: 110.0)
+        return CGSize(width: 110.0, height: 110.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {

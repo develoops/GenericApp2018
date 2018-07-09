@@ -19,8 +19,8 @@ class VisorDeImagenesVC: UIViewController,UIScrollViewDelegate {
         super.viewDidLoad()
         scrollView.delegate = self
         print(imagenes)
-        imagenes = [UIImage(named: "btn_Favoritos"),UIImage(named: "Btn_Favoritos_azul"),UIImage(named: "btn_Favoritos_calor")] as! [UIImage]
-        scrollView.frame = CGRect(x: 80.0, y: 80.0, width: view.frame.width, height: view.frame.height - 200.0)
+        imagenes = [UIImage(named: "1.jpg"),UIImage(named: "2.jpg"),UIImage(named: "3.jpg"),UIImage(named: "4.jpg")] as! [UIImage]
+        scrollView.frame = CGRect(x: 80.0, y: 80.0, width: view.frame.width, height: view.frame.width - 160.0)
         scrollView.contentSize.width = (view.frame.width * CGFloat(imagenes.count))
         scrollView.isScrollEnabled = true
         scrollView.alwaysBounceHorizontal = true
@@ -35,7 +35,7 @@ class VisorDeImagenesVC: UIViewController,UIScrollViewDelegate {
         pageControl.currentPage = indi
 
         for (index, image) in imagenes.enumerated() {
-            let imageView = UIImageView(frame: CGRect(x: (view.frame.width * CGFloat(index)), y: view.frame.origin.y, width: view.frame.width - 160.0, height: view.frame.height - 200.0))
+            let imageView = UIImageView(frame: CGRect(x: (view.frame.width * CGFloat(index)), y: view.frame.origin.y, width: view.frame.width - 160.0, height: view.frame.width - 160.0))
             imageView.image = image
         scrollView.addSubview(imageView)
         scrollView.contentOffset.x = (view.frame.width * CGFloat(indi))

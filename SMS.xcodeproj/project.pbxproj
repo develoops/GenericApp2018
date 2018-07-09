@@ -35,6 +35,10 @@
 		C337AAD91F94E2D200164780 /* DetalleMaterialesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */; };
 		C33A990E20C8488E00B5CA88 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33A990D20C8488E00B5CA88 /* CollectionViewCell.swift */; };
 		C33A991020C848CD00B5CA88 /* VisorDeImagenesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */; };
+		C33A991520CEF90800B5CA88 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C33A991120CEF90700B5CA88 /* 2.jpg */; };
+		C33A991620CEF90800B5CA88 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C33A991220CEF90700B5CA88 /* 3.jpg */; };
+		C33A991720CEF90800B5CA88 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C33A991320CEF90700B5CA88 /* 4.jpg */; };
+		C33A991820CEF90800B5CA88 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C33A991420CEF90800B5CA88 /* 1.jpg */; };
 		C33B00EB1FD98FF2002F3467 /* almuerzo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00E81FD98FF2002F3467 /* almuerzo@2x.png */; };
 		C33B00EC1FD98FF2002F3467 /* almuerzo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00E91FD98FF2002F3467 /* almuerzo@3x.png */; };
 		C33B00ED1FD98FF2002F3467 /* almuerzo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33B00EA1FD98FF2002F3467 /* almuerzo@1x.png */; };
@@ -115,6 +119,8 @@
 		C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC571F05820300DE0318 /* DetallePersonaVC.swift */; };
 		C378EC5A1F05821900DE0318 /* DetallePatrocinadorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */; };
 		C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */ = {isa = PBXBuildFile; fileRef = C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */; };
+		C39BF12920F3CF910036129B /* imagenesEncuesta in Resources */ = {isa = PBXBuildFile; fileRef = C39BF12820F3CF910036129B /* imagenesEncuesta */; };
+		C39BF12D20F3CFDA0036129B /* EncuestaNativaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39BF12C20F3CFDA0036129B /* EncuestaNativaVC.swift */; };
 		C3A129A51FC3276700535B52 /* EncuestaGeneralVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A129A41FC3276700535B52 /* EncuestaGeneralVC.swift */; };
 		C3A129A91FC3468A00535B52 /* EditIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A129A61FC3468900535B52 /* EditIcon@2x.png */; };
 		C3A129AA1FC3468A00535B52 /* EditIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A129A71FC3468A00535B52 /* EditIcon@3x.png */; };
@@ -162,6 +168,10 @@
 		C337AAD81F94E2D200164780 /* DetalleMaterialesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetalleMaterialesVC.swift; sourceTree = "<group>"; };
 		C33A990D20C8488E00B5CA88 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = ../../muro/muro/CollectionViewCell.swift; sourceTree = "<group>"; };
 		C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisorDeImagenesVC.swift; sourceTree = "<group>"; };
+		C33A991120CEF90700B5CA88 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		C33A991220CEF90700B5CA88 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		C33A991320CEF90700B5CA88 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
+		C33A991420CEF90800B5CA88 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		C33B00E81FD98FF2002F3467 /* almuerzo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@2x.png"; sourceTree = "<group>"; };
 		C33B00E91FD98FF2002F3467 /* almuerzo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@3x.png"; sourceTree = "<group>"; };
 		C33B00EA1FD98FF2002F3467 /* almuerzo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "almuerzo@1x.png"; sourceTree = "<group>"; };
@@ -245,6 +255,8 @@
 		C378EC571F05820300DE0318 /* DetallePersonaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePersonaVC.swift; sourceTree = "<group>"; };
 		C378EC591F05821900DE0318 /* DetallePatrocinadorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetallePatrocinadorVC.swift; sourceTree = "<group>"; };
 		C378EC5D1F0582B700DE0318 /* Ponente_ausente_Hombre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ponente_ausente_Hombre.png; sourceTree = "<group>"; };
+		C39BF12820F3CF910036129B /* imagenesEncuesta */ = {isa = PBXFileReference; lastKnownFileType = folder; path = imagenesEncuesta; sourceTree = "<group>"; };
+		C39BF12C20F3CFDA0036129B /* EncuestaNativaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncuestaNativaVC.swift; sourceTree = "<group>"; };
 		C3A129A41FC3276700535B52 /* EncuestaGeneralVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaGeneralVC.swift; sourceTree = "<group>"; };
 		C3A129A61FC3468900535B52 /* EditIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EditIcon@2x.png"; sourceTree = "<group>"; };
 		C3A129A71FC3468A00535B52 /* EditIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EditIcon@3x.png"; sourceTree = "<group>"; };
@@ -305,6 +317,7 @@
 		C3220A651F8FC34900A08B15 /* Congreso */ = {
 			isa = PBXGroup;
 			children = (
+				C39BF12C20F3CFDA0036129B /* EncuestaNativaVC.swift */,
 				C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */,
 				C34BA87F1F04173500022E6B /* ProgramaVC.swift */,
 				C378EC361F05530900DE0318 /* SpeakersVC.swift */,
@@ -561,6 +574,11 @@
 		C378EC401F055ADA00DE0318 /* PartesAPP */ = {
 			isa = PBXGroup;
 			children = (
+				C39BF12820F3CF910036129B /* imagenesEncuesta */,
+				C33A991420CEF90800B5CA88 /* 1.jpg */,
+				C33A991120CEF90700B5CA88 /* 2.jpg */,
+				C33A991220CEF90700B5CA88 /* 3.jpg */,
+				C33A991320CEF90700B5CA88 /* 4.jpg */,
 				C33B35141FEB06A800F90B86 /* sociedadIcono */,
 				C33E294A1FA251EC00C11D4A /* splashSMS2017@3x.png */,
 				C3C12F941F2B9E7A00D01AD4 /* pinilla.png */,
@@ -694,6 +712,7 @@
 				C359C00B1FE036FE0040355F /* EncuestaIcono@2x.png in Resources */,
 				C359C00A1FE036FE0040355F /* EncuestaIcono@1x.png in Resources */,
 				C359BFDB1FE030A10040355F /* Patrocinador_Plomo@3x.png in Resources */,
+				C39BF12920F3CF910036129B /* imagenesEncuesta in Resources */,
 				C332B26A1FD74AA500D4A94D /* next Arrow@2x.png in Resources */,
 				C33B00ED1FD98FF2002F3467 /* almuerzo@1x.png in Resources */,
 				C359BFCF1FE030A10040355F /* Btn_Favoritos_azul@3x.png in Resources */,
@@ -707,12 +726,14 @@
 				C33B35121FEB06A000F90B86 /* icono_ociedad_plomo.png in Resources */,
 				C378EC5E1F0582B700DE0318 /* Ponente_ausente_Hombre.png in Resources */,
 				C33B35131FEB06A000F90B86 /* icono_ociedad_plomo@2x.png in Resources */,
+				C33A991520CEF90800B5CA88 /* 2.jpg in Resources */,
 				C332B2681FD74AA500D4A94D /* Back_Arrow@3x.png in Resources */,
 				C359C0111FE036FE0040355F /* Materiales_Icon@2x.png in Resources */,
 				C359BFE01FE030A10040355F /* Btn_ponentes_plomo@2x.png in Resources */,
 				C359BFD31FE030A10040355F /* Btn_Favoritos_plomo@1x.png in Resources */,
 				C359BFCB1FE030A10040355F /* btn_Favoritos@2x.png in Resources */,
 				C359BFF61FE033B00040355F /* menu@3x.png in Resources */,
+				C33A991820CEF90800B5CA88 /* 1.jpg in Resources */,
 				C332B2661FD74AA500D4A94D /* Back_Arrow.png in Resources */,
 				C359BFE41FE030A10040355F /* Btn_programa_final@3x.png in Resources */,
 				C359BFD41FE030A10040355F /* Btn_Favoritos_plomo@2x.png in Resources */,
@@ -721,6 +742,7 @@
 				C33E294B1FA251ED00C11D4A /* splashSMS2017@3x.png in Resources */,
 				C359BFD01FE030A10040355F /* btn_Favoritos_calor.png in Resources */,
 				C362F2BF1FCF194F00C9ED3C /* Btn_favoritos_SinMarcar@2x.png in Resources */,
+				C33A991620CEF90800B5CA88 /* 3.jpg in Resources */,
 				C359BFE61FE030A10040355F /* Btn_programa_final_plomo@2x.png in Resources */,
 				C359C00F1FE036FE0040355F /* LogoNews@3x.png in Resources */,
 				C332B2671FD74AA500D4A94D /* Back_Arrow@2x.png in Resources */,
@@ -739,6 +761,7 @@
 				C34BA8831F04173500022E6B /* Main.storyboard in Resources */,
 				C359BFE11FE030A10040355F /* Btn_ponentes_plomo@3x.png in Resources */,
 				C359BFD11FE030A10040355F /* btn_Favoritos_calor@2x.png in Resources */,
+				C33A991720CEF90800B5CA88 /* 4.jpg in Resources */,
 				C359BFD61FE030A10040355F /* Patrocinador_azul@1x.png in Resources */,
 				C362F2BA1FCF194F00C9ED3C /* Btn_favoritos_SinMarcar@3x.png in Resources */,
 				C3A20BAA1FBA1335009B2954 /* EstrellaTransparente@1x.png in Resources */,
@@ -840,6 +863,7 @@
 				C33455B11FDF48E5006E548A /* MoreVC.swift in Sources */,
 				C378EC3D1F05542200DE0318 /* SMSVC.swift in Sources */,
 				C3220A601F8FA90600A08B15 /* CongresoTabBarVC.swift in Sources */,
+				C39BF12D20F3CFDA0036129B /* EncuestaNativaVC.swift in Sources */,
 				C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */,
 				C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */,
 				C347B9E91FAD15FC00CB0CB0 /* PreguntasVC.swift in Sources */,

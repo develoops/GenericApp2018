@@ -14,7 +14,7 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var tabla: UITableView!
     var noticias = [PFObject]()
     var tamanoCelda = CGFloat()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -72,7 +72,7 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelHora.numberOfLines = 0
         cell.labelHora?.sizeToFit()
 
-        cell.collectionView.frame = CGRect(x: cell.labelNombre.frame.origin.x, y: cell.labelHora.frame.maxY + 8.0, width: view.frame.size.width - 18.0, height: 110.0)
+        cell.collectionView.frame = CGRect(x: cell.labelNombre.frame.origin.x, y: cell.labelHora.frame.maxY + 8.0, width: view.frame.size.width - 36.0, height: 110.0)
         
         tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + cell.collectionView.frame.size.height) + 60.0
         
