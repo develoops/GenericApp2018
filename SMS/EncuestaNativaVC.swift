@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: EncuestaNativaVC {
+class EncuestaNativaVC: UIViewController {
     
     var indicadorPregunta = Int()
     var arrayBotones = [UIButton]()

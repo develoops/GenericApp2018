@@ -1753,21 +1753,102 @@
             </objects>
             <point key="canvasLocation" x="-6674" y="3476"/>
         </scene>
+        <!--Encuesta NativaVC-->
+        <scene sceneID="qGo-jU-cGq">
+            <objects>
+                <viewController storyboardIdentifier="EncuestaNativaVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nWU-Oe-RiD" customClass="EncuestaNativaVC" customModule="SMS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pT5-T1-uMI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kOE-f7-wKJ">
+                                <rect key="frame" x="23" y="167" width="337" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWP-4t-J6D">
+                                <rect key="frame" x="60" y="192" width="240" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Esta evaluación tiene por objetivo contar con su opinión para mejorar nuestro servicio. Sus respuesas son estrictamente 
+confidenciales. 
+
+Utilice la escala de 5 puntos donde  “1” significa que usted está totalmente en desacuerdo y  “5” significa que usted está 
+totalmente de acuerdo.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="En relación a la charla:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wz7-vL-del">
+                                <rect key="frame" x="29" y="34" width="153" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Número pregunta 1/5" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ji1-2E-Yi6">
+                                <rect key="frame" x="28" y="128" width="121" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Rectangle 4.png" translatesAutoresizingMaskIntoConstraints="NO" id="5VK-vY-Cu6">
+                                <rect key="frame" x="0.0" y="440" width="359" height="82"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G9D-yo-0sa">
+                                <rect key="frame" x="270" y="443" width="90" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Siguiente" image="Btn_avanzar.png"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ava-4J-bkH">
+                                <rect key="frame" x="34" y="463" width="60" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="  Volver" image="Btn_volver.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="¿Vamos a hacer la pregunta número uno?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x4-Wt-pqv">
+                                <rect key="frame" x="29" y="57" width="331" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="fvE-NP-tI9"/>
+                    </view>
+                    <connections>
+                        <outlet property="barraDeProgreso" destination="kOE-f7-wKJ" id="3Le-va-1ed"/>
+                        <outlet property="botonAvanzar" destination="G9D-yo-0sa" id="9Px-Hy-7dz"/>
+                        <outlet property="botonRetroceder" destination="ava-4J-bkH" id="uKg-fQ-vJh"/>
+                        <outlet property="contenidoTexto" destination="TWP-4t-J6D" id="sj6-gK-96Q"/>
+                        <outlet property="labelContadorPreguntas" destination="Ji1-2E-Yi6" id="fan-df-JeO"/>
+                        <outlet property="labelEncabezado" destination="wz7-vL-del" id="oQf-Hn-ZXe"/>
+                        <outlet property="labelPregunta" destination="4x4-Wt-pqv" id="U6I-hu-lS4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oiR-Fp-eHr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="649" y="839"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Back_Arrow.png" width="13" height="22"/>
         <image name="Btn_Favoritos_azul.png" width="25" height="23"/>
         <image name="Btn_Favoritos_plomo.png" width="25" height="23"/>
+        <image name="Btn_avanzar.png" width="75" height="75"/>
         <image name="Btn_favoritos_SinMarcar.png" width="30" height="29"/>
         <image name="Btn_ponentes_azul.png" width="22" height="23"/>
         <image name="Btn_ponentes_plomo.png" width="22" height="23"/>
         <image name="Btn_programa_final.png" width="27" height="23"/>
         <image name="Btn_programa_final_plomo.png" width="27" height="23"/>
+        <image name="Btn_volver.png" width="12" height="10"/>
         <image name="Comite_academico.png" width="28" height="26"/>
         <image name="EstrellaTransparente.png" width="75" height="74"/>
         <image name="Estrellarellena.png" width="75" height="74"/>
         <image name="ImgDoc.png" width="33" height="43"/>
         <image name="Ponente_ausente_Hombre.png" width="100" height="100"/>
+        <image name="Rectangle 4.png" width="367" height="91"/>
         <image name="icono_ociedad_azul.png" width="28" height="23"/>
         <image name="icono_ociedad_plomo.png" width="28" height="23"/>
         <image name="menu.png" width="25" height="19"/>
