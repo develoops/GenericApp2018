@@ -30,7 +30,7 @@ class EncuestaNativaVC: UIViewController {
 
     indicadorPregunta = 0
     arrayPreguntas = ["¿Vamos a hacer la pregunta número uno?","¿Vamos a hacer la pregunta número dos?","¿Vamos a hacer la pregunta número tres?","¿Vamos a hacer la pregunta número cuatro?","¿Vamos a hacer la pregunta número cinco?"]
-        arrayOpcionesPregunta = [["a)  Primera alternativa","b)  Segunda alternativa","c)  Tercera alternativa", "d)  Cuarta alternativa"],["a)  Primera alternativa","b)  Segunda alternativa","c)  Tercera alternativa","d)  Cuarta alternativa"],["a)  Primera alternativa","b)  Segunda alternativa","c)  Tercera alternativa", "d)  Cuarta alternativa"], ["a)  Primera alternativa","b)  Segunda alternativa","c)  Tercera alternativa", "d)  Cuarta alternativa"],["a)  Primera alternativa","b)  Segunda alternativa","c)  Tercera alternativa", "d)  Cuarta alternativa"]]
+        arrayOpcionesPregunta = [["Primera alternativa con un texto más largo para hacer una prueba Primera alternativa con un texto más largo para hacer una prueba,","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"],["Primera alternativa","Segunda alternativa","Tercera alternativa","Cuarta alternativa"],["Primera alternativa","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"], ["Primera alternativa","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"],["Primera alternativa","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"]]
 
         contenidoTexto.removeFromSuperview()
         seleccionarOpciones()
@@ -40,31 +40,33 @@ class EncuestaNativaVC: UIViewController {
     }
 
     func seleccionarOpciones(){
-        
+        var factorDinamicoDePosicionY = CGFloat(180.0)
         let opciones = arrayOpcionesPregunta[indicadorPregunta]
         progresoBarra()
     for object in opciones {
-
     let index = opciones.index(of: object) as! Int
     let factorDinamicoDePosicion = CGFloat(index * 60)
     let button = UIButton(type: .system)
-        //
-    let labelTextoAlternativa = UILabel(frame: CGRect(x: 20.0, y: factorDinamicoDePosicion + 200.0, width: view.frame.size.width - 100.0, height: 0.0))
+    let labelTextoAlternativa = UILabel(frame: CGRect(x: 40.0, y: factorDinamicoDePosicionY + 20.0, width: view.frame.size.width - 100.0, height: 0.0))
+        print(labelTextoAlternativa.frame)
+    
     let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
 
         labelTextoAlternativa.sizeThatFits(maximumLabelSizeTitulo)
         labelTextoAlternativa.font = UIFont.systemFont(ofSize: 15.0)
         labelTextoAlternativa.text = object
-
-//        cell.labelTitulo.textColor = UIColor(red: 30.0/255.0, green: 144.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         labelTextoAlternativa.textAlignment = .left
         labelTextoAlternativa.numberOfLines = 0
         labelTextoAlternativa.sizeToFit()
 
-    button.frame = CGRect(x: 28.0, y: factorDinamicoDePosicion + 196.0, width: labelTextoAlternativa.frame.width + 30.0, height: labelTextoAlternativa.frame.height + 20.0)
-    
-    button.tintColor = UIColor.lightGray
-    button.setImage((UIImage(named: "rectangulo.png")), for: .normal)
+    button.frame = CGRect(x: 30.0, y: factorDinamicoDePosicionY + 16.0, width: labelTextoAlternativa.frame.width + 30.0, height: labelTextoAlternativa.bounds.maxY + 10.0)
+   
+    factorDinamicoDePosicionY = labelTextoAlternativa.frame.maxY
+
+    button.tintColor = UIColor.white
+    button.cornerRadius = 5.0
+    button.borderWidth = 1.2
+    button.borderColor = UIColor.lightGray
     button.addTarget(self, action: #selector(seleccionarBotonAlternativa), for: .touchUpInside)
     arrayBotones.append(button)
     arrayLabels.append(labelTextoAlternativa)
@@ -145,3 +147,34 @@ class EncuestaNativaVC: UIViewController {
 
 }
 
+
+extension UIView {
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+    
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            return UIColor(cgColor: layer.borderColor!)
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
+    }
+}

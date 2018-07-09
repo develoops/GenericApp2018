@@ -355,7 +355,6 @@
 		C3220A651F8FC34900A08B15 /* Congreso */ = {
 			isa = PBXGroup;
 			children = (
-				C39BF12C20F3CFDA0036129B /* EncuestaNativaVC.swift */,
 				C33A990F20C848CD00B5CA88 /* VisorDeImagenesVC.swift */,
 				C34BA87F1F04173500022E6B /* ProgramaVC.swift */,
 				C378EC361F05530900DE0318 /* SpeakersVC.swift */,
@@ -367,6 +366,7 @@
 				C3220A7B1F92F5A500A08B15 /* MaterialesVC.swift */,
 				C3220A761F92970700A08B15 /* NovedadesVC.swift */,
 				C347B9E81FAD15FC00CB0CB0 /* PreguntasVC.swift */,
+				C39BF12C20F3CFDA0036129B /* EncuestaNativaVC.swift */,
 				C330F7321FB513D8005BAF8C /* EncuestaVC.swift */,
 				C3A129A41FC3276700535B52 /* EncuestaGeneralVC.swift */,
 				C33455B01FDF48E5006E548A /* MoreVC.swift */,
