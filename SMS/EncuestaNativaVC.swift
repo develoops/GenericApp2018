@@ -79,6 +79,7 @@ class EncuestaNativaVC: UIViewController {
     @objc func seleccionarBotonAlternativa() {
         
         /// acá se desencadenan los eventos visuales de seleccionar una alternativa
+        
     }
 
 
@@ -141,10 +142,7 @@ class EncuestaNativaVC: UIViewController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-
 }
 
 
