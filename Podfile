@@ -7,4 +7,6 @@ target ‘SMS’ do
     pod 'ParseLiveQuery'
     pod 'SWSegmentedControl'
     pod 'ReadMoreTextView'
+	pod 'GRDB.swift'
+
 end
