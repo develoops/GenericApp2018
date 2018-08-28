@@ -60,7 +60,6 @@ class TableViewCell: UITableViewCell,UICollectionViewDataSource,UICollectionView
         self.posicion = (collectionView.superview?.superview?.frame.origin)!
         
         let story = UIStoryboard(name: "Main", bundle: nil)
-                
         let visor = story.instantiateViewController(withIdentifier: "VisorDeImagenesVC") as! VisorDeImagenesVC
         visor.indicador = indexPath.row
         visor.imagenes = imagenes

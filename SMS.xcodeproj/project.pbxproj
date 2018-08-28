@@ -56,6 +56,8 @@
 		C34BA8831F04173500022E6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8811F04173500022E6B /* Main.storyboard */; };
 		C34BA8881F04173500022E6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8871F04173500022E6B /* Assets.xcassets */; };
 		C34BA88B1F04173500022E6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C34BA8891F04173500022E6B /* LaunchScreen.storyboard */; };
+		C352AC8E2135DF9300A24106 /* AppDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352AC8D2135DF9300A24106 /* AppDatabase.swift */; };
+		C352AC902135E09700A24106 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352AC8F2135E09700A24106 /* Person.swift */; };
 		C359BFCA1FE030A10040355F /* btn_Favoritos@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C359BFA91FE030A10040355F /* btn_Favoritos@1x.png */; };
 		C359BFCB1FE030A10040355F /* btn_Favoritos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C359BFAA1FE030A10040355F /* btn_Favoritos@2x.png */; };
 		C359BFCC1FE030A10040355F /* btn_Favoritos@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C359BFAB1FE030A10040355F /* btn_Favoritos@3x.png */; };
@@ -211,6 +213,8 @@
 		C34BA8871F04173500022E6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C34BA88A1F04173500022E6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C34BA88C1F04173500022E6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C352AC8D2135DF9300A24106 /* AppDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDatabase.swift; sourceTree = "<group>"; };
+		C352AC8F2135E09700A24106 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		C359BFA91FE030A10040355F /* btn_Favoritos@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_Favoritos@1x.png"; sourceTree = "<group>"; };
 		C359BFAA1FE030A10040355F /* btn_Favoritos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_Favoritos@2x.png"; sourceTree = "<group>"; };
 		C359BFAB1FE030A10040355F /* btn_Favoritos@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_Favoritos@3x.png"; sourceTree = "<group>"; };
@@ -431,8 +435,10 @@
 			children = (
 				C32FF1621F9524E900E41BA2 /* SMS.entitlements */,
 				C34BA87D1F04173500022E6B /* AppDelegate.swift */,
+				C352AC8D2135DF9300A24106 /* AppDatabase.swift */,
 				C332C2541FA91B04003F8DDE /* RefreshData.swift */,
 				C317A0461FB615C9009B0F0D /* FloatRatingView.swift */,
+				C352AC8F2135E09700A24106 /* Person.swift */,
 				C378EC5C1F05823000DE0318 /* ViewControllers */,
 				C3A58D3A1F054953003095FF /* TableViewCell.swift */,
 				C33A990D20C8488E00B5CA88 /* CollectionViewCell.swift */,
@@ -950,6 +956,7 @@
 				C33455B11FDF48E5006E548A /* MoreVC.swift in Sources */,
 				C378EC3D1F05542200DE0318 /* SMSVC.swift in Sources */,
 				C3220A601F8FA90600A08B15 /* CongresoTabBarVC.swift in Sources */,
+				C352AC902135E09700A24106 /* Person.swift in Sources */,
 				C39BF12D20F3CFDA0036129B /* EncuestaNativaVC.swift in Sources */,
 				C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */,
 				C378EC581F05820300DE0318 /* DetallePersonaVC.swift in Sources */,
@@ -963,6 +970,7 @@
 				C3220A631F8FAD2A00A08B15 /* TabBarAppVC.swift in Sources */,
 				C3220A771F92970700A08B15 /* NovedadesVC.swift in Sources */,
 				C34BA87E1F04173500022E6B /* AppDelegate.swift in Sources */,
+				C352AC8E2135DF9300A24106 /* AppDatabase.swift in Sources */,
 				C378EC3F1F05543000DE0318 /* DetalleProgramaVC.swift in Sources */,
 				C3220A7C1F92F5A500A08B15 /* MaterialesVC.swift in Sources */,
 				C332C2551FA91B04003F8DDE /* RefreshData.swift in Sources */,

@@ -12,6 +12,8 @@ import Parse
 import UserNotifications
 import GRDB
 
+var dbQueue: DatabaseQueue!
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
 
@@ -100,16 +102,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
        func applicationWillTerminate(_ application: UIApplication) {
     }
     
-//    private func setupDatabase(_ application: UIApplication) throws {
-//        let databaseURL = try FileManager.default
-//            .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-//            .appendingPathComponent("db.sqlite")
-//        dbQueue = try AppDatabase.openDatabase(atPath: databaseURL.path)
-//
-//        // Be a nice iOS citizen, and don't consume too much memory
-//        // See https://github.com/groue/GRDB.swift/#memory-management
-//        dbQueue.setupMemoryManagement(in: application)
-//    }
+    private func setupDatabase(_ application: UIApplication) throws {
+        let databaseURL = try FileManager.default
+            .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent("db.sqlite")
+        dbQueue = try AppDatabase.openDatabase(atPath: databaseURL.path)
+        
+        // Be a nice iOS citizen, and don't consume too much memory
+        // See https://github.com/groue/GRDB.swift/#memory-management
+        dbQueue.setupMemoryManagement(in: application)
+    }
 
 }
 
