@@ -9,8 +9,10 @@
 import UIKit
 import Parse
 import Bolts
+import GRDB
 
 class SplashVC: UIViewController {
+    var personas: [Person]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,7 @@ class SplashVC: UIViewController {
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
             self.navigationController?.present(vc, animated: true, completion: nil)
         }
+       // cargaPersonas()
     }
 
     func primerLlamado(){
@@ -80,11 +83,49 @@ class SplashVC: UIViewController {
         })
     }
     
+    
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+//    private func cargaPersonas() {
+//        for _ in 0..<50 {
+//            DispatchQueue.global().async {
+//                try! dbQueue.inTransaction { db in
+//                    if try Person.fetchCount(db) == 0 {
+//                        // Insert persons
+//                        for _ in 0..<8 {
+//                            try Person(nombre: Person.nombreRandom(), edad: Person.edadRandom()).insert(db)
+//                        }
+//                    } else {
+//                        // Insert a person
+//                        if arc4random_uniform(2) == 0 {
+//                            let person = Person(nombre: Person.nombreRandom(), edad: Person.edadRandom())
+//                            try person.insert(db)
+//                        }
+//                        // Delete a person
+//                        if arc4random_uniform(2) == 0 {
+//                            if let person = try Person.order(sql: "RANDOM()").fetchOne(db) {
+//                                try person.delete(db)
+//                            }
+//                        }
+//                        // Update some persons
+//                        for person in try Person.fetchAll(db) {
+//                            if arc4random_uniform(2) == 0 {
+//                                person.edad = Person.edadRandom()
+//                                try person.update(db)
+//                            }
+//                        }
+//                    }
+//                    return .commit
+//                }
+//            }
+//        }
+//    }
+
 
     /*
     // MARK: - Navigation

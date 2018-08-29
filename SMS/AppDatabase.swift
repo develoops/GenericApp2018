@@ -5,45 +5,38 @@ import GRDB
 /// See AppDelegate.setupDatabase()
 struct AppDatabase {
     
-    /// Creates a fully initialized database at path
+    /// Crea una base de datos totalmente inicializada en la ruta
     static func openDatabase(atPath path: String) throws -> DatabaseQueue {
-        // Connect to the database
-        // See https://github.com/groue/GRDB.swift/#database-connections
+        // establece la conexión a la base de datos
         dbQueue = try DatabaseQueue(path: path)
         
-        // Use DatabaseMigrator to define the database schema
-        // See https://github.com/groue/GRDB.swift/#migrations
+        // Usa DatabaseMigrator para definir el esquema de la base de datos
         try migrator.migrate(dbQueue)
         
         return dbQueue
     }
     
-    /// The DatabaseMigrator that defines the database schema.
-    ///
-    /// This migrator is exposed so that migrations can be tested.
-    // See https://github.com/groue/GRDB.swift/#migrations
+    /// La DatabaseMigrator que define el esquema de la base de datos
     static var migrator: DatabaseMigrator {
         var migrator = DatabaseMigrator()
         
-        migrator.registerMigration("createPersons") { db in
-            // Create a table
-            // See https://github.com/groue/GRDB.swift#create-tables
-            try db.create(table: "persons") { t in
-                // An integer primary key auto-generates unique IDs
+        migrator.registerMigration("createPersonas") { db in
+            // Crea la tabla
+            try db.create(table: "personas") { t in
+                // Un entero como una auto generada clave primaria, que referencia el objeto a un ID único
                 t.column("id", .integer).primaryKey()
                 
-                // Sort person names in a localized case insensitive fashion by default
-                // See https://github.com/groue/GRDB.swift/#unicode
-                t.column("name", .text).notNull().collate(.localizedCaseInsensitiveCompare)
+                // Acá de ordena la tabla alfabéticamente de acuerdo a los nombres de las personas
+                t.column("nombre", .text).notNull().collate(.localizedCaseInsensitiveCompare)
                 
-                t.column("score", .integer).notNull()
+                t.column("edad", .integer).notNull()
             }
         }
         
         migrator.registerMigration("fixtures") { db in
-            // Populate the persons table with random data
+            // Llena la base de datos con datos al azar
             for _ in 0..<8 {
-                try Person(name: Person.randomName(), score: Person.randomScore()).insert(db)
+                try Person(nombre: Person.nombreRandom(),edad: Person.edadRandom()).insert(db)
             }
         }
 
