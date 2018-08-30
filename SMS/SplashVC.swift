@@ -13,6 +13,7 @@ import GRDB
 
 class SplashVC: UIViewController {
     var personas: [Person]!
+    var personsController: FetchedRecordsController<Person>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,13 @@ class SplashVC: UIViewController {
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
             self.navigationController?.present(vc, animated: true, completion: nil)
         }
-       // cargaPersonas()
+        
+        personas = try! dbQueue.inDatabase { db in
+            try Person.order(Column("edad").desc, Column("nombre")).fetchAll(db)
+        }
+        print(personas.first?.nombre)
+        
+        
     }
 
     func primerLlamado(){
