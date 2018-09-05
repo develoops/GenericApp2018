@@ -41,8 +41,11 @@ class SplashVC: UIViewController {
         personas = try! dbQueue.inDatabase { db in
             try Person.order(Column("edad").desc, Column("nombre")).fetchAll(db)
         }
-        print(personas.first?.nombre)
-        
+
+        for persona in personas{
+            
+            print(persona.nombre,persona.edad)
+        }
         
     }
 
