@@ -21,7 +21,7 @@ class SplashVC: UIViewController {
         let imagenSplash = UIImageView(frame: self.view.frame)
         imagenSplash.image = UIImage(named: "splashSMS2017")
 
-       // imagenSplash.image = UIImage(named: "LaunchImage")
+        // imagenSplash.image = UIImage(named: "LaunchImage")
         view.addSubview(imagenSplash)
     
         let userDefaults = UserDefaults.standard
@@ -43,10 +43,8 @@ class SplashVC: UIViewController {
         }
 
         for persona in personas{
-            
             print(persona.nombre,persona.edad)
         }
-        
     }
 
     func primerLlamado(){
@@ -61,8 +59,6 @@ class SplashVC: UIViewController {
         let query8 = PFQuery(className: "Media")
         let query9 = PFQuery(className: "Info")
 
-        
-        
         query.limit = 1000
         query2.limit = 1000
         query3.limit = 1000
@@ -83,8 +79,7 @@ class SplashVC: UIViewController {
         BFTask<AnyObject>(forCompletionOfAllTasksWithResults: tasks as [BFTask<AnyObject>]?).continueWith(block: { task -> Any? in
             PFObject.pinAll(inBackground: (task.result as! [PFObject])).continueOnSuccessWith(block: { (i:BFTask<NSNumber>) -> Any? in
                 
-          
-                DispatchQueue.main.async {
+DispatchQueue.main.async {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
                     self.navigationController?.present(vc, animated: true, completion: nil)                    
@@ -93,9 +88,6 @@ class SplashVC: UIViewController {
         })
     }
     
-    
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

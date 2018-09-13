@@ -139,14 +139,14 @@ class SociedadVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             cell.infoDetallePatrocinador?.textAlignment = .left
             cell.infoDetallePatrocinador?.sizeToFit()
             
-            if (cell.infoDetallePatrocinador.frame.height > 200.0){
-                
-//                let readMoreTextView = cell.contentView.viewWithTag(1) as! ReadMoreTextView
-                cell.infoDetallePatrocinador.shouldTrim = !expandedCells.contains(indexPath.row)
-                cell.infoDetallePatrocinador.setNeedsUpdateTrim()
-                cell.infoDetallePatrocinador.layoutIfNeeded()
-                return cell
-            }
+//            if (cell.infoDetallePatrocinador.frame.height > 200.0){
+//                
+////                let readMoreTextView = cell.contentView.viewWithTag(1) as! ReadMoreTextView
+//                cell.infoDetallePatrocinador.shouldTrim = !expandedCells.contains(indexPath.row)
+//                cell.infoDetallePatrocinador.setNeedsUpdateTrim()
+//                cell.infoDetallePatrocinador.layoutIfNeeded()
+//                return cell
+//            }
             cell.imagenPerfil.isHidden = true
             
 //            cell.infoDetallePatrocinador.onSizeChange{_ in self
