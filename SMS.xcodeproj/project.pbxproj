@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C317A0471FB615C9009B0F0D /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C317A0461FB615C9009B0F0D /* FloatRatingView.swift */; };
+		C3181E97216CECD4009F3EC4 /* SesionesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3181E96216CECD4009F3EC4 /* SesionesVC.swift */; };
 		C31C25081F0BF922006492EF /* FormatoFechas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C25071F0BF922006492EF /* FormatoFechas.swift */; };
 		C3220A601F8FA90600A08B15 /* CongresoTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A5F1F8FA90600A08B15 /* CongresoTabBarVC.swift */; };
 		C3220A631F8FAD2A00A08B15 /* TabBarAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3220A621F8FAD2A00A08B15 /* TabBarAppVC.swift */; };
@@ -161,6 +162,7 @@
 		1C2C955866E28B340F8E0309 /* Pods-SMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMS.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMS/Pods-SMS.release.xcconfig"; sourceTree = "<group>"; };
 		73148D13B6370238CC4A32E1 /* Pods-SMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMS/Pods-SMS.debug.xcconfig"; sourceTree = "<group>"; };
 		C317A0461FB615C9009B0F0D /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		C3181E96216CECD4009F3EC4 /* SesionesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesionesVC.swift; sourceTree = "<group>"; };
 		C31C25071F0BF922006492EF /* FormatoFechas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatoFechas.swift; sourceTree = "<group>"; };
 		C3220A5F1F8FA90600A08B15 /* CongresoTabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CongresoTabBarVC.swift; sourceTree = "<group>"; };
 		C3220A621F8FAD2A00A08B15 /* TabBarAppVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarAppVC.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				C330F7321FB513D8005BAF8C /* EncuestaVC.swift */,
 				C3A129A41FC3276700535B52 /* EncuestaGeneralVC.swift */,
 				C33455B01FDF48E5006E548A /* MoreVC.swift */,
+				C3181E96216CECD4009F3EC4 /* SesionesVC.swift */,
 			);
 			name = Congreso;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 			files = (
 				C3220A691F8FC4A200A08B15 /* DirectivaVC.swift in Sources */,
 				C33A991020C848CD00B5CA88 /* VisorDeImagenesVC.swift in Sources */,
+				C3181E97216CECD4009F3EC4 /* SesionesVC.swift in Sources */,
 				C3220A671F8FC48F00A08B15 /* CongresosVC.swift in Sources */,
 				C3220A751F9296C700A08B15 /* DirectorioVC.swift in Sources */,
 				C378EC391F05531B00DE0318 /* FavoritosVC.swift in Sources */,

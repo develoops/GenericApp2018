@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 
-
 extension Array {
     func containss<T>(obj: T) -> Bool where T : Equatable {
         return self.filter({$0 as? T == obj}).count > 0
@@ -51,6 +50,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         eventosQuery.limit = 1000
         eventosQuery.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             
+            
             let actCollection = task.result as! [PFObject]
             let contenido = actCollection.map{$0.value(forKey: "contenido") as? PFObject}
 
@@ -67,7 +67,7 @@ class ProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
                 let actividades = taskActividades.result as! [PFObject]
                 self.eventosVarLocal = actividades.filter{a.containss(obj: $0.objectId!)
             }
-    queryPersona.findObjectsInBackground().continueWith{ (taskPersonas:BFTask<NSArray>) -> Any? in
+            queryPersona.findObjectsInBackground().continueWith{ (taskPersonas:BFTask<NSArray>) -> Any? in
                     self.personas = (taskPersonas.result as? [PFObject])!
                     
                     return taskPersonas

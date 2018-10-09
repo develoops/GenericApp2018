@@ -23,49 +23,16 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         tabla.delegate = self
         tabla.dataSource = self
+        
+        self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
+        
+        llamadoPersonas()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         let refresh = RefreshData()
         refresh.primerLlamado()
         
-        self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
-        
-        let query = PFQuery(className: "PersonaRolAct")
-        query.fromLocalDatastore()
-        query.limit = 1000
-        query.includeKey("act")
-        query.includeKey("act.lugar")
-        query.includeKey("persona")
-        query.includeKey("persona.pais")
-        query.includeKey("persona.institucion")
-        query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
-            
-        self.rolAct = task.result as! [PFObject]
-            
-            var counts: [PFObject: Int] = [:]
-            
-            for ite in self.rolAct {
-                counts[ite.value(forKey: "persona") as! PFObject] = (counts[ite.value(forKey: "persona") as! PFObject] ?? 0) + 1
-                
-            }
-            
-            for (key, value) in counts {
-                if(value >= 1){
-                    self.personasRolAct.append(key)
-                }
-            }
-            let arrayDePersonas  = self.uniqueElementsFrom(array:self.personasRolAct)
-
-            self.personas = arrayDePersonas.sorted { ($0["primerApellido"] as AnyObject).localizedCaseInsensitiveCompare($1["primerApellido"] as! String) == ComparisonResult.orderedAscending }
-
-            
-            DispatchQueue.main.async() {
-                self.tabla.reloadData()
-            }
-            return task
-        }
-
         self.navigationController?.navigationBar.topItem?.title = "Ponentes"
     }
     
@@ -103,23 +70,22 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         if (im == nil) {
             cell.imagenPerfil.image = UIImage(named: "")
         }
-            
         else{
             im?.getDataInBackground().continueWith{ (task:BFTask<NSData>) -> Any? in
                 
-                DispatchQueue.main.async {
-                    
+                
                     if ((task.error) != nil){
                         
                         cell.imagenPerfil.image = UIImage(named: "Ponente_ausente_Hombre.png")
                         
                     }
+                        
                     else{
+                        DispatchQueue.main.async {
+
                         cell.imagenPerfil.image = UIImage(data: task.result! as Data)
                     }
-                    
                 }
-                
                 
                 return task
             }
@@ -183,11 +149,13 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         vc.institucion = institucion?["nombre"] as? String
        let actividades = rolAct.filter({($0["persona"] as! PFObject) == persona})
         
-        let act = actividades.map({$0.value(forKey: "act") as? PFObject}).flatMap({$0})
+        let act = actividades.map({$0.value(forKey: "act") as? PFObject}).compactMap({$0})
         
         vc.charlasArray = act
         
+        
         print(act)
+        print(act.count)
         
         
         let im = persona["ImgPerfil"] as! PFFile
@@ -200,6 +168,7 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
             vc.imagenFile = im
         }
+        vc.activadorSesiones = true
         vc.congreso = congreso
         navigationController?.pushViewController(vc,
                                                  animated: true)
@@ -216,6 +185,45 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         }
         return result
     }
+    
+func llamadoPersonas(){
+    let query = PFQuery(className: "PersonaRolAct")
+    query.fromLocalDatastore()
+    query.whereKey("vivo", notEqualTo: "0")
+    query.limit = 1000
+    query.includeKey("act")
+    query.includeKey("act.lugar")
+    query.includeKey("persona")
+    query.includeKey("persona.pais")
+    query.includeKey("persona.institucion")
+    query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
+    
+    self.rolAct = task.result as! [PFObject]
+    
+    var counts: [PFObject: Int] = [:]
+    
+    for ite in self.rolAct {
+    counts[ite.value(forKey: "persona") as! PFObject] = (counts[ite.value(forKey: "persona") as! PFObject] ?? 0) + 1
+    
+    }
+    
+    for (key, value) in counts {
+    if(value >= 1){
+    self.personasRolAct.append(key)
+    }
+    }
+    
+    
+    let arrayDePersonas  = self.uniqueElementsFrom(array:self.personasRolAct)
+    
+    self.personas = arrayDePersonas.sorted { ($0["primerApellido"] as AnyObject).localizedCaseInsensitiveCompare($1["primerApellido"] as! String) == ComparisonResult.orderedAscending }
+    
+    DispatchQueue.main.async() {
+    self.tabla.reloadData()
+    }
+    return task
+        }}
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -34,12 +34,19 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     var dateFormatter = DateFormatter()
     var personas = [PFObject]()
     var roles = [String]()
+    var activadorSesiones: Bool!
 
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        funcionesPersona = ["Sesiones","Materiales","Evaluar","Preguntar"]
+        
+        if(activadorSesiones == true){
+            funcionesPersona = ["Sesiones","Materiales","Evaluar","Preguntar"]
+        }
+        else{
+            funcionesPersona = []
+        }
+        
         self.tabla.separatorColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 0.6)
         self.tabla.isScrollEnabled = false
         textViewInfoDetallePersona.text = info
@@ -203,7 +210,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                 self.personasCharla.append(object as AnyObject)
                 DispatchQueue.main.async {
                     
-                    self.tabla.reloadData()
+//                    self.tabla.reloadData()
                 }
                 return task
             }
@@ -264,48 +271,21 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let evento =  charlasArray[indexPath.row] 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "detalleProgramaVC") as! DetalleProgramaVC
-        let fechaInicio = dateFormatter.formatoHoraMinutoString(fecha: evento["inicio"] as! NSDate)
-        let fechaFin = dateFormatter.formatoHoraMinutoString(fecha: evento["fin"] as! NSDate)
+        let vc = storyboard.instantiateViewController(withIdentifier: "SesionesVC") as! SesionesVC
+
         
-        vc.dia = dateFormatter.formatoDiaMesString(fecha: evento["inicio"] as! NSDate)
-        vc.hora = fechaInicio + " - " + fechaFin
-        vc.evento = evento
+//        let personaActividad = personasCharla[indexPath.row]
+//        let personasAct = personaActividad.lastObject as! [PFObject]
+//            for object in (personasAct){
+//
+//                roles.append(object["rol"] as! String)
+//                let persona = object["persona"] as! PFObject
+//                personas.append(persona)
+//            }
         
-        let personaActividad = personasCharla[indexPath.row]
-        let personasAct = personaActividad.lastObject as! [PFObject]
-            for object in (personasAct){
-                
-                roles.append(object["rol"] as! String)
-                let persona = object["persona"] as! PFObject
-                personas.append(persona)
-            }
-        
-        vc.personas = personas
-        vc.roles = roles
-        
-        if(evento["tipo"] as? String == "conferencia")
-        {
-            vc.colorFondo = UIColor(red: 252/255.0, green: 171/255.0, blue: 83/255.0, alpha: 1.0)
-        }
-            
-        else if (evento["tipo"] as? String == "social") {
-            
-            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
-            
-        }
-        else if (evento["tipo"] as? String == "break") {
-            
-            vc.colorFondo = UIColor(red: 80/255.0, green: 210/255.0, blue: 194/255.0, alpha: 1.0)
-            
-        }
-            
-        else{
-            vc.colorFondo = UIColor(red: 140/255.0, green: 136/255.0, blue: 255/255.0, alpha: 1.0)
-            
-        }
+//        vc.personas = personas
+        vc.charlasPersona = charlasArray
         vc.congreso = congreso
         tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.pushViewController(vc,

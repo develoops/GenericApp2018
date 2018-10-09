@@ -46,6 +46,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(personas)
         let query = PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", evento))
         query.fromLocalDatastore()
         query.includeKey("contenedor")
@@ -56,7 +57,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             let a = task.result as! [PFObject]
             if(a.count != 0){
-                self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as? PFObject}.flatMap{$0}
+                self.actividadesAnidadas = a.map{$0.value(forKey: "contenido") as? PFObject}.compactMap{$0}
             }
             DispatchQueue.main.async() {
         self.tablaActividades.reloadData()
@@ -355,7 +356,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
             
-            let a = roles[safe: indexPath.row]
+           // let a = roles[safe: indexPath.row]
             cell.imagenPerfil.frame.origin = CGPoint(x: 15.0, y: 7.5)
             cell.imagenPerfil.frame.size = CGSize(width: 40.0, height: 40.0)
 
@@ -365,7 +366,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.labelRol.font = UIFont.systemFont(ofSize: 12.0)
             cell.labelRol.frame.origin = CGPoint(x: cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.maxY + 2.5)
 
-            cell.labelRol.text = a
+          //  cell.labelRol.text = a
             let im = persona["ImgPerfil"] as? PFFile
             if !((im?.isDataAvailable)!) {
                 

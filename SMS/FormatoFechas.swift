@@ -62,7 +62,7 @@ extension DateFormatter {
         self.locale = Locale(identifier: "es_CL")
         self.dateStyle = .full
         self.monthSymbols  = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
-        self.weekdaySymbols = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]
+        self.weekdaySymbols = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
 
 
         self.dateFormat = "EEEE, MMMM dd"

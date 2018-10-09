@@ -23,7 +23,7 @@ class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let noticiasVC = storyboard.instantiateViewController(withIdentifier: "NovedadesVC") as! NovedadesVC
         let encuestaVC = storyboard.instantiateViewController(withIdentifier: "EncuestaNativaVC") as! EncuestaNativaVC
         
-        titulos = ["Patrocinadores","Comité académico","Materiales","Novedades","Encuesta"]
+        titulos = ["Patrocinadores","Comité Organizador","Materiales","Novedades","Encuesta"]
         imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
         vistas = [patrocinadoresVC,directorioVC,materialesVC,noticiasVC,encuestaVC]
 
