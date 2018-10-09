@@ -41,7 +41,8 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
         super.viewDidLoad()
         
         if(activadorSesiones == true){
-            funcionesPersona = ["Sesiones","Materiales","Evaluar","Preguntar"]
+            
+            funcionesPersona = ["Sesiones"]
         }
         else{
             funcionesPersona = []
@@ -197,6 +198,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
         roles = []
         personas = []
+        
         if charlasArray != nil{
         for act in charlasArray {
             
@@ -212,6 +214,7 @@ class DetallePersonaVC: UIViewController,UITableViewDelegate,UITableViewDataSour
                     
 //                    self.tabla.reloadData()
                 }
+                print(self.personasCharla)
                 return task
             }
         }}}

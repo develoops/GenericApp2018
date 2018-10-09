@@ -207,22 +207,24 @@ func llamadoPersonas(){
     
     }
     
-    for (key, value) in counts {
-    if(value >= 1){
-    self.personasRolAct.append(key)
-    }
-    }
-    
-    
+        for (key, value) in counts {
+            if(value >= 1){
+                self.personasRolAct.append(key)
+            }
+        
+        }
+
     let arrayDePersonas  = self.uniqueElementsFrom(array:self.personasRolAct)
     
     self.personas = arrayDePersonas.sorted { ($0["primerApellido"] as AnyObject).localizedCaseInsensitiveCompare($1["primerApellido"] as! String) == ComparisonResult.orderedAscending }
     
-    DispatchQueue.main.async() {
-    self.tabla.reloadData()
+        DispatchQueue.main.async() {
+            self.tabla.reloadData()
+        }
+            return self.tabla.reloadData()
+        }
+    
     }
-    return task
-        }}
 
     
     override func didReceiveMemoryWarning() {
