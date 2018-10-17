@@ -23,6 +23,10 @@ class RefreshData {
         let query7 = PFQuery(className: "PersonaRolOrg")
         let query8 = PFQuery(className: "Media")
         let query9 = PFQuery(className: "Info")
+        let query10 = PFQuery(className: "Encuesta")
+        let query11 = PFQuery(className: "PreguntaDeEncuesta")
+        let query12 = PFQuery(className: "MediaPos")
+
 
         query.limit = 1000
         query2.limit = 1000
@@ -33,8 +37,12 @@ class RefreshData {
         query7.limit = 1000
         query8.limit = 1000
         query9.limit = 1000
+        query10.limit = 1000
+        query11.limit = 1000
+        query12.limit = 1000
 
-        let  queryCollections = [query,query2,query3,query4,query5,query6,query7,query8,query9]
+
+        let  queryCollections = [query,query2,query3,query4,query5,query6,query7,query8,query9,query10,query11,query12]
         
         let tasks = queryCollections.map{$0.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             

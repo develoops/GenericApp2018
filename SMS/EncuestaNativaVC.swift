@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import Parse
 
 class EncuestaNativaVC: UIViewController {
     
     var indicadorPregunta = Int()
+    var tipoDeEncuesta:String!
+    var encuesta:Bool!
     var arrayBotones = [UIButton]()
     var arrayLabels = [UILabel]()
     var arrayPreguntas = [String]()
+    var objetosPreguntas = [PFObject]()
     var arrayOpcionesPregunta = [Array<String>]()
     
     @IBOutlet weak var labelEncabezado:UILabel!
@@ -27,33 +31,63 @@ class EncuestaNativaVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-    indicadorPregunta = 0
-    arrayPreguntas = ["¿Vamos a hacer la pregunta número uno?","¿Vamos a hacer la pregunta número dos?","¿Vamos a hacer la pregunta número tres?","¿Vamos a hacer la pregunta número cuatro?","¿Vamos a hacer la pregunta número cinco?"]
-        arrayOpcionesPregunta = [["Primera alternativa con un texto más largo para hacer una prueba Primera alternativa con un texto más largo para hacer una prueba,","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"],["Primera alternativa","Segunda alternativa","Tercera alternativa","Cuarta alternativa"],["Primera alternativa","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"], ["Primera alternativa","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"],["Primera alternativa","Segunda alternativa","Tercera alternativa", "Cuarta alternativa"]]
-
-        contenidoTexto.removeFromSuperview()
-        seleccionarOpciones()
+          tipoDeEncuesta = "general"
         
-        botonAvanzar.addTarget(self, action: #selector(irSiguientePregunta), for: .touchUpInside)
-        botonRetroceder.addTarget(self, action: #selector(irPreguntaAnterior), for: .touchUpInside)
+        let queryPreguntas = PFQuery(className: "PreguntaDeEncuesta")
+        queryPreguntas.fromLocalDatastore()
+        queryPreguntas.limit = 1000
+        queryPreguntas.whereKey("tipo", equalTo: tipoDeEncuesta)
+        queryPreguntas.includeKey("encuesta")
+        queryPreguntas.addAscendingOrder("posicion")
+        queryPreguntas.findObjectsInBackground().continueWith { (task:BFTask<NSArray>) -> Any? in
+            
+            DispatchQueue.main.async() {
+                self.objetosPreguntas = task.result as! [PFObject]
+                
+                for object in self.objetosPreguntas {
+                    
+                    self.arrayPreguntas.append(object["preguntaTexto"] as! String)
+                    
+                }
+           
+        
+    self.indicadorPregunta = 0
+     //   self.arrayOpcionesPregunta = [["Muy Satisfactorio","Satisfactorio","Normal","Insuficiente"]]
+               
+                for _ in 1...self.arrayPreguntas.count {
+                    self.arrayOpcionesPregunta.append(["Muy Satisfactorio","Satisfactorio","Normal","Insuficiente"])
+                    
+                }
+
+        self.contenidoTexto.removeFromSuperview()
+        self.seleccionarOpciones()
+        self.seleccionTextoIndicadorPregunta()
+        self.cambiarSubTitulo()
+        
+        self.botonAvanzar.addTarget(self, action: #selector(self.irSiguientePregunta), for: .touchUpInside)
+        self.botonRetroceder.addTarget(self, action: #selector(self.irPreguntaAnterior), for: .touchUpInside)
+        self.cambiarSubTitulo()
+                
+            }
+            return task
+        }
     }
+    
 
     func seleccionarOpciones(){
         var factorDinamicoDePosicionY = CGFloat(180.0)
         let opciones = arrayOpcionesPregunta[indicadorPregunta]
         progresoBarra()
     for object in opciones {
+        
     let index = opciones.index(of: object) as! Int
     let factorDinamicoDePosicion = CGFloat(index * 60)
-    let button = UIButton(type: .system)
+    let button = UIButton(type: .custom)
     let labelTextoAlternativa = UILabel(frame: CGRect(x: 40.0, y: factorDinamicoDePosicionY + 20.0, width: view.frame.size.width - 100.0, height: 0.0))
-        print(labelTextoAlternativa.frame)
-    
     let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
 
         labelTextoAlternativa.sizeThatFits(maximumLabelSizeTitulo)
-        labelTextoAlternativa.font = UIFont.systemFont(ofSize: 15.0)
+        labelTextoAlternativa.font = UIFont.systemFont(ofSize: 14.0)
         labelTextoAlternativa.text = object
         labelTextoAlternativa.textAlignment = .left
         labelTextoAlternativa.numberOfLines = 0
@@ -67,6 +101,7 @@ class EncuestaNativaVC: UIViewController {
     button.cornerRadius = 5.0
     button.borderWidth = 1.2
     button.borderColor = UIColor.lightGray
+    button.tag = opciones.firstIndex(of: object) as! Int
     button.addTarget(self, action: #selector(seleccionarBotonAlternativa), for: .touchUpInside)
     arrayBotones.append(button)
     arrayLabels.append(labelTextoAlternativa)
@@ -76,10 +111,18 @@ class EncuestaNativaVC: UIViewController {
         }
     }
     
-    @objc func seleccionarBotonAlternativa() {
+    @objc func seleccionarBotonAlternativa(sender:UIButton) {
+
+        for button in arrayBotones{
+              button.backgroundColor = UIColor.white
+        }
         
-        /// acá se desencadenan los eventos visuales de seleccionar una alternativa
-        
+        if(sender.backgroundColor == UIColor.cyan){
+            sender.backgroundColor = UIColor.white
+        }
+        else{
+            sender.backgroundColor = UIColor.cyan
+        }
     }
 
 
@@ -88,7 +131,8 @@ class EncuestaNativaVC: UIViewController {
         if(indicadorPregunta < arrayPreguntas.count - 1){
 
         indicadorPregunta = indicadorPregunta + 1
-        labelPregunta.text = arrayPreguntas[indicadorPregunta]
+        cambiarSubTitulo()
+        //labelPregunta.text = arrayPreguntas[indicadorPregunta]
         eliminarAternativas()
             seleccionTextoIndicadorPregunta()
             seleccionarOpciones()
@@ -102,7 +146,8 @@ class EncuestaNativaVC: UIViewController {
         indicadorPregunta = indicadorPregunta - 1
         eliminarAternativas()
         seleccionarOpciones()
-        labelPregunta.text = arrayPreguntas[indicadorPregunta]
+        cambiarSubTitulo()
+       // labelPregunta.text = arrayPreguntas[indicadorPregunta]
             seleccionTextoIndicadorPregunta()
             progresoBarra()
         }
@@ -125,16 +170,14 @@ class EncuestaNativaVC: UIViewController {
     
     func seleccionTextoIndicadorPregunta(){
         
-        
-        let textoContadorPreguntas = String("número pregunta" +  String(indicadorPregunta + 1) + "/" + String(arrayPreguntas.count))
+        let textoContadorPreguntas = String("Pregunta " +  String(indicadorPregunta + 1) + " de " + String(arrayPreguntas.count))
         labelContadorPreguntas.text = textoContadorPreguntas
         
     }
     
-    func progresoBarra(){
+ func progresoBarra(){
         
         let progresoFloat = Float(indicadorPregunta + 1)/Float(arrayPreguntas.count)
-        
         print(progresoFloat)
         
         self.barraDeProgreso.setProgress(progresoFloat, animated: true)
@@ -142,6 +185,60 @@ class EncuestaNativaVC: UIViewController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func terminarEncuesta(){
+        
+    }
+    
+    func desapareceAdelante() {
+        
+        if(indicadorPregunta >= arrayPreguntas.count){
+            botonAvanzar.isHidden = true
+        }
+            
+        else{
+            botonAvanzar.isHidden = false
+        }
+    }
+    
+    func desapareceAtras() {
+        
+        if(indicadorPregunta < arrayPreguntas.count){
+            //cambiarSubTitulo()
+        }
+        
+        if indicadorPregunta == 0 {
+            botonRetroceder.isHidden = true
+        }
+        else{
+            botonRetroceder.isHidden = false
+           // subtitulo.isHidden = false
+        }
+    }
+    
+    func cambiarSubTitulo(){
+        
+        let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
+        
+        labelPregunta.sizeThatFits(maximumLabelSizeTitulo)
+        labelPregunta.font = UIFont.systemFont(ofSize: 15.0)
+        if((objetosPreguntas[indicadorPregunta]["tipo"] as! String) == "general"){
+            labelPregunta.text = ("Evalua tú satisfacción con respecto a :" + arrayPreguntas[indicadorPregunta])
+        }
+        else if((objetosPreguntas[indicadorPregunta]["tipo"] as! String) == "otro"){
+            labelPregunta.text = objetosPreguntas[indicadorPregunta]["textoOpcional"] as? String
+        }
+        else{
+            
+            labelPregunta.text = ""
+        }
+        
+
+        labelPregunta.textAlignment = .left
+        labelPregunta.numberOfLines = 0
+        labelPregunta.sizeToFit()
+
     }
 }
 

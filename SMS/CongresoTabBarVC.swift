@@ -37,7 +37,7 @@ class CongresoTabBarVC: UITabBarController,UITabBarControllerDelegate {
         }
         
         if let cuarto = viewControllers?.last as? MoreVC {
-
+            cuarto.congreso = congreso
         }
     }
 

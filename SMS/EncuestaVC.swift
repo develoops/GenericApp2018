@@ -180,7 +180,7 @@ class EncuestaVC: UIViewController {
             self.desapareceAtras()
             self.desapareceAdelante()
             if(index < noticias.count){
-                self.textViewPregunta.text = noticias[index]["preguntaTexto"] as! String
+                self.textViewPregunta.text = noticias[index]["preguntaTexto"] as? String
                 self.cambiarSubTitulo()
                 self.botonAdelante.setTitle("Siguiente", for: .normal)
             }

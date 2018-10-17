@@ -1766,14 +1766,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWP-4t-J6D">
-                                <rect key="frame" x="60" y="192" width="240" height="200"/>
+                                <rect key="frame" x="61" y="192" width="239" height="116.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Esta evaluación tiene por objetivo contar con su opinión para mejorar nuestro servicio. Sus respuesas son estrictamente 
 confidenciales. 
-
-Utilice la escala de 5 puntos donde  “1” significa que usted está totalmente en desacuerdo y  “5” significa que usted está 
-totalmente de acuerdo.</string>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -1807,7 +1805,7 @@ totalmente de acuerdo.</string>
                                 <state key="normal" title="  Volver" image="Btn_volver.png"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="¿Vamos a hacer la pregunta número uno?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4x4-Wt-pqv">
-                                <rect key="frame" x="29" y="57" width="331" height="68"/>
+                                <rect key="frame" x="29" y="78" width="331" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -1829,7 +1827,7 @@ totalmente de acuerdo.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oiR-Fp-eHr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="649" y="839"/>
+            <point key="canvasLocation" x="648.79999999999995" y="838.83058470764627"/>
         </scene>
         <!--Favoritos-->
         <scene sceneID="g8p-uU-8pD">

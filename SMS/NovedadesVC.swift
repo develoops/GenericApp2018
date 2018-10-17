@@ -13,6 +13,8 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var tabla: UITableView!
     var noticias = [PFObject]()
+    var archivosNoticia = [PFObject]()
+
     var tamanoCelda = CGFloat()
     
     override func viewDidLoad() {
@@ -21,7 +23,11 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.dataSource = self
         tabla.frame = view.frame
         self.navigationController?.navigationBar.topItem?.title = "Noticias"
-
+    }
+    
+override func viewDidAppear(_ animated: Bool) {
+        
+    
         let refresh = RefreshData()
         refresh.primerLlamado()
 
@@ -34,17 +40,39 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             return task
         }
-    }
+     
+//        let queryImagenes = PFQuery(className: "MediaPos")
+//        queryImagenes.fromLocalDatastore()
+//        queryImagenes.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
+//            self.archivosNoticia = task.result as! [PFObject]
+//            DispatchQueue.main.async {
+//                self.tabla.reloadData()
+//            }
+//            return task
+//        }
+    
+}
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //arreglar toda la lógica
         
         let cell : TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
 
         let noticia = noticias[indexPath.row]
         
+        
+//        var imagenes = [PFObject]()
+//
+//        for imagen in self.archivosNoticia{
+//            if((imagen["noticia"] as! PFObject) == noticia){
+//
+//                imagenes.append(imagen)
+//           }
+//        }
         
         cell.labelNombre?.frame = CGRect(x: 18.0, y: 15.0, width: view.frame.size.width - 100.0, height:0.0)
         let maximumLabelSizeTitulo = CGSize(width: (self.view.frame.size.width - 100.0), height: 40000.0)
@@ -73,8 +101,38 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         cell.labelHora?.sizeToFit()
 
         cell.collectionView.frame = CGRect(x: cell.labelNombre.frame.origin.x, y: cell.labelHora.frame.maxY + 8.0, width: view.frame.size.width - 36.0, height: 110.0)
-        
-        tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + cell.collectionView.frame.size.height) + 60.0
+
+//        let imagenesReales = uniq(source: imagenes)
+//        for objeto in imagenesReales{
+//           let archivo = objeto["archivo"] as? PFFile
+//            archivo?.getDataInBackground().continueOnSuccessWith(block: { (data:BFTask<NSData>) -> Any? in
+//
+//                //print(data.result!)
+//                let imagen = UIImage(data: data.result! as Data)
+//
+//                DispatchQueue.main.async {
+//
+//                    if(cell.imagenes.count < imagenesReales.count){
+//                    cell.imagenes.append(imagen!)
+//                }
+//            }
+//
+//                return data
+//            })
+//
+//            cell.collectionView.reloadData()
+//
+//        }
+//
+//        if imagenes.count == 0{
+            self.tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height ) + 60.0
+//        }
+//
+//        else{
+//            self.tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + cell.collectionView.frame.size.height) + 60.0
+//            }
+
+//        tamanoCelda = (cell.labelNombre.frame.size.height + cell.labelTitulo.frame.size.height + cell.labelHora.frame.size.height + cell.collectionView.frame.size.height) + 60.0
         
         return cell
     }
@@ -95,6 +153,19 @@ class NovedadesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
     }
 
+    
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Parse
 
 class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     var titulos:[String]!
     var imagenes:[UIImage]!
     var vistas:[UIViewController]!
+    var congreso:PFObject!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -24,9 +27,24 @@ class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let encuestaVC = storyboard.instantiateViewController(withIdentifier: "EncuestaNativaVC") as! EncuestaNativaVC
         
         titulos = ["Patrocinadores","Comité Organizador","Materiales","Novedades","Encuesta"]
+     
         imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
         vistas = [patrocinadoresVC,directorioVC,materialesVC,noticiasVC,encuestaVC]
 
+        let visible = congreso["visible"] as! String
+        
+        if (visible == "sponsor"){
+            titulos.removeFirst()
+            imagenes.removeFirst()
+            vistas.removeFirst()
+        }
+        else{
+            titulos = ["Patrocinadores","Comité Organizador","Materiales","Novedades","Encuesta"]
+            
+            imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
+            vistas = [patrocinadoresVC,directorioVC,materialesVC,noticiasVC,encuestaVC]
+
+        }
     }
 
     override func didReceiveMemoryWarning() {

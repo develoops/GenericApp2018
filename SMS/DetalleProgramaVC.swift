@@ -167,16 +167,17 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         textViewInfoDetallePrograma?.sizeToFit()
         textViewInfoDetallePrograma.isScrollEnabled = false
         
-        let imagenLinea = UIImageView(frame: CGRect(x: 15.0, y: textViewInfoDetallePrograma.frame.maxY, width: view.frame.width - 25.0, height: 2.5))
-        
-        let a = getImageWithColor(color: UIColor.lightGray, size: CGSize (width: view.frame.width - 10.0, height: 2.5))
-        imagenLinea.image = a
-        self.scrollView.addSubview(imagenLinea)
+//        let imagenLinea = UIImageView(frame: CGRect(x: 15.0, y: textViewInfoDetallePrograma.frame.maxY, width: view.frame.width - 25.0, height: 2.5))
+    
+        //***Línea que entorpecía, ver si cumplía otra función ***
+  //      let a = getImageWithColor(color: UIColor.lightGray, size: CGSize (width: view.frame.width - 10.0, height: 2.5))
+    //    imagenLinea.image = a
+      //  self.scrollView.addSubview(imagenLinea)
         
         if((evento["descripcion"] as? String) == nil){
             
-            textViewInfoDetallePrograma.frame.size.height = 5.0
-            
+        textViewInfoDetallePrograma.frame.size.height = 5.0
+    
         }
         
         let colorFondoHeaderDetalle = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: labelLugarDetallePrograma.frame.maxY + 10.0))
@@ -299,10 +300,10 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         let vc = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         if (lugar?["imgPerfil"] != nil){
             
-            vc.mapa = lugar?["imgPerfil"] as! PFFile
+            vc.mapa = lugar?["imgPerfil"] as? PFFile
         }
         
-        vc.nombreSalon = lugar?["nombre"] as! String
+        vc.nombreSalon = lugar?["nombre"] as? String
         navigationController?.pushViewController(vc,
                                                  animated: true)
     }
@@ -352,7 +353,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
         if (tableView == tabla){
             let persona = personas[indexPath.row]
             
-            cell.accessoryType = .disclosureIndicator
+          //  cell.accessoryType = .disclosureIndicator
             
             cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
             

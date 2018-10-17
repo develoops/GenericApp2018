@@ -42,7 +42,7 @@ class DirectorioVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationItem.title = "Autoridades del Congreso"
+        self.navigationItem.title = "Comité Organizador"
 
     }
     

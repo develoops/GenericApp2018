@@ -25,14 +25,15 @@ class SpeakersVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tabla.dataSource = self
         
         self.tabla.frame = CGRect(x:0.0 , y: ((self.navigationController?.navigationBar.frame.height)! + 30.0), width: view.frame.width, height:(view.frame.height - (self.navigationController?.navigationBar.frame.height)! - 30.0))
-        
-        llamadoPersonas()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         let refresh = RefreshData()
         refresh.primerLlamado()
-        
+        llamadoPersonas()
+//        llamadoPersonas()
+        self.tabla.reloadData()
         self.navigationController?.navigationBar.topItem?.title = "Ponentes"
     }
     
@@ -221,17 +222,13 @@ func llamadoPersonas(){
         DispatchQueue.main.async() {
             self.tabla.reloadData()
         }
-            return self.tabla.reloadData()
+            return task
         }
     
     }
-
-    
-    override func didReceiveMemoryWarning() {
+  override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
 }
 
 extension Data {

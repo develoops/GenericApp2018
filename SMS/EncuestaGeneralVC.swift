@@ -58,7 +58,7 @@ class EncuestaGeneralVC: UIViewController {
                 self.textViewPregunta.frame.origin.x = 13.0
                 self.textViewPregunta.frame.origin.y = self.subtitulo.frame.origin.y + self.subtitulo.frame.height
                 self.textViewPregunta.frame.size = maximumLabelSizeDetalleInfo
-                self.textViewPregunta.text = self.noticias[self.index]["preguntaTexto"] as! String
+                self.textViewPregunta.text = self.noticias[self.index]["preguntaTexto"] as? String
                 self.textViewPregunta?.textAlignment = .center
                 self.textViewPregunta.isScrollEnabled = false
                 self.textViewPregunta.isSelectable = false

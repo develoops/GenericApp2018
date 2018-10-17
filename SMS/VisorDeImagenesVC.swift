@@ -18,8 +18,12 @@ class VisorDeImagenesVC: UIViewController,UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        print(imagenes)
-        imagenes = [UIImage(named: "1.jpg"),UIImage(named: "2.jpg"),UIImage(named: "3.jpg"),UIImage(named: "4.jpg")] as! [UIImage]
+            if let heroObject = UserDefaults.standard.value(forKey: "imagenes") as? NSData {
+
+            imagenes = NSKeyedUnarchiver.unarchiveObject(with: heroObject as Data) as? [UIImage]
+        }
+
+       // imagenes = [UIImage(named: "1.jpg"),UIImage(named: "2.jpg"),UIImage(named: "3.jpg"),UIImage(named: "4.jpg")] as! [UIImage]
         scrollView.frame = CGRect(x: 80.0, y: 80.0, width: view.frame.width, height: view.frame.width - 160.0)
         scrollView.contentSize.width = (view.frame.width * CGFloat(imagenes.count))
         scrollView.isScrollEnabled = true
