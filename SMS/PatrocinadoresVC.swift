@@ -36,7 +36,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             return task
         }
 
-        self.navigationController?.navigationBar.topItem?.title = "Patrocinadores"
+        self.navigationController?.navigationBar.topItem?.title = "Auspiciadores"
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -95,10 +95,9 @@ class DetallePatrocinadorVC: UIViewController,UITableViewDelegate,UITableViewDat
             }
         
             cell.imagenPerfil.frame = CGRect(x: (view.frame.size.width - 150.0)/2, y: 7.5, width: 150.0, height: 147.0)
-            cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width) / 2
+//            cell.imagenPerfil.layer.cornerRadius = (cell.imagenPerfil.frame.size.width) / 2
             cell.imagenPerfil.layer.masksToBounds = true
 
-            
         }
             
         else{
