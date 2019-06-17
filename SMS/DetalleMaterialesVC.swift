@@ -18,6 +18,7 @@ class DetalleMaterialesVC: UIViewController,UIWebViewDelegate {
         super.viewDidLoad()
 
         self.webView.frame = view.frame
+        self.webView.scalesPageToFit = true
         self.view.backgroundColor = UIColor.white
         if((media.value(forKey: "tipo") as! String) == "url"){
             

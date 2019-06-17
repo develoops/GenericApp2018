@@ -1,5 +1,7 @@
 #if SWIFT_PACKAGE
     import CSQLite
+#elseif GRDBCIPHER
+    import SQLCipher
 #elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
     import SQLite3
 #endif
@@ -14,6 +16,7 @@ extension Bool: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         self = sqlite3_column_int64(sqliteStatement, index) != 0
     }
@@ -100,12 +103,13 @@ extension Int: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = Int(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to Int")
+            fatalConversionError(to: Int.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -128,12 +132,13 @@ extension Int8: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = Int8(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to Int8")
+            fatalConversionError(to: Int8.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -156,12 +161,13 @@ extension Int16: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = Int16(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to Int16")
+            fatalConversionError(to: Int16.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -184,12 +190,13 @@ extension Int32: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = Int32(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to Int32")
+            fatalConversionError(to: Int32.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -212,6 +219,7 @@ extension Int64: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         self = sqlite3_column_int64(sqliteStatement, index)
     }
@@ -244,12 +252,13 @@ extension UInt: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = UInt(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to UInt")
+            fatalConversionError(to: UInt.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -272,12 +281,13 @@ extension UInt8: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = UInt8(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to UInt8")
+            fatalConversionError(to: UInt8.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -300,12 +310,13 @@ extension UInt16: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = UInt16(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to UInt16")
+            fatalConversionError(to: UInt16.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -328,12 +339,13 @@ extension UInt32: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = UInt32(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to UInt32")
+            fatalConversionError(to: UInt32.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -356,12 +368,13 @@ extension UInt64: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         let int64 = sqlite3_column_int64(sqliteStatement, index)
         if let v = UInt64(exactly: int64) {
             self = v
         } else {
-            fatalError("could not convert database value \(int64) to UInt64")
+            fatalConversionError(to: UInt64.self, sqliteStatement: sqliteStatement, index: index)
         }
     }
     
@@ -384,6 +397,7 @@ extension Double: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         self = sqlite3_column_double(sqliteStatement, index)
     }
@@ -414,6 +428,7 @@ extension Float: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
         self = Float(sqlite3_column_double(sqliteStatement, index))
     }
@@ -444,8 +459,9 @@ extension String: DatabaseValueConvertible, StatementColumnConvertible {
     /// - parameters:
     ///     - sqliteStatement: A pointer to an SQLite statement.
     ///     - index: The column index.
+    @inlinable
     public init(sqliteStatement: SQLiteStatement, index: Int32) {
-        self = String(cString: sqlite3_column_text(sqliteStatement, Int32(index))!)
+        self = String(cString: sqlite3_column_text(sqliteStatement, index)!)
     }
     
     /// Returns a value that can be stored in the database.
@@ -456,6 +472,10 @@ extension String: DatabaseValueConvertible, StatementColumnConvertible {
     /// Returns a String initialized from *dbValue*, if possible.
     public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> String? {
         switch dbValue.storage {
+        case .blob(let data):
+            // Implicit conversion from blob to string, just as SQLite does
+            // See https://www.sqlite.org/c3ref/column_blob.html
+            return String(data: data, encoding: .utf8)
         case .string(let string):
             return string
         default:
@@ -539,7 +559,7 @@ extension DatabaseFunction {
     ///     let nameColumn = Column("name")
     ///     let request = Player.select(nameColumn.localizedCapitalized)
     ///     let names = try String.fetchAll(dbQueue, request)   // [String]
-    @available(iOS 9.0, OSX 10.11, watchOS 3.0, *)
+    @available(OSX 10.11, watchOS 3.0, *)
     public static let localizedCapitalize = DatabaseFunction("swiftLocalizedCapitalizedString", argumentCount: 1, pure: true) { dbValues in
         guard let string = String.fromDatabaseValue(dbValues[0]) else {
             return nil
@@ -559,7 +579,7 @@ extension DatabaseFunction {
     ///     let nameColumn = Column("name")
     ///     let request = Player.select(nameColumn.localizedLowercased)
     ///     let names = try String.fetchAll(dbQueue, request)   // [String]
-    @available(iOS 9.0, OSX 10.11, watchOS 3.0, *)
+    @available(OSX 10.11, watchOS 3.0, *)
     public static let localizedLowercase = DatabaseFunction("swiftLocalizedLowercaseString", argumentCount: 1, pure: true) { dbValues in
         guard let string = String.fromDatabaseValue(dbValues[0]) else {
             return nil
@@ -579,7 +599,7 @@ extension DatabaseFunction {
     ///     let nameColumn = Column("name")
     ///     let request = Player.select(nameColumn.localizedUppercased)
     ///     let names = try String.fetchAll(dbQueue, request)   // [String]
-    @available(iOS 9.0, OSX 10.11, watchOS 3.0, *)
+    @available(OSX 10.11, watchOS 3.0, *)
     public static let localizedUppercase = DatabaseFunction("swiftLocalizedUppercaseString", argumentCount: 1, pure: true) { dbValues in
         guard let string = String.fromDatabaseValue(dbValues[0]) else {
             return nil
@@ -612,11 +632,11 @@ extension DatabaseCollation {
     /// You can use it when creating database tables:
     ///
     ///     let collationName = DatabaseCollation.caseInsensitiveCompare.name
-    ///     dbQueue.execute(
-    ///         "CREATE TABLE players (" +
-    ///             "name TEXT COLLATE \(collationName)" +
-    ///         ")"
-    ///     )
+    ///     dbQueue.execute(sql: """
+    ///         CREATE TABLE players (
+    ///           name TEXT COLLATE \(collationName)
+    ///         )
+    ///         """)
     public static let unicodeCompare = DatabaseCollation("swiftCompare") { (lhs, rhs) in
         return (lhs < rhs) ? .orderedAscending : ((lhs == rhs) ? .orderedSame : .orderedDescending)
     }
@@ -630,11 +650,11 @@ extension DatabaseCollation {
     /// You can use it when creating database tables:
     ///
     ///     let collationName = DatabaseCollation.caseInsensitiveCompare.name
-    ///     dbQueue.execute(
-    ///         "CREATE TABLE players (" +
-    ///             "name TEXT COLLATE \(collationName)" +
-    ///         ")"
-    ///     )
+    ///     dbQueue.execute(sql: """
+    ///         CREATE TABLE players (
+    ///           name TEXT COLLATE \(collationName)
+    ///         )
+    ///         """)
     public static let caseInsensitiveCompare = DatabaseCollation("swiftCaseInsensitiveCompare") { (lhs, rhs) in
         return lhs.caseInsensitiveCompare(rhs)
     }
@@ -648,11 +668,11 @@ extension DatabaseCollation {
     /// You can use it when creating database tables:
     ///
     ///     let collationName = DatabaseCollation.localizedCaseInsensitiveCompare.name
-    ///     dbQueue.execute(
-    ///         "CREATE TABLE players (" +
-    ///             "name TEXT COLLATE \(collationName)" +
-    ///         ")"
-    ///     )
+    ///     dbQueue.execute(sql: """
+    ///         CREATE TABLE players (
+    ///           name TEXT COLLATE \(collationName)
+    ///         )
+    ///         """)
     public static let localizedCaseInsensitiveCompare = DatabaseCollation("swiftLocalizedCaseInsensitiveCompare") { (lhs, rhs) in
         return lhs.localizedCaseInsensitiveCompare(rhs)
     }
@@ -666,11 +686,11 @@ extension DatabaseCollation {
     /// You can use it when creating database tables:
     ///
     ///     let collationName = DatabaseCollation.localizedCompare.name
-    ///     dbQueue.execute(
-    ///         "CREATE TABLE players (" +
-    ///             "name TEXT COLLATE \(collationName)" +
-    ///         ")"
-    ///     )
+    ///     dbQueue.execute(sql: """
+    ///         CREATE TABLE players (
+    ///           name TEXT COLLATE \(collationName)
+    ///         )
+    ///         """)
     public static let localizedCompare = DatabaseCollation("swiftLocalizedCompare") { (lhs, rhs) in
         return lhs.localizedCompare(rhs)
     }
@@ -684,11 +704,11 @@ extension DatabaseCollation {
     /// You can use it when creating database tables:
     ///
     ///     let collationName = DatabaseCollation.localizedStandardCompare.name
-    ///     dbQueue.execute(
-    ///         "CREATE TABLE players (" +
-    ///             "name TEXT COLLATE \(collationName)" +
-    ///         ")"
-    ///     )
+    ///     dbQueue.execute(sql: """
+    ///         CREATE TABLE players (
+    ///           name TEXT COLLATE \(collationName)
+    ///         )
+    ///         """)
     public static let localizedStandardCompare = DatabaseCollation("swiftLocalizedStandardCompare") { (lhs, rhs) in
         return lhs.localizedStandardCompare(rhs)
     }

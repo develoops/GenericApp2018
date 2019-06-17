@@ -36,15 +36,10 @@ class SplashVC: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "TabBarAppVC") as! TabBarAppVC
             self.navigationController?.present(vc, animated: true, completion: nil)
+            
         }
         
-        personas = try! dbQueue.inDatabase { db in
-            try Person.order(Column("edad").desc, Column("nombre")).fetchAll(db)
-        }
 
-        for persona in personas{
-            print(persona.nombre,persona.edad)
-        }
     }
 
     func primerLlamado(){

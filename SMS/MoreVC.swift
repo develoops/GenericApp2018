@@ -22,14 +22,17 @@ class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
         let directorioVC = storyboard.instantiateViewController(withIdentifier: "DirectorioVC") as! DirectorioVC
         let patrocinadoresVC = storyboard.instantiateViewController(withIdentifier: "PatrocinadoresVC") as! PatrocinadoresVC
+
         let materialesVC = storyboard.instantiateViewController(withIdentifier: "MaterialesVC") as! MaterialesVC
         let noticiasVC = storyboard.instantiateViewController(withIdentifier: "NovedadesVC") as! NovedadesVC
-        let encuestaVC = storyboard.instantiateViewController(withIdentifier: "EncuestaNativaVC") as! EncuestaNativaVC
+      //  let encuestaVC = storyboard.instantiateViewController(withIdentifier: "EncuestaNativaVC") as! EncuestaNativaVC
+        let patrocinadoresVC2 = storyboard.instantiateViewController(withIdentifier: "PatrocinadoresVC") as! PatrocinadoresVC
+
         
-        titulos = ["Auspiciadores","Comité Organizador","Materiales","Novedades","Encuesta"]
+        titulos = ["Auspiciadores","Patrocinadores","Comité Organizador","Materiales","Novedades"]
      
-        imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
-        vistas = [patrocinadoresVC,directorioVC,materialesVC,noticiasVC,encuestaVC]
+        imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
+        vistas = [patrocinadoresVC,patrocinadoresVC2,directorioVC,materialesVC,noticiasVC]
 
         let visible = congreso["visible"] as! String
         
@@ -39,10 +42,10 @@ class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             vistas.removeFirst()
         }
         else{
-            titulos = ["Auspiciadores","Comité Organizador","Materiales","Novedades","Encuesta"]
+            titulos = ["Auspiciadores","Patrocinadores","Comité Organizador","Materiales","Novedades"]
             
-            imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
-            vistas = [patrocinadoresVC,directorioVC,materialesVC,noticiasVC,encuestaVC]
+            imagenes = [UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Patrocinador_azul.png")!,UIImage(named:"Comite_academico.png")!,UIImage(named:"Materiales_Icon.png")!,UIImage(named:"LogoNews.png")!,UIImage(named:"EncuestaIcono.png")!]
+            vistas = [patrocinadoresVC,patrocinadoresVC2,directorioVC,materialesVC,noticiasVC]
 
         }
     }
@@ -87,10 +90,30 @@ class MoreVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        
-        navigationController?.pushViewController(vistas[indexPath.row],
-                                                 animated: true)
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let patrocinadoresVC = storyboard.instantiateViewController(withIdentifier: "PatrocinadoresVC") as! PatrocinadoresVC
+        let patrocinadoresVC2 = storyboard.instantiateViewController(withIdentifier: "PatrocinadoresVC") as! PatrocinadoresVC
+
+        if(indexPath.row == 0){
+            patrocinadoresVC.tipoOrg = "patrocinador"
+            patrocinadoresVC.tituloVista = "Auspiciadores"
+       
+            navigationController?.pushViewController(patrocinadoresVC, animated: true)
+
+        }
+            
+        else if(indexPath.row == 1){
+            patrocinadoresVC2.tipoOrg = "patrocinador2"
+            patrocinadoresVC2.tituloVista = "Patrocinadores"
+            navigationController?.pushViewController(patrocinadoresVC2, animated: true)
+
+            
+        }
+        else{
+            navigationController?.pushViewController(vistas[indexPath.row],
+                                                     animated: true)
+
+        }
         
     }
     

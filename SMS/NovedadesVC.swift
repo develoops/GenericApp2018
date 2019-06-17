@@ -33,6 +33,7 @@ override func viewDidAppear(_ animated: Bool) {
 
         let query = PFQuery(className: "Info")
         query.fromLocalDatastore()
+        query.whereKey("vivo", equalTo: "1")
         query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             self.noticias = task.result as! [PFObject]
             DispatchQueue.main.async {

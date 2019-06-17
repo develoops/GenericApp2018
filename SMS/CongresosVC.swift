@@ -29,10 +29,10 @@ class CongresosVC: UIViewController,UITableViewDelegate,UITableViewDataSource,SW
         sc.frame = CGRect(x: 5.0, y: 64.0, width: view.frame.width - 10.0, height: 44.0)
         sc.delegate = self
         sc.selectedSegmentIndex = 1
-        self.view.addSubview(sc)
+       // self.view.addSubview(sc)
     
         
-        tabla.frame = CGRect(x: 0.0, y: sc.frame.maxY + 5.0, width: view.frame.width, height: view.frame.height - sc.frame.height)
+        tabla.frame = CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height - sc.frame.height)
         
         
         let queryEventosCongreso = PFQuery(className: "Actividad")

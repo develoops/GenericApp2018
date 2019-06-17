@@ -1,5 +1,7 @@
 #if SWIFT_PACKAGE
     import CSQLite
+#elseif GRDBCIPHER
+    import SQLCipher
 #elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
     import SQLite3
 #endif
@@ -10,16 +12,6 @@ public final class DatabaseFunction: Hashable {
     private struct Identity: Hashable {
         let name: String
         let nArg: Int32 // -1 for variadic functions
-        
-        #if !swift(>=4.1)
-        var hashValue: Int {
-            return name.hashValue ^ nArg.hashValue
-        }
-        
-        static func == (lhs: Identity, rhs: Identity) -> Bool {
-            return lhs.name == rhs.name && lhs.nArg == rhs.nArg
-        }
-        #endif
     }
     
     public var name: String { return identity.name }
@@ -37,7 +29,7 @@ public final class DatabaseFunction: Hashable {
     ///         return int + 1
     ///     }
     ///     db.add(function: fn)
-    ///     try Int.fetchOne(db, "SELECT succ(1)")! // 2
+    ///     try Int.fetchOne(db, sql: "SELECT succ(1)")! // 2
     ///
     /// - parameters:
     ///     - name: The function name.
@@ -82,11 +74,11 @@ public final class DatabaseFunction: Hashable {
     ///     let dbQueue = DatabaseQueue()
     ///     let fn = DatabaseFunction("mysum", argumentCount: 1, aggregate: MySum.self)
     ///     dbQueue.add(function: fn)
-    ///     try dbQueue.inDatabase { db in
-    ///         try db.execute("CREATE TABLE test(i)")
-    ///         try db.execute("INSERT INTO test(i) VALUES (1)")
-    ///         try db.execute("INSERT INTO test(i) VALUES (2)")
-    ///         try Int.fetchOne(db, "SELECT mysum(i) FROM test")! // 3
+    ///     try dbQueue.write { db in
+    ///         try db.execute(sql: "CREATE TABLE test(i)")
+    ///         try db.execute(sql: "INSERT INTO test(i) VALUES (1)")
+    ///         try db.execute(sql: "INSERT INTO test(i) VALUES (2)")
+    ///         try Int.fetchOne(db, sql: "SELECT mysum(i) FROM test")! // 3
     ///     }
     ///
     /// - parameters:
@@ -272,7 +264,7 @@ public final class DatabaseFunction: Hashable {
         let stride = MemoryLayout<Unmanaged<AggregateContext>>.stride
         let aggregateContextBufferP = UnsafeMutableRawBufferPointer(start: sqlite3_aggregate_context(sqliteContext, Int32(stride))!, count: stride)
         
-        if aggregateContextBufferP.contains(where: { $0 != 0 }) {
+        if aggregateContextBufferP.contains(where: { $0 != 0 }) { // TODO: This testt looks weird. Review.
             // Buffer contains non-null pointer: load aggregate context
             let aggregateContextP = aggregateContextBufferP.baseAddress!.assumingMemoryBound(to: Unmanaged<AggregateContext>.self)
             return aggregateContextP.pointee
@@ -285,8 +277,8 @@ public final class DatabaseFunction: Hashable {
             
             // retain and store in SQLite's buffer
             let aggregateContextU = Unmanaged.passRetained(aggregateContext)
-            var aggregateContextP = aggregateContextU.toOpaque()
-            withUnsafeBytes(of: &aggregateContextP) {
+            let aggregateContextP = aggregateContextU.toOpaque()
+            withUnsafeBytes(of: aggregateContextP) {
                 aggregateContextBufferP.copyMemory(from: $0)
             }
             return aggregateContextU
@@ -304,9 +296,15 @@ public final class DatabaseFunction: Hashable {
         case .string(let string):
             sqlite3_result_text(sqliteContext, string, -1, SQLITE_TRANSIENT)
         case .blob(let data):
-            data.withUnsafeBytes { bytes in
-                sqlite3_result_blob(sqliteContext, bytes, Int32(data.count), SQLITE_TRANSIENT)
+            #if swift(>=5.0)
+            data.withUnsafeBytes {
+                sqlite3_result_blob(sqliteContext, $0.baseAddress, Int32($0.count), SQLITE_TRANSIENT)
             }
+            #else
+            data.withUnsafeBytes {
+                sqlite3_result_blob(sqliteContext, $0, Int32(data.count), SQLITE_TRANSIENT)
+            }
+            #endif
         }
     }
     
@@ -323,10 +321,9 @@ public final class DatabaseFunction: Hashable {
 }
 
 extension DatabaseFunction {
-    /// The hash value
     /// :nodoc:
-    public var hashValue: Int {
-        return identity.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identity)
     }
     
     /// Two functions are equal if they share the same name and arity.
@@ -357,11 +354,11 @@ extension DatabaseFunction {
 ///     let dbQueue = DatabaseQueue()
 ///     let fn = DatabaseFunction("mysum", argumentCount: 1, aggregate: MySum.self)
 ///     dbQueue.add(function: fn)
-///     try dbQueue.inDatabase { db in
-///         try db.execute("CREATE TABLE test(i)")
-///         try db.execute("INSERT INTO test(i) VALUES (1)")
-///         try db.execute("INSERT INTO test(i) VALUES (2)")
-///         try Int.fetchOne(db, "SELECT mysum(i) FROM test")! // 3
+///     try dbQueue.write { db in
+///         try db.execute(sql: "CREATE TABLE test(i)")
+///         try db.execute(sql: "INSERT INTO test(i) VALUES (1)")
+///         try db.execute(sql: "INSERT INTO test(i) VALUES (2)")
+///         try Int.fetchOne(db, sql: "SELECT mysum(i) FROM test")! // 3
 ///     }
 public protocol DatabaseAggregate {
     /// Creates an aggregate.
@@ -373,10 +370,10 @@ public protocol DatabaseAggregate {
     /// aggregate function.
     ///
     ///    -- One value
-    ///    SELECT maxLength(name) FROM players
+    ///    SELECT maxLength(name) FROM player
     ///
     ///    -- Two values
-    ///    SELECT maxFullNameLength(firstName, lastName) FROM players
+    ///    SELECT maxFullNameLength(firstName, lastName) FROM player
     ///
     /// This method is never called after the finalize() method has been called.
     mutating func step(_ dbValues: [DatabaseValue]) throws

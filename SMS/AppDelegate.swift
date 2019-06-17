@@ -12,6 +12,7 @@ import Parse
 import UserNotifications
 import GRDB
 
+
 var dbQueue: DatabaseQueue!
 
 @UIApplicationMain

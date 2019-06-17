@@ -23,6 +23,8 @@ class MaterialesVC: UIViewController,UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.navigationBar.topItem?.title = "Materiales"
         
         let query = PFQuery(className:"Media")
+        query.whereKey("info", equalTo: "congreso")
+        query.order(byAscending: "orden")
         query.fromLocalDatastore()
         query.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
             

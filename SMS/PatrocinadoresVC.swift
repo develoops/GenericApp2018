@@ -13,6 +13,8 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     @IBOutlet weak var tabla: UITableView!
     var patrocinadores = [PFObject]()
+    var tipoOrg:String!
+    var tituloVista:String!
     override func viewDidLoad() {
         super.viewDidLoad()
         tabla.delegate = self
@@ -24,7 +26,8 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
         let refresh = RefreshData()
         refresh.primerLlamado()
-        let patrocinadoresQuery =  PFQuery(className: "Org", predicate: NSPredicate(format:" tipo == %@","patrocinador"))
+        print(tipoOrg)
+        let patrocinadoresQuery =  PFQuery(className: "Org", predicate: NSPredicate(format:" tipo == %@",tipoOrg))
         patrocinadoresQuery.fromLocalDatastore()
         patrocinadoresQuery.addAscendingOrder("nombre")
         patrocinadoresQuery.findObjectsInBackground().continueWith{ (task:BFTask<NSArray>) -> Any? in
@@ -36,7 +39,7 @@ class PatrocinadoresVC: UIViewController,UITableViewDelegate,UITableViewDataSour
             return task
         }
 
-        self.navigationController?.navigationBar.topItem?.title = "Auspiciadores"
+        self.navigationController?.navigationBar.topItem?.title = tituloVista
     }
     
     override func viewDidDisappear(_ animated: Bool) {

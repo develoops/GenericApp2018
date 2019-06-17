@@ -49,7 +49,7 @@ class DirectivaVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.topItem?.title = "Directiva"
+        self.navigationController?.navigationBar.topItem?.title = "Mesa Directiva"
     }
     
     override func viewDidDisappear(_ animated: Bool) {

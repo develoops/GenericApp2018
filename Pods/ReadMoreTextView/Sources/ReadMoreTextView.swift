@@ -47,8 +47,8 @@ public class ReadMoreTextView: UITextView {
         isEditable = false
         
         let attributedDefaultReadMoreText = NSAttributedString(string: defaultReadMoreText, attributes: [
-          NSAttributedStringKey.foregroundColor: UIColor.lightGray,
-          NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: 14)
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+            NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: 14)
         ])
         attributedReadMoreText.append(attributedDefaultReadMoreText)
         self.attributedReadMoreText = attributedReadMoreText
@@ -237,8 +237,8 @@ public class ReadMoreTextView: UITextView {
     
     private func attributedStringWithDefaultAttributes(from text: String) -> NSAttributedString {
         return NSAttributedString(string: text, attributes: [
-          NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: 14),
-            NSAttributedStringKey.foregroundColor: textColor ?? UIColor.black
+            NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: 14),
+            NSAttributedString.Key.foregroundColor: textColor ?? UIColor.black
         ])
     }
     
@@ -274,7 +274,7 @@ public class ReadMoreTextView: UITextView {
 
         if let originalAttributedText = _originalAttributedText?.mutableCopy() as? NSMutableAttributedString {
             attributedText = _originalAttributedText
-            let range = NSRange(location: 0, length: text.length)
+            let range = NSRange(location: 0, length: text.unicodeScalars.count)
             if let attributedReadLessText = attributedReadLessText {
                 originalAttributedText.append(attributedReadLessText)
             }
@@ -362,6 +362,6 @@ public class ReadMoreTextView: UITextView {
 
 extension String {
     var length: Int {
-        return characters.count
+        return utf16.count
     }
 }

@@ -1,5 +1,13 @@
 import Foundation
+#if SWIFT_PACKAGE
+    import CSQLite
+#elseif GRDBCIPHER
+    import SQLCipher
+#elseif !GRDBCUSTOMSQLITE && !GRDBCIPHER
+    import SQLite3
+#endif
 
+#if !os(Linux)
 /// NSDate is stored in the database using the format
 /// "yyyy-MM-dd HH:mm:ss.SSS", in the UTC time zone.
 extension NSDate : DatabaseValueConvertible {
@@ -26,6 +34,7 @@ extension NSDate : DatabaseValueConvertible {
         return cast(date)
     }
 }
+#endif
 
 /// Date is stored in the database using the format
 /// "yyyy-MM-dd HH:mm:ss.SSS", in the UTC time zone.
@@ -56,7 +65,8 @@ extension Date : DatabaseValueConvertible {
         return nil
     }
     
-    private init?(databaseDateComponents: DatabaseDateComponents) {
+    @usableFromInline
+    init?(databaseDateComponents: DatabaseDateComponents) {
         guard databaseDateComponents.format.hasYMDComponents else {
             // Refuse to turn hours without any date information into Date:
             return nil
@@ -105,6 +115,30 @@ extension Date : DatabaseValueConvertible {
             return nil
         }
         self.init(timeIntervalSinceReferenceDate: date.timeIntervalSinceReferenceDate)
+    }
+}
+
+extension Date: StatementColumnConvertible {
+    
+    /// Returns a value initialized from a raw SQLite statement pointer.
+    ///
+    /// - parameters:
+    ///     - sqliteStatement: A pointer to an SQLite statement.
+    ///     - index: The column index.
+    @inlinable
+    public init(sqliteStatement: SQLiteStatement, index: Int32) {
+        switch sqlite3_column_type(sqliteStatement, index) {
+        case SQLITE_INTEGER, SQLITE_FLOAT:
+            self.init(timeIntervalSince1970: sqlite3_column_double(sqliteStatement, index))
+        case SQLITE_TEXT:
+            let databaseDateComponents = DatabaseDateComponents(sqliteStatement: sqliteStatement, index: index)
+            guard let date = Date(databaseDateComponents: databaseDateComponents) else {
+                fatalConversionError(to: Date.self, sqliteStatement: sqliteStatement, index: index)
+            }
+            self.init(timeIntervalSinceReferenceDate: date.timeIntervalSinceReferenceDate)
+        default:
+            fatalConversionError(to: Date.self, sqliteStatement: sqliteStatement, index: index)
+        }
     }
 }
 

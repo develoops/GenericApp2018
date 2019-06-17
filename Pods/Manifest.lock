@@ -1,18 +1,26 @@
 PODS:
-  - Bolts-Swift (1.3.0)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts-Swift (1.4.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - GRDB.swift (2.10.0)
-  - Parse (1.17.1):
-    - Parse/Core (= 1.17.1)
-  - Parse/Core (1.17.1):
+  - GRDB.swift (4.0.1):
+    - GRDB.swift/standard (= 4.0.1)
+  - GRDB.swift/standard (4.0.1)
+  - Parse (1.17.2):
+    - Parse/Core (= 1.17.2)
+  - Parse/Core (1.17.2):
     - Bolts/Tasks (~> 1.9)
-  - ParseLiveQuery (2.4.0):
-    - Bolts-Swift (~> 1.3.0)
+  - ParseLiveQuery (2.5.0):
+    - Bolts (~> 1.9.0)
+    - Bolts-Swift (~> 1.4.0)
     - Parse (~> 1.17.0)
     - Starscream (~> 3.0.4)
-  - ReadMoreTextView (3.0.0)
-  - Starscream (3.0.5)
-  - SWSegmentedControl (2.6.1)
+  - ReadMoreTextView (3.0.1)
+  - Starscream (3.0.6)
+  - SWSegmentedControl (2.7.0)
 
 DEPENDENCIES:
   - GRDB.swift
@@ -34,13 +42,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Bolts-Swift: fa98d1b59fc1acea9b21a21306dcdca1c85e3737
-  GRDB.swift: 9859cab1b990eac62ee550d3d2208ec1b44f76af
-  Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
-  ParseLiveQuery: 0ea078a12015d64070d0ae07da32fae3d3198c42
-  ReadMoreTextView: d872de55c5850c702f8d8ce591fb70e5d00c873a
-  Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
-  SWSegmentedControl: 5770c91bb4b438be300371221e38f4af5100bba2
+  Bolts-Swift: 650d72e8017721b1a6bbe43d542c4578f8e5ba6f
+  GRDB.swift: 106a830decf1d92a3fc63c6d6a2f6586f6187297
+  Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
+  ParseLiveQuery: 84cce90a2ee3af04ed51249bc1734c4a6dbe09ab
+  ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  SWSegmentedControl: 808ef4b80d0168799a60d8a2d322cfde7f45f46c
 
 PODFILE CHECKSUM: 0a8b31232f8f00ea5a9eb9ae06884beb926b9e73
 

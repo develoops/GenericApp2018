@@ -30,7 +30,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     var dia:String!
     var colorFondo:UIColor!
     var a = [String]()
-    var funciones = ["Ir al Mapa","Preguntar","Evaluar"]
+    var funciones = ["Ir al Mapa","Preguntar"]
     var roles:[String]!
     var evento:PFObject!
     var congreso:PFObject!
@@ -46,7 +46,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(personas)
         let query = PFQuery(className: "ActContAct", predicate: NSPredicate(format: "contenedor == %@", evento))
         query.fromLocalDatastore()
         query.includeKey("contenedor")
@@ -262,6 +261,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             self.personas = taskPersonas.result as! [PFObject]
             DispatchQueue.main.async {
                 self.tablaActividades.reloadData()
+               // print(self.personas)
             }
             return taskPersonas
         }
@@ -352,7 +352,6 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
 
         if (tableView == tabla){
             let persona = personas[indexPath.row]
-            
           //  cell.accessoryType = .disclosureIndicator
             
             cell.labelNombre.text = (persona["preNombre"] as? String)! + " " + (persona["primerNombre"] as? String)! + " " + (persona["primerApellido"] as! String)
@@ -366,7 +365,7 @@ class DetalleProgramaVC: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             cell.labelRol.font = UIFont.systemFont(ofSize: 12.0)
             cell.labelRol.frame.origin = CGPoint(x: cell.labelNombre.frame.origin.x, y: cell.labelNombre.frame.maxY + 2.5)
-
+            cell.labelRol.text = roles[indexPath.row]
           //  cell.labelRol.text = a
             let im = persona["ImgPerfil"] as? PFFile
             if !((im?.isDataAvailable)!) {
